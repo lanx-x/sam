@@ -1,65 +1,110 @@
 import Image from "next/image";
+import { Assets } from "./assets";
+
+function Banner() {
+  const data = [1, 2, 3, 4]
+
+  return (
+    <div className="relative">
+      <Image src={Assets.Banner} alt="banner" fill className="object-cover object-[70%_20%]" />
+      <div className="absolute inset-0 bg-[linear-gradient(278deg,rgba(0,35,70,0)_31.39%,#001123_100%)]" />
+      <div className="relative pt-20 px-5">
+        <h2 className="text-4xl font-black text-white mb-10">High-Precision CNC Machining for Complex Parts.</h2>
+        <div>
+          {
+            data.map((xs, idx) =>
+              <div key={idx}>
+                <p className="text-secondary font-medium mb-6.5">CNC Machining</p>
+                <p className="text-white mb-4">Amet hic eligendi amet atque nulla Minus dolorem labore atque veniam illum ullam hic Blanditiis voluptate dolorem esse eligendi ipsam nobis, recusandae. Id vel nam temporibus voluptatem minima ab Explicabo maxime vero alias iusto pariatur! Ipsam totam vero maiores quae porro Odio fugit porro tempora adipisci provident, ad. A dignissimos</p>
+              </div>
+            )
+
+          }
+        </div>
+
+
+        <div className="flex px-4.5 mt-20 pb-29 flex-row justify-evenly">
+          <button className="w-40 h-12 bg-accent rounded-sm text-white font-medium truncate px-4">Lorem repellendus natus obcaecati vitae?</button>
+          <button className="w-40 h-12 bg-white rounded-sm text-fg font-medium truncate px-4">Adipisicing voluptatum sit maiores eaque?</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Stats() {
+  const data = [
+    {
+      value: "Ipsum alias quaerat dolorum perferendis",
+      label: "Lorem velit blanditiis cupiditate consequuntur?",
+    },
+    {
+      value: "Ipsum alias quaerat dolorum perferendis",
+      label: "Lorem velit blanditiis cupiditate consequuntur?",
+    },
+    {
+      value: "Ipsum alias quaerat dolorum perferendis",
+      label: "Lorem velit blanditiis cupiditate consequuntur?",
+    },
+    {
+      value: "Ipsum alias quaerat dolorum perferendis",
+      label: "Lorem velit blanditiis cupiditate consequuntur?",
+    },
+    {
+      icon: Assets.Iso,
+      label: "Lorem velit blanditiis cupiditate consequuntur?",
+    },
+  ]
+
+  return (
+    <div className="py-10 flex flex-row flex-wrap border-b border-[#efefef]">
+      {
+        data.map((xs, idx) => (
+          <div key={idx} className="px-5 text-left w-1/2 truncate mb-10">
+            {xs.icon ? <Image className="w-12.75 h-10.5" src={xs.icon} alt="icon" /> : <span className="text-4xl font-semibold truncate">{xs.value}</span>}
+            <p className="truncate font-medium mt-4">{xs.label}</p>
+          </div>
+        ))
+      }
+
+    </div>
+  )
+}
+
+function Cap() {
+  const data = [1, 2, 3, 4]
+  return (
+    <div className="text-center px-5 bt mt-15">
+      <h2 className="font-semibold text-[32px] mb-2">Dolor amet repudiandae accusamus officia</h2>
+      <p className="mb-10">Dolor ipsam vero aliquam esse recusandae, quasi dignissimos Laboriosam ipsum.</p>
+
+      {
+        data.map((xs, idx) => (
+          <div key={idx} className="w-full aspect-35/16 relative">
+            <Image src={Assets.Cap} alt="cap" fill className="object-cover" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,35,70,0)_0%,#001123_100%)]" />
+            <div className="px-5 relative w-full h-full flex flex-col">
+              <h3 className="text-white text-2xl font-semibold mb-10 mt-auto truncate">Ipsum nostrum est perspiciatis provident?</h3>
+            </div>
+
+          </div>
+
+        ))
+      }
+
+    </div>
+
+  )
+}
+
+
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div>
+      <Banner />
+      <Stats />
+      <Cap />
     </div>
   );
 }
