@@ -135,7 +135,7 @@ function Footer() {
         </div>
       </div>
 
-      <Subscribe />
+      <Subscribe className="border border-[#efefef]" />
 
       <div className="flex flex-row items-center mt-10 mb-5">
         <Image className="w-6 h-6 mr-6" src={Assets.X} alt="x" />

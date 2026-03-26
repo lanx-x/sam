@@ -3,6 +3,7 @@
 import { Assets } from "@/assets";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import { useState } from "react";
 
 export function SayAbout() {
   const data = [1, 2, 3, 4]
@@ -16,9 +17,9 @@ export function SayAbout() {
     <div className="relative text-center pt-10 pb-15">
       <Image src={Assets.Map} fill alt="map" className="object-cover" />
       <h2 className="text-[32px] font-semibold px-5 mb-2">Dolor facere nulla voluptatem eaque nulla nam aut. Ducimus mollitia!</h2>
-      <p className="px-5 text-sm mb-28.5">Lorem architecto quod aperiam iste dignissimos Commodi repellat explicabo quisquam!</p>
+      <p className="px-5 text-sm mb-18.5">Lorem architecto quod aperiam iste dignissimos Commodi repellat explicabo quisquam!</p>
 
-      <div className="relative z-10" ref={emblaRef}>
+      <div className="relative z-10 overflow-hidden pt-10" ref={emblaRef}>
         <div className="flex flex-row">
           {
             data.map((xs, idx) => (
@@ -64,7 +65,7 @@ export function CustomerStory() {
       <p className="text-sm">Amet repellat quaerat nesciunt corporis quo Optio nihil ipsa expedita?</p>
 
 
-      <div className="mt-10" ref={emblaRef}>
+      <div className="mt-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
           {
             data.map((xs, idx) => (
@@ -146,7 +147,7 @@ export function Specification() {
 
                   {
                     specs.map((xs, idx) => (
-                      <div className="flex flex-col border-b-[#efefef] border-b pb-4 mb-4 last:border-none">
+                      <div key={idx} className="flex flex-col border-b-[#efefef] border-b pb-4 mb-4 last:border-none">
                         <span className="text-base">{xs.label}</span>
                         <span className="text-sm">{xs.value}</span>
                       </div>
@@ -257,7 +258,7 @@ export function WorkShop() {
 
   return (
     <div className="pt-5 pb-15">
-      <div ref={emblaRef}>
+      <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
           {
             data.map((xs, idx) => (
@@ -285,6 +286,7 @@ export function WorkShop() {
 
 export function FAQ() {
   const data = [1, 2, 3, 4, 5, 7, 8]
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <div className="text-center bg-[#fafafa] py-10">
@@ -294,12 +296,28 @@ export function FAQ() {
       <div className="px-5 text-left mt-10">
         {
           data.map((xs, idx) => (
-            <div className="py-5 border-b border-b-[#efefef]">
-              <button className="flex flex-row items-start justify-start text-left ">
+            <div className="py-5 border-b border-b-[#efefef]" key={idx}>
+              <button
+                type="button"
+                className="flex flex-row items-start justify-start text-left w-full"
+                onClick={() => setOpenIndex((current) => current === idx ? null : idx)}
+              >
                 <p className="text-base font-semibold">Consectetur impedit eligendi est ipsum molestias Consectetur suscipit dignissimos numquam harum ipsam, sunt nemo iusto Cupiditate nihil rerum quisquam quisquam aperiam? Aliquam voluptas molestiae dolorem cumque delectus Adipisci quis assumenda magni possimus molestias voluptas Accusantium id consectetur nemo aspernatur autem tenetur! Consequatur doloribus libero magni culpa ad. Provident blanditiis ullam?</p>
                 <Image src={Assets.Plus} alt="plus" className="w-4 h-4 ml-5" />
               </button>
 
+              <div
+                className={`grid transition-[grid-template-rows,opacity,margin-top] duration-300 ease-out ${openIndex === idx ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0 mt-0"}`}
+              >
+                <div className="overflow-hidden">
+                  <p className="text-sm leading-6 text-secondary pr-9">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat doloremque
+                    asperiores eveniet minima laboriosam, quaerat aliquam. Ipsum architecto
+                    corporis commodi, molestiae cumque nam, quas deleniti eveniet temporibus
+                    officiis rem dolor.
+                  </p>
+                </div>
+              </div>
             </div>
           ))
         }
