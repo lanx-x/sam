@@ -6,6 +6,7 @@ import Banner from "./banner.png";
 import BlackArrowL from "./black-arrow-l.svg";
 import BlackArrowR from "./black-arrow-r.svg";
 import Broadcast from "./broadcast.svg";
+import Building from "./building.jpg";
 import Cap from "./cap.jpg";
 import Check from "./check.svg";
 import Contact from "./contact.jpg";
@@ -16,10 +17,12 @@ import In from "./in.svg";
 import Ins from "./ins.svg";
 import Iso from "./iso.png";
 import Lang from "./lang.svg";
+import Link from "./link.svg";
 import LogoText from "./logo-text.svg";
 import Logo from "./logo.svg";
 import Mail from "./mail.svg";
 import Map from "./map.png";
+import Plus from "./plus.svg";
 import QuoteL from "./quote-l.svg";
 import QuoteR from "./quote-r.svg";
 import X from "./x.svg";
@@ -30,6 +33,7 @@ export const Assets = {
   BlackArrowL,
   BlackArrowR,
   Broadcast,
+  Building,
   Cap,
   Check,
   Contact,
@@ -40,10 +44,12 @@ export const Assets = {
   Ins,
   Iso,
   Lang,
+  Link,
   LogoText,
   Logo,
   Mail,
   Map,
+  Plus,
   QuoteL,
   QuoteR,
   X,
