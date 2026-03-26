@@ -9,6 +9,7 @@ import Broadcast from "./broadcast.svg";
 import Building from "./building.jpg";
 import Cap from "./cap.jpg";
 import Check from "./check.svg";
+import Close from "./close.svg";
 import Contact from "./contact.jpg";
 import Facebook from "./facebook.svg";
 import GrayArrowL from "./gray-arrow-l.svg";
@@ -22,9 +23,12 @@ import LogoText from "./logo-text.svg";
 import Logo from "./logo.svg";
 import Mail from "./mail.svg";
 import Map from "./map.png";
+import Menu from "./menu.svg";
 import Plus from "./plus.svg";
 import QuoteL from "./quote-l.svg";
 import QuoteR from "./quote-r.svg";
+import Top from "./top.svg";
+import Whatsapp from "./whatsapp.svg";
 import X from "./x.svg";
 
 export const Assets = {
@@ -36,6 +40,7 @@ export const Assets = {
   Building,
   Cap,
   Check,
+  Close,
   Contact,
   Facebook,
   GrayArrowL,
@@ -49,8 +54,11 @@ export const Assets = {
   Logo,
   Mail,
   Map,
+  Menu,
   Plus,
   QuoteL,
   QuoteR,
+  Top,
+  Whatsapp,
   X,
 } as const;

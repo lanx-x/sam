@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { Assets } from "./assets";
-import { OneStop } from "./components/OneStop";
-import { CustomerStory, Equipment, FAQ, SayAbout, Specification, WorkShop, WorkWith } from "@/components/Misc";
+import { Assets } from "@/assets";
+import { OneStop } from "@/_components/OneStop";
+import { CustomerStory, Equipment, FAQ, SayAbout, Specification, WorkShop, WorkWith } from "@/_components/Misc";
 
 function Banner() {
   const data = [1, 2, 3, 4]
