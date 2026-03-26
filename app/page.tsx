@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Assets } from "./assets";
 import { OneStop } from "./components/OneStop";
+import { SayAbout } from "./components/SayAbout";
 
 function Banner() {
   const data = [1, 2, 3, 4]
@@ -105,6 +106,7 @@ export default function Home() {
       <Stats />
       <Cap />
       <OneStop />
+      <SayAbout />
     </div>
   );
 }
