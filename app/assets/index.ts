@@ -6,6 +6,8 @@ import Broadcast from "./broadcast.svg";
 import Cap from "./cap.jpg";
 import Contact from "./contact.jpg";
 import Facebook from "./facebook.svg";
+import GrayArrowL from "./gray-arrow-l.svg";
+import GrayArrowR from "./gray-arrow-r.svg";
 import In from "./in.svg";
 import Ins from "./ins.svg";
 import Iso from "./iso.png";
@@ -21,6 +23,8 @@ export const Assets = {
   Cap,
   Contact,
   Facebook,
+  GrayArrowL,
+  GrayArrowR,
   In,
   Ins,
   Iso,
