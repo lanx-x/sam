@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
-const assetsDir = path.join(projectRoot, "app", "assets");
+const assetsDir = path.join(projectRoot, "src", "assets");
 const outputFile = path.join(assetsDir, "index.ts");
 const watchMode = process.argv.includes("--watch");
 const assetExtensions = new Set([

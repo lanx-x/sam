@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "@/globals.css";
+import "@/app/globals.css";
 import Image from "next/image";
 import { Assets } from "@/assets";
-import { Broadcast } from "@/_components/Broadcast";
-import { Subscribe } from "@/_components/Subscribe";
+import { Broadcast } from "@/app/_components/Broadcast";
+import { Menu } from "@/app/_components/Menu";
+import { Subscribe } from "@/app/_components/Subscribe";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,9 +15,12 @@ export const metadata: Metadata = {
 function Nav() {
   return (
     <div>
-      <div className="flex flex-row items-center px-5 py-3">
+      <div className="flex flex-row items-center px-5 py-3" data-nav-root>
         <Image className="w-9 h-9 mr-2" src={Assets.Logo} width={36} height={36} alt="logo" />
         <Image className="w-24 h-3" src={Assets.LogoText} width={96} height={14} alt="logo" />
+        <div className="ml-auto">
+          <Menu />
+        </div>
       </div>
     </div>
   )

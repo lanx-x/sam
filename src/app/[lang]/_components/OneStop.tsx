@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
-import { Assets } from "../assets";
+import { Assets } from "@/assets";
 
 export function OneStop() {
   const [emblaRef, emblaApi] = useEmblaCarousel({

@@ -11,6 +11,7 @@ import Cap from "./cap.jpg";
 import Check from "./check.svg";
 import Close from "./close.svg";
 import Contact from "./contact.jpg";
+import Expand from "./expand.svg";
 import Facebook from "./facebook.svg";
 import GrayArrowL from "./gray-arrow-l.svg";
 import GrayArrowR from "./gray-arrow-r.svg";
@@ -42,6 +43,7 @@ export const Assets = {
   Check,
   Close,
   Contact,
+  Expand,
   Facebook,
   GrayArrowL,
   GrayArrowR,
