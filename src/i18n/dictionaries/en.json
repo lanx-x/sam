@@ -1,0 +1,27 @@
+{
+  "common": {
+    "email": "Email",
+    "subscribe": "Subscribe"
+  },
+  "menu": {
+    "groups": {
+      "capabilities": "Capabilities",
+      "solutions": "Solutions",
+      "stamping": "Stamping"
+    },
+    "items": {
+      "cncMachining": "CNC Machining",
+      "sheetMetalFabrication": "Sheet Metal Fabrication",
+      "capabilityExtra": "Amet dignissimos libero.",
+      "solution1": "Amet cum voluptates sit voluptatem.",
+      "solution2": "2Amet cum voluptates sit voluptatem.",
+      "solution3": "3Amet cum voluptates sit voluptatem.",
+      "solution4": "4Amet cum voluptates sit voluptatem.",
+      "stamping1": "Amet cum voluptates sit voluptatem.",
+      "stamping2": "2Amet cum voluptates sit voluptatem.",
+      "stamping3": "3Amet cum voluptates sit voluptatem.",
+      "stamping4": "4Amet cum voluptates sit voluptatem.",
+      "about": "About"
+    }
+  }
+}

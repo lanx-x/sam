@@ -16,8 +16,8 @@ export function SayAbout() {
   return (
     <div className="relative text-center pt-10 pb-15">
       <Image src={Assets.Map} fill alt="map" className="object-cover" />
-      <h2 className="text-[32px] font-semibold px-5 mb-2">Dolor facere nulla voluptatem eaque nulla nam aut. Ducimus mollitia!</h2>
-      <p className="px-5 text-sm mb-18.5">Lorem architecto quod aperiam iste dignissimos Commodi repellat explicabo quisquam!</p>
+      <h2 className="text-[32px] font-semibold px-5 mb-2 lg:text-4xl lg:mb-3">Dolor facere nulla voluptatem eaque nulla nam aut. Ducimus mollitia!</h2>
+      <p className="px-5 text-sm mb-18.5 lg:text-base">Lorem architecto quod aperiam iste dignissimos Commodi repellat explicabo quisquam!</p>
 
       <div className="relative z-10 overflow-hidden pt-10" ref={emblaRef}>
         <div className="flex flex-row">
@@ -42,8 +42,8 @@ export function SayAbout() {
       </div>
 
       <div className="relative z-10">
-        <button onClick={() => emblaApi?.scrollPrev()}><Image className="w-12 h-12 mr-3" src={Assets.BlackArrowL} alt="prev" /></button>
-        <button onClick={() => emblaApi?.scrollNext()}><Image className="w-12 h-12" src={Assets.BlackArrowR} alt="prev" /></button>
+        <button onClick={() => emblaApi?.goToPrev()}><Image className="w-12 h-12 mr-3" src={Assets.BlackArrowL} alt="prev" /></button>
+        <button onClick={() => emblaApi?.goToNext()}><Image className="w-12 h-12" src={Assets.BlackArrowR} alt="prev" /></button>
       </div>
 
     </div>
@@ -96,8 +96,8 @@ export function CustomerStory() {
       </div>
 
       <div className="flex flex-row justify-center mt-10">
-        <button className="mx-3" onClick={() => emblaApi?.scrollPrev()}><Image src={Assets.BlackArrowL} alt="prev" /></button>
-        <button className="mx-3" onClick={() => emblaApi?.scrollNext()}><Image src={Assets.BlackArrowR} alt="next" /></button>
+        <button className="mx-3" onClick={() => emblaApi?.goToPrev()}><Image src={Assets.BlackArrowL} alt="prev" /></button>
+        <button className="mx-3" onClick={() => emblaApi?.goToNext()}><Image src={Assets.BlackArrowR} alt="next" /></button>
       </div>
 
     </div>
@@ -163,8 +163,8 @@ export function Specification() {
 
 
       <div className="flex flex-row justify-center mt-10">
-        <button className="mx-3" onClick={() => emblaApi?.scrollPrev()}><Image src={Assets.BlackArrowL} alt="prev" /></button>
-        <button className="mx-3" onClick={() => emblaApi?.scrollNext()}><Image src={Assets.BlackArrowR} alt="next" /></button>
+        <button className="mx-3" onClick={() => emblaApi?.goToPrev()}><Image src={Assets.BlackArrowL} alt="prev" /></button>
+        <button className="mx-3" onClick={() => emblaApi?.goToNext()}><Image src={Assets.BlackArrowR} alt="next" /></button>
       </div>
     </div>
   )
@@ -214,8 +214,8 @@ export function Equipment() {
       </div>
 
       <div className="flex flex-row justify-center mt-10">
-        <button className="mx-3" onClick={() => emblaApi?.scrollPrev()}><Image src={Assets.BlackArrowL} alt="prev" /></button>
-        <button className="mx-3" onClick={() => emblaApi?.scrollNext()}><Image src={Assets.BlackArrowR} alt="next" /></button>
+        <button className="mx-3" onClick={() => emblaApi?.goToPrev()}><Image src={Assets.BlackArrowL} alt="prev" /></button>
+        <button className="mx-3" onClick={() => emblaApi?.goToNext()}><Image src={Assets.BlackArrowR} alt="next" /></button>
       </div>
     </div>
   )
@@ -275,8 +275,8 @@ export function WorkShop() {
 
         </div >
         <div className="flex flex-row justify-center mt-10">
-          <button className="mx-3" onClick={() => emblaApi?.scrollPrev()}><Image src={Assets.BlackArrowL} alt="prev" /></button>
-          <button className="mx-3" onClick={() => emblaApi?.scrollNext()}><Image src={Assets.BlackArrowR} alt="next" /></button>
+          <button className="mx-3" onClick={() => emblaApi?.goToPrev()}><Image src={Assets.BlackArrowL} alt="prev" /></button>
+          <button className="mx-3" onClick={() => emblaApi?.goToNext()}><Image src={Assets.BlackArrowR} alt="next" /></button>
         </div>
       </div>
     </div >

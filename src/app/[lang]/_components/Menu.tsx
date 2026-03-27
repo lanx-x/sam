@@ -4,63 +4,64 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Assets } from "@/assets";
+import { localizePath, useLocale, useTranslations } from "@/i18n";
 
 const menuGroups = [
   {
-    title: "Capabilities",
+    titleKey: "capabilities",
     items: [
       {
-        label: "CNC Machining",
+        labelKey: "cncMachining",
         link: "/capabilities/cnc-machining",
       },
       {
-        label: "Sheet Metal Fabrication",
+        labelKey: "sheetMetalFabrication",
         link: "/capabilities/sheet-metal-fabrication",
       },
       {
-        label: "Amet dignissimos libero.",
+        labelKey: "capabilityExtra",
         link: "/capabilities/sheet-metal-fabrication",
       },
     ],
   },
   {
-    title: "Solutions",
+    titleKey: "solutions",
     items: [
       {
-        label: "Amet cum voluptates sit voluptatem.",
+        labelKey: "solution1",
         link: "/solutions/amet-cum-voluptates-sit-voluptatem",
       },
       {
-        label: "2Amet cum voluptates sit voluptatem.",
+        labelKey: "solution2",
         link: "/solutions/amet-cum-voluptates-sit-voluptatem",
       },
       {
-        label: "3Amet cum voluptates sit voluptatem.",
+        labelKey: "solution3",
         link: "/solutions/amet-cum-voluptates-sit-voluptatem",
       },
       {
-        label: "4Amet cum voluptates sit voluptatem.",
+        labelKey: "solution4",
         link: "/solutions/amet-cum-voluptates-sit-voluptatem",
       },
     ],
   },
   {
-    title: "Stamping",
+    titleKey: "stamping",
     items: [
       {
-        label: "Amet cum voluptates sit voluptatem.",
+        labelKey: "stamping1",
         link: "/stamping/amet-cum-voluptates-sit-voluptatem",
       },
       {
-        label: "2Amet cum voluptates sit voluptatem.",
+        labelKey: "stamping2",
         link: "/stamping/amet-cum-voluptates-sit-voluptatem",
       },
       {
-        label: "3Amet cum voluptates sit voluptatem.",
+        labelKey: "stamping3",
         link: "/stamping/amet-cum-voluptates-sit-voluptatem",
       },
       {
-        label: "4Amet cum voluptates sit voluptatem.",
+        labelKey: "stamping4",
         link: "/stamping/amet-cum-voluptates-sit-voluptatem",
       },
     ],
@@ -69,7 +70,7 @@ const menuGroups = [
 
 const standaloneItems = [
   {
-    label: "About",
+    labelKey: "about",
     link: "/about",
   },
 ] as const;
@@ -78,6 +79,8 @@ export function Menu() {
   const [isOpen, setIsOpen] = useState(false);
   const [panelTop, setPanelTop] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const locale = useLocale();
+  const menu = useTranslations("menu");
 
   const measurePanelTop = () => {
     if (!buttonRef.current) {
@@ -149,20 +152,22 @@ export function Menu() {
           <div className="grid gap-10">
             {menuGroups.map((group, index) => (
               <div
-                key={group.title}
+                key={index}
                 className={`transition-all duration-300 ease-out ${isOpen ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
                 style={{ transitionDelay: isOpen ? `${index * 60}ms` : "0ms" }}
               >
-                <p className="mb-4 text-sm font-medium uppercase tracking-[0.16em] text-secondary">{group.title}</p>
+                <p className="mb-4 text-sm font-medium uppercase tracking-[0.16em] text-secondary">
+                  {menu.groups[group.titleKey]}
+                </p>
                 <div className="grid gap-4">
-                  {group.items.map((item) => (
+                  {group.items.map((item, idx) => (
                     <Link
-                      key={item.link}
-                      href={item.link}
+                      key={idx}
+                      href={localizePath(locale, item.link)}
                       className="text-2xl font-semibold leading-none"
                       onClick={handleNavigate}
                     >
-                      {item.label}
+                      {menu.items[item.labelKey]}
                     </Link>
                   ))}
                 </div>
@@ -176,11 +181,11 @@ export function Menu() {
               {standaloneItems.map((item) => (
                 <Link
                   key={item.link}
-                  href={item.link}
+                  href={localizePath(locale, item.link)}
                   className="text-2xl font-semibold leading-none"
                   onClick={handleNavigate}
                 >
-                  {item.label}
+                  {menu.items[item.labelKey]}
                 </Link>
               ))}
             </div>

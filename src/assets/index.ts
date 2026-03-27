@@ -11,6 +11,11 @@ import Cap from "./cap.jpg";
 import Check from "./check.svg";
 import Close from "./close.svg";
 import Contact from "./contact.jpg";
+import Corp01 from "./corp-01.svg";
+import Corp02 from "./corp-02.svg";
+import Corp03 from "./corp-03.svg";
+import Corp04 from "./corp-04.svg";
+import Corp05 from "./corp-05.png";
 import Expand from "./expand.svg";
 import Facebook from "./facebook.svg";
 import GrayArrowL from "./gray-arrow-l.svg";
@@ -28,6 +33,8 @@ import Menu from "./menu.svg";
 import Plus from "./plus.svg";
 import QuoteL from "./quote-l.svg";
 import QuoteR from "./quote-r.svg";
+import RulerOff from "./ruler-off.svg";
+import RulerOn from "./ruler-on.svg";
 import Top from "./top.svg";
 import Whatsapp from "./whatsapp.svg";
 import X from "./x.svg";
@@ -43,6 +50,11 @@ export const Assets = {
   Check,
   Close,
   Contact,
+  Corp01,
+  Corp02,
+  Corp03,
+  Corp04,
+  Corp05,
   Expand,
   Facebook,
   GrayArrowL,
@@ -60,6 +72,8 @@ export const Assets = {
   Plus,
   QuoteL,
   QuoteR,
+  RulerOff,
+  RulerOn,
   Top,
   Whatsapp,
   X,
