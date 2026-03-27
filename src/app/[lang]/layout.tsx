@@ -23,7 +23,7 @@ const roboto = Roboto({
 function Nav() {
   return (
     <div className="">
-      <div className="flex flex-row items-center px-5 py-3 lg:w-320 lg:mx-auto" data-nav-root>
+      <div className="flex flex-row items-center px-5 py-3 xl:w-320 xl:mx-auto" data-nav-root>
         <Image className="w-9 h-9 mr-2" src={Assets.Logo} width={36} height={36} alt="logo" />
         <Image className="w-24 h-3" src={Assets.LogoText} width={96} height={14} alt="logo" />
         <div className="ml-auto">
@@ -37,12 +37,12 @@ function Nav() {
 function Contact() {
   return (
     <div className="relative w-full">
-      <Image src={Assets.Contact} alt="contact" fill className="object-cover" />
-      <div className="relative text-white px-5 pt-15 pb-16.25 text-center">
-        <h2 className="font-semibold text-[32px] mb-2">Elit autem assumenda enim reprehenderit?</h2>
-        <p className="text-base">Elit libero numquam fugit vitae dignissimos quidem. Numquam ut earum quibusdam incidunt beatae Natus sapiente exercitationem corporis recusandae perferendis. Laudantium!</p>
+      <Image src={Assets.Contact} alt="contact" fill className="object-cover object-[20%_center] xl:object-[center_center]" />
+      <div className="relative text-white px-5 pt-15 pb-16.25 text-center xl:w-7xl xl:mx-auto">
+        <h2 className="font-semibold text-[32px] mb-2 xl:text-5xl xl:mb-3">Elit autem assumenda enim reprehenderit?</h2>
+        <p className="text-sm xl:text-base">Elit libero numquam fugit vitae dignissimos quidem. Numquam ut earum quibusdam incidunt beatae Natus sapiente exercitationem corporis recusandae perferendis. Laudantium!</p>
 
-        <Subscribe className="mt-15.75" />
+        <Subscribe className="mt-15.75 xl:mt-15 xl:w-145 xl:mx-auto" />
       </div>
     </div>
   )
@@ -50,78 +50,52 @@ function Contact() {
 
 function Footer() {
   return (
-    <div className="px-5 mt-15">
-      <div className="flex flex-row items-center mb-4">
-        <Image className="w-10 h-10 mr-3" src={Assets.Logo} alt="logo" />
-        <Image className="w-30 h-4" src={Assets.LogoText} alt="logo-text" />
-      </div>
+    <div className="px-5 mt-15 xl:px-0 xl:w-7xl xl:mx-auto">
+      <div className="flex flex-col xl:flex-row">
+        <div className="mb-15 xl:mr-39.5 xl:mb-23">
+          <div className="flex flex-row items-center mb-4">
+            <Image className="w-10 h-10 mr-3" src={Assets.Logo} alt="logo" />
+            <Image className="w-30 h-4" src={Assets.LogoText} alt="logo-text" />
+          </div>
 
-      <p className="mb-5 text-base">Elit amet incidunt nesciunt quod a? Perspiciatis dicta quam nostrum.</p>
+          <p className="mb-5 text-base">Elit amet incidunt nesciunt quod a? Perspiciatis dicta quam nostrum.</p>
 
-      <div className="text-sm text-secondary mb-15" >
-        <p>Tel: 832412414141</p>
-        <p>Mobile: 832412414141</p>
-        <p>Email: 832412414141@qq.com</p>
-        <p className="mt-5">Address: DBuilding,Xianxi Industrial Gardan,Shatou,Zhen an Road,Chang an,Dongguan,China</p>
-      </div>
-
-      <div className="flex flex-row items-center mb-5">
-        <Image className="mr-6" src={Assets.X} alt="x" />
-        <Image className="mr-6" src={Assets.Ins} alt="x" />
-        <Image className="mr-6" src={Assets.Facebook} alt="x" />
-        <Image className="mr-6" src={Assets.In} alt="x" />
-      </div>
-
-      <div className="grid grid-cols-2 gap-10 mb-10">
-        <div>
-          <p className="font-medium text-base mb-6">Dolor</p>
-          <ul className="text-sm">
-            <li className="mb-3">Adipisicing adipisicing</li>
-            <li className="mb-3">Amet veritatis</li>
-            <li className="mb-3">Adipisicing vel</li>
-            <li className="mb-3">Adipisicing tenetur?</li>
-          </ul>
+          <div className="text-sm text-secondary" >
+            <p>Tel: 832412414141</p>
+            <p>Mobile: 832412414141</p>
+            <p>Email: 832412414141@qq.com</p>
+            <p className="mt-5">Address: DBuilding,Xianxi Industrial Gardan,Shatou,Zhen an Road,Chang an,Dongguan,China</p>
+          </div>
         </div>
-        <div>
-          <p>Dolor</p>
-          <ul>
-            <li>Adipisicing adipisicing</li>
-            <li>Amet veritatis</li>
-            <li>Adipisicing vel</li>
-            <li>Adipisicing tenetur?</li>
-            <li>Adipisicing tenetur?</li>
-            <li>Adipisicing tenetur?</li>
-            <li>Adipisicing tenetur?</li>
-          </ul>
-        </div>
-        <div>
-          <p>Dolor</p>
-          <ul>
-            <li>Adipisicing adipisicing</li>
-            <li>Amet veritatis</li>
-            <li>Adipisicing vel</li>
-            <li>Adipisicing tenetur?</li>
-          </ul>
-        </div>
-        <div>
-          <p>Dolor</p>
-          <ul>
-            <li>Adipisicing adipisicing</li>
-            <li>Amet veritatis</li>
-            <li>Adipisicing vel</li>
-            <li>Adipisicing tenetur?</li>
-          </ul>
+
+        <div className="grid grid-cols-2 gap-10 mb-10 xl:grid-cols-4">
+          {
+            [1, 2, 3, 4].map((xs, idx) => (
+              <div key={idx}>
+                <p className="font-medium text-base mb-6">Dolor</p>
+                <ul className="text-sm">
+                  <li className="mb-3">Adipisicing adipisicing</li>
+                  <li className="mb-3">Amet veritatis</li>
+                  <li className="mb-3">Adipisicing vel</li>
+                  <li className="mb-3">Adipisicing tenetur?</li>
+                </ul>
+              </div>
+            ))
+          }
         </div>
       </div>
 
-      <Subscribe className="border border-[#efefef]" />
+      <div className="flex flex-col xl:flex-row-reverse xl:items-center mb-5">
+        <Subscribe className="border border-[#efefef] mb-10 xl:w-143 xl:mb-0" />
 
-      <div className="flex flex-row items-center mt-10 mb-5">
-        <Image className="w-6 h-6 mr-6" src={Assets.X} alt="x" />
-        <Image className="w-6 h-6 mr-6" src={Assets.Ins} alt="x" />
-        <Image className="w-6 h-6 mr-6" src={Assets.Facebook} alt="x" />
-        <Image className="w-6 h-6 mr-6" src={Assets.In} alt="x" />
+        <div className="flex flex-row items-center xl:flex-1">
+          <Image className="w-6 h-6 mr-6" src={Assets.X} alt="x" />
+          <Image className="w-6 h-6 mr-6" src={Assets.Ins} alt="x" />
+          <Image className="w-6 h-6 mr-6" src={Assets.Facebook} alt="x" />
+          <Image className="w-6 h-6 mr-6" src={Assets.In} alt="x" />
+        </div>
       </div>
+
 
       <div className="w-full h-px bg-[#efefef]"></div>
       <p className="text-sm text-secondary my-7.5">Copyright © 2018-2025 SlowMist Limited. All Rights Reserved. 闽ICP备18006755号-1  闽公网安备35020302032841号</p>

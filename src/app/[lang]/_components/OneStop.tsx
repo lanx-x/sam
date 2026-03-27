@@ -18,24 +18,26 @@ export function OneStop() {
   useEffect(() => {
     if (!emblaApi) return;
 
-    const updateSelectedIndex = (api: any, event: any) => {
-      console.log(event)
-      setSelectedIndex(event?.detail?.targetSnap);
+    const updateSelectedIndex = () => {
+      setSelectedIndex(emblaApi.selectedSnap());
     };
 
+    updateSelectedIndex();
     emblaApi.on("select", updateSelectedIndex);
+    emblaApi.on("reinit", updateSelectedIndex);
 
     return () => {
       emblaApi.off("select", updateSelectedIndex);
+      emblaApi.off("reinit", updateSelectedIndex);
     };
   }, [emblaApi]);
 
   return (
     <div className="text-center bg-[#fafafa] py-10">
-      <h2 className="text-[32px] font-semibold px-5 mb-2 lg:mb-3 lg:text-5xl">Elit atque deleniti harum ex</h2>
-      <p className="px-5 text-sm lg:text-base">Ipsum corporis quis ipsum earum voluptates, sed. Deserunt provident velit.</p>
+      <h2 className="text-[32px] font-semibold px-5 mb-2 xl:mb-3 xl:text-5xl">Elit atque deleniti harum ex</h2>
+      <p className="px-5 text-sm xl:text-base">Ipsum corporis quis ipsum earum voluptates, sed. Deserunt provident velit.</p>
 
-      <div className="flex-row items-center justify-center hidden lg:flex lg:visible lg:mt-16.25">
+      <div className="flex-row items-center justify-center hidden xl:flex xl:visible xl:mt-16.25">
         {
           [1, 2, 3, 4].map((xs, idx) => (
             <div key={idx} className="flex flex-col items-center">
@@ -48,24 +50,24 @@ export function OneStop() {
 
       </div>
 
-      <div className="mt-10 overflow-hidden lg:mt-12 lg:w-7xl lg:mx-auto" ref={emblaRef}>
+      <div className="mt-10 overflow-hidden xl:mt-12 xl:w-7xl xl:mx-auto" ref={emblaRef}>
         <div className="flex flex-row">
           {
             [1, 2, 3, 4].map((xs, idx) => (
               <div
                 key={idx}
-                className="flex flex-col shrink-0 w-80 border border-[#bfbfbf] bg-[#fafafa] rounded-xl py-5 px-4 ml-5 text-left lg:ml-0 lg:px-0 lg:w-full lg:border-0 lg:flex-row-reverse">
-                <Image src={Assets.Cap} className="object-cover lg:w-120 lg:h-75" alt="cap" />
-                <div className="shrink-0 invisible lg:visible lg:w-px lg:h-full lg:bg-[#efefef] lg:mx-15"></div>
+                className="flex flex-col shrink-0 w-80 border border-[#bfbfbf] bg-[#fafafa] rounded-xl py-5 px-4 ml-5 text-left xl:ml-0 xl:px-0 xl:w-full xl:border-0 xl:flex-row-reverse">
+                <Image src={Assets.Cap} className="object-cover xl:w-120 xl:h-75" alt="cap" />
+                <div className="shrink-0 invisible xl:visible xl:w-px xl:h-full xl:bg-[#efefef] xl:mx-15"></div>
                 <div>
-                  <p className="text-2xl font-semibold mt-5 mb-3 lg:text-[32px] lg:mb-4">Consectetur dolor at repudiandae nostrum.</p>
+                  <p className="text-2xl font-semibold mt-5 mb-3 xl:text-[32px] xl:mb-4">Consectetur dolor at repudiandae nostrum.</p>
                   <p className="text-sm text-[rgba(34,34,34,0.66)]">Sit nisi blanditiis distinctio fugiat omnis ex? Magnam numquam repudiandae repellat quod odio. Velit similique praesentium eaque inventore vitae optio? Fugiat quod iusto quae qui eos! Repellendus perferendis quisquam quasi harum ex? Dolore ab esse nesciunt molestiae in! Nesciunt molestias vitae dolorem suscipit quo laboriosam Aperiam quidem sequi dolores dolorem</p>
 
 
-                  <div className="mt-5 flex flex-col lg:mt-6 lg:flex-row lg:flex-wrap">
+                  <div className="mt-5 flex flex-col xl:mt-6 xl:flex-row xl:flex-wrap">
                     {
                       [1, 2, 3, 4, 5].map((xs, idx) => (
-                        <div key={idx} className="flex flex-row items-center shrink-0 mb-2 lg:mr-15 lg:mb-3">
+                        <div key={idx} className="flex flex-row items-center shrink-0 mb-2 xl:mr-15 xl:mb-3">
                           <div className="w-4 h-4 flex justify-center items-center mr-2 bg-accent rounded-full">
                             <Image src={Assets.Check} className="w-2 " alt="check" />
                           </div>
@@ -81,7 +83,7 @@ export function OneStop() {
         </div>
       </div>
 
-      <div className="mt-4 flex flex-row justify-center lg:justify-start lg:w-7xl lg:mx-auto">
+      <div className="mt-4 flex flex-row justify-center xl:justify-start xl:w-7xl xl:mx-auto">
         <button type="button" onClick={() => emblaApi?.goToPrev()}><Image className="w-12 h-12 mr-3" src={Assets.GrayArrowL} alt="left" /></button>
         <button type="button" onClick={() => emblaApi?.goToNext()}><Image className="w-12 h-12 " src={Assets.GrayArrowR} alt="right" /></button>
       </div>

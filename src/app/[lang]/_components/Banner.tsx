@@ -78,11 +78,11 @@ export function Banner() {
     <div className="relative">
       <Image src={Assets.Banner} alt="banner" fill className="object-cover object-[70%_20%]" />
       <div className="absolute inset-0 bg-[linear-gradient(278deg,rgba(0,35,70,0)_31.39%,#001123_100%)]" />
-      <div className="relative pt-20 px-5 lg:w-7xl lg:px-0 lg:mx-auto">
-        <h2 className="text-4xl font-black text-white mb-10 max-w-87.5 lg:text-[64px] lg:max-w-140">High-Precision CNC Machining for Complex Parts.</h2>
+      <div className="relative pt-20 px-5 xl:w-7xl xl:px-0 xl:mx-auto">
+        <h2 className="text-4xl font-black text-white mb-10 max-w-87.5 xl:text-[64px] xl:max-w-140">High-Precision CNC Machining for Complex Parts.</h2>
 
         <div>
-          <div className="flex flex-col lg:flex-row">
+          <div className="flex flex-col xl:flex-row">
             <style>{`@keyframes ${animationName} { from { width: 0%; } to { width: 100%; } }`}</style>
             {data.map((item, index) => {
               const isActive = index === activeIndex;
@@ -91,10 +91,10 @@ export function Banner() {
                 <button
                   key={item.label}
                   type="button"
-                  className="block w-fit max-w-full text-left mb-4 lg:mb-10 lg:mr-5"
+                  className="block w-fit max-w-full text-left mb-4 xl:mb-10 xl:mr-5"
                   onClick={() => setActiveIndex(index)}
                 >
-                  <p className="text-secondary font-medium mb-1 leading-none lg:text-base">{item.label}</p>
+                  <p className="text-secondary font-medium mb-1 leading-none xl:text-base">{item.label}</p>
                   <div className={`h-0.5 w-full overflow-hidden rounded-full bg-[#d9d9d9] transition-opacity duration-200 ${isActive ? "opacity-100" : "opacity-0"}`} >
                     <div
                       className="h-full rounded-full bg-accent"
@@ -109,14 +109,14 @@ export function Banner() {
             })}
 
           </div>
-          <p className="text-white text-sm min-h-20 lg:max-w-128 lg:min-h-0 lg:text-base">
+          <p className="text-white text-sm min-h-20 xl:max-w-128 xl:min-h-0 xl:text-base">
             {data[activeIndex].desc}
           </p>
         </div>
 
-        <div className="flex mt-20 pb-29 flex-row justify-between lg:pb-34.5 lg:justify-start lg:mt-10">
-          <button className="w-16/35 h-12 bg-accent rounded-sm text-white font-medium truncate px-4 lg:w-50 lg:h-13 lg:mr-5 lg:text-base">Lorem repellendus natus obcaecati vitae?</button>
-          <button className="w-16/35 h-12 bg-white rounded-sm text-fg font-medium truncate px-4 lg:w-50 lg:h-13 lg:text-base">Adipisicing voluptatum sit maiores eaque?</button>
+        <div className="flex mt-20 pb-29 flex-row justify-between xl:pb-34.5 xl:justify-start xl:mt-10">
+          <button className="w-16/35 h-12 bg-accent rounded-sm text-white font-medium truncate px-4 xl:w-50 xl:h-13 xl:mr-5 xl:text-base">Lorem repellendus natus obcaecati vitae?</button>
+          <button className="w-16/35 h-12 bg-white rounded-sm text-fg font-medium truncate px-4 xl:w-50 xl:h-13 xl:text-base">Adipisicing voluptatum sit maiores eaque?</button>
         </div>
       </div>
 

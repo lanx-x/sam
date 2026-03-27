@@ -29,13 +29,13 @@ function Stats() {
   ]
 
   return (
-    <div className="pt-10  border-b border-[#efefef] lg:py-9">
-      <div className="flex flex-row flex-wrap lg:w-7xl lg:mx-auto">
+    <div className="pt-10  border-b border-[#efefef] xl:py-9">
+      <div className="flex flex-row flex-wrap xl:w-7xl xl:mx-auto">
         {
           data.map((xs, idx) => (
-            <div key={idx} className="flex flex-col overflow-hidden px-5 text-left w-1/2 truncate mb-10 lg:mb-0 lg:w-60 lg:mx-2 lg:items-center">
-              {xs.icon ? <Image className="w-12.75 h-10.5 lg:w-17 lg:h-14" src={xs.icon} alt="icon" /> : <p className="leading-none text-4xl font-semibold truncate shrink-0 lg:text-5xl lg:h-14">{xs.value}</p>}
-              <p className="truncate font-medium mt-4 shrink-0 lg:text-base lg:mt-3">{xs.label}</p>
+            <div key={idx} className="flex flex-col overflow-hidden px-5 text-left w-1/2 truncate mb-10 xl:mb-0 xl:w-60 xl:mx-2 xl:items-center">
+              {xs.icon ? <Image className="w-12.75 h-10.5 xl:w-17 xl:h-14" src={xs.icon} alt="icon" /> : <p className="leading-none text-4xl font-semibold truncate shrink-0 xl:text-5xl xl:h-14">{xs.value}</p>}
+              <p className="truncate font-medium mt-4 shrink-0 xl:text-base xl:mt-3">{xs.label}</p>
             </div>
           ))
         }
@@ -48,14 +48,14 @@ function Stats() {
 function Cap() {
   const data = [1, 2, 3, 4]
   return (
-    <div className="text-center px-5 bt mt-15 mb-10 lg:mb-18.25">
-      <h2 className="font-semibold text-[32px] mb-2 lg:text-5xl">Dolor amet repudiandae accusamus officia</h2>
-      <p className="mb-10 lg:text-base">Dolor ipsam vero aliquam esse recusandae, quasi dignissimos Laboriosam ipsum.</p>
+    <div className="text-center px-5 bt mt-15 mb-10 xl:mb-18.25">
+      <h2 className="font-semibold text-[32px] mb-2 xl:text-5xl">Dolor amet repudiandae accusamus officia</h2>
+      <p className="mb-10 xl:text-base">Dolor ipsam vero aliquam esse recusandae, quasi dignissimos Laboriosam ipsum.</p>
 
-      <div className="flex flex-col lg:w-7xl lg:mx-auto lg:flex-row">
+      <div className="flex flex-col xl:w-7xl xl:mx-auto xl:flex-row">
         {
           data.map((xs, idx) => (
-            <div key={idx} className="group w-full aspect-35/16 relative lg:w-80 lg:h-120">
+            <div key={idx} className="group w-full aspect-35/16 relative xl:w-80 xl:h-120">
               <Image src={Assets.Cap} alt="cap" fill className="object-cover" />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,35,70,0)_0%,#001123_100%)]" />
               <div className="px-5 relative w-full h-full flex flex-col group-hover:hidden">
