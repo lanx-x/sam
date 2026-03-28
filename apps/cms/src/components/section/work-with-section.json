@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_section_work_with_sections",
+  "info": {
+    "displayName": "WorkWithSection"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "string"
+    },
+    "data": {
+      "type": "component",
+      "component": "ui.work-with-item",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

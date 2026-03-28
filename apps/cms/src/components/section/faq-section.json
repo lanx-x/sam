@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_section_faq_sections",
+  "info": {
+    "displayName": "FaqSection"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "string"
+    },
+    "data": {
+      "type": "component",
+      "component": "ui.faq-item",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

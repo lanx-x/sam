@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_ui_work_with_items",
+  "info": {
+    "displayName": "WorkWithItem"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_section_get_in_touch_sections",
+  "info": {
+    "displayName": "GetInTouchSection"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

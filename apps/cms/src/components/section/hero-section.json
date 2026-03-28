@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_section_hero_sections",
+  "info": {
+    "displayName": "HeroSection"
+  },
+  "options": {},
+  "attributes": {
+    "slogon": {
+      "type": "string"
+    },
+    "data": {
+      "type": "component",
+      "component": "ui.slogon-item",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

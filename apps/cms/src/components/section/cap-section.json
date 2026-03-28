@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_section_cap_sections",
+  "info": {
+    "displayName": "CapSection"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "string"
+    },
+    "data": {
+      "type": "component",
+      "component": "ui.cap-item",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}
