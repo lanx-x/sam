@@ -95,11 +95,11 @@ export function Banner() {
                   onClick={() => setActiveIndex(index)}
                 >
                   <p className="text-secondary font-medium mb-1 leading-none xl:text-base">{item.label}</p>
-                  <div className={`h-0.5 w-full overflow-hidden rounded-full bg-[#d9d9d9] transition-opacity duration-200 ${isActive ? "opacity-100" : "opacity-0"}`} >
+                  <div className={`h-0.5 w-full overflow-hidden rounded-full bg-[#d9d9d9] transition-opacity duration-400 ${isActive ? "opacity-100" : "opacity-0"}`} >
                     <div
                       className="h-full rounded-full bg-accent"
                       style={{
-                        width: isActive ? "100%" : "0%",
+                        // width: isActive ? "100%" : "0%",
                         animation: isActive ? `${animationName} ${ROTATE_INTERVAL}ms linear forwards` : "none",
                       }}
                     />
