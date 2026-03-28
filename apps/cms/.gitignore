@@ -121,19 +121,11 @@ coverage
 # Strapi
 ############################
 
-.env*
-
-apps/cms/license.txt
-apps/cms/exports
-apps/cms/.strapi
-apps/cms/dist
-apps/cms/build
-apps/cms/.strapi-updater.json
-apps/cms/.strapi-cloud.json
-apps/cms/.tmp
-
-
-
-# next.js
-apps/web/.next
-apps/web/out
+.env
+license.txt
+exports
+.strapi
+dist
+build
+.strapi-updater.json
+.strapi-cloud.json

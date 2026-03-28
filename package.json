@@ -3,31 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/dev.mjs",
-    "gen:assets": "node scripts/generate-assets.mjs",
-    "watch:assets": "node scripts/generate-assets.mjs --watch",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "prebuild": "node scripts/generate-assets.mjs"
-  },
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "embla-carousel-auto-scroll": "9.0.0-rc01",
-    "embla-carousel-react": "9.0.0-rc01",
-    "next": "16.2.1",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "tailwind-merge": "^3.5.0"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.1",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "dev": "pnpm --parallel --filter web --filter cms run dev",
+    "dev:web": "pnpm --filter web dev",
+    "dev:cms": "pnpm --filter cms dev",
+    "build": "pnpm --filter web build",
+    "lint": "pnpm --filter web lint",
+    "start:web": "pnpm --filter web start"
   }
 }
