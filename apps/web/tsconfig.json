@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "cms/*": ["../cms/types/generated/*"],
+      "cms-types": ["../cms/types/index.ts"]
     }
   },
   "include": [

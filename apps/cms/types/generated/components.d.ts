@@ -54,7 +54,7 @@ export interface SectionHeroSection extends Struct.ComponentSchema {
   };
   attributes: {
     data: Schema.Attribute.Component<'ui.slogon-item', true>;
-    slogon: Schema.Attribute.String;
+    title: Schema.Attribute.String;
   };
 }
 

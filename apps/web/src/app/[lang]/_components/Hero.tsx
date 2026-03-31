@@ -5,6 +5,7 @@ import Image from "next/image";
 import AutoScroll from "embla-carousel-auto-scroll";
 import useEmblaCarousel from "embla-carousel-react";
 import { Assets } from "@/assets";
+import type { HeroItemData, HeroSectionData } from "cms-types";
 
 const ROTATE_INTERVAL = 3000;
 const partnerLogos = [
@@ -16,26 +17,11 @@ const partnerLogos = [
 ] as const;
 const marqueeLogos = Array.from({ length: 10 }, () => partnerLogos).flat();
 
-const data = [
-  {
-    label: "CNC Machining",
-    desc: "Dolor elit quis labore accusamus inventore. Doloremque dicta id similique?",
-  },
-  {
-    label: "Sheet Machining",
-    desc: "Dolor elit quis labore accusamus inventore. Doloremque dicta id similique?",
-  },
-  {
-    label: "Stamping",
-    desc: "Stamping projects move from rough blanks to production-ready parts with steady tooling, reliable lead times, and repeatable quality checks.",
-  },
-  {
-    label: "CNC Turning",
-    desc: "Dolor elit quis labore accusamus inventore. Doloremque dicta id similique?",
-  },
-] as const;
+type HeroBannerItem = Pick<HeroItemData, "label" | "desc" | "image">;
 
-export function Banner() {
+export function Hero({ data }: { data?: HeroSectionData }) {
+  const items: HeroBannerItem[] = data?.data ?? [];
+
   const [activeIndex, setActiveIndex] = useState(0);
   const animationName = useMemo(
     () => `banner-progress-${activeIndex}`,
@@ -66,25 +52,26 @@ export function Banner() {
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
-      setActiveIndex((current) => (current + 1) % data.length);
+      setActiveIndex((current) => (current + 1) % items.length);
     }, ROTATE_INTERVAL);
 
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [activeIndex]);
+  }, [activeIndex, items.length]);
+
 
   return (
     <div className="relative">
-      <Image src={Assets.Banner} alt="banner" fill className="object-cover object-[70%_20%]" />
+      <Image src={items?.[activeIndex]?.image} alt="banner" fill className="object-cover object-[70%_20%]" />
       <div className="absolute inset-0 bg-[linear-gradient(278deg,rgba(0,35,70,0)_31.39%,#001123_100%)]" />
       <div className="relative pt-20 px-5 xl:w-7xl xl:px-0 xl:mx-auto">
-        <h2 className="text-4xl font-black text-white mb-10 max-w-87.5 xl:text-[64px] xl:max-w-140">High-Precision CNC Machining for Complex Parts.</h2>
+        <h2 className="text-4xl font-black text-white mb-10 max-w-87.5 xl:text-[64px] xl:max-w-140">{data?.title}</h2>
 
         <div>
           <div className="flex flex-col xl:flex-row">
             <style>{`@keyframes ${animationName} { from { width: 0%; } to { width: 100%; } }`}</style>
-            {data.map((item, index) => {
+            {items.map((item, index) => {
               const isActive = index === activeIndex;
 
               return (
@@ -110,7 +97,7 @@ export function Banner() {
 
           </div>
           <p className="text-white text-sm min-h-20 xl:max-w-128 xl:min-h-0 xl:text-base">
-            {data[activeIndex].desc}
+            {items[activeIndex]?.desc}
           </p>
         </div>
 
