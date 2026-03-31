@@ -34,8 +34,8 @@ export function OneStop() {
 
   return (
     <div className="text-center bg-[#fafafa] py-10">
-      <h2 className="text-[32px] font-semibold px-5 mb-2 xl:mb-3 xl:text-5xl">Elit atque deleniti harum ex</h2>
-      <p className="px-5 text-sm xl:text-base">Ipsum corporis quis ipsum earum voluptates, sed. Deserunt provident velit.</p>
+      <h2 className="px-5 section-title">Elit atque deleniti harum ex</h2>
+      <p className="px-5 section-desc">Ipsum corporis quis ipsum earum voluptates, sed. Deserunt provident velit.</p>
 
       <div className="flex-row items-center justify-center hidden xl:flex xl:visible xl:mt-16.25">
         {

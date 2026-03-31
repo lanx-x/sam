@@ -39,8 +39,8 @@ function Contact() {
     <div className="relative w-full">
       <Image src={Assets.Contact} alt="contact" fill className="object-cover object-[20%_center] xl:object-[center_center]" />
       <div className="relative text-white px-5 pt-15 pb-16.25 text-center xl:w-7xl xl:mx-auto">
-        <h2 className="font-semibold text-[32px] mb-2 xl:text-5xl xl:mb-3">Elit autem assumenda enim reprehenderit?</h2>
-        <p className="text-sm xl:text-base">Elit libero numquam fugit vitae dignissimos quidem. Numquam ut earum quibusdam incidunt beatae Natus sapiente exercitationem corporis recusandae perferendis. Laudantium!</p>
+        <h2 className="section-title">Elit autem assumenda enim reprehenderit?</h2>
+        <p className="section-desc">Elit libero numquam fugit vitae dignissimos quidem. Numquam ut earum quibusdam incidunt beatae Natus sapiente exercitationem corporis recusandae perferendis. Laudantium!</p>
 
         <Subscribe className="mt-15.75 xl:mt-15 xl:w-145 xl:mx-auto" />
       </div>
