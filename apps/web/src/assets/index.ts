@@ -23,6 +23,7 @@ import GrayArrowL from "./gray-arrow-l.svg";
 import GrayArrowR from "./gray-arrow-r.svg";
 import In from "./in.svg";
 import Ins from "./ins.svg";
+import Iqc from "./iqc.png";
 import Iso from "./iso.png";
 import Lang from "./lang.svg";
 import Link from "./link.svg";
@@ -33,6 +34,7 @@ import Map from "./map.png";
 import Menu from "./menu.svg";
 import Minus from "./minus.svg";
 import Plus from "./plus.svg";
+import Ptech from "./ptech.png";
 import QuoteL from "./quote-l.svg";
 import QuoteR from "./quote-r.svg";
 import Ruler1Off from "./ruler-1-off.svg";
@@ -66,6 +68,7 @@ export const Assets = {
   GrayArrowR,
   In,
   Ins,
+  Iqc,
   Iso,
   Lang,
   Link,
@@ -76,6 +79,7 @@ export const Assets = {
   Menu,
   Minus,
   Plus,
+  Ptech,
   QuoteL,
   QuoteR,
   Ruler1Off,

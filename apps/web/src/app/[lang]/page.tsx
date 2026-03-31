@@ -6,12 +6,12 @@ import { defaultLocale, isLocale } from "@/i18n";
 import { Stat } from "./_components/Stat";
 import { Cap } from "./_components/Cap";
 import { Comment } from "./_components/Comment";
-import { CustomerStory } from "./_components/CustomerStory";
 import { Spe } from "./_components/Spe";
-import { Equipment } from "./_components/Equipment";
 import { WorkWith } from "./_components/WorkWith";
 import { WorkShop } from "./_components/WorkShop";
 import { FAQ } from "@/components/FAQ";
+import { CustomerStory } from "@/components/CustomerStory";
+import { Equipment } from "@/components/Equipment";
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;

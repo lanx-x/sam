@@ -6,11 +6,11 @@
 }
 
 @utility section-title {
-  @apply  font-semibold text-[32px] mb-2 leading-none xl:text-5xl xl:mb-3;
+  @apply  text-center font-semibold text-[32px] mb-2 leading-none xl:text-5xl xl:mb-3;
 }
 
 @utility section-desc {
-  @apply text-sm xl:text-base leading-none;
+  @apply text-center text-sm xl:text-base leading-none;
 }
 
 @theme inline {

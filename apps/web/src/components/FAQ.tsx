@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export function FAQ() {
   const data = [1, 2, 3, 4, 5, 7, 8]
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <div className="bg-[#fafafa] py-10">
