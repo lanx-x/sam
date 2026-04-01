@@ -1,5 +1,42 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface CommonFooter extends Struct.ComponentSchema {
+  collectionName: 'components_common_footers';
+  info: {
+    displayName: 'footer';
+  };
+  attributes: {};
+}
+
+export interface CommonHeader extends Struct.ComponentSchema {
+  collectionName: 'components_common_headers';
+  info: {
+    displayName: 'header';
+  };
+  attributes: {};
+}
+
+export interface CommonSeo extends Struct.ComponentSchema {
+  collectionName: 'components_common_seos';
+  info: {
+    displayName: 'seo';
+  };
+  attributes: {};
+}
+
+export interface CommonWrapper extends Struct.ComponentSchema {
+  collectionName: 'components_common_wrappers';
+  info: {
+    displayName: 'wrapper';
+  };
+  attributes: {
+    content: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface SectionCapSection extends Struct.ComponentSchema {
   collectionName: 'components_section_cap_sections';
   info: {
@@ -176,6 +213,10 @@ export interface UiWorkWithItem extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'common.footer': CommonFooter;
+      'common.header': CommonHeader;
+      'common.seo': CommonSeo;
+      'common.wrapper': CommonWrapper;
       'section.cap-section': SectionCapSection;
       'section.comment-secion': SectionCommentSecion;
       'section.faq-section': SectionFaqSection;

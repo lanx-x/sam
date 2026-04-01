@@ -4,9 +4,9 @@ import "./globals.css";
 import Image from "next/image";
 import { Assets } from "@/assets";
 import { defaultLocale, getDictionary, isLocale, type Locale, I18nProvider } from "@/i18n";
-import { Broadcast } from "./_components/Broadcast";
-import { Menu } from "./_components/Menu";
-import { Subscribe } from "./_components/Subscribe";
+import { Broadcast } from "@/components/Broadcast";
+import { Menu } from "@/components/Menu";
+import { Subscribe } from "@/components/Subscribe";
 
 export const metadata: Metadata = {
   title: "Create Next App",

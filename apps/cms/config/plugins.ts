@@ -6,6 +6,12 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
       defaultDepth: 3, // Default is 5
     }
   },
+  navigation: {
+    enabled: true,
+  },
+  documentation: {
+    enabled: true,
+  }
 });
 
 export default config;
