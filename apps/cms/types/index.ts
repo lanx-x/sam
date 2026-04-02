@@ -40,3 +40,4 @@ export type SpeSection = StrapiComponent<"section.spe-section">
 export type EquipmentSection = StrapiComponent<"section.equipment-section">
 export type SurfaceFinishSection = StrapiComponent<"section.surface-finish-section">
 export type PostSection = StrapiComponent<"section.post-section">
+export type FAQSection = StrapiComponent<"section.faq-section">

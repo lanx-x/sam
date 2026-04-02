@@ -16,7 +16,7 @@ export async function getHomePage(lang: string = 'en') {
 export async function getPage(slug: string, lang: string = 'en') {
   return fetchStrapi<StrapiCollectionResponse<PageData>>('/pages', {
     params: {
-      'filters[slug][$eq]': slug,
+      'filters[slug][$eq]': slug.toLowerCase(),
       locale: lang,
       pLevel: true
     },

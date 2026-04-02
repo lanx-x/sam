@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "renderers",
+  "collectionName": "faqs",
   "info": {
-    "singularName": "renderer",
-    "pluralName": "renderers",
-    "displayName": "Renderer"
+    "singularName": "faq",
+    "pluralName": "faqs",
+    "displayName": "FAQ"
   },
   "options": {
     "draftAndPublish": true
@@ -15,7 +15,7 @@
     }
   },
   "attributes": {
-    "cmp": {
+    "q": {
       "type": "string",
       "pluginOptions": {
         "i18n": {
@@ -25,28 +25,15 @@
       "required": true,
       "unique": true
     },
-    "desc": {
+    "a": {
       "type": "text",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
-    },
-    "demo": {
-      "type": "media",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
       },
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      "required": true,
+      "unique": false
     }
   }
 }

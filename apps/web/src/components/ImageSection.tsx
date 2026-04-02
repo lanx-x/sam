@@ -15,7 +15,7 @@ export function ImageSection({ section }: { section: CommonSection }) {
       desc={section.desc!}
       className="bg-[#fafafa]"
     >
-      <Image className="w-full mt-10 mx-5 xl:mx-0" width={1280} height={400} src={getStrapiMedia(section.image) ?? ""} alt="section-img" />
+      <Image className="w-full mt-10 px-5 xl:px-0" width={1280} height={400} src={getStrapiMedia(section.image) ?? ""} alt="section-img" />
     </Section>
   )
 }

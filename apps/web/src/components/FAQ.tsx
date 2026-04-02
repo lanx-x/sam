@@ -4,9 +4,9 @@ import { Assets } from "@/assets";
 import Image from "next/image";
 import { useState } from "react";
 import { SectionContainer } from "./Section";
-import { CommonSection } from "cms-types";
+import { CommonSection, FAQSection } from "cms-types";
 
-export function FAQ({ section }: { section: CommonSection }) {
+export function FAQ({ section }: { section: FAQSection }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -20,14 +20,14 @@ export function FAQ({ section }: { section: CommonSection }) {
 
           <div className="px-5 text-left mt-10 xl:mt-0 xl:px-0">
             {
-              section.data?.map((xs, idx) => (
+              section.faqs?.map((xs, idx) => (
                 <div className="py-5 border-b border-b-[#efefef]" key={idx}>
                   <button
                     type="button"
                     className="cursor-pointer flex flex-row items-center justify-start text-left w-full"
                     onClick={() => setOpenIndex((current) => current === idx ? null : idx)}
                   >
-                    <p className="text-base font-semibold flex-1">{xs.title}</p>
+                    <p className="text-base font-semibold flex-1">{xs.q}</p>
                     <Image src={openIndex === idx ? Assets.Minus : Assets.Plus} alt="plus" className="w-4 h-4" />
                   </button>
 
@@ -35,7 +35,7 @@ export function FAQ({ section }: { section: CommonSection }) {
                     className={`grid transition-[grid-template-rows,opacity,margin-top] duration-300 ease-out ${openIndex === idx ? "grid-rows-[1fr] opacity-100 mt-4" : "grid-rows-[0fr] opacity-0 mt-0"}`}
                   >
                     <div className="overflow-hidden">
-                      <p className="text-base leading-6 pr-9 pb-10">{xs.desc}</p>
+                      <p className="text-base leading-6 pr-9 pb-10">{xs.a}</p>
                     </div>
                   </div>
                 </div>

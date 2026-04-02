@@ -121,6 +121,19 @@ export interface SectionEquipmentSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionFaqSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_faq_sections';
+  info: {
+    displayName: 'FAQSection';
+  };
+  attributes: {
+    desc: Schema.Attribute.Text;
+    faqs: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'>;
+    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionPostSection extends Struct.ComponentSchema {
   collectionName: 'components_section_post_sections';
   info: {
@@ -198,6 +211,7 @@ declare module '@strapi/strapi' {
       'item.spe-item': ItemSpeItem;
       'section.common-section': SectionCommonSection;
       'section.equipment-section': SectionEquipmentSection;
+      'section.faq-section': SectionFaqSection;
       'section.post-section': SectionPostSection;
       'section.spe-section': SectionSpeSection;
       'section.story-section': SectionStorySection;
