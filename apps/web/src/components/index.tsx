@@ -13,8 +13,15 @@ import { FAQ } from "./FAQ";
 import { GetInTouch } from "./GetInTouch";
 import { CommonHero } from "./CommonHero";
 import { Partner } from "./Partner";
+import { ProcessingTech } from "./ProcessingTech";
+import dynamic from "next/dynamic";
+import { ImageSection } from "./ImageSection";
+import { Ship } from "./Ship";
+import { SurfaceFinish } from "./SurfaceFinish";
+import { Tolerance } from "./Tolerance";
+import { Post } from "./Post";
 
-export const CmpMap: Record<string, ComponentType<{ section: unknown }>> = {
+export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
   Stat,
   Cap,
@@ -30,4 +37,10 @@ export const CmpMap: Record<string, ComponentType<{ section: unknown }>> = {
 
   CommonHero,
   Partner,
+  ProcessingTech,
+  ImageSection,
+  Ship,
+  SurfaceFinish,
+  Tolerance,
+  Post,
 }

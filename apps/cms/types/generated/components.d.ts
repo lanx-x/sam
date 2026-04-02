@@ -98,6 +98,7 @@ export interface SectionCommonSection extends Struct.ComponentSchema {
     desc: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
+    style: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
@@ -115,6 +116,21 @@ export interface SectionEquipmentSection extends Struct.ComponentSchema {
     >;
     label: Schema.Attribute.String;
     renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
+    style: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionPostSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_post_sections';
+  info: {
+    displayName: 'PostSection';
+  };
+  attributes: {
+    desc: Schema.Attribute.Text;
+    posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
+    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
+    style: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
@@ -132,6 +148,7 @@ export interface SectionSpeSection extends Struct.ComponentSchema {
       'oneToMany',
       'api::specification.specification'
     >;
+    style: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
@@ -146,6 +163,25 @@ export interface SectionStorySection extends Struct.ComponentSchema {
     label: Schema.Attribute.String;
     renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
     stories: Schema.Attribute.Relation<'oneToMany', 'api::story.story'>;
+    style: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionSurfaceFinishSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_surface_finish_sections';
+  info: {
+    displayName: 'SurfaceFinishSection';
+  };
+  attributes: {
+    desc: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
+    style: Schema.Attribute.String;
+    surface_finishes: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::surface-finish.surface-finish'
+    >;
     title: Schema.Attribute.String;
   };
 }
@@ -162,8 +198,10 @@ declare module '@strapi/strapi' {
       'item.spe-item': ItemSpeItem;
       'section.common-section': SectionCommonSection;
       'section.equipment-section': SectionEquipmentSection;
+      'section.post-section': SectionPostSection;
       'section.spe-section': SectionSpeSection;
       'section.story-section': SectionStorySection;
+      'section.surface-finish-section': SectionSurfaceFinishSection;
     }
   }
 }

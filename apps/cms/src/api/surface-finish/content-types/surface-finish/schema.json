@@ -1,20 +1,23 @@
 {
   "kind": "collectionType",
-  "collectionName": "stats",
+  "collectionName": "surface_finishes",
   "info": {
-    "singularName": "stat",
-    "pluralName": "stats",
-    "displayName": "统计数据"
+    "singularName": "surface-finish",
+    "pluralName": "surface-finishes",
+    "displayName": "SurfaceFinish"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
+    "title": {
+      "type": "string"
+    },
     "desc": {
       "type": "text"
     },
-    "icon": {
+    "image": {
       "type": "media",
       "multiple": false,
       "allowedTypes": [
@@ -23,9 +26,6 @@
         "videos",
         "audios"
       ]
-    },
-    "value": {
-      "type": "string"
     }
   }
 }

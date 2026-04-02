@@ -38,3 +38,5 @@ export type CommonSection = StrapiComponent<"section.common-section">;
 export type StorySection = StrapiComponent<"section.story-section">
 export type SpeSection = StrapiComponent<"section.spe-section">
 export type EquipmentSection = StrapiComponent<"section.equipment-section">
+export type SurfaceFinishSection = StrapiComponent<"section.surface-finish-section">
+export type PostSection = StrapiComponent<"section.post-section">

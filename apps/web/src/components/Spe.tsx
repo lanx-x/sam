@@ -18,7 +18,7 @@ export function Spe({ section }: { section: SpeSection }) {
     <Section
       title={section.title!}
       desc={section.desc!}
-      className="xl:text-left"
+      className={`xl:text-left ${section.style}`}
 
     >
       <div className="relative mt-10">

@@ -24,7 +24,7 @@ export function FAQ({ section }: { section: CommonSection }) {
                 <div className="py-5 border-b border-b-[#efefef]" key={idx}>
                   <button
                     type="button"
-                    className="flex flex-row items-center justify-start text-left w-full"
+                    className="cursor-pointer flex flex-row items-center justify-start text-left w-full"
                     onClick={() => setOpenIndex((current) => current === idx ? null : idx)}
                   >
                     <p className="text-base font-semibold flex-1">{xs.title}</p>

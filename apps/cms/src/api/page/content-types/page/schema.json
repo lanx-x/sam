@@ -47,7 +47,9 @@
         "section.common-section",
         "section.story-section",
         "section.equipment-section",
-        "section.spe-section"
+        "section.spe-section",
+        "section.surface-finish-section",
+        "section.post-section"
       ]
     }
   }

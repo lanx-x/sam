@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_section_spe_sections",
+  "collectionName": "components_section_surface_finish_sections",
   "info": {
-    "displayName": "SpeSection"
+    "displayName": "SurfaceFinishSection"
   },
   "options": {},
   "attributes": {
@@ -11,21 +11,28 @@
     "desc": {
       "type": "text"
     },
-    "label": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "style": {
       "type": "string"
     },
-    "specifications": {
+    "surface_finishes": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::specification.specification"
+      "target": "api::surface-finish.surface-finish"
     },
     "renderer": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::renderer.renderer"
-    },
-    "style": {
-      "type": "string"
     }
   },
   "config": {}

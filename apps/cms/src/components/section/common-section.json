@@ -35,6 +35,9 @@
       "type": "component",
       "component": "item.common-item",
       "repeatable": true
+    },
+    "style": {
+      "type": "string"
     }
   },
   "config": {}

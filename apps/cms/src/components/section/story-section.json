@@ -23,6 +23,9 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::renderer.renderer"
+    },
+    "style": {
+      "type": "string"
     }
   },
   "config": {}
