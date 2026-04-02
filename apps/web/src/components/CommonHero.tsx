@@ -1,7 +1,8 @@
 import { Assets } from "@/assets";
+import { CommonSection } from "cms-types";
 import Image from "next/image";
 
-export function HeroCap() {
+export function CommonHero({ section }: { section: CommonSection }) {
   return (
     <div className="px-5 mb-12.5 xl:w-7xl xl:mx-auto xl:mb-14.5">
       <div className="relative flex flex-col xl:flex-row">

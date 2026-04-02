@@ -6,8 +6,10 @@ import { Assets } from "@/assets";
 import { useEffect, useState } from "react";
 import { cn } from "@/utils/cn";
 import { Section } from "./Section";
+import { CommonSection } from "cms-types";
+import { getStrapiMedia } from "@/utils/strapi";
 
-export function OneStop() {
+export function OneStop({ section }: { section: CommonSection }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     containScroll: "trimSnaps",
@@ -35,16 +37,16 @@ export function OneStop() {
 
   return (
     <Section
-      title="Experience creative innovative system technology expert Efficient Premium professional smart"
-      desc="Partner growth solution Factory sustainable innovative quality Modern success success reliable future innovative Professional modern Success Expert professional platform success smart success customer Innovative Growth premium Technology Smart technology system"
+      title={section.title!}
+      desc={section.desc!}
       className="bg-[#fafafa]"
     >
       <div className="flex-row items-center justify-center hidden xl:flex xl:visible xl:mt-16.25">
         {
-          [1, 2, 3, 4].map((xs, idx) => (
-            <div key={idx} className="flex flex-col items-center">
+          section.data?.map((xs, idx) => (
+            <div key={xs.id} className="cursor-pointer flex flex-col items-center" onClick={() => emblaApi?.goTo(idx)}>
               <div className={cn("text-base font-medium w-9 h-9 rounded-full flex flex-row items-center justify-center transition-all duration-300", selectedIndex === idx ? 'bg-accent text-white' : 'text-accent')}>0{idx + 1}</div>
-              <p className="mt-2 mb-3 text-base font-medium">Ipsum ipsum</p>
+              <p className="mt-2 mb-3 text-base font-medium">{xs.label}</p>
               <Image src={selectedIndex === idx ? Assets.RulerOn : Assets.RulerOff} alt="ruler" />
             </div>
           ))
@@ -55,25 +57,25 @@ export function OneStop() {
       <div className="mt-10 overflow-hidden xl:mt-12 xl:w-7xl xl:mx-auto" ref={emblaRef}>
         <div className="flex flex-row">
           {
-            [1, 2, 3, 4].map((xs, idx) => (
+            section.data?.map((xs, idx) => (
               <div
-                key={idx}
+                key={xs.id}
                 className="flex flex-col shrink-0 w-80 border border-[#bfbfbf] bg-[#fafafa] rounded-xl py-5 px-4 ml-5 text-left xl:ml-0 xl:px-0 xl:w-full xl:border-0 xl:flex-row-reverse">
-                <Image src={Assets.Cap} className="object-cover xl:w-120 xl:h-75" alt="cap" />
+                <Image width={480} height={300} src={getStrapiMedia(xs.image) ?? ""} className="object-cover w-72 h-45 xl:w-120 xl:h-75" alt="cap" />
                 <div className="shrink-0 invisible xl:visible xl:w-px xl:h-full xl:bg-[#efefef] xl:mx-15"></div>
                 <div>
-                  <p className="text-2xl font-semibold mt-5 mb-3 xl:text-[32px] xl:mb-4">Consectetur dolor at repudiandae nostrum.</p>
-                  <p className="text-sm text-[rgba(34,34,34,0.66)]">Sit nisi blanditiis distinctio fugiat omnis ex? Magnam numquam repudiandae repellat quod odio. Velit similique praesentium eaque inventore vitae optio? Fugiat quod iusto quae qui eos! Repellendus perferendis quisquam quasi harum ex? Dolore ab esse nesciunt molestiae in! Nesciunt molestias vitae dolorem suscipit quo laboriosam Aperiam quidem sequi dolores dolorem</p>
+                  <p className="text-2xl font-semibold mt-5 mb-3 xl:text-[32px] xl:mb-4">{xs.title}</p>
+                  <p className="text-sm text-[rgba(34,34,34,0.66)]">{xs.desc}</p>
 
 
-                  <div className="mt-5 flex flex-col xl:mt-6 xl:flex-row xl:flex-wrap">
+                  <div className="mt-5 grid grid-cols-1 xl:mt-6 xl:grid-cols-2">
                     {
-                      [1, 2, 3, 4, 5].map((xs, idx) => (
-                        <div key={idx} className="flex flex-row items-center shrink-0 mb-2 xl:mr-15 xl:mb-3">
+                      xs.items?.map((item, idx) => (
+                        <div key={item.id} className="flex flex-row items-center shrink-0 mb-2 xl:mr-15 xl:mb-3">
                           <div className="w-4 h-4 flex justify-center items-center mr-2 bg-accent rounded-full">
                             <Image src={Assets.Check} className="w-2 " alt="check" />
                           </div>
-                          <span className="font-semibold text-sm">Elit autem deserunt delectus in</span>
+                          <span className="font-semibold text-sm">{item.title}</span>
                         </div>
                       ))
                     }

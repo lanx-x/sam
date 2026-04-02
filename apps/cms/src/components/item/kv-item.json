@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_item_kv_items",
+  "info": {
+    "displayName": "KVItem"
+  },
+  "options": {},
+  "attributes": {
+    "key": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

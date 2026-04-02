@@ -15,7 +15,7 @@ export function Section(props: PropsWithChildren<SectionProps>) {
     <div className={cn(`relative text-center py-10 xl:py-20`, props.className)}>
       {props.bg ? <Image src={props.bg} fill alt="section-bg" className={cn("object-cover", props.bgClassName)} /> : null}
       <div className={`${props.bg && 'relative z-10'} xl:w-7xl xl:mx-auto`}>
-        <div className="px-5 flex flex-col">
+        <div className="px-5 flex flex-col xl:px-0">
           <p className="section-title">{props.title}</p>
           <p className="section-desc">{props.desc}</p>
         </div>

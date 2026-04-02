@@ -44,7 +44,10 @@
         }
       },
       "components": [
-        "section.common-section"
+        "section.common-section",
+        "section.story-section",
+        "section.equipment-section",
+        "section.spe-section"
       ]
     }
   }

@@ -26,6 +26,7 @@ import Ins from "./ins.svg";
 import Iqc from "./iqc.png";
 import Iso from "./iso.png";
 import Lang from "./lang.svg";
+import LinkWhite from "./link-white.svg";
 import Link from "./link.svg";
 import LogoText from "./logo-text.svg";
 import Logo from "./logo.svg";
@@ -71,6 +72,7 @@ export const Assets = {
   Iqc,
   Iso,
   Lang,
+  LinkWhite,
   Link,
   LogoText,
   Logo,

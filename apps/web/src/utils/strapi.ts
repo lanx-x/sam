@@ -12,14 +12,14 @@ type MediaLike =
   | string
   | StaticImageData
   | {
+    url?: string | null;
+    data?: {
       url?: string | null;
-      data?: {
+      attributes?: {
         url?: string | null;
-        attributes?: {
-          url?: string | null;
-        } | null;
       } | null;
-    }
+    } | null;
+  }
   | null
   | undefined;
 
@@ -40,7 +40,7 @@ export async function fetchStrapi<T>(
   options: FetchOptions = {}
 ): Promise<T> {
   const { params, ...fetchOptions } = options;
-  
+
   // Build URL with query parameters
   const url = new URL(`${STRAPI_URL}/api${path.startsWith('/') ? path : `/${path}`}`);
   if (params) {

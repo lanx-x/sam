@@ -2,12 +2,13 @@
 
 import { Assets } from "@/assets";
 import { cn } from "@/utils/cn";
+import { getStrapiMedia } from "@/utils/strapi";
+import { CommonSection } from "cms-types";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export function WorkShop() {
-  const data = [1, 2, 3, 4, 5, 6]
+export function WorkShop({ section }: { section: CommonSection }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   })
@@ -17,12 +18,12 @@ export function WorkShop() {
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
           {
-            data.map((xs, idx) => (
+            section.data?.map((xs, idx) => (
               <div key={idx} className="ml-5 shrink-0 w-20/39 xl:w-100">
-                <Image src={Assets.Cap} alt="" className="rounded-lg mb-5" />
+                <Image width={400} height={240} src={getStrapiMedia(xs.image) ?? ""} alt="" className="rounded-lg mb-5" />
                 <div>
-                  <p className="text-base font-semibold mb-2 leading-none xl:text-lg">Lorem ex hic sapiente adipisci.</p>
-                  <p className="leading-none text-sm">Lorem minus assumenda harum natus praesentium beatae quos Molestias necessitatibus aspernatur laborum earum non eum. Odit hic consectetur nemo ex debitis Quasi iste dignissimos reiciendis beatae ipsam. Necessitatibus perspiciatis praesentium</p>
+                  <p className="text-base font-semibold mb-2 leading-none xl:text-lg">{xs.title}</p>
+                  <p className="leading-none text-sm">{xs.desc}</p>
                 </div>
 
               </div>

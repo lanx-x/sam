@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_item_spe_items",
+  "info": {
+    "displayName": "SpeItem"
+  },
+  "options": {},
+  "attributes": {
+    "key": {
+      "type": "enumeration",
+      "enum": [
+        "Processability",
+        "Strength",
+        "Corrosion resistance",
+        "Typical applications"
+      ]
+    },
+    "value": {
+      "type": "enumeration",
+      "enum": [
+        "Excellence",
+        "Good",
+        "Medium"
+      ]
+    }
+  },
+  "config": {}
+}

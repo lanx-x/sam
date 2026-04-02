@@ -46,16 +46,14 @@ export interface ItemCommonItem extends Struct.ComponentSchema {
   };
 }
 
-export interface ItemFaqItem extends Struct.ComponentSchema {
-  collectionName: 'components_item_faq_items';
+export interface ItemKvItem extends Struct.ComponentSchema {
+  collectionName: 'components_item_kv_items';
   info: {
-    displayName: 'FaqItem';
+    displayName: 'KVItem';
   };
   attributes: {
-    answer: Schema.Attribute.Text;
-    question: Schema.Attribute.Text &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
+    key: Schema.Attribute.String;
+    value: Schema.Attribute.String;
   };
 }
 
@@ -68,6 +66,24 @@ export interface ItemNestItem extends Struct.ComponentSchema {
     desc: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface ItemSpeItem extends Struct.ComponentSchema {
+  collectionName: 'components_item_spe_items';
+  info: {
+    displayName: 'SpeItem';
+  };
+  attributes: {
+    key: Schema.Attribute.Enumeration<
+      [
+        'Processability',
+        'Strength',
+        'Corrosion resistance',
+        'Typical applications',
+      ]
+    >;
+    value: Schema.Attribute.Enumeration<['Excellence', 'Good', 'Medium']>;
   };
 }
 
@@ -86,6 +102,54 @@ export interface SectionCommonSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionEquipmentSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_equipment_sections';
+  info: {
+    displayName: 'EquipmentSection';
+  };
+  attributes: {
+    desc: Schema.Attribute.Text;
+    equipments: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::equipment.equipment'
+    >;
+    label: Schema.Attribute.String;
+    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionSpeSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_spe_sections';
+  info: {
+    displayName: 'SpeSection';
+  };
+  attributes: {
+    desc: Schema.Attribute.Text;
+    label: Schema.Attribute.String;
+    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
+    specifications: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::specification.specification'
+    >;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionStorySection extends Struct.ComponentSchema {
+  collectionName: 'components_section_story_sections';
+  info: {
+    displayName: 'StorySection';
+  };
+  attributes: {
+    desc: Schema.Attribute.Text;
+    label: Schema.Attribute.String;
+    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
+    stories: Schema.Attribute.Relation<'oneToMany', 'api::story.story'>;
+    title: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -93,9 +157,13 @@ declare module '@strapi/strapi' {
       'global.seo': GlobalSeo;
       'item.button-item': ItemButtonItem;
       'item.common-item': ItemCommonItem;
-      'item.faq-item': ItemFaqItem;
+      'item.kv-item': ItemKvItem;
       'item.nest-item': ItemNestItem;
+      'item.spe-item': ItemSpeItem;
       'section.common-section': SectionCommonSection;
+      'section.equipment-section': SectionEquipmentSection;
+      'section.spe-section': SectionSpeSection;
+      'section.story-section': SectionStorySection;
     }
   }
 }

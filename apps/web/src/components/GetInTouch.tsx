@@ -7,16 +7,16 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Section } from "./Section";
 import { Subscribe } from "./Subscribe";
+import { CommonSection } from "cms-types";
+import { getStrapiMedia } from "@/utils/strapi";
 
-export function GetInTouch() {
+export function GetInTouch({ section }: { section: CommonSection }) {
   return (
     <Section
-      title="Efficient Success quality development premium solution Customer modern Future smart"
-      desc="Development solution experience professional Future success future premium premium Technology technology digital Service customer factory development Quality modern Platform development"
+      title={section.title!}
+      desc={section.desc!}
       className="text-white"
-      bg={Assets.Contact}
-      bgClassName="object-[20%_center] xl:object-[center_center]"
-
+      bg={getStrapiMedia(section.image) ?? ""}
     >
       <div className="relative w-full px-5 mt-15">
         <Subscribe className="xl:w-145 xl:mx-auto" />

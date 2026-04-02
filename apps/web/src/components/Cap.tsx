@@ -1,3 +1,4 @@
+'use client';
 
 import Image from "next/image";
 import { Assets } from "@/assets";
@@ -7,45 +8,35 @@ import { CustomerStory, Equipment, FAQ, SayAbout, Specification, WorkShop, WorkW
 import { getHomePage, type HomePageData } from "@/api";
 import { getStrapiMedia } from "@/utils/strapi";
 import { defaultLocale, isLocale } from "@/i18n";
-import type { CapItemData, CapSectionData, StatItemData } from "cms-types";
+import type { CapItemData, CapSectionData, CommonSection, StatItemData } from "cms-types";
 import { Section } from "./Section";
 
 type StatDisplayItem = Pick<StatItemData, "label" | "value" | "image">;
 type CapDisplayItem = Pick<CapItemData, "label" | "desc" | "image">;
 
-export function Cap({ cap }: { cap?: CapSectionData }) {
-  const defaultData: CapDisplayItem[] = [
-    { label: "Consectetur id ullam!", desc: "Consectetur ducimus suscipit quasi obcaecati ducimus? Fugit illum aspernatur fugit velit fuga!", image: null },
-    { label: "Consectetur id ullam!", desc: "Consectetur ducimus suscipit quasi obcaecati ducimus? Fugit illum aspernatur fugit velit fuga!", image: null },
-    { label: "Consectetur id ullam!", desc: "Consectetur ducimus suscipit quasi obcaecati ducimus? Fugit illum aspernatur fugit velit fuga!", image: null },
-    { label: "Consectetur id ullam!", desc: "Consectetur ducimus suscipit quasi obcaecati ducimus? Fugit illum aspernatur fugit velit fuga!", image: null },
-  ];
-  const title = cap?.title || "Dolor amet repudiandae accusamus officia";
-  const desc = cap?.desc || "Dolor ipsam vero aliquam esse recusandae, quasi dignissimos Laboriosam ipsum.";
-  const items: CapDisplayItem[] = cap?.data?.length ? cap.data : defaultData;
-
+export function Cap({ section }: { section: CommonSection }) {
   return (
     <Section
-      title="ssectetur id sectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamullamectetur id ullam"
-      desc="sectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamConsectetur ducimus suscipit quasi obcaecati ducimus? Fugit illum aspernatur fugit velit fuga!">
+      title={section.title!}
+      desc={section.desc!}>
       <div className="flex flex-col mt-10 xl:w-7xl xl:mx-auto xl:flex-row">
         {
-          items.map((xs, idx) => {
+          section.data?.map((xs, idx) => {
             const imageUrl = getStrapiMedia(xs.image) || Assets.Cap;
             return (
-              <div key={idx} className="group w-full aspect-35/16 relative xl:w-80 xl:h-120">
+              <div key={xs.id} className="group w-full aspect-35/16 relative xl:w-80 xl:h-120">
                 <Image src={imageUrl} alt="cap" fill className="object-cover" />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,35,70,0)_0%,#001123_100%)]" />
                 <div className="px-5 relative w-full h-full flex flex-col group-hover:hidden">
-                  <h3 className="text-white text-2xl font-semibold mb-10 mt-auto truncate">{xs.label || "Ipsum nostrum est perspiciatis provident?"}</h3>
+                  <h3 className="text-white text-2xl font-semibold mb-10 mt-auto truncate">{xs.title}</h3>
                 </div>
                 <div className="absolute inset-0 bg-[rgba(0,118,238,0.90)] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   <div className="h-full w-full px-5 pt-30 pb-12 text-left flex flex-col">
-                    <p className="font-semibold text-2xl/none text-white mb-8">{xs.label || "Consectetur id ullam!"}</p>
-                    <p className="text-white text-sm leading-4.5 flex-1">{xs.desc || "Consectetur ducimus suscipit quasi obcaecati ducimus? Fugit illum aspernatur fugit velit fuga!"}</p>
+                    <p className="font-semibold text-2xl/none text-white mb-8">{xs.title}</p>
+                    <p className="text-white text-sm leading-4.5 flex-1">{xs.desc}</p>
                     <div className="text-white font-medium text-base flex flex-row items-center">
-                      <span>View more</span>
-                      <Image src={Assets.Link} alt="link" className="ml-3" />
+                      <span>{xs.label}</span>
+                      <Image src={Assets.LinkWhite} alt="link" className="ml-3" />
 
                     </div>
                   </div>

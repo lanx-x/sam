@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_section_story_sections",
+  "info": {
+    "displayName": "StorySection"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "stories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::story.story"
+    },
+    "label": {
+      "type": "string"
+    },
+    "renderer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::renderer.renderer"
+    }
+  },
+  "config": {}
+}

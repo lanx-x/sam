@@ -113,7 +113,6 @@ export default async function RootLayout({
           <Broadcast />
           <Nav />
           {children}
-          <GetInTouch />
           <Footer />
         </I18nProvider>
       </body>

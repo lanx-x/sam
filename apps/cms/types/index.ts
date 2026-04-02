@@ -34,8 +34,7 @@ export type StrapiSingleResponse<T> = {
 
 export type HomePageData = StrapiDocument<"api::home-page.home-page">;
 export type PageData = StrapiDocument<"api::page.page">;
-// export type HeroSectionData = StrapiComponent<"section.hero-section">;
-// export type CapSectionData = StrapiComponent<"section.cap-section">;
-// export type StatItemData = StrapiComponent<"item.stat-item">;
-// export type HeroItemData = StrapiComponent<"ui.slogon-item">;
-// export type CapItemData = StrapiComponent<"ui.cap-item">;
+export type CommonSection = StrapiComponent<"section.common-section">;
+export type StorySection = StrapiComponent<"section.story-section">
+export type SpeSection = StrapiComponent<"section.spe-section">
+export type EquipmentSection = StrapiComponent<"section.equipment-section">

@@ -7,10 +7,10 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Section } from "./Section";
+import { CommonSection, StorySection } from "cms-types";
+import { getStrapiMedia } from "@/utils/strapi";
 
-export function CustomerStory() {
-  const data = [1, 2, 3, 4]
-
+export function CustomerStory({ section }: { section: StorySection }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
 
@@ -42,41 +42,39 @@ export function CustomerStory() {
   }, [emblaApi]);
 
   return (
-    // <div className="bg-[#fafafa] py-10 text-center relative xl:pt-20 xl:pb-19">
-    //   <h2 className="px-5 section-title">Ipsum accusantium error beatae sit</h2>
-    //   <p className="section-desc">Amet repellat quaerat nesciunt corporis quo Optio nihil ipsa expedita?</p>
-
-
     <Section
-      title="Creative Success future Global smart production professional global technology partner"
-      desc="Success creative Factory Factory technology customer creative production development factory Technology platform development smart Quality system Experience smart creative factory"
+      title={section.title!}
+      desc={section.desc!}
       className="bg-[#fafafa]"
     >
       <div className="py-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
           {
-            data.map((xs, idx) => (
+            section.stories?.map((xs, idx) => (
               <div className="w-full shrink-0 flex items-center justify-center px-5" key={idx}>
 
                 <div
                   className="flex flex-col bg-white rounded-lg overflow-hidden shadow-[0_8px_24px_0_rgba(0,0,0,0.08)] xl:flex-row xl:w-7xl xl:h-130"
                   key={idx}>
-                  <Image className="object-cover xl:w-160" src={Assets.Cap} alt="" />
+                  <Image width={640} height={520} className="object-cover w-full aspect-64/52 xl:w-160" src={getStrapiMedia(xs.image?.[0]) ?? ""} alt="" />
                   <div className="flex flex-col px-5 pt-4 pb-7 text-left xl:px-10 xl:pt-6 xl:pb-8">
-                    <span className="self-start leading-8 bg-[#e5f2ff] border border-accent h-8 px-3.5 font-semibold rounded-sm inline-block xl:text-lg xl:h-10 xl:leading-10">Automotive</span>
-                    <p className="my-2 font-semibold text-lg leading-none xl:mt-4 xl:mb-3 xl:text-[32px]">Ipsum maiores voluptates ipsum magni impedit. Repellat autem nulla accusamus</p>
-                    <p className="text-sm leading-3.5 xl:text-base xl:leading-5">Amet sit laboriosam aliquid reiciendis veniam deserunt? Odio inventore architecto unde vel exercitationem, vero Possimus hic culpa repellendus suscipit aliquam!</p>
+                    <span className="self-start leading-8 bg-[#e5f2ff] border border-accent h-8 px-3.5 font-semibold rounded-sm inline-block xl:text-lg xl:h-10 xl:leading-10">{xs.industry}</span>
+                    <p className="my-2 font-semibold text-lg leading-none xl:mt-4 xl:mb-3 xl:text-[32px]">{xs.title}</p>
+                    <p className="text-sm leading-3.5 xl:text-base xl:leading-5">{xs.desc}</p>
 
-                    <div className="xl:mt-6.5 xl:text-base flex-1">
-                      <p className="">lorem: Consectetur possimus cum pariatur mollitia.</p>
-                      <p className="">lorem: Consectetur possimus cum pariatur mollitia.</p>
-                      <p className="">lorem: Consectetur possimus cum pariatur mollitia.</p>
-                      <p className="">lorem: Consectetur possimus cum pariatur mollitia.</p>
-                      <p className="">lorem: Consectetur possimus cum pariatur mollitia.</p>
+                    <div className="mt-6.5 xl:text-base flex-1">
+                      {
+                        xs.parameter?.map(item => (
+                          <p key={item.id} className="">
+                            <span>{item.key}: </span>
+                            <span>{item.value}</span>
+                          </p>
+                        ))
+                      }
                     </div>
 
                     <div className="hidden text-right text-accent text-base justify-end font-medium items-center xl:flex">
-                      <p className="mr-2">Read Full Case Study</p>
+                      <p className="mr-2">{section.label}</p>
                       <Image src={Assets.ArrowR} alt="arrow" />
                     </div>
                   </div>
@@ -90,7 +88,7 @@ export function CustomerStory() {
 
       <div className="hidden xl:flex mx-auto justify-center">
         {
-          [1, 2, 3, 4, 5].map((xs, idx) => (
+          section.stories?.map((xs, idx) => (
             <div key={idx}>
               <p className={`text-xs ${selectedIndex === idx ? 'text-[#666]' : 'text-[#bfbfbf]'}`}>0{idx + 1}</p>
               <div className={`w-12 h-1 border-b border-l ${selectedIndex === idx ? 'border-secondary' : 'border-[#efefef]'} last:border-r`}></div>

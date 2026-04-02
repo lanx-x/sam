@@ -42,14 +42,17 @@ export default async function CatchAllPage({ params, }: { params: Promise<{ lang
   return (
     <div>
       {
-        pageData.content?.map((section, idx) => (
-          <div key={section.id}>
-            {CmpMap[section.renderer?.cmp](section)}
+        pageData.content?.map((section) => {
+          const Cmp = CmpMap[section.renderer?.cmp ?? ""];
 
-          </div>
-        ))
+          if (!Cmp) {
+            logger.warn(`Unknown renderer: ${section.renderer?.cmp}`);
+            return null;
+          }
+
+          return <Cmp key={section.id} section={section} />;
+        })
       }
-
     </div>
   )
 }

@@ -6,53 +6,18 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Section } from "./Section";
+import { CommonSection, SpeSection } from "cms-types";
+import { getStrapiMedia } from "@/utils/strapi";
 
-export function Spe() {
-  const data = [1, 2, 3, 4, 5, 6, 7, 8]
+export function Spe({ section }: { section: SpeSection }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   })
 
-  const specs = [
-    {
-      label: 'Processability',
-      value: 'Excellence',
-    },
-    {
-      label: 'Processability',
-      value: 'Excellence',
-    },
-    {
-      label: 'Processability',
-      value: 'Excellence',
-    },
-    {
-      label: 'Processability',
-      value: 'Excellence',
-    },
-    {
-      label: 'Processability',
-      value: 'Excellence',
-    },
-    {
-      label: 'Processability',
-      value: 'Excellence',
-    },
-    {
-      label: 'Processability',
-      value: 'Excellence',
-    },
-    {
-      label: 'Processability',
-      value: 'Excellence',
-    },
-  ]
-
-
   return (
     <Section
-      title="Efficient Success quality development premium solution Customer modern Future smart"
-      desc="Development solution experience professional Future success future premium premium Technology technology digital Service customer factory development Quality modern Platform development"
+      title={section.title!}
+      desc={section.desc!}
       className="xl:text-left"
 
     >
@@ -60,17 +25,17 @@ export function Spe() {
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex flex-row">
             {
-              data.map((xs, idx) => (
-                <div key={idx} className="shrink-0 w-305/390 bg-[#fafafa] rounded-lg overflow-hidden ml-5 xl:w-76.25">
-                  <Image className="object-cover rounded-lg xl:h-40" src={Assets.Cap} alt="" />
+              section.specifications?.map((xs, idx) => (
+                <div key={xs.id} className="shrink-0 w-305/390 bg-[#fafafa] rounded-lg overflow-hidden ml-5 xl:first:ml-0  xl:w-76.25">
+                  <Image className="object-cover w-full rounded-lg xl:h-40" width={305} height={160} src={getStrapiMedia(xs.image?.[0]) ?? ""} alt="" />
                   <div className="px-5 text-left">
-                    <p className="my-5 text-lg font-semibold leading-none">Ipsum placeat officiis consequatur rem.</p>
+                    <p className="my-5 text-lg font-semibold leading-none">{xs.title}</p>
 
                     {
-                      specs.map((xs, idx) => (
+                      xs.parameter?.map((item, idx) => (
                         <div key={idx} className="flex flex-col border-b-[#efefef] border-b pb-4 mb-4 last:border-none">
-                          <span className="text-base">{xs.label}</span>
-                          <span className="text-sm">{xs.value}</span>
+                          <span className="text-base">{item.key}</span>
+                          <span className="text-sm">{item.value}</span>
                         </div>
                       ))
                     }
