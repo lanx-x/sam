@@ -1,4 +1,5 @@
 import type { StaticImageData } from "next/image";
+import { logger } from "./logger";
 
 const STRAPI_URL = process.env.STRAPI_API_URL || 'http://127.0.0.1:1337';
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
@@ -49,9 +50,8 @@ export async function fetchStrapi<T>(
   }
 
   const start = Date.now();
-  const requestId = Math.random().toString(36).substring(7);
 
-  console.log(`[Strapi Request] [${requestId}] ${fetchOptions.method || 'GET'} ${url.toString()}`);
+  logger.debug(`[Strapi] ${fetchOptions.method || 'GET'} ${url.toString()}`);
 
   try {
     const response = await fetch(url.toString(), {
@@ -64,11 +64,11 @@ export async function fetchStrapi<T>(
     });
 
     const duration = Date.now() - start;
-    console.log(`[Strapi Response] [${requestId}] ${response.status} ${response.statusText} (${duration}ms)`);
+    logger.debug(`[Strapi] ${response.status} ${response.statusText} (${duration}ms)`);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      console.error(`[Strapi Error] [${requestId}]`, errorData);
+      logger.error(`[Strapi]`, errorData);
       throw new Error(`Strapi request failed: ${response.statusText}`);
     }
 
@@ -76,7 +76,7 @@ export async function fetchStrapi<T>(
     return data as T;
   } catch (error) {
     const duration = Date.now() - start;
-    console.error(`[Strapi Network Error] [${requestId}] ${error} (${duration}ms)`);
+    logger.error(`[Strapi] ${error} (${duration}ms)`);
     throw error;
   }
 }

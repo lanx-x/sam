@@ -13,6 +13,7 @@ export function handleI18nProxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  console.log("###### pathname ", pathname)
   const segments = pathname.split("/").filter(Boolean);
   const firstSegment = segments[0];
 
@@ -29,5 +30,7 @@ export function handleI18nProxy(request: NextRequest) {
 
   const rewriteUrl = request.nextUrl.clone();
   rewriteUrl.pathname = `/${defaultLocale}${pathname === "/" ? "" : pathname}`;
+
+  console.log("######### rewrite to ", rewriteUrl.pathname)
   return NextResponse.rewrite(rewriteUrl);
 }

@@ -1,11 +1,22 @@
 import { fetchStrapi } from "@/utils/strapi";
-import type { HomePageData, StrapiSingleResponse } from "cms-types";
+import type { HomePageData, PageData, StrapiSingleResponse, StrapiCollectionResponse } from "cms-types";
 
-export type { HomePageData };
+export type { HomePageData, PageData };
 
 export async function getHomePage(lang: string = 'en') {
   return fetchStrapi<StrapiSingleResponse<HomePageData>>('/home-page', {
     params: {
+      locale: lang,
+      pLevel: true
+    },
+    next: { revalidate: 60 }
+  });
+}
+
+export async function getPage(slug: string, lang: string = 'en') {
+  return fetchStrapi<StrapiCollectionResponse<PageData>>('/pages', {
+    params: {
+      'filters[slug][$eq]': slug,
       locale: lang,
       pLevel: true
     },

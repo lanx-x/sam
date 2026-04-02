@@ -8,6 +8,10 @@ export function isLocale(value: string): value is Locale {
   return locales.includes(value as Locale);
 }
 
+export function getLocale(value: string) {
+  return locales.includes(value as Locale) ? value : defaultLocale
+}
+
 export function localizePath(locale: Locale, path: string) {
   if (locale === defaultLocale) {
     return path === "" ? "/" : path;
