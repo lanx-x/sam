@@ -1,22 +1,29 @@
+'use client';
 import { Assets } from "@/assets";
+import { getStrapiMedia, getStrapiURL } from "@/utils/strapi";
 import { CommonSection } from "cms-types";
 import Image from "next/image";
 
 export function CommonHero({ section }: { section: CommonSection }) {
+
   return (
-    <div className="px-5 mb-12.5 xl:w-7xl xl:mx-auto xl:mb-14.5">
+    <div className="px-5 py-10 text-center xl:text-left xl:px-0 xl:w-7xl xl:mx-auto">
       <div className="relative flex flex-col xl:flex-row">
         <div className="mb-10 xl:mr-50">
-          <h2 className="section-title xl:text-left">Sit esse minima dignissimos sint veniam! Et sapiente eum necessitatibus.</h2>
-          <p className="section-desc xl:text-left">Amet repellendus a ipsam magnam quasi dicta Culpa reiciendis sed incidunt provident saepe maxime Quo quas corporis dolorum magnam similique?</p>
+          <h2 className="section-title">{section.title}</h2>
+          <p className="section-desc">{section.desc}</p>
         </div>
 
-        <Image className="rounded-2xl xl:rounded-3xl xl:w-135 xl:h-80 object-cover" src={Assets.Cap} alt="" />
+        <Image width={540} height={320} className="w-full rounded-2xl xl:rounded-3xl xl:w-135 xl:h-80 object-cover" src={getStrapiMedia(section.image) ?? ""} alt="" />
 
 
         <div className="flex flex-col mt-10 xl:flex-row xl:absolute xl:bottom-0">
-          <button className="bg-accent rounded-sm text-white aspect-350/52 mb-4 xl:mb-0 xl:mr-5 xl:w-50 xl:aspect-200/52 truncate xl:px-4">Lorem nesciunt repellat consectetur ratione.</button>
-          <button className="bg-primary rounded-sm text-white aspect-350/52 xl:w-50 xl:aspect-200/52 truncate xl:px-4">Lorem consectetur aspernatur lorem</button>
+          {
+            section.actions?.map((xs, idx) => (
+
+              <button key={idx} className="bg-primary first:bg-accent rounded-sm text-white h-13 mb-4 xl:mb-0 xl:mr-5 xl:w-50 xl:aspect-200/52 truncate xl:px-4">{xs.label}</button>
+            ))
+          }
         </div>
       </div>
 

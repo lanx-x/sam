@@ -1,3 +1,5 @@
+'use client';
+
 import { Assets } from "@/assets";
 import Image from "next/image";
 

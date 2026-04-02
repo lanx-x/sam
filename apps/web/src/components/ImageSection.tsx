@@ -1,3 +1,5 @@
+'use client';
+
 import { Assets } from "@/assets";
 import Image, { StaticImageData } from "next/image";
 import { PropsWithChildren } from "react";

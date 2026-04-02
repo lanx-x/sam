@@ -11,6 +11,8 @@ import { WorkWith } from "./WorkWith";
 import { WorkShop } from "./WorkShop";
 import { FAQ } from "./FAQ";
 import { GetInTouch } from "./GetInTouch";
+import { CommonHero } from "./CommonHero";
+import { Partner } from "./Partner";
 
 export const CmpMap: Record<string, ComponentType<{ section: unknown }>> = {
   MainHero,
@@ -25,4 +27,7 @@ export const CmpMap: Record<string, ComponentType<{ section: unknown }>> = {
   WorkShop,
   FAQ,
   GetInTouch,
+
+  CommonHero,
+  Partner,
 }
