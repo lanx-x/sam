@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_section_common_sections",
+  "info": {
+    "displayName": "CommonSection"
+  },
+  "options": {},
+  "attributes": {
+    "renderer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::renderer.renderer"
+    },
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "actions": {
+      "type": "component",
+      "component": "item.button-item",
+      "repeatable": true
+    },
+    "data": {
+      "type": "component",
+      "component": "item.common-item",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

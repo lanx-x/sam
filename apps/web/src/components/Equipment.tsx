@@ -1,10 +1,9 @@
 'use client';
 
 import { Assets } from "@/assets";
-import { cn } from "@/utils/cn";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Section } from "./Section";
 
 export function Equipment() {
   const data = [1, 2, 3, 4]
@@ -14,12 +13,18 @@ export function Equipment() {
 
 
   return (
-    <div className="text-center pt-10 pb-12.5 bg-[#fafafa] xl:text-left xl:pt-20 xl:pb-20">
-      <div className="relative xl:text-left xl:w-7xl xl:mx-auto">
-        <h2 className="px-5 section-title xl:px-0">Ipsum quod consequatur</h2>
-        <p className="px-5 section-desc xl:px-0">Amet beatae totam expedita quae fugiat, voluptatum? A cupiditate cumque?</p>
+    // <div className="text-center pt-10 pb-12.5 bg-[#fafafa] xl:text-left xl:pt-20 xl:pb-20">
+    //   <div className="relative xl:text-left xl:w-7xl xl:mx-auto">
+    //     <h2 className="px-5 section-title xl:px-0">Ipsum quod consequatur</h2>
+    //     <p className="px-5 section-desc xl:px-0">Amet beatae totam expedita quae fugiat, voluptatum? A cupiditate cumque?</p>
 
-        <div className="mt-10 overflow-hidden" ref={emblaRef}>
+    <Section
+      title="Reliable growth Growth Solution advanced Management Sustainable Smart Platform Success"
+      desc="Modern creative modern smart factory Solution modern Advanced expert global partner growth innovative premium management Smart global Solution Reliable sustainable"
+      className="text-left"
+    >
+      <div className="relative mt-10">
+        <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex flex-row w-full">
             {
               data.map((xs, idx) => (
@@ -48,12 +53,12 @@ export function Equipment() {
           </div>
         </div>
 
-        <div className="flex flex-row justify-center mt-10 xl:absolute xl:top-0 xl:right-0">
-          <button className="mx-3" onClick={() => emblaApi?.goToPrev()}><Image src={Assets.BlackArrowL} alt="prev" /></button>
-          <button className="mx-3" onClick={() => emblaApi?.goToNext()}><Image src={Assets.BlackArrowR} alt="next" /></button>
+        <div className="flex flex-row justify-center mt-10 xl:mt-0 xl:absolute xl:-top-13 xl:right-0">
+          <button className="ml-3" onClick={() => emblaApi?.goToPrev()}><Image src={Assets.BlackArrowL} alt="prev" /></button>
+          <button className="ml-3" onClick={() => emblaApi?.goToNext()}><Image src={Assets.BlackArrowR} alt="next" /></button>
         </div>
       </div>
-    </div>
+    </Section >
   )
 
 }

@@ -6,6 +6,7 @@ import { cn } from "@/utils/cn";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Section } from "./Section";
 
 export function CustomerStory() {
   const data = [1, 2, 3, 4]
@@ -41,11 +42,16 @@ export function CustomerStory() {
   }, [emblaApi]);
 
   return (
-    <div className="bg-[#fafafa] py-10 text-center relative xl:pt-20 xl:pb-19">
-      <h2 className="px-5 section-title">Ipsum accusantium error beatae sit</h2>
-      <p className="section-desc">Amet repellat quaerat nesciunt corporis quo Optio nihil ipsa expedita?</p>
+    // <div className="bg-[#fafafa] py-10 text-center relative xl:pt-20 xl:pb-19">
+    //   <h2 className="px-5 section-title">Ipsum accusantium error beatae sit</h2>
+    //   <p className="section-desc">Amet repellat quaerat nesciunt corporis quo Optio nihil ipsa expedita?</p>
 
 
+    <Section
+      title="Creative Success future Global smart production professional global technology partner"
+      desc="Success creative Factory Factory technology customer creative production development factory Technology platform development smart Quality system Experience smart creative factory"
+      className="bg-[#fafafa]"
+    >
       <div className="py-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
           {
@@ -95,14 +101,14 @@ export function CustomerStory() {
 
       </div>
 
-      <div className="flex w-full flex-row justify-center xl:absolute xl:top-110">
+      <div className="flex w-full flex-row justify-center xl:left-0 xl:absolute xl:top-110">
         <div className="flex flex-row xl:w-355 xl:justify-between">
           <button className="mx-3" onClick={() => emblaApi?.goToPrev()}><Image src={Assets.BlackArrowL} alt="prev" /></button>
           <button className="mx-3" onClick={() => emblaApi?.goToNext()}><Image src={Assets.BlackArrowR} alt="next" /></button>
         </div>
       </div>
 
-    </div>
+    </Section>
   )
 }
 

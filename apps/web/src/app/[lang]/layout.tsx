@@ -7,6 +7,7 @@ import { defaultLocale, getDictionary, isLocale, type Locale, I18nProvider } fro
 import { Broadcast } from "@/components/Broadcast";
 import { Menu } from "@/components/Menu";
 import { Subscribe } from "@/components/Subscribe";
+import { GetInTouch } from "@/components/GetInTouch";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,20 +30,6 @@ function Nav() {
         <div className="ml-auto">
           <Menu />
         </div>
-      </div>
-    </div>
-  )
-}
-
-function Contact() {
-  return (
-    <div className="relative w-full">
-      <Image src={Assets.Contact} alt="contact" fill className="object-cover object-[20%_center] xl:object-[center_center]" />
-      <div className="relative text-white px-5 pt-15 pb-16.25 text-center xl:w-7xl xl:mx-auto">
-        <h2 className="section-title">Elit autem assumenda enim reprehenderit?</h2>
-        <p className="section-desc">Elit libero numquam fugit vitae dignissimos quidem. Numquam ut earum quibusdam incidunt beatae Natus sapiente exercitationem corporis recusandae perferendis. Laudantium!</p>
-
-        <Subscribe className="mt-15.75 xl:mt-15 xl:w-145 xl:mx-auto" />
       </div>
     </div>
   )
@@ -126,7 +113,7 @@ export default async function RootLayout({
           <Broadcast />
           <Nav />
           {children}
-          <Contact />
+          <GetInTouch />
           <Footer />
         </I18nProvider>
       </body>

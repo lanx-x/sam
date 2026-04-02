@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_common_seos",
+  "collectionName": "components_global_navs",
   "info": {
-    "displayName": "seo"
+    "displayName": "Nav"
   },
   "options": {},
   "attributes": {},

@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_section_get_in_touch_sections",
+  "collectionName": "components_global_seos",
   "info": {
-    "displayName": "GetInTouchSection"
+    "displayName": "SEO"
   },
   "options": {},
   "attributes": {
@@ -9,7 +9,7 @@
       "type": "string"
     },
     "desc": {
-      "type": "string"
+      "type": "text"
     }
   },
   "config": {}

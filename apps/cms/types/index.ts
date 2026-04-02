@@ -1,6 +1,6 @@
 import type { Modules, UID } from "@strapi/strapi";
-import type {} from "./generated/components";
-import type {} from "./generated/contentTypes";
+import type { } from "./generated/components";
+import type { } from "./generated/contentTypes";
 
 export type StrapiComponent<TUID extends UID.Component> =
   Modules.Documents.GetValues<TUID>;
@@ -33,8 +33,8 @@ export type StrapiSingleResponse<T> = {
 };
 
 export type HomePageData = StrapiDocument<"api::home-page.home-page">;
-export type HeroSectionData = StrapiComponent<"section.hero-section">;
-export type CapSectionData = StrapiComponent<"section.cap-section">;
-export type StatItemData = StrapiComponent<"ui.stat-item">;
-export type HeroItemData = StrapiComponent<"ui.slogon-item">;
-export type CapItemData = StrapiComponent<"ui.cap-item">;
+// export type HeroSectionData = StrapiComponent<"section.hero-section">;
+// export type CapSectionData = StrapiComponent<"section.cap-section">;
+// export type StatItemData = StrapiComponent<"item.stat-item">;
+// export type HeroItemData = StrapiComponent<"ui.slogon-item">;
+// export type CapItemData = StrapiComponent<"ui.cap-item">;

@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "renderers",
+  "info": {
+    "singularName": "renderer",
+    "pluralName": "renderers",
+    "displayName": "Renderer"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "cmp": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "desc": {
+      "type": "text"
+    },
+    "demo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

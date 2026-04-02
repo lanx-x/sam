@@ -8,6 +8,7 @@ import { getHomePage, type HomePageData } from "@/api";
 import { getStrapiMedia } from "@/utils/strapi";
 import { defaultLocale, isLocale } from "@/i18n";
 import type { CapItemData, CapSectionData, StatItemData } from "cms-types";
+import { Section } from "./Section";
 
 type StatDisplayItem = Pick<StatItemData, "label" | "value" | "image">;
 type CapDisplayItem = Pick<CapItemData, "label" | "desc" | "image">;
@@ -24,11 +25,10 @@ export function Cap({ cap }: { cap?: CapSectionData }) {
   const items: CapDisplayItem[] = cap?.data?.length ? cap.data : defaultData;
 
   return (
-    <div className="text-center px-5 bt mt-15 mb-10 xl:mb-18.25">
-      <h2 className="section-title">{title}</h2>
-      <p className="mb-10 section-desc">{desc}</p>
-
-      <div className="flex flex-col xl:w-7xl xl:mx-auto xl:flex-row">
+    <Section
+      title="ssectetur id sectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamullamectetur id ullam"
+      desc="sectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamsectetur id ullamConsectetur ducimus suscipit quasi obcaecati ducimus? Fugit illum aspernatur fugit velit fuga!">
+      <div className="flex flex-col mt-10 xl:w-7xl xl:mx-auto xl:flex-row">
         {
           items.map((xs, idx) => {
             const imageUrl = getStrapiMedia(xs.image) || Assets.Cap;
@@ -56,6 +56,6 @@ export function Cap({ cap }: { cap?: CapSectionData }) {
           })
         }
       </div>
-    </div>
+    </Section>
   )
 }

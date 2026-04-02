@@ -15,22 +15,15 @@
     }
   },
   "attributes": {
-    "data": {
-      "type": "dynamiczone",
+    "sections": {
+      "type": "component",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "components": [
-        "section.hero-section",
-        "section.work-with-section",
-        "section.service-secion",
-        "section.get-in-touch-section",
-        "section.faq-section",
-        "section.comment-secion",
-        "section.cap-section"
-      ]
+      "component": "section.common-section",
+      "repeatable": true
     }
   }
 }

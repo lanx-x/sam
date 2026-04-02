@@ -1,7 +1,7 @@
 import { Assets } from "@/assets";
 import Image from "next/image";
 
-export function PTech() {
+export function ProcessingTech() {
   return (
     <div className="px-5 xl:w-7xl xl:mx-auto">
       <h2 className="section-title">Sit repudiandae omnis nesciunt nihil a. Veniam voluptatem repellendus minus!</h2>

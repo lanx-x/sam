@@ -19,7 +19,7 @@ const marqueeLogos = Array.from({ length: 10 }, () => partnerLogos).flat();
 
 type HeroBannerItem = Pick<HeroItemData, "label" | "desc" | "image">;
 
-export function Hero({ data }: { data?: HeroSectionData }) {
+export function MainHero({ data }: { data?: HeroSectionData }) {
   const items: HeroBannerItem[] = data?.data ?? [];
 
   const [activeIndex, setActiveIndex] = useState(0);

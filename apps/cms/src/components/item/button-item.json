@@ -1,14 +1,14 @@
 {
-  "collectionName": "components_ui_work_with_items",
+  "collectionName": "components_item_button_items",
   "info": {
-    "displayName": "WorkWithItem"
+    "displayName": "ButtonItem"
   },
   "options": {},
   "attributes": {
     "label": {
       "type": "string"
     },
-    "desc": {
+    "action": {
       "type": "string"
     }
   },

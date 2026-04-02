@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { Assets } from "@/assets";
 import { useEffect, useState } from "react";
 import { cn } from "@/utils/cn";
+import { Section } from "./Section";
 
 export function OneStop() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -33,10 +34,11 @@ export function OneStop() {
   }, [emblaApi]);
 
   return (
-    <div className="text-center bg-[#fafafa] py-10">
-      <h2 className="px-5 section-title">Elit atque deleniti harum ex</h2>
-      <p className="px-5 section-desc">Ipsum corporis quis ipsum earum voluptates, sed. Deserunt provident velit.</p>
-
+    <Section
+      title="Experience creative innovative system technology expert Efficient Premium professional smart"
+      desc="Partner growth solution Factory sustainable innovative quality Modern success success reliable future innovative Professional modern Success Expert professional platform success smart success customer Innovative Growth premium Technology Smart technology system"
+      className="bg-[#fafafa]"
+    >
       <div className="flex-row items-center justify-center hidden xl:flex xl:visible xl:mt-16.25">
         {
           [1, 2, 3, 4].map((xs, idx) => (
@@ -88,6 +90,6 @@ export function OneStop() {
         <button type="button" onClick={() => emblaApi?.goToNext()}><Image className="w-12 h-12 " src={Assets.GrayArrowR} alt="right" /></button>
       </div>
 
-    </div>
+    </Section>
   )
 }

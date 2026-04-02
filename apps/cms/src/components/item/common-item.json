@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_item_common_items",
+  "info": {
+    "displayName": "CommonItem"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "label": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "target": {
+      "type": "string"
+    },
+    "actions": {
+      "type": "component",
+      "component": "item.button-item",
+      "repeatable": true
+    },
+    "items": {
+      "type": "component",
+      "component": "item.nest-item",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

@@ -14,56 +14,5 @@
       "localized": true
     }
   },
-  "attributes": {
-    "hero": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "section.hero-section",
-      "repeatable": false
-    },
-    "stats": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "ui.stat-item",
-      "repeatable": true
-    },
-    "cap": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "section.cap-section",
-      "repeatable": false
-    },
-    "service": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "section.service-secion",
-      "repeatable": false
-    },
-    "comment": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "section.comment-secion",
-      "repeatable": false
-    }
-  }
+  "attributes": {}
 }
