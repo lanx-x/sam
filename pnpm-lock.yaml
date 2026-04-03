@@ -68,6 +68,9 @@ importers:
       embla-carousel-auto-scroll:
         specifier: 9.0.0-rc01
         version: 9.0.0-rc01(embla-carousel@9.0.0-rc01)
+      embla-carousel-autoplay:
+        specifier: 9.0.0-rc01
+        version: 9.0.0-rc01(embla-carousel@9.0.0-rc01)
       embla-carousel-react:
         specifier: 9.0.0-rc01
         version: 9.0.0-rc01(react@19.2.4)
@@ -4447,6 +4450,11 @@ packages:
 
   embla-carousel-auto-scroll@9.0.0-rc01:
     resolution: {integrity: sha512-9lMYoiriEwy2foZ0i7lHG9rU8TMPxSgw3jXmZr4de/UXzqB/fv+z8deHIOORSlA/5Po+6r6+mov3g2tT3T0S4w==}
+    peerDependencies:
+      embla-carousel: 9.0.0-rc01
+
+  embla-carousel-autoplay@9.0.0-rc01:
+    resolution: {integrity: sha512-gl7jUe0X9xd5v7IiyFF2FCR+KTBesnutM0gQ3S75oo9EizZi5tJMNdVaFwvzepz6kGzDkkSbKMWitQvAbFVfdQ==}
     peerDependencies:
       embla-carousel: 9.0.0-rc01
 
@@ -15346,6 +15354,10 @@ snapshots:
       minimalistic-crypto-utils: 1.0.1
 
   embla-carousel-auto-scroll@9.0.0-rc01(embla-carousel@9.0.0-rc01):
+    dependencies:
+      embla-carousel: 9.0.0-rc01
+
+  embla-carousel-autoplay@9.0.0-rc01(embla-carousel@9.0.0-rc01):
     dependencies:
       embla-carousel: 9.0.0-rc01
 

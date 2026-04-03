@@ -78,7 +78,6 @@ export function IndustrySolution({ section }: { section: IndustrySection }) {
             </div>
           ))
         }
-
       </div>
 
       <div className="flex w-full flex-row justify-center xl:left-0 xl:absolute xl:top-110">
