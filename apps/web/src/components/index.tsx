@@ -30,6 +30,7 @@ import { WhySamples } from "./WhySamples";
 import { WhyUsProduct } from "./WhyUsProduct";
 import { EverythingForManufacturing } from "./EverythingForManufacturing";
 import { ImageHero } from "./ImageHero";
+import { SurfaceFinishList } from "./SurfaceFinishList";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -65,4 +66,5 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   WhyUsProduct,
   EverythingForManufacturing,
   ImageHero,
+  SurfaceFinishList,
 }

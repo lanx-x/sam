@@ -1,5 +1,5 @@
 import { fetchStrapi } from "@/utils/strapi";
-import type { HomePageData, PageData, StrapiSingleResponse, StrapiCollectionResponse } from "cms-types";
+import type { HomePageData, PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceFinishList } from "cms-types";
 
 export type { HomePageData, PageData };
 
@@ -22,4 +22,15 @@ export async function getPage(slug: string, lang: string = 'en') {
     },
     next: { revalidate: 60 }
   });
+}
+
+
+export async function getSurfaceFinish(lang: string = 'en') {
+  return fetchStrapi<StrapiCollectionResponse<SurfaceFinishList>>('/surface-finishes', {
+    params: {
+      locale: lang,
+      pLevel: true,
+      'pagination[pageSize]': 100
+    },
+  })
 }
