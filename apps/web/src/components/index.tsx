@@ -21,6 +21,8 @@ import { SurfaceFinish } from "./SurfaceFinish";
 import { Tolerance } from "./Tolerance";
 import { Post } from "./Post";
 import { Service } from "./Service";
+import { IndustrySolution } from "./IndustrySolution";
+import { Industry } from "./Industry";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -45,4 +47,7 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   Tolerance,
   Post,
   Service,
+
+  Industry,
+  IndustrySolution,
 }

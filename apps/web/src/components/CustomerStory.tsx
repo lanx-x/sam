@@ -51,7 +51,7 @@ export function CustomerStory({ section }: { section: StorySection }) {
         <div className="flex flex-row">
           {
             section.stories?.map((xs, idx) => (
-              <div className="w-full shrink-0 flex items-center justify-center px-5" key={idx}>
+              <div className="w-full shrink-0 flex items-center justify-center px-5 xl:px-0" key={idx}>
 
                 <div
                   className="flex flex-col bg-white rounded-lg overflow-hidden shadow-[0_8px_24px_0_rgba(0,0,0,0.08)] xl:flex-row xl:w-7xl xl:h-130"
@@ -89,7 +89,7 @@ export function CustomerStory({ section }: { section: StorySection }) {
       <div className="hidden xl:flex mx-auto justify-center">
         {
           section.stories?.map((xs, idx) => (
-            <div key={idx}>
+            <div key={idx} className="cursor-pointer" onClick={() => emblaApi?.goTo(idx)}>
               <p className={`text-xs ${selectedIndex === idx ? 'text-[#666]' : 'text-[#bfbfbf]'}`}>0{idx + 1}</p>
               <div className={`w-12 h-1 border-b border-l ${selectedIndex === idx ? 'border-secondary' : 'border-[#efefef]'} last:border-r`}></div>
 

@@ -10,6 +10,7 @@ export function Tolerance({ section }: { section: CommonSection }) {
     <Section
       title={section.title!}
       desc={section.desc!}
+      className="bg-[#fafafa]"
     >
       <div className="px-5 grid grid-cols-1 mt-10 xl:grid-cols-2 xl:px-0">
         {

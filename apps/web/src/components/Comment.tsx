@@ -84,7 +84,7 @@ export function Comment({ section }: { section: CommonSection }) {
         <div className="hidden flex-row mx-auto justify-center xl:flex">
           {
             section.data?.map((xs, idx) => (
-              <div key={xs.id} className="">
+              <div key={xs.id} className="cursor-pointer" onClick={() => emblaApi?.goTo(idx)}>
                 <p className={`'text-xs ${selectedIndex === idx ? 'text-[#666]' : 'text-[#bfbfbf]'}`}>0{idx + 1}</p>
                 <div className={cn("h-1 w-12 border-b border-l border-[#efefef] last:border-r", selectedIndex === idx ? 'border-secondary' : '')}></div>
               </div>

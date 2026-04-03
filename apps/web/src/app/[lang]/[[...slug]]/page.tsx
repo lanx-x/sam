@@ -33,8 +33,6 @@ export default async function CatchAllPage({ params, }: { params: Promise<{ lang
   const pageSlug = ['/', ...slug].join('/').replace(/^\/\//, '/')
   const pageData = (await getPage(pageSlug, locale)).data[0]
 
-  logger.debug('pageData', pageData)
-
   if (!pageData) {
     notFound();
   }
