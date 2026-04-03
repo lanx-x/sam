@@ -971,6 +971,18 @@ export interface ApiSurfaceFinishSurfaceFinish
     };
   };
   attributes: {
+    advantages: Schema.Attribute.Component<'item.value-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    applicable_materials: Schema.Attribute.Component<'item.value-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -980,7 +992,22 @@ export interface ApiSurfaceFinishSurfaceFinish
           localized: true;
         };
       }>;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    disadvantages: Schema.Attribute.Component<'item.value-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    extend: Schema.Attribute.Component<
+      'item.surface-finish-extend-item',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -991,8 +1018,20 @@ export interface ApiSurfaceFinishSurfaceFinish
       'oneToMany',
       'api::surface-finish.surface-finish'
     >;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    notes: Schema.Attribute.Component<'item.value-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String &
+    services: Schema.Attribute.Component<'item.value-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

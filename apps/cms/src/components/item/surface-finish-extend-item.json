@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_item_surface_finish_extend_items",
+  "info": {
+    "displayName": "SurfaceFinishExtendItem"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "content": {
+      "type": "blocks"
+    }
+  },
+  "config": {}
+}

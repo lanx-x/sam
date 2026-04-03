@@ -20,6 +20,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::faq.faq"
+    },
+    "style": {
+      "type": "string"
     }
   },
   "config": {}

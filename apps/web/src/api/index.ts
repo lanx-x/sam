@@ -1,36 +1,39 @@
+import { defaultLocale } from "@/i18n";
 import { fetchStrapi } from "@/utils/strapi";
 import type { HomePageData, PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceFinishList } from "cms-types";
 
 export type { HomePageData, PageData };
 
-export async function getHomePage(lang: string = 'en') {
-  return fetchStrapi<StrapiSingleResponse<HomePageData>>('/home-page', {
-    params: {
-      locale: lang,
-      pLevel: true
-    },
-    next: { revalidate: 60 }
-  });
-}
-
-export async function getPage(slug: string, lang: string = 'en') {
+export async function getPage(payload: { [key: string]: any }) {
+  const { slug, ...params } = payload
   return fetchStrapi<StrapiCollectionResponse<PageData>>('/pages', {
     params: {
       'filters[slug][$eq]': slug.toLowerCase(),
-      locale: lang,
-      pLevel: true
+      pLevel: true,
+      ...params,
     },
     next: { revalidate: 60 }
   });
 }
 
 
-export async function getSurfaceFinish(lang: string = 'en') {
+export async function getPatternPages(payload: { [key: string]: any }) {
+  return fetchStrapi<StrapiCollectionResponse<{ slug: string }>>('/pages', {
+    params: {
+      'filters[slug][$contains]': '{{id}}',
+      'fields[0]': 'slug',
+      ...payload,
+    },
+    next: { revalidate: 60 },
+  });
+}
+
+export async function getSurfaceFinish(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<SurfaceFinishList>>('/surface-finishes', {
     params: {
-      locale: lang,
       pLevel: true,
-      'pagination[pageSize]': 100
+      'pagination[pageSize]': 100,
+      ...params,
     },
   })
 }

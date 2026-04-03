@@ -15,7 +15,7 @@
     }
   },
   "attributes": {
-    "title": {
+    "name": {
       "type": "string",
       "pluginOptions": {
         "i18n": {
@@ -31,7 +31,7 @@
         }
       }
     },
-    "image": {
+    "icon": {
       "type": "media",
       "pluginOptions": {
         "i18n": {
@@ -45,6 +45,66 @@
         "videos",
         "audios"
       ]
+    },
+    "advantages": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.value-item",
+      "repeatable": true
+    },
+    "disadvantages": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.value-item",
+      "repeatable": true
+    },
+    "notes": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.value-item",
+      "repeatable": true
+    },
+    "applicable_materials": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.value-item",
+      "repeatable": true
+    },
+    "services": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.value-item",
+      "repeatable": true
+    },
+    "extend": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.surface-finish-extend-item",
+      "repeatable": false
     }
   }
 }

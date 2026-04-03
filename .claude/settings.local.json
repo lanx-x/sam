@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(ls:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(find /Users/simon/Developer/longwang -type d -name app -not -path */node_modules/*)",
+      "Bash(find:*)"
     ]
   }
 }

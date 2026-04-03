@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-04-03T11:30:55.154Z"
+    "x-generation-date": "2026-04-03T15:01:50.007Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -12367,6 +12367,9 @@
                 }
               }
             }
+          },
+          "style": {
+            "type": "string"
           }
         }
       },
@@ -12437,6 +12440,218 @@
           "label": {
             "type": "string"
           }
+        }
+      },
+      "ItemValueItemComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "ItemSurfaceFinishExtendItemComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "desc": {
+            "type": "string"
+          },
+          "image": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "documentId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "alternativeText": {
+                "type": "string"
+              },
+              "caption": {
+                "type": "string"
+              },
+              "focalPoint": {},
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "formats": {},
+              "hash": {
+                "type": "string"
+              },
+              "ext": {
+                "type": "string"
+              },
+              "mime": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number",
+                "format": "float"
+              },
+              "url": {
+                "type": "string"
+              },
+              "previewUrl": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "provider_metadata": {},
+              "related": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "folder": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "documentId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "folderPath": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "publishedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "createdBy": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "documentId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "updatedBy": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "documentId": {
+                    "type": "string"
+                  }
+                }
+              },
+              "locale": {
+                "type": "string"
+              },
+              "localizations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "documentId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "content": {}
         }
       },
       "PostRequest": {
@@ -17540,13 +17755,13 @@
           "data": {
             "type": "object",
             "properties": {
-              "title": {
+              "name": {
                 "type": "string"
               },
               "desc": {
                 "type": "string"
               },
-              "image": {
+              "icon": {
                 "oneOf": [
                   {
                     "type": "integer"
@@ -17556,6 +17771,39 @@
                   }
                 ],
                 "example": "string or id"
+              },
+              "advantages": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ItemValueItemComponent"
+                }
+              },
+              "disadvantages": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ItemValueItemComponent"
+                }
+              },
+              "notes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ItemValueItemComponent"
+                }
+              },
+              "applicable_materials": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ItemValueItemComponent"
+                }
+              },
+              "services": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ItemValueItemComponent"
+                }
+              },
+              "extend": {
+                "$ref": "#/components/schemas/ItemSurfaceFinishExtendItemComponent"
               },
               "locale": {
                 "type": "string"
@@ -17629,13 +17877,13 @@
           "documentId": {
             "type": "string"
           },
-          "title": {
+          "name": {
             "type": "string"
           },
           "desc": {
             "type": "string"
           },
-          "image": {
+          "icon": {
             "type": "object",
             "properties": {
               "id": {
@@ -18445,6 +18693,39 @@
               }
             }
           },
+          "advantages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemValueItemComponent"
+            }
+          },
+          "disadvantages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemValueItemComponent"
+            }
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemValueItemComponent"
+            }
+          },
+          "applicable_materials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemValueItemComponent"
+            }
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemValueItemComponent"
+            }
+          },
+          "extend": {
+            "$ref": "#/components/schemas/ItemSurfaceFinishExtendItemComponent"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -18514,13 +18795,13 @@
                 "documentId": {
                   "type": "string"
                 },
-                "title": {
+                "name": {
                   "type": "string"
                 },
                 "desc": {
                   "type": "string"
                 },
-                "image": {
+                "icon": {
                   "type": "object",
                   "properties": {
                     "id": {
@@ -18691,6 +18972,39 @@
                       }
                     }
                   }
+                },
+                "advantages": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemValueItemComponent"
+                  }
+                },
+                "disadvantages": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemValueItemComponent"
+                  }
+                },
+                "notes": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemValueItemComponent"
+                  }
+                },
+                "applicable_materials": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemValueItemComponent"
+                  }
+                },
+                "services": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemValueItemComponent"
+                  }
+                },
+                "extend": {
+                  "$ref": "#/components/schemas/ItemSurfaceFinishExtendItemComponent"
                 },
                 "createdAt": {
                   "type": "string",

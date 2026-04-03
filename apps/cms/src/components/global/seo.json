@@ -9,7 +9,7 @@
       "type": "string"
     },
     "desc": {
-      "type": "text"
+      "type": "string"
     }
   },
   "config": {}

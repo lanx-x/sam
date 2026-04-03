@@ -10,7 +10,7 @@ export function FAQ({ section }: { section: FAQSection }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="bg-[#fafafa] py-10 xl:py-20">
+    <div className={`bg-[#fafafa] py-10 xl:py-20 ${section.style}`}>
       <SectionContainer>
         <div className="w-full flex flex-col text-center xl:text-left xl:flex-row">
           <div className="shrink-0 xl:mr-42.5 xl:w-76.75">

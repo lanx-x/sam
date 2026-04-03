@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getPage } from "@/api";
+import { getPage, getPatternPages } from "@/api";
 import { getLocale } from "@/i18n";
 import { logger } from "@/utils/logger";
 import type { Metadata } from "next";
@@ -29,9 +29,27 @@ export default async function CatchAllPage({ params, }: { params: Promise<{ lang
   logger.debug('page params:', { lang, slug });
 
   const locale = getLocale(lang)
-
   const pageSlug = ['/', ...slug].join('/').replace(/^\/\//, '/')
-  const pageData = (await getPage(pageSlug, locale)).data[0]
+
+  // 1. 只拿 slug 列表，判断是否命中 {{id}} 模式
+  const { data: patternPages } = await getPatternPages({ locale })
+  let matchedSlug: string | null = null
+  let documentId: string | null = null
+
+  for (const p of patternPages) {
+    const regex = new RegExp('^' + p.slug.replace('{{id}}', '(.+)') + '$', 'i')
+    const m = pageSlug.match(regex)
+    if (m) {
+      matchedSlug = p.slug
+      documentId = m[1]
+      break
+    }
+  }
+
+  // 2. 命中模式页 → 请求模板页完整数据；否则精确查找
+  const pageData = matchedSlug
+    ? (await getPage({ slug: matchedSlug, locale })).data[0]
+    : (await getPage({ slug: pageSlug, locale })).data[0]
 
   if (!pageData) {
     notFound();
@@ -48,7 +66,7 @@ export default async function CatchAllPage({ params, }: { params: Promise<{ lang
             return null;
           }
 
-          return <Cmp key={section.id} section={section} />;
+          return <Cmp key={section.id} section={section} documentId={documentId} />;
         })
       }
     </div>

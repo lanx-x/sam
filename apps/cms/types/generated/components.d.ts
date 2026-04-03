@@ -14,7 +14,7 @@ export interface GlobalSeo extends Struct.ComponentSchema {
     displayName: 'SEO';
   };
   attributes: {
-    desc: Schema.Attribute.Text;
+    desc: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
@@ -87,6 +87,29 @@ export interface ItemSpeItem extends Struct.ComponentSchema {
   };
 }
 
+export interface ItemSurfaceFinishExtendItem extends Struct.ComponentSchema {
+  collectionName: 'components_item_surface_finish_extend_items';
+  info: {
+    displayName: 'SurfaceFinishExtendItem';
+  };
+  attributes: {
+    content: Schema.Attribute.Blocks;
+    desc: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface ItemValueItem extends Struct.ComponentSchema {
+  collectionName: 'components_item_value_items';
+  info: {
+    displayName: 'ValueItem';
+  };
+  attributes: {
+    value: Schema.Attribute.String;
+  };
+}
+
 export interface SectionCommonSection extends Struct.ComponentSchema {
   collectionName: 'components_section_common_sections';
   info: {
@@ -131,6 +154,7 @@ export interface SectionFaqSection extends Struct.ComponentSchema {
     desc: Schema.Attribute.Text;
     faqs: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'>;
     renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
+    style: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
@@ -227,6 +251,8 @@ declare module '@strapi/strapi' {
       'item.kv-item': ItemKvItem;
       'item.nest-item': ItemNestItem;
       'item.spe-item': ItemSpeItem;
+      'item.surface-finish-extend-item': ItemSurfaceFinishExtendItem;
+      'item.value-item': ItemValueItem;
       'section.common-section': SectionCommonSection;
       'section.equipment-section': SectionEquipmentSection;
       'section.faq-section': SectionFaqSection;

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_item_value_items",
+  "info": {
+    "displayName": "ValueItem"
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
