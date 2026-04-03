@@ -98,6 +98,7 @@ export interface SectionCommonSection extends Struct.ComponentSchema {
     desc: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
+    renderer_args: Schema.Attribute.Component<'item.kv-item', true>;
     style: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };

@@ -78,7 +78,7 @@ export function Ship({ section }: { section: CommonSection }) {
           <div className="flex flex-row">
             {
               section.data?.filter(xs => !xs.title || !xs.desc).map((xs, idx) => (
-                <div key={xs.id} className="w-full aspect-350/311 shrink-0 xl:aspect-135/120">
+                <div key={xs.id} className="relative w-full aspect-350/311 shrink-0 xl:aspect-135/120">
 
                   <Image key={idx} fill src={getStrapiMedia(xs.image) ?? ""} alt="workshop" className="rounded-lg object-cover" />
                 </div>

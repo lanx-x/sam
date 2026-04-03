@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-04-03T01:14:54.711Z"
+    "x-generation-date": "2026-04-03T03:32:18.726Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -7371,6 +7371,27 @@
           }
         }
       },
+      "ItemKvItemComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
       "SectionCommonSectionComponent": {
         "type": "object",
         "properties": {
@@ -7600,6 +7621,12 @@
           },
           "style": {
             "type": "string"
+          },
+          "renderer_args": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemKvItemComponent"
+            }
           }
         }
       },
@@ -8879,27 +8906,6 @@
           },
           "meta": {
             "type": "object"
-          }
-        }
-      },
-      "ItemKvItemComponent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "key": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
           }
         }
       },

@@ -38,6 +38,11 @@
     },
     "style": {
       "type": "string"
+    },
+    "renderer_args": {
+      "type": "component",
+      "component": "item.kv-item",
+      "repeatable": true
     }
   },
   "config": {}

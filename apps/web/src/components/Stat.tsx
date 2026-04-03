@@ -21,7 +21,7 @@ const colsMap: Record<number, string> = {
 
 export function Stat({ border, section }: PropsWithChildren<Props>) {
   return (
-    <div className="py-10  border-b border-[#efefef] xl:py-9">
+    <div className={`py-10  border-b border-[#efefef] xl:py-9 ${section.style}`}>
       <SectionContainer>
         <div className={`grid grid-cols-2 overflow-hidden ${colsMap[Math.min(5, section.data?.length ?? 1)]}  gap-y-10`}>
           {
