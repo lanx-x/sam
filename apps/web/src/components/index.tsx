@@ -23,6 +23,12 @@ import { Post } from "./Post";
 import { Service } from "./Service";
 import { IndustrySolution } from "./IndustrySolution";
 import { Industry } from "./Industry";
+import { WhyUs } from "./WhyUs";
+import { WeOffer } from "./WeOffer";
+import { GetExpertAdvice } from "./GetExpertAdvice";
+import { WhySamples } from "./WhySamples";
+import { WhyUsProduct } from "./WhyUsProduct";
+import { EverythingForManufacturing } from "./EverythingForManufacturing";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -50,4 +56,11 @@ export const CmpMap: Record<string, ComponentType<any>> = {
 
   Industry,
   IndustrySolution,
+
+  WhyUs,
+  WeOffer,
+  GetExpertAdvice,
+  WhySamples,
+  WhyUsProduct,
+  EverythingForManufacturing,
 }

@@ -45,7 +45,7 @@ export function CustomerStory({ section }: { section: StorySection }) {
     <Section
       title={section.title!}
       desc={section.desc!}
-      className="bg-[#fafafa]"
+      className={`bg-[#fafafa] ${section.style}`}
     >
       <div className="py-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">

@@ -9,6 +9,7 @@ import BlackArrowR from "./black-arrow-r.svg";
 import Broadcast from "./broadcast.svg";
 import Building from "./building.jpg";
 import Cap from "./cap.jpg";
+import CheckBlue from "./check-blue.png";
 import Check from "./check.svg";
 import Close from "./close.svg";
 import Contact from "./contact.png";
@@ -55,6 +56,7 @@ export const Assets = {
   Broadcast,
   Building,
   Cap,
+  CheckBlue,
   Check,
   Close,
   Contact,

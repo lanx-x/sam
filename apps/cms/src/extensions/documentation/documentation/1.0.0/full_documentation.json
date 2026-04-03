@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-04-03T03:32:18.726Z"
+    "x-generation-date": "2026-04-03T06:13:08.495Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -7622,7 +7622,7 @@
           "style": {
             "type": "string"
           },
-          "renderer_args": {
+          "extend": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ItemKvItemComponent"

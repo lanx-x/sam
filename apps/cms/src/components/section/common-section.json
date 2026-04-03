@@ -39,7 +39,7 @@
     "style": {
       "type": "string"
     },
-    "renderer_args": {
+    "extend": {
       "type": "component",
       "component": "item.kv-item",
       "repeatable": true
