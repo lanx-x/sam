@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import { getStrapiMedia } from "@/utils/strapi";
 import type { CommonSection } from "cms-types";

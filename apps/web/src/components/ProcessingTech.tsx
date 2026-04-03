@@ -1,4 +1,3 @@
-'use client';
 import { Assets } from "@/assets";
 import Image from "next/image";
 import { Section } from "./Section";

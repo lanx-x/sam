@@ -1,5 +1,3 @@
-'use client';
-
 import { CommonSection } from "cms-types";
 import { Section } from "./Section";
 

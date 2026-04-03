@@ -1,4 +1,3 @@
-'use client';
 import { Assets } from "@/assets";
 import { CommonSection } from "cms-types";
 import Image from "next/image";
