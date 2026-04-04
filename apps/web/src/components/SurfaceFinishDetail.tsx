@@ -1,9 +1,8 @@
 import { getSurfaceFinish } from "@/api"
 import { CommonHero } from "./CommonHero"
-import { Section } from "./Section"
 import { getStrapiMedia } from "@/utils/strapi"
 import Image from "next/image"
-import { BlocksRenderer } from "@strapi/blocks-react-renderer"
+import { BlocksContent } from "./BlocksContent"
 import { CommonSection } from "cms-types"
 
 export async function SurfaceFinishDetail({ documentId, section }: { documentId: string, section: CommonSection }) {
@@ -38,7 +37,7 @@ export async function SurfaceFinishDetail({ documentId, section }: { documentId:
         <div>
           {data.extend?.content && (
             <div className="mt-10 prose max-w-none">
-              <BlocksRenderer content={data.extend.content} />
+              <BlocksContent content={data.extend.content} />
             </div>
           )}
 
