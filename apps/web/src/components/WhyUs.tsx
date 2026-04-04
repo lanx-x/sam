@@ -2,12 +2,17 @@ import { CommonSection } from "cms-types";
 import { Section } from "./Section";
 import Image from "next/image";
 import { getStrapiMedia } from "@/utils/strapi";
+import { mergeExtension } from "@/utils";
 
 export function WhyUs({ section }: { section: CommonSection }) {
+  const extension = mergeExtension(section)
+
+  console.log("####### extension", section.extension)
   return (
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
+      className={extension.style}
     >
       <div className="text-left mt-10 px-5 grid grid-cols-1 gap-5 xl:px-0 xl:mt-15 xl:grid-cols-3">
         {

@@ -44,14 +44,7 @@
         }
       },
       "components": [
-        "section.common-section",
-        "section.story-section",
-        "section.equipment-section",
-        "section.spe-section",
-        "section.surface-finish-section",
-        "section.post-section",
-        "section.faq-section",
-        "section.industry-section"
+        "section.common-section"
       ]
     }
   }

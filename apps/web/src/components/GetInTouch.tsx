@@ -6,10 +6,10 @@ import { getStrapiMedia } from "@/utils/strapi";
 export function GetInTouch({ section }: { section: CommonSection }) {
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}
       className="text-white"
-      bg={getStrapiMedia(section.image) ?? ""}
+      bg={getStrapiMedia(section.payload?.image) ?? ""}
     >
       <div className="relative w-full px-5 mt-15">
         <Subscribe className="xl:w-145 xl:mx-auto" />

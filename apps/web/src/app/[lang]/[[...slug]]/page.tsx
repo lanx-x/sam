@@ -62,7 +62,7 @@ export default async function CatchAllPage({ params, }: { params: Promise<{ lang
           const Cmp = CmpMap[section.payload?.renderer?.cmp];
 
           if (!Cmp) {
-            logger.warn(`Unknown renderer: ${section.renderer?.cmp}`);
+            logger.warn(`Unknown renderer: ${section.payload?.renderer?.cmp}`);
             return null;
           }
 

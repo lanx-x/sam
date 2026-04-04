@@ -21,7 +21,8 @@
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "required": true
     },
     "desc": {
       "type": "text",
@@ -29,9 +30,10 @@
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "required": true
     },
-    "image": {
+    "extra_images": {
       "type": "media",
       "pluginOptions": {
         "i18n": {
@@ -62,7 +64,30 @@
         }
       },
       "component": "item.kv-item",
-      "repeatable": true
+      "repeatable": true,
+      "required": true
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::equipment-category.equipment-category",
+      "private": true
+    },
+    "image": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }

@@ -1,14 +1,14 @@
 {
   "collectionName": "components_list_featured_story_lists",
   "info": {
-    "displayName": "FeaturedStoryList"
+    "displayName": "FeaturedCaseStudy"
   },
   "options": {},
   "attributes": {
-    "stories": {
+    "case_studies": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::story.story"
+      "target": "api::case-study.case-study"
     }
   },
   "config": {}

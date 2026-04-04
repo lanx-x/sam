@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "surface_treatments",
+  "info": {
+    "singularName": "surface-treatment",
+    "pluralName": "surface-treatments",
+    "displayName": "SurfaceTreatment"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {}
+}

@@ -7,11 +7,11 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Section } from "./Section";
-import { CommonSection, StorySection } from "cms-types";
+import { CommonSection } from "cms-types";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
 
-export function CustomerStory({ section }: { section: CommonSection }) {
+export function FeaturedCaseStudy({ section }: { section: CommonSection }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
@@ -52,13 +52,13 @@ export function CustomerStory({ section }: { section: CommonSection }) {
       <div className="py-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
           {
-            section.payload?.dynamic?.[0]?.stories?.map((xs, idx) => (
+            section.payload?.dynamic?.[0]?.case_studies?.map((xs, idx) => (
               <div className="w-full shrink-0 flex items-center justify-center px-5 xl:px-0" key={idx}>
 
                 <div
                   className="flex flex-col bg-white rounded-lg overflow-hidden shadow-[0_8px_24px_0_rgba(0,0,0,0.08)] xl:flex-row xl:w-7xl xl:h-130"
                   key={idx}>
-                  <Image width={640} height={520} className="object-cover w-full aspect-64/52 xl:w-160" src={getStrapiMedia(xs.image?.[0]) ?? ""} alt="" />
+                  <Image width={640} height={520} className="object-cover w-full aspect-64/52 xl:w-160" src={getStrapiMedia(xs.image) ?? ""} alt="" />
                   <div className="flex flex-col px-5 pt-4 pb-7 text-left xl:px-10 xl:pt-6 xl:pb-8">
                     <span className="self-start leading-8 bg-[#e5f2ff] border border-accent h-8 px-3.5 font-semibold rounded-sm inline-block xl:text-lg xl:h-10 xl:leading-10">{xs.industry}</span>
                     <p className="my-2 font-semibold text-lg leading-none xl:mt-4 xl:mb-3 xl:text-[32px]">{xs.title}</p>
@@ -90,7 +90,7 @@ export function CustomerStory({ section }: { section: CommonSection }) {
 
       <div className="hidden xl:flex mx-auto justify-center">
         {
-          section.payload?.stories?.map((xs, idx) => (
+          section.payload?.case_studies?.map((xs, idx) => (
             <div key={idx} className="cursor-pointer" onClick={() => emblaApi?.goTo(idx)}>
               <p className={`text-xs ${selectedIndex === idx ? 'text-[#666]' : 'text-[#bfbfbf]'}`}>0{idx + 1}</p>
               <div className={`w-12 h-1 border-b border-l ${selectedIndex === idx ? 'border-secondary' : 'border-[#efefef]'} last:border-r`}></div>

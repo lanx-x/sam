@@ -35,6 +35,8 @@ export type StrapiSingleResponse<T> = {
 export type HomePageData = StrapiDocument<"api::home-page.home-page">;
 export type PageData = StrapiDocument<"api::page.page">;
 export type SurfaceFinishList = StrapiDocument<"api::surface-finish.surface-finish">;
+export type EquipmentList = StrapiDocument<"api::equipment.equipment">;
+export type EquipmentCategoryList = StrapiDocument<"api::equipment-category.equipment-category">;
 
 export type CommonSection = StrapiComponent<"section.common-section">;
 export type StorySection = StrapiComponent<"section.story-section">

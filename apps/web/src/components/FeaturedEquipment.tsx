@@ -8,7 +8,7 @@ import { CommonSection, EquipmentSection } from "cms-types";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
 
-export function Equipment({ section }: { section: CommonSection }) {
+export function FeaturedEquipment({ section }: { section: CommonSection }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   })
@@ -28,7 +28,7 @@ export function Equipment({ section }: { section: CommonSection }) {
             {
               section.payload?.dynamic?.[0]?.equipment?.map((xs, idx) => (
                 <div key={xs.id} className="w-305/390 ml-5 shrink-0 text-left xl:w-76.25 xl:ml-0 xl:mr-5">
-                  <Image src={getStrapiMedia(xs.image?.[0]) ?? ""} width={305} height={220} className="object-cover w-full xl:h-55" alt="" />
+                  <Image src={getStrapiMedia(xs.image) ?? ""} width={305} height={220} className="object-cover w-full xl:h-55" alt="" />
 
                   <div className="">
                     <p className="mt-6 mb-4 text-lg font-semibold">Dolor unde dolorem.</p>
@@ -37,7 +37,7 @@ export function Equipment({ section }: { section: CommonSection }) {
                       {
                         xs.parameter?.map((item, idx) => (
                           <p className="text-sm" key={item.id}>
-                            <span className="text-secondary">{item.key}</span>
+                            <span className="text-secondary mr-1">{item.key}:</span>
                             <span>{item.value}</span>
                           </p>
                         ))

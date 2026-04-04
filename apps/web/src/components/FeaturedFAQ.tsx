@@ -7,7 +7,7 @@ import { SectionContainer } from "./Section";
 import { CommonSection, FAQSection } from "cms-types";
 import { collectExtend } from "@/utils";
 
-export function FAQ({ section }: { section: CommonSection }) {
+export function FeaturedFAQ({ section }: { section: CommonSection }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const extension = collectExtend(section.payload?.extension as any, section.extension as any)

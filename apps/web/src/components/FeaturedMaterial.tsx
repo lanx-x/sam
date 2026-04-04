@@ -10,7 +10,7 @@ import { CommonSection, SpeSection } from "cms-types";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
 
-export function Spe({ section }: { section: CommonSection }) {
+export function FeaturedMaterial({ section }: { section: CommonSection }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   })

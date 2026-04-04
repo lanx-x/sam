@@ -53,8 +53,9 @@ export interface ItemKvItem extends Struct.ComponentSchema {
     displayName: 'KVItem';
   };
   attributes: {
-    key: Schema.Attribute.String;
-    value: Schema.Attribute.String;
+    desc: Schema.Attribute.String;
+    key: Schema.Attribute.String & Schema.Attribute.Required;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -107,14 +108,14 @@ export interface ItemValueItem extends Struct.ComponentSchema {
     displayName: 'ValueItem';
   };
   attributes: {
-    value: Schema.Attribute.String;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
 export interface ListFeaturedEquipmentList extends Struct.ComponentSchema {
   collectionName: 'components_list_featured_equipment_lists';
   info: {
-    displayName: 'FeaturedEquipmentList';
+    displayName: 'FeaturedEquipment';
   };
   attributes: {
     equipment: Schema.Attribute.Relation<
@@ -127,7 +128,7 @@ export interface ListFeaturedEquipmentList extends Struct.ComponentSchema {
 export interface ListFeaturedFaqList extends Struct.ComponentSchema {
   collectionName: 'components_list_featured_faq_lists';
   info: {
-    displayName: 'FeaturedFAQList';
+    displayName: 'FeaturedFAQ';
   };
   attributes: {
     faqs: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'>;
@@ -160,7 +161,7 @@ export interface ListFeaturedPostList extends Struct.ComponentSchema {
 export interface ListFeaturedSpeList extends Struct.ComponentSchema {
   collectionName: 'components_list_featured_spe_lists';
   info: {
-    displayName: 'FeaturedSpeList';
+    displayName: 'FeaturedMaterial';
   };
   attributes: {
     specifications: Schema.Attribute.Relation<
@@ -173,10 +174,13 @@ export interface ListFeaturedSpeList extends Struct.ComponentSchema {
 export interface ListFeaturedStoryList extends Struct.ComponentSchema {
   collectionName: 'components_list_featured_story_lists';
   info: {
-    displayName: 'FeaturedStoryList';
+    displayName: 'FeaturedCaseStudy';
   };
   attributes: {
-    stories: Schema.Attribute.Relation<'oneToMany', 'api::story.story'>;
+    case_studies: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::case-study.case-study'
+    >;
   };
 }
 
@@ -199,20 +203,12 @@ export interface SectionCommonSection extends Struct.ComponentSchema {
     displayName: 'CommonSection';
   };
   attributes: {
-    actions: Schema.Attribute.Component<'item.button-item', true>;
     admin_note: Schema.Attribute.String & Schema.Attribute.Private;
-    data: Schema.Attribute.Component<'item.common-item', true>;
-    desc: Schema.Attribute.String;
-    extend: Schema.Attribute.Component<'item.kv-item', true>;
     extension: Schema.Attribute.Component<'item.kv-item', true>;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     payload: Schema.Attribute.Relation<
       'oneToOne',
       'api::ui-section.ui-section'
     >;
-    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
-    style: Schema.Attribute.String;
-    title: Schema.Attribute.String;
   };
 }
 

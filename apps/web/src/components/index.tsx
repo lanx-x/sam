@@ -3,13 +3,13 @@ import { MainHero } from "./MainHero";
 import { Stat } from "./Stat";
 import { Cap } from "./Cap";
 import { OneStop } from "./OneStop";
-import { Comment } from "./Comment";
-import { CustomerStory } from "./CustomerStory";
-import { Spe } from "./Spe";
-import { Equipment } from "./Equipment";
+import { FeaturedComment } from "./FeaturedComment";
+import { FeaturedCaseStudy } from "./FeaturedCaseStudy";
+import { FeaturedMaterial } from "./FeaturedMaterial";
+import { FeaturedEquipment } from "./FeaturedEquipment";
 import { WorkWith } from "./WorkWith";
 import { WorkShop } from "./WorkShop";
-import { FAQ } from "./FAQ";
+import { FeaturedFAQ } from "./FeaturedFAQ";
 import { GetInTouch } from "./GetInTouch";
 import { CommonHero } from "./CommonHero";
 import { Partner } from "./Partner";
@@ -32,19 +32,22 @@ import { EverythingForManufacturing } from "./EverythingForManufacturing";
 import { ImageHero } from "./ImageHero";
 import { SurfaceFinishList } from "./SurfaceFinishList";
 import { SurfaceFinishDetail } from "./SurfaceFinishDetail";
+import { FullImageHero } from "./FullImageHero";
+import { EquipmentList } from "./EquipmentList";
+import { EquipmentDetail } from "./EquipmentDetail";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
   Stat,
   Cap,
   OneStop,
-  Comment,
-  CustomerStory,
-  Spe,
-  Equipment,
+  FeaturedComment,
+  FeaturedCaseStudy,
+  FeaturedMaterial,
+  FeaturedEquipment,
   WorkWith,
   WorkShop,
-  FAQ,
+  FeaturedFAQ,
   GetInTouch,
 
   CommonHero,
@@ -69,4 +72,8 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   ImageHero,
   SurfaceFinishList,
   SurfaceFinishDetail,
+
+  FullImageHero,
+  EquipmentList,
+  EquipmentDetail,
 }

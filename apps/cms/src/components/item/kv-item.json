@@ -6,9 +6,14 @@
   "options": {},
   "attributes": {
     "key": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "value": {
+      "type": "string",
+      "required": true
+    },
+    "desc": {
       "type": "string"
     }
   },

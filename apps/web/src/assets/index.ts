@@ -18,6 +18,7 @@ import Corp02 from "./corp-02.svg";
 import Corp03 from "./corp-03.svg";
 import Corp04 from "./corp-04.svg";
 import Corp05 from "./corp-05.png";
+import EquipListBg from "./equip-list-bg.svg";
 import Expand from "./expand.svg";
 import Facebook from "./facebook.svg";
 import GrayArrowL from "./gray-arrow-l.svg";
@@ -27,6 +28,7 @@ import Ins from "./ins.svg";
 import Iqc from "./iqc.png";
 import Iso from "./iso.png";
 import Lang from "./lang.svg";
+import LinkCircle from "./link-circle.svg";
 import LinkWhite from "./link-white.svg";
 import Link from "./link.svg";
 import LogoText from "./logo-text.svg";
@@ -65,6 +67,7 @@ export const Assets = {
   Corp03,
   Corp04,
   Corp05,
+  EquipListBg,
   Expand,
   Facebook,
   GrayArrowL,
@@ -74,6 +77,7 @@ export const Assets = {
   Iqc,
   Iso,
   Lang,
+  LinkCircle,
   LinkWhite,
   Link,
   LogoText,

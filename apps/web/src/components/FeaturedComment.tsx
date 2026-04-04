@@ -9,7 +9,7 @@ import { Section } from "./Section";
 import { CommonSection } from "cms-types";
 import { getStrapiMedia } from "@/utils/strapi";
 
-export function Comment({ section }: { section: CommonSection }) {
+export function FeaturedComment({ section }: { section: CommonSection }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({

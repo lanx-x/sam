@@ -3,16 +3,19 @@ import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import { getSurfaceFinish } from "@/api";
+import { mergeExtension } from "@/utils";
 
 export async function SurfaceFinishList({ section }: { section: CommonSection }) {
+  const extension = mergeExtension(section)
 
   const data = await getSurfaceFinish({})
 
   const share = "grid items-center gap-10 justify-items-left grid-cols-[160px_1fr_2fr_1fr_1fr] border-b border-[#bfbfbf] text-left";
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}
+      className={extension.style}
     >
       <div>
         <div className={`text-lg font-bold py-6 text-secondary ${share}`}>
