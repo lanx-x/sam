@@ -8,24 +8,27 @@ import { useEffect, useState } from "react";
 import { Section } from "./Section";
 import { CommonSection, SpeSection } from "cms-types";
 import { getStrapiMedia } from "@/utils/strapi";
+import { collectExtend } from "@/utils";
 
-export function Spe({ section }: { section: SpeSection }) {
+export function Spe({ section }: { section: CommonSection }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   })
 
+  const extension = collectExtend(section.payload?.extension as any, section.extension as any)
+
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}
-      className={`xl:text-left ${section.style}`}
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}
+      className={`xl:text-left ${extension.style}`}
 
     >
       <div className="relative mt-10">
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex flex-row">
             {
-              section.specifications?.map((xs, idx) => (
+              section.payload?.dynamic?.[0]?.specifications?.map((xs, idx) => (
                 <div key={xs.id} className="shrink-0 w-305/390 bg-[#fafafa] rounded-lg overflow-hidden ml-5 xl:first:ml-0  xl:w-76.25">
                   <Image className="object-cover w-full rounded-lg xl:h-40" width={305} height={160} src={getStrapiMedia(xs.image?.[0]) ?? ""} alt="" />
                   <div className="px-5 text-left">

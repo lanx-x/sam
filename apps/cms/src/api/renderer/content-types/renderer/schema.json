@@ -26,7 +26,7 @@
       "unique": true
     },
     "desc": {
-      "type": "text",
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true

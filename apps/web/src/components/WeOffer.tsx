@@ -6,17 +6,17 @@ import { Assets } from "@/assets";
 import { collectExtend } from "@/utils";
 
 export function WeOffer({ section }: { section: CommonSection }) {
-  const args = collectExtend(section.extend as any)
+  const extension = collectExtend(section.extension as any)
 
-  const flexOpts = args.start_from === 'left' ? 'xl:flex-row-reverse xl:even:flex-row' : 'xl:flex-row xl:even:flex-row-reverse'
+  const flexOpts = extension.start_from === 'right' ? 'xl:flex-row xl:even:flex-row-reverse' : 'xl:flex-row-reverse xl:even:flex-row'
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}
     >
       <div className="text-left mt-10 px-5 xl:px-0 xl:mt-20">
         {
-          section.data?.map((xs, index) => (
+          section.payload?.data?.map((xs, index) => (
             <div key={xs.id} className={`mb-10 flex flex-col xl:mb-15 ${flexOpts}`}>
               <div className="xl:pt-10">
                 <p className="text-2xl font-semibold leading-none">{xs.title}</p>

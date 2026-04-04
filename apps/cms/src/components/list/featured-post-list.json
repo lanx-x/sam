@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_list_featured_post_lists",
+  "info": {
+    "displayName": "FeaturedPostList"
+  },
+  "options": {},
+  "attributes": {
+    "posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::post.post"
+    }
+  },
+  "config": {}
+}

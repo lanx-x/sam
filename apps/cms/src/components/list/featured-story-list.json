@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_list_featured_story_lists",
+  "info": {
+    "displayName": "FeaturedStoryList"
+  },
+  "options": {},
+  "attributes": {
+    "stories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::story.story"
+    }
+  },
+  "config": {}
+}

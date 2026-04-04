@@ -6,12 +6,12 @@ import { getStrapiMedia } from "@/utils/strapi";
 export function WhyUsProduct({ section }: { section: CommonSection }) {
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}
     >
       <div className="text-left mt-10 px-5 grid grid-cols-1 gap-5 xl:px-0 xl:mt-15 xl:grid-cols-3">
         {
-          section.data?.map((xs, index) => (
+          section.payload?.data?.map((xs, index) => (
             <div key={xs.id} className="bg-[#fafafa] rounded-xl overflow-hidden">
               <div className="relative w-full aspect-35/22">
                 <Image fill className="object-cover rounded-xl" src={getStrapiMedia(xs.image) ?? ""} alt="icon" />

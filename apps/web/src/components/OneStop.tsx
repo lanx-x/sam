@@ -37,13 +37,13 @@ export function OneStop({ section }: { section: CommonSection }) {
 
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}
       className="bg-[#fafafa]"
     >
       <div className="flex-row items-center justify-center hidden xl:flex xl:visible xl:mt-16.25">
         {
-          section.data?.map((xs, idx) => (
+          section.payload?.data?.map((xs, idx) => (
             <div key={xs.id} className="cursor-pointer flex flex-col items-center" onClick={() => emblaApi?.goTo(idx)}>
               <div className={cn("text-base font-medium w-9 h-9 rounded-full flex flex-row items-center justify-center transition-all duration-300", selectedIndex === idx ? 'bg-accent text-white' : 'text-accent')}>0{idx + 1}</div>
               <p className="mt-2 mb-3 text-base font-medium">{xs.label}</p>
@@ -57,7 +57,7 @@ export function OneStop({ section }: { section: CommonSection }) {
       <div className="mt-10 overflow-hidden xl:mt-12 xl:w-7xl xl:mx-auto" ref={emblaRef}>
         <div className="flex flex-row">
           {
-            section.data?.map((xs, idx) => (
+            section.payload?.data?.map((xs, idx) => (
               <div
                 key={xs.id}
                 className="flex flex-col shrink-0 w-80 border border-[#bfbfbf] bg-[#fafafa] rounded-xl py-5 px-4 ml-5 text-left xl:ml-0 xl:px-0 xl:w-full xl:border-0 xl:flex-row-reverse">

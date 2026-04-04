@@ -9,11 +9,11 @@ import { getStrapiMedia } from "@/utils/strapi";
 export function ImageSection({ section }: { section: CommonSection }) {
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}
       className="bg-[#fafafa]"
     >
-      <Image className="w-full mt-10 px-5 xl:px-0" width={1280} height={400} src={getStrapiMedia(section.image) ?? ""} alt="section-img" />
+      <Image className="w-full mt-10 px-5 xl:px-0" width={1280} height={400} src={getStrapiMedia(section.payload?.image) ?? ""} alt="section-img" />
     </Section>
   )
 }

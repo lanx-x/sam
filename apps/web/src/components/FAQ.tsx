@@ -5,22 +5,25 @@ import Image from "next/image";
 import { useState } from "react";
 import { SectionContainer } from "./Section";
 import { CommonSection, FAQSection } from "cms-types";
+import { collectExtend } from "@/utils";
 
-export function FAQ({ section }: { section: FAQSection }) {
+export function FAQ({ section }: { section: CommonSection }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  const extension = collectExtend(section.payload?.extension as any, section.extension as any)
+
   return (
-    <div className={`bg-[#fafafa] py-10 xl:py-20 ${section.style}`}>
+    <div className={`bg-[#fafafa] py-10 xl:py-20 ${extension.style}`}>
       <SectionContainer>
         <div className="w-full flex flex-col text-center xl:text-left xl:flex-row">
           <div className="shrink-0 xl:mr-42.5 xl:w-76.75">
-            <h2 className="px-5 xl:px-0 section-title">{section.title}</h2>
-            <p className="px-5 xl:px-0 section-desc">{section.desc}</p>
+            <h2 className="px-5 xl:px-0 section-title">{section.payload?.title}</h2>
+            <p className="px-5 xl:px-0 section-desc">{section.payload?.desc}</p>
           </div>
 
           <div className="px-5 text-left mt-10 xl:mt-0 xl:px-0">
             {
-              section.faqs?.map((xs, idx) => (
+              section.payload?.dynamic?.[0]?.faqs?.map((xs, idx) => (
                 <div className="py-5 border-b border-b-[#efefef]" key={idx}>
                   <button
                     type="button"

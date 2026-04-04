@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "actions",
+  "info": {
+    "singularName": "action",
+    "pluralName": "actions",
+    "displayName": "Action"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "target": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "extension": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.kv-item",
+      "repeatable": true
+    },
+    "ui_section": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::ui-section.ui-section",
+      "inversedBy": "actions"
+    },
+    "admin_note": {
+      "type": "string",
+      "private": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_list_featured_industry_lists",
+  "info": {
+    "displayName": "FeaturedIndustryList"
+  },
+  "options": {},
+  "attributes": {
+    "industries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::industry.industry"
+    }
+  },
+  "config": {}
+}

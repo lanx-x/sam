@@ -43,6 +43,20 @@
       "type": "component",
       "component": "item.kv-item",
       "repeatable": true
+    },
+    "payload": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::ui-section.ui-section"
+    },
+    "extension": {
+      "type": "component",
+      "component": "item.kv-item",
+      "repeatable": true
+    },
+    "admin_note": {
+      "type": "string",
+      "private": true
     }
   },
   "config": {}

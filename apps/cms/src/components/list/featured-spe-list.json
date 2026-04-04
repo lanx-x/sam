@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_list_featured_spe_lists",
+  "info": {
+    "displayName": "FeaturedSpeList"
+  },
+  "options": {},
+  "attributes": {
+    "specifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::specification.specification"
+    }
+  },
+  "config": {}
+}

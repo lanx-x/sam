@@ -17,11 +17,11 @@ type CapDisplayItem = Pick<CapItemData, "label" | "desc" | "image">;
 export function Cap({ section }: { section: CommonSection }) {
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}>
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}>
       <div className="flex flex-col mt-10 xl:w-7xl xl:mx-auto xl:flex-row">
         {
-          section.data?.map((xs, idx) => {
+          section.payload?.data?.map((xs, idx) => {
             const imageUrl = getStrapiMedia(xs.image) || Assets.Cap;
             return (
               <div key={xs.id} className="group w-full aspect-35/16 relative xl:w-80 xl:h-120">

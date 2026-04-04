@@ -3,16 +3,19 @@ import Image from "next/image";
 import { Section } from "./Section";
 import { CommonSection } from "cms-types";
 import { getStrapiMedia } from "@/utils/strapi";
+import { collectExtend } from "@/utils";
 
 export function ProcessingTech({ section }: { section: CommonSection }) {
+  const extension = collectExtend(section.payload?.extension as any, section.extension as any)
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}
+      className={extension.style}
     >
       <div className="px-5 mt-10 grid grid-cols-1 gap-3 xl:grid-cols-2 xl:gap-5 xl:px-0">
         {
-          section.data?.map((xs, idx) => {
+          section.payload?.data?.map((xs, idx) => {
             const src = getStrapiMedia(xs.image) ?? ""
             return (
               <div key={xs.id} className="group relative rounded-lg py-10 px-5 overflow-hidden  bg-[#f8f9fb] w-full xl:min-h-90 xl:h-90 xl:px-10 xl:py-15">

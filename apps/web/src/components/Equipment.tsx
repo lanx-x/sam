@@ -4,26 +4,29 @@ import { Assets } from "@/assets";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { Section } from "./Section";
-import { EquipmentSection } from "cms-types";
+import { CommonSection, EquipmentSection } from "cms-types";
 import { getStrapiMedia } from "@/utils/strapi";
+import { collectExtend } from "@/utils";
 
-export function Equipment({ section }: { section: EquipmentSection }) {
+export function Equipment({ section }: { section: CommonSection }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   })
 
+  const extension = collectExtend(section.payload?.extension as any)
+
 
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}
       className="text-left"
     >
       <div className="relative mt-10">
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex flex-row w-full">
             {
-              section.equipments?.map((xs, idx) => (
+              section.payload?.dynamic?.[0]?.equipment?.map((xs, idx) => (
                 <div key={xs.id} className="w-305/390 ml-5 shrink-0 text-left xl:w-76.25 xl:ml-0 xl:mr-5">
                   <Image src={getStrapiMedia(xs.image?.[0]) ?? ""} width={305} height={220} className="object-cover w-full xl:h-55" alt="" />
 
@@ -46,7 +49,7 @@ export function Equipment({ section }: { section: EquipmentSection }) {
 
                   <div className="flex items-center">
 
-                    <p className="text-accent text-sm font-medium flex flex-row items-center mr-3">{section.label}</p>
+                    <p className="text-accent text-sm font-medium flex flex-row items-center mr-3">{extension.open_label}</p>
                     <Image src={Assets.Link} alt="link" />
                   </div>
                 </div>

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_list_featured_surface_finish_lists",
+  "info": {
+    "displayName": "FeaturedSurfaceFinishList"
+  },
+  "options": {},
+  "attributes": {
+    "surface_finishes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::surface-finish.surface-finish"
+    }
+  },
+  "config": {}
+}

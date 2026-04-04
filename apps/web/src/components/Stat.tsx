@@ -22,9 +22,9 @@ export function Stat({ border, section }: PropsWithChildren<Props>) {
   return (
     <div className={`py-10  border-b border-[#efefef] xl:py-9 ${section.style}`}>
       <SectionContainer>
-        <div className={`grid grid-cols-2 overflow-hidden ${colsMap[Math.min(5, section.data?.length ?? 1)]}  gap-y-10`}>
+        <div className={`grid grid-cols-2 overflow-hidden ${colsMap[Math.min(5, section.payload?.data?.length ?? 1)]}  gap-y-10`}>
           {
-            section.data?.map(xs => {
+            section.payload?.data?.map(xs => {
               const iconUrl = getStrapiMedia(xs.image);
               return (
                 <div key={xs.id} className="group relative flex flex-row items-center justify-center">

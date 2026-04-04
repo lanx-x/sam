@@ -16,7 +16,7 @@ function extendsListTo<T>(size: number, list: T[]) {
   return extended
 }
 
-export function Partner({ section, className }: { section: CommonSection, className?: string }) {
+export function Partner({ section }: { section: CommonSection }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       align: "start",
@@ -44,7 +44,7 @@ export function Partner({ section, className }: { section: CommonSection, classN
     <div className="bottom-5 left-0 h-10 w-full overflow-hidden" ref={emblaRef}>
       <div className="flex flex-row h-full items-center">
         {
-          extendsListTo(20, section.data ?? [])?.map((xs, idx) => (
+          extendsListTo(20, section.payload?.data ?? [])?.map((xs, idx) => (
             <div key={idx} className="mr-9 flex h-full flex-[0_0_auto] items-center">
               <Image width={160} height={64} src={getStrapiMedia(xs.image) ?? ""} alt={xs.title ?? ""} className="h-5 w-auto object-contain" />
             </div>

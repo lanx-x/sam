@@ -19,7 +19,7 @@ const partnerLogos = [
 const marqueeLogos = Array.from({ length: 10 }, () => partnerLogos).flat();
 
 export function MainHero({ section }: { section: CommonSection }) {
-  const items = section.data ?? []
+  const items = section.payload?.data ?? []
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -70,7 +70,7 @@ export function MainHero({ section }: { section: CommonSection }) {
       }
       <div className="absolute inset-0 bg-[linear-gradient(278deg,rgba(0,35,70,0)_31.39%,#001123_100%)]" />
       <div className="relative pt-20 px-5 xl:w-7xl xl:px-0 xl:mx-auto">
-        <h2 className="text-4xl font-black text-white mb-10 max-w-87.5 xl:text-[64px] xl:max-w-140">{section.title}</h2>
+        <h2 className="text-4xl font-black text-white mb-10 max-w-87.5 xl:text-[64px] xl:max-w-140">{section?.payload?.title}</h2>
 
         <div>
           <div className="flex flex-col xl:flex-row">
@@ -108,7 +108,7 @@ export function MainHero({ section }: { section: CommonSection }) {
 
         <div className="flex mt-20 pb-29 flex-row justify-between xl:pb-34.5 xl:justify-start xl:mt-10">
           {
-            section.actions?.map(xs => (
+            section.payload?.actions?.map(xs => (
               <button key={xs.id} className="w-16/35 h-12 bg-white first:bg-accent rounded-sm first:text-white font-medium truncate xl:w-50 xl:h-13 xl:mr-5 xl:text-base">{xs.label}</button>
             ))
           }

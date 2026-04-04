@@ -430,6 +430,63 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiActionAction extends Struct.CollectionTypeSchema {
+  collectionName: 'actions';
+  info: {
+    displayName: 'Action';
+    pluralName: 'actions';
+    singularName: 'action';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    admin_note: Schema.Attribute.String &
+      Schema.Attribute.Private &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    extension: Schema.Attribute.Component<'item.kv-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    label: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
+    publishedAt: Schema.Attribute.DateTime;
+    target: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    ui_section: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::ui-section.ui-section'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiDemoDemo extends Struct.SingleTypeSchema {
   collectionName: 'demos';
   info: {
@@ -810,7 +867,7 @@ export interface ApiRendererRenderer extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    desc: Schema.Attribute.Text &
+    desc: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1032,6 +1089,103 @@ export interface ApiSurfaceFinishSurfaceFinish
       }>;
     publishedAt: Schema.Attribute.DateTime;
     services: Schema.Attribute.Component<'item.value-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiUiSectionUiSection extends Struct.CollectionTypeSchema {
+  collectionName: 'ui_sections';
+  info: {
+    displayName: 'UISection';
+    pluralName: 'ui-sections';
+    singularName: 'ui-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
+    admin_note: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data: Schema.Attribute.Component<'item.common-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    desc: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    dynamic: Schema.Attribute.DynamicZone<
+      [
+        'list.featured-story-list',
+        'list.featured-spe-list',
+        'list.featured-post-list',
+        'list.featured-industry-list',
+        'list.featured-faq-list',
+        'list.featured-equipment-list',
+        'list.featured-surface-finish-list',
+      ]
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    extension: Schema.Attribute.Component<'item.kv-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    extra_images: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ui-section.ui-section'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
+    title: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1706,6 +1860,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::action.action': ApiActionAction;
       'api::demo.demo': ApiDemoDemo;
       'api::equipment.equipment': ApiEquipmentEquipment;
       'api::faq.faq': ApiFaqFaq;
@@ -1717,6 +1872,7 @@ declare module '@strapi/strapi' {
       'api::specification.specification': ApiSpecificationSpecification;
       'api::story.story': ApiStoryStory;
       'api::surface-finish.surface-finish': ApiSurfaceFinishSurfaceFinish;
+      'api::ui-section.ui-section': ApiUiSectionUiSection;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

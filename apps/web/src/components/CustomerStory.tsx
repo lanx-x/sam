@@ -9,11 +9,11 @@ import { useEffect, useState } from "react";
 import { Section } from "./Section";
 import { CommonSection, StorySection } from "cms-types";
 import { getStrapiMedia } from "@/utils/strapi";
+import { collectExtend } from "@/utils";
 
-export function CustomerStory({ section }: { section: StorySection }) {
+export function CustomerStory({ section }: { section: CommonSection }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
-
     align: "start",
     containScroll: "trimSnaps",
   })
@@ -41,16 +41,18 @@ export function CustomerStory({ section }: { section: StorySection }) {
     };
   }, [emblaApi]);
 
+  const extension = collectExtend(section.payload?.extension as any, section.extension as any)
+
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}
-      className={`bg-[#fafafa] ${section.style}`}
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}
+      className={`bg-[#fafafa] ${extension.style}`}
     >
       <div className="py-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
           {
-            section.stories?.map((xs, idx) => (
+            section.payload?.dynamic?.[0]?.stories?.map((xs, idx) => (
               <div className="w-full shrink-0 flex items-center justify-center px-5 xl:px-0" key={idx}>
 
                 <div
@@ -74,7 +76,7 @@ export function CustomerStory({ section }: { section: StorySection }) {
                     </div>
 
                     <div className="hidden text-right text-accent text-base justify-end font-medium items-center xl:flex">
-                      <p className="mr-2">{section.label}</p>
+                      <p className="mr-2">{extension.open_url}</p>
                       <Image src={Assets.ArrowR} alt="arrow" />
                     </div>
                   </div>
@@ -88,7 +90,7 @@ export function CustomerStory({ section }: { section: StorySection }) {
 
       <div className="hidden xl:flex mx-auto justify-center">
         {
-          section.stories?.map((xs, idx) => (
+          section.payload?.stories?.map((xs, idx) => (
             <div key={idx} className="cursor-pointer" onClick={() => emblaApi?.goTo(idx)}>
               <p className={`text-xs ${selectedIndex === idx ? 'text-[#666]' : 'text-[#bfbfbf]'}`}>0{idx + 1}</p>
               <div className={`w-12 h-1 border-b border-l ${selectedIndex === idx ? 'border-secondary' : 'border-[#efefef]'} last:border-r`}></div>

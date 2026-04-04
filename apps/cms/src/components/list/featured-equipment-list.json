@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_list_featured_equipment_lists",
+  "info": {
+    "displayName": "FeaturedEquipmentList"
+  },
+  "options": {},
+  "attributes": {
+    "equipment": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::equipment.equipment"
+    }
+  },
+  "config": {}
+}

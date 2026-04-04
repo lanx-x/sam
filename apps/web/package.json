@@ -12,6 +12,8 @@
     "prebuild": "node scripts/generate-assets.mjs"
   },
   "dependencies": {
+    "@strapi/blocks-react-renderer": "^1.0.2",
+    "@tailwindcss/typography": "^0.5.19",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.20",
     "embla-carousel-auto-scroll": "9.0.0-rc01",

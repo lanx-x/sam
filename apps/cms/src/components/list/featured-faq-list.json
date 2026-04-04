@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_list_featured_faq_lists",
+  "info": {
+    "displayName": "FeaturedFAQList"
+  },
+  "options": {},
+  "attributes": {
+    "faqs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::faq.faq"
+    }
+  },
+  "config": {}
+}

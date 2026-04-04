@@ -1,4 +1,4 @@
-export function collectExtend(raw: { key: string, value: string }[] | null | undefined) {
-  const payload = raw ? raw : []
-  return Object.fromEntries(payload.map(xs => [xs.key, xs.value]))
+export function collectExtend(...raw: { key: string, value: string }[]) {
+  const payload = raw?.flat() ?? []
+  return Object.fromEntries(payload.filter(Boolean).map(xs => [xs.key, xs.value]))
 }

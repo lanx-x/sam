@@ -6,13 +6,13 @@ import { getStrapiMedia } from "@/utils/strapi";
 export function Service({ section }: { section: CommonSection }) {
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}
       className="bg-[#fafafa]"
     >
       <div className="text-left px-5 grid grid-cols-1 gap-5 mt-10 xl:grid-cols-3">
         {
-          section.data?.map(xs => (
+          section.payload?.data?.map(xs => (
             <div key={xs.id} className="py-10 px-5 border border-[#bfbfbf] rounded-lg">
               <Image width={64} height={64} src={getStrapiMedia(xs.image) ?? ""} alt="icon" className="object-contain w-12 h-12 xl:w-16 xl:h-16" />
               <p className="mt-10 mb-3 text-2xl font-semibold xl:text-[32px]">{xs.title}</p>
