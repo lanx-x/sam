@@ -9,6 +9,8 @@ import BlackArrowR from "./black-arrow-r.svg";
 import Broadcast from "./broadcast.svg";
 import Building from "./building.jpg";
 import Cap from "./cap.jpg";
+import CaretSmallLeft from "./caret-small-left.svg";
+import CaretSmallRight from "./caret-small-right.svg";
 import CheckBlue from "./check-blue.png";
 import Check from "./check.svg";
 import Close from "./close.svg";
@@ -58,6 +60,8 @@ export const Assets = {
   Broadcast,
   Building,
   Cap,
+  CaretSmallLeft,
+  CaretSmallRight,
   CheckBlue,
   Check,
   Close,

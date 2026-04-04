@@ -24,8 +24,9 @@ import { CmpMap } from "@/components";
 //   };
 // }
 
-export default async function CatchAllPage({ params, }: { params: Promise<{ lang: string; slug: string[] }> }) {
+export default async function CatchAllPage({ params, searchParams, }: { params: Promise<{ lang: string; slug: string[] }>; searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const { lang, slug = [] } = await params
+  const sp = await searchParams
   logger.debug('page params:', { lang, slug });
 
   const locale = getLocale(lang)
@@ -66,7 +67,7 @@ export default async function CatchAllPage({ params, }: { params: Promise<{ lang
             return null;
           }
 
-          return <Cmp key={section.id} section={section} documentId={documentId} />;
+          return <Cmp key={section.id} section={section} documentId={documentId} searchParams={sp} />;
         })
       }
     </div>

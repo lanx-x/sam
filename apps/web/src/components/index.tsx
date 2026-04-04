@@ -35,6 +35,7 @@ import { SurfaceFinishDetail } from "./SurfaceFinishDetail";
 import { FullImageHero } from "./FullImageHero";
 import { EquipmentList } from "./EquipmentList";
 import { EquipmentDetail } from "./EquipmentDetail";
+import { CaseStudyList } from "./CaseStudyList";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -76,4 +77,5 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   FullImageHero,
   EquipmentList,
   EquipmentDetail,
+  CaseStudyList,
 }
