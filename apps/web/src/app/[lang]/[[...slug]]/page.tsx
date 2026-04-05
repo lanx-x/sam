@@ -67,7 +67,7 @@ export default async function CatchAllPage({ params, searchParams, }: { params: 
             return null;
           }
 
-          return <Cmp key={section.id} section={section} documentId={documentId} searchParams={sp} />;
+          return <Cmp key={section.id} section={section} documentId={documentId} searchParams={sp} slug={slug} lang={lang} />;
         })
       }
     </div>

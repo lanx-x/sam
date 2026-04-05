@@ -7,7 +7,7 @@ export function FullImageHero({ section }: { section: CommonSection }) {
   const extension = mergeExtension(section)
 
   return (
-    <div className={`relative h-80 flex justify-center items-center ${extension.style}`}>
+    <div className={`relative py-8.75 xl:py-16.25 flex justify-center items-center ${extension.style}`}>
       <Image fill src={getStrapiMedia(section.payload?.image) ?? ""} alt="banner" className="object-cover" />
       <div className="relative z-10 text-center text-white xl:w-7xl">
         <p className="text-[64px] font-black mb-5 leading-none">{section.payload?.title}</p>

@@ -9,3 +9,10 @@ export function collectExtend(...raw: { key: string, value: string }[]) {
 export function mergeExtension(section: CommonSection) {
   return collectExtend(section.payload?.extension as any, section.extension as any)
 }
+
+
+export function extractBlockText(blocks: any[]): string {
+  if (!blocks?.length) return '';
+  return blocks.map(block => block.children?.map((c: any) => c.text || '').join('') || '').join(' ');
+}
+

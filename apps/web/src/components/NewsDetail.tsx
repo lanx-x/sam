@@ -1,0 +1,71 @@
+import { CommonSection } from "cms-types";
+import Image from "next/image";
+import Link from "next/link";
+import { SectionContainer } from "./Section";
+import { getStrapiMedia } from "@/utils/strapi";
+import { getNews } from "@/api";
+import { BlocksContent } from "./BlocksContent";
+import dayjs from "dayjs";
+import { extractBlockText } from "@/utils";
+
+export async function NewsDetail({ documentId, section, slug, lang }: { documentId: string, section: CommonSection; slug: string[]; lang: string }) {
+  const basePath = ['', lang, ...slug.slice(0, -1)].join('/')
+  const data = (await getNews({ 'filters[documentId][$eq]': documentId })).data?.[0]
+
+  if (!data) {
+    return <div className="py-30 text-3xl font-semibold text-center">News: {documentId} not found.</div>
+  }
+
+  const nextNews = (await getNews({
+    'filters[documentId][$ne]': documentId,
+    'pagination[pageSize]': 2,
+    'sort[0]': 'date:desc',
+  })).data
+
+  return (
+    <div className="px-5 xl:px-0">
+      <SectionContainer>
+        <div className="pt-15 xl:pt-20 pb-28 border-b border-b-[#efefef]">
+          <span className="text-sm text-secondary">{dayjs(data.date as string).format('YYYY-MM-DD HH:mm')}</span>
+          <p className="leading-none text-2xl xl:text-4xl font-medium mt-2 mb-5">{data.title}</p>
+          {data.image && (
+            <div className="relative aspect-video w-full overflow-hidden rounded-xl">
+              <Image fill src={getStrapiMedia(data.image) ?? ""} alt="" className="w-full object-cover" />
+            </div>
+          )}
+          {data.content && (
+            <div className="mt-5 xl:mt-10 prose max-w-none">
+              <BlocksContent content={data.content} />
+            </div>
+          )}
+        </div>
+      </SectionContainer>
+
+      {nextNews.length > 0 && (
+        <div className="pt-10 pb-10 xl:pb-35">
+          <SectionContainer>
+            <p className="text-left text-[32px] font-medium mb-5 leading-none">Next</p>
+            <div className="grid grid-cols-1 gap-5 xl:grid-cols-3 mx-auto">
+              {nextNews.map(xs => (
+                <Link key={xs.documentId} href={`${basePath}/${xs.documentId}`} className="group overflow-hidden">
+
+                  <div className="border-b border-[#efefef] hover:border-accent">
+                    <div className="h-full pb-5 border-b border-transparent group-hover:border-accent">
+                      <div className="aspect-162/91 relative">
+                        <Image fill src={getStrapiMedia(xs.image) ?? ""} alt="" className="w-full object-cover rounded-xl" />
+                      </div>
+                      <p className="text-lg font-semibold mt-4 mb-2 leading-none group-hover:text-accent">{xs.title}</p>
+                      <span className="text-secondary leading-none">{dayjs(xs.date as string).format('YYYY-MM-DD')}</span>
+                      <p className="shrink-0 leading-none line-clamp-2 flex-1 mt-2">{xs.desc || extractBlockText(xs.content)}</p>
+                    </div>
+                  </div>
+
+                </Link>
+              ))}
+            </div>
+          </SectionContainer>
+        </div>
+      )}
+    </div>
+  )
+}

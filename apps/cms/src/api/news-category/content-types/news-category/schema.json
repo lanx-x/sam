@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "news_items",
+  "collectionName": "news_categories",
   "info": {
-    "singularName": "news",
-    "pluralName": "news-items",
-    "displayName": "News"
+    "singularName": "news-category",
+    "pluralName": "news-categories",
+    "displayName": "NewsCategory"
   },
   "options": {
     "draftAndPublish": true
@@ -15,7 +15,7 @@
     }
   },
   "attributes": {
-    "title": {
+    "name": {
       "type": "string",
       "pluginOptions": {
         "i18n": {
@@ -24,14 +24,15 @@
       },
       "required": true
     },
-    "date": {
-      "type": "datetime",
+    "isAll": {
+      "type": "boolean",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "required": true
+      "required": true,
+      "default": false
     },
     "image": {
       "type": "media",
@@ -48,28 +49,6 @@
         "videos",
         "audios"
       ]
-    },
-    "desc": {
-      "type": "text",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "content": {
-      "type": "blocks",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true
-    },
-    "category": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::news-category.news-category"
     }
   }
 }

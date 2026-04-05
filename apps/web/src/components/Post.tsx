@@ -21,7 +21,7 @@ export function Post({ section }: { section: CommonSection }) {
                 <Image width={413} height={232} src={getStrapiMedia(xs.image) ?? ""} alt="" className="w-full object-cover rounded-xl" />
                 <p className="text-lg font-semibold mt-4 mb-2 leading-none group-hover:text-accent">{xs.title}</p>
                 <span className="text-secondary leading-none">{dayjs(xs.date as string).format('YYYY-MM-DD')}</span>
-                <p className="shrink-0 leading-none line-clamp-2 flex-1">{xs.desc}</p>
+                <p className="shrink-0 leading-none line-clamp-2 flex-1 mt-2">{xs.desc}</p>
               </div>
             </div>
           ))

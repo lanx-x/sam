@@ -38,6 +38,8 @@ export type SurfaceFinishList = StrapiDocument<"api::surface-finish.surface-fini
 export type EquipmentList = StrapiDocument<"api::equipment.equipment">;
 export type EquipmentCategoryList = StrapiDocument<"api::equipment-category.equipment-category">;
 export type CaseStudy = StrapiDocument<"api::case-study.case-study">;
+export type News = StrapiDocument<"api::news.news">;
+export type NewsCategory = StrapiDocument<"api::news-category.news-category">;
 
 export type CommonSection = StrapiComponent<"section.common-section">;
 export type StorySection = StrapiComponent<"section.story-section">
