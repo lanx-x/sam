@@ -15,9 +15,10 @@ type Props = {
   pageSize: number;
   categories: NewsCategory[];
   activeCategoryId?: string;
+  basePath: string;
 };
 
-export function NewsClientList({ data, pageSize, categories, activeCategoryId }: Props) {
+export function NewsClientList({ data, pageSize, categories, activeCategoryId, basePath }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const page = Number(searchParams.get('page')) || 1;
@@ -56,7 +57,7 @@ export function NewsClientList({ data, pageSize, categories, activeCategoryId }:
 
         <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
           {data.data.map((xs) => (
-            <Link key={xs.id} href={`/news/${xs.documentId}`} className="cursor-pointer relative group duration-300 transition-colors overflow-hidden bg-white border-b border-[#efefef] hover:border-accent">
+            <Link key={xs.id} href={`${basePath}/${xs.documentId}`} className="cursor-pointer relative group duration-300 transition-colors overflow-hidden bg-white border-b border-[#efefef] hover:border-accent">
 
               <div className="h-full pb-5 border-b border-transparent group-hover:border-accent">
                 <div className="aspect-162/91 relative">

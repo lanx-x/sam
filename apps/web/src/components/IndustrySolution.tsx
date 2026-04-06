@@ -6,7 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Section } from "./Section";
-import { CommonSection, IndustrySection, StorySection } from "cms-types";
+import { CommonSection } from "cms-types";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
 

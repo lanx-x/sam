@@ -24,11 +24,6 @@
     "style": {
       "type": "string"
     },
-    "surface_finishes": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::surface-finish.surface-finish"
-    },
     "renderer": {
       "type": "relation",
       "relation": "oneToOne",

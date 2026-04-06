@@ -1,7 +1,7 @@
 {
   "collectionName": "components_item_kv_items",
   "info": {
-    "displayName": "KVItem"
+    "displayName": "BasicItem"
   },
   "options": {},
   "attributes": {
@@ -11,10 +11,24 @@
     },
     "value": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "desc": {
       "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "admin_note": {
+      "type": "string",
+      "private": true
     }
   },
   "config": {}

@@ -1,12 +1,12 @@
 'use client';
 import { Assets } from "@/assets";
-import { CommonSection, PostSection } from "cms-types";
+import { CommonSection } from "cms-types";
 import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import dayjs from "dayjs";
 
-export function Post({ section }: { section: CommonSection }) {
+export function FeaturedNews({ section }: { section: CommonSection }) {
   return (
     <Section
       title={section.payload?.title!}
@@ -15,8 +15,8 @@ export function Post({ section }: { section: CommonSection }) {
 
       <div className="px-5 mt-10 grid grid-cols-1 gap-5 xl:grid-cols-3 xl:px-0">
         {
-          section.payload?.dynamic?.[0]?.posts?.map((xs, idx) => (
-            <div key={xs.id} className="text-left group border-b border-[#efefef] hover:border-accent">
+          section.payload?.dynamic?.[0]?.news?.map((xs, idx) => (
+            <div key={xs.documentId} className="text-left group border-b border-[#efefef] hover:border-accent">
               <div className="h-full pb-5 border-b border-transparent group-hover:border-accent">
                 <Image width={413} height={232} src={getStrapiMedia(xs.image) ?? ""} alt="" className="w-full object-cover rounded-xl" />
                 <p className="text-lg font-semibold mt-4 mb-2 leading-none group-hover:text-accent">{xs.title}</p>

@@ -30,6 +30,19 @@ export interface ItemButtonItem extends Struct.ComponentSchema {
   };
 }
 
+export interface ItemCategoryItem extends Struct.ComponentSchema {
+  collectionName: 'components_item_category_items';
+  info: {
+    displayName: 'CategoryItem';
+  };
+  attributes: {
+    desc: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    isAll: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ItemCommonItem extends Struct.ComponentSchema {
   collectionName: 'components_item_common_items';
   info: {
@@ -40,7 +53,6 @@ export interface ItemCommonItem extends Struct.ComponentSchema {
     desc: Schema.Attribute.Text;
     extend: Schema.Attribute.Component<'item.kv-item', true>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    items: Schema.Attribute.Component<'item.nest-item', true>;
     label: Schema.Attribute.String;
     target: Schema.Attribute.String;
     title: Schema.Attribute.String;
@@ -50,12 +62,14 @@ export interface ItemCommonItem extends Struct.ComponentSchema {
 export interface ItemKvItem extends Struct.ComponentSchema {
   collectionName: 'components_item_kv_items';
   info: {
-    displayName: 'KVItem';
+    displayName: 'BasicItem';
   };
   attributes: {
+    admin_note: Schema.Attribute.String & Schema.Attribute.Private;
     desc: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     key: Schema.Attribute.String & Schema.Attribute.Required;
-    value: Schema.Attribute.String & Schema.Attribute.Required;
+    value: Schema.Attribute.String;
   };
 }
 
@@ -92,7 +106,7 @@ export interface ItemSpeItem extends Struct.ComponentSchema {
 export interface ItemSurfaceFinishExtendItem extends Struct.ComponentSchema {
   collectionName: 'components_item_surface_finish_extend_items';
   info: {
-    displayName: 'SurfaceFinishExtendItem';
+    displayName: 'SurfaceTreatmentExtendItem';
   };
   attributes: {
     content: Schema.Attribute.Blocks;
@@ -151,7 +165,7 @@ export interface ListFeaturedFaqList extends Struct.ComponentSchema {
 export interface ListFeaturedIndustryList extends Struct.ComponentSchema {
   collectionName: 'components_list_featured_industry_lists';
   info: {
-    displayName: 'FeaturedIndustryList';
+    displayName: 'FeaturedIndustry';
   };
   attributes: {
     industries: Schema.Attribute.Relation<
@@ -164,10 +178,10 @@ export interface ListFeaturedIndustryList extends Struct.ComponentSchema {
 export interface ListFeaturedPostList extends Struct.ComponentSchema {
   collectionName: 'components_list_featured_post_lists';
   info: {
-    displayName: 'FeaturedPostList';
+    displayName: 'FeaturedNews';
   };
   attributes: {
-    posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
+    news: Schema.Attribute.Relation<'oneToMany', 'api::news.news'>;
   };
 }
 
@@ -200,12 +214,12 @@ export interface ListFeaturedStoryList extends Struct.ComponentSchema {
 export interface ListFeaturedSurfaceFinishList extends Struct.ComponentSchema {
   collectionName: 'components_list_featured_surface_finish_lists';
   info: {
-    displayName: 'FeaturedSurfaceFinishList';
+    displayName: 'FeaturedSurfaceTreament';
   };
   attributes: {
-    surface_finishes: Schema.Attribute.Relation<
+    surface_treatments: Schema.Attribute.Relation<
       'oneToMany',
-      'api::surface-finish.surface-finish'
+      'api::surface-treatment.surface-treatment'
     >;
   };
 }
@@ -281,7 +295,6 @@ export interface SectionPostSection extends Struct.ComponentSchema {
   };
   attributes: {
     desc: Schema.Attribute.Text;
-    posts: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
     renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
     style: Schema.Attribute.String;
     title: Schema.Attribute.String;
@@ -330,10 +343,6 @@ export interface SectionSurfaceFinishSection extends Struct.ComponentSchema {
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
     style: Schema.Attribute.String;
-    surface_finishes: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::surface-finish.surface-finish'
-    >;
     title: Schema.Attribute.String;
   };
 }
@@ -344,6 +353,7 @@ declare module '@strapi/strapi' {
       'global.nav': GlobalNav;
       'global.seo': GlobalSeo;
       'item.button-item': ItemButtonItem;
+      'item.category-item': ItemCategoryItem;
       'item.common-item': ItemCommonItem;
       'item.kv-item': ItemKvItem;
       'item.nest-item': ItemNestItem;

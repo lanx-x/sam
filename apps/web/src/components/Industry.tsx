@@ -2,7 +2,7 @@
 
 import { Assets } from "@/assets";
 import { getStrapiMedia } from "@/utils/strapi";
-import { CommonSection, IndustrySection } from "cms-types";
+import { CommonSection } from "cms-types";
 import Image from "next/image";
 
 export function Industry({ section }: { section: CommonSection }) {

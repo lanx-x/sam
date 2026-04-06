@@ -33,9 +33,10 @@ export type StrapiSingleResponse<T> = {
 };
 
 export type PageData = StrapiDocument<"api::page.page">;
-export type SurfaceFinishList = StrapiDocument<"api::surface-finish.surface-finish">;
-export type EquipmentList = StrapiDocument<"api::equipment.equipment">;
-export type EquipmentCategoryList = StrapiDocument<"api::equipment-category.equipment-category">;
+
+export type SurfaceTreatment = StrapiDocument<"api::surface-treatment.surface-treatment">;
+export type Equipment = StrapiDocument<"api::equipment.equipment">;
+export type EquipmentCategory = StrapiDocument<"api::equipment-category.equipment-category">;
 export type CaseStudy = StrapiDocument<"api::case-study.case-study">;
 export type News = StrapiDocument<"api::news.news">;
 export type NewsCategory = StrapiDocument<"api::news-category.news-category">;
@@ -44,10 +45,3 @@ export type Material = StrapiDocument<"api::material.material">;
 export type MaterialCategory = StrapiDocument<"api::material-category.material-category">;
 
 export type CommonSection = StrapiComponent<"section.common-section">;
-export type StorySection = StrapiComponent<"section.story-section">
-export type SpeSection = StrapiComponent<"section.spe-section">
-export type EquipmentSection = StrapiComponent<"section.equipment-section">
-export type SurfaceFinishSection = StrapiComponent<"section.surface-finish-section">
-export type PostSection = StrapiComponent<"section.post-section">
-export type FAQSection = StrapiComponent<"section.faq-section">
-export type IndustrySection = StrapiComponent<"section.industry-section">

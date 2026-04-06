@@ -24,15 +24,21 @@
       },
       "required": true
     },
+    "desc": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "isAll": {
       "type": "boolean",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      },
-      "required": true,
-      "default": false
+      }
     },
     "image": {
       "type": "media",
@@ -42,21 +48,12 @@
         }
       },
       "multiple": false,
-      "required": true,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
       ]
-    },
-    "desc": {
-      "type": "text",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
     }
   }
 }

@@ -46,30 +46,11 @@
         "audios"
       ]
     },
-    "props": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "item.value-item",
-      "repeatable": true
-    },
-    "cons": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "item.value-item",
-      "repeatable": true
-    },
     "surface_treatments": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::surface-treatment.surface-treatment"
+      "relation": "manyToMany",
+      "target": "api::surface-treatment.surface-treatment",
+      "mappedBy": "materials"
     },
     "industries": {
       "type": "relation",
@@ -88,6 +69,26 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::material-category.material-category"
+    },
+    "pros": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.kv-item",
+      "repeatable": true
+    },
+    "cons": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.kv-item",
+      "repeatable": true
     }
   }
 }

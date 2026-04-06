@@ -19,7 +19,7 @@ import { ImageSection } from "./ImageSection";
 import { Ship } from "./Ship";
 import { SurfaceFinish } from "./SurfaceFinish";
 import { Tolerance } from "./Tolerance";
-import { Post } from "./Post";
+import { FeaturedNews } from "./FeaturedNews";
 import { Service } from "./Service";
 import { IndustrySolution } from "./IndustrySolution";
 import { Industry } from "./Industry";
@@ -41,6 +41,7 @@ import { NewsList } from "./NewsList";
 import { NewsDetail } from "./NewsDetail";
 import { VideoList } from "./VideoList";
 import { MaterialList } from "./MaterialList";
+import { MaterialDetail } from "./MaterialDetail";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -63,7 +64,7 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   Ship,
   SurfaceFinish,
   Tolerance,
-  Post,
+  FeaturedNews,
   Service,
 
   Industry,
@@ -88,4 +89,5 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   NewsDetail,
   VideoList,
   MaterialList,
+  MaterialDetail,
 }

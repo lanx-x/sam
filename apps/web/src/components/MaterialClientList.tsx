@@ -1,6 +1,7 @@
 'use client';
 
 import Image from "next/image";
+import Link from "next/link";
 import { SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import { Assets } from "@/assets";
@@ -10,9 +11,10 @@ import { getMaterial, getMaterialCategory } from "@/api";
 type Props = {
   categories: Awaited<ReturnType<typeof getMaterialCategory>>,
   materials: Awaited<ReturnType<typeof getMaterial>>,
+  basePath: string,
 }
 
-export function MaterialClientList({ categories, materials }: Props) {
+export function MaterialClientList({ categories, materials, basePath }: Props) {
   const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>(undefined)
 
   const filtered = activeCategoryId
@@ -86,13 +88,13 @@ export function MaterialClientList({ categories, materials }: Props) {
                   <p className="">Description</p>
                 </div>
                 {items.map((xs, idx) => (
-                  <div key={xs.documentId} className={`${gridOpts} py-2.5 border-b border-[#bfbfbf] hover:bg-[#f7fbfe] duration-300 transition-colors`}>
+                  <Link key={xs.documentId} href={`${basePath}/${xs.documentId}`} className={`${gridOpts} py-2.5 border-b border-[#bfbfbf] hover:bg-[#f7fbfe] duration-300 transition-colors cursor-pointer`}>
                     <div className="xl:pl-5 aspect-square w-20 xl:w-30 relative">
                       <Image fill src={getStrapiMedia(xs.image) ?? ""} className="w-30 h-30 rounded-lg object-cover" alt="" />
                     </div>
                     <p className="text-base xl:text-lg font-bold">{xs.name}</p>
                     <p className="text-base">{xs.desc}</p>
-                  </div>
+                  </Link>
                 ))}
               </div>
             ))

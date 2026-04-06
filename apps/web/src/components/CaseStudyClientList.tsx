@@ -2,6 +2,7 @@
 
 import { CaseStudy, StrapiCollectionResponse } from "cms-types";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { getStrapiMedia } from "@/utils/strapi";
@@ -9,7 +10,8 @@ import { Assets } from "@/assets";
 
 type Props = {
   data: StrapiCollectionResponse<CaseStudy>;
-  pageSize: number
+  pageSize: number;
+  basePath: string;
 };
 
 function generatePages(current: number, total: number): (number | '...')[] {
@@ -30,7 +32,7 @@ function generatePages(current: number, total: number): (number | '...')[] {
   return pages;
 }
 
-export function CaseStudyClientList({ data, pageSize }: Props) {
+export function CaseStudyClientList({ data, pageSize, basePath }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const page = Number(searchParams.get('page')) || 1;
@@ -52,7 +54,7 @@ export function CaseStudyClientList({ data, pageSize }: Props) {
       <div className="xl:w-7xl xl:mx-auto">
         <div className="grid grid-cols-2 gap-5 xl:grid-cols-3 xl:gap-y-5">
           {data.data.map((xs) => (
-            <div key={xs.id} className="cursor-pointer relative p-2.5 group rounded-xl duration-300 transition-colors w-108.25 overflow-hidden bg-white hover:bg-[rgba(0,118,238,0.1)]">
+            <Link key={xs.id} href={`${basePath}/${xs.documentId}`} className="cursor-pointer relative p-2.5 group rounded-xl duration-300 transition-colors w-108.25 overflow-hidden bg-white hover:bg-[rgba(0,118,238,0.1)]">
               <div className="relative rounded-xl aspect-413/336 w-full overflow-hidden">
                 <Image
                   fill
@@ -69,7 +71,7 @@ export function CaseStudyClientList({ data, pageSize }: Props) {
               <span className="absolute top-6.5 left-5.5 inline-block text-sm bg-[#e5f2ff] border border-accent px-2 py-1 rounded-sm font-semibold">
                 {xs.industry}
               </span>
-            </div>
+            </Link>
           ))}
         </div>
 

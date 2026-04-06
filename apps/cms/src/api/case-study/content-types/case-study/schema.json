@@ -19,10 +19,6 @@
       "type": "text",
       "required": true
     },
-    "industry": {
-      "type": "string",
-      "required": true
-    },
     "date": {
       "type": "datetime",
       "required": true
@@ -56,6 +52,11 @@
     },
     "content": {
       "type": "blocks"
+    },
+    "industry": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::industry.industry"
     }
   }
 }

@@ -4,7 +4,7 @@ import { Assets } from "@/assets";
 import Image from "next/image";
 import { useState } from "react";
 import { SectionContainer } from "./Section";
-import { CommonSection, FAQSection } from "cms-types";
+import { CommonSection } from "cms-types";
 import { collectExtend } from "@/utils";
 
 export function FeaturedFAQ({ section }: { section: CommonSection }) {

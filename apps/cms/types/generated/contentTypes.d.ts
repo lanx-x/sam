@@ -511,7 +511,7 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
     >;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Schema.Attribute.Required;
-    industry: Schema.Attribute.String & Schema.Attribute.Required;
+    industry: Schema.Attribute.Relation<'oneToOne', 'api::industry.industry'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -574,7 +574,6 @@ export interface ApiEquipmentCategoryEquipmentCategory
     >;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.Unique &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -803,8 +802,7 @@ export interface ApiMaterialCategoryMaterialCategory
         i18n: {
           localized: true;
         };
-      }> &
-      Schema.Attribute.DefaultTo<false>;
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -844,7 +842,7 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
       'oneToOne',
       'api::material-category.material-category'
     >;
-    cons: Schema.Attribute.Component<'item.value-item', true> &
+    cons: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -886,7 +884,7 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    props: Schema.Attribute.Component<'item.value-item', true> &
+    pros: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -894,7 +892,7 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
       }>;
     publishedAt: Schema.Attribute.DateTime;
     surface_treatments: Schema.Attribute.Relation<
-      'oneToMany',
+      'manyToMany',
       'api::surface-treatment.surface-treatment'
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -923,27 +921,24 @@ export interface ApiNewsCategoryNewsCategory
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    desc: Schema.Attribute.Text &
+    desc: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
-      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
     isAll: Schema.Attribute.Boolean &
-      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
-      }> &
-      Schema.Attribute.DefaultTo<false>;
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1078,64 +1073,6 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiPostPost extends Struct.CollectionTypeSchema {
-  collectionName: 'posts';
-  info: {
-    displayName: 'Post';
-    pluralName: 'posts';
-    singularName: 'post';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    content: Schema.Attribute.Blocks &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    date: Schema.Attribute.DateTime &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    desc: Schema.Attribute.Text &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::post.post'>;
-    publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiRendererRenderer extends Struct.CollectionTypeSchema {
   collectionName: 'renderers';
   info: {
@@ -1203,11 +1140,41 @@ export interface ApiSiteSite extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
+    contact: Schema.Attribute.Component<'item.kv-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    desc: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::site.site'>;
+    logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1274,13 +1241,13 @@ export interface ApiSpecificationSpecification
   };
 }
 
-export interface ApiSurfaceFinishSurfaceFinish
+export interface ApiSurfaceTreatmentSurfaceTreatment
   extends Struct.CollectionTypeSchema {
-  collectionName: 'surface_finishes';
+  collectionName: 'surface_treatments';
   info: {
-    displayName: 'SurfaceFinish';
-    pluralName: 'surface-finishes';
-    singularName: 'surface-finish';
+    displayName: 'SurfaceTreatment';
+    pluralName: 'surface-treatments';
+    singularName: 'surface-treatment';
   };
   options: {
     draftAndPublish: true;
@@ -1291,13 +1258,7 @@ export interface ApiSurfaceFinishSurfaceFinish
     };
   };
   attributes: {
-    advantages: Schema.Attribute.Component<'item.value-item', true> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    applicable_materials: Schema.Attribute.Component<'item.value-item', true> &
+    cons: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1307,12 +1268,6 @@ export interface ApiSurfaceFinishSurfaceFinish
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     desc: Schema.Attribute.Text &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    disadvantages: Schema.Attribute.Component<'item.value-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1336,7 +1291,11 @@ export interface ApiSurfaceFinishSurfaceFinish
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::surface-finish.surface-finish'
+      'api::surface-treatment.surface-treatment'
+    >;
+    materials: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::material.material'
     >;
     name: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
@@ -1350,6 +1309,12 @@ export interface ApiSurfaceFinishSurfaceFinish
           localized: true;
         };
       }>;
+    pros: Schema.Attribute.Component<'item.kv-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     services: Schema.Attribute.Component<'item.value-item', true> &
       Schema.Attribute.SetPluginOptions<{
@@ -1357,38 +1322,6 @@ export interface ApiSurfaceFinishSurfaceFinish
           localized: true;
         };
       }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiSurfaceTreatmentSurfaceTreatment
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'surface_treatments';
-  info: {
-    displayName: 'SurfaceTreatment';
-    pluralName: 'surface-treatments';
-    singularName: 'surface-treatment';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::surface-treatment.surface-treatment'
-    >;
-    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2221,11 +2154,9 @@ declare module '@strapi/strapi' {
       'api::news-category.news-category': ApiNewsCategoryNewsCategory;
       'api::news.news': ApiNewsNews;
       'api::page.page': ApiPagePage;
-      'api::post.post': ApiPostPost;
       'api::renderer.renderer': ApiRendererRenderer;
       'api::site.site': ApiSiteSite;
       'api::specification.specification': ApiSpecificationSpecification;
-      'api::surface-finish.surface-finish': ApiSurfaceFinishSurfaceFinish;
       'api::surface-treatment.surface-treatment': ApiSurfaceTreatmentSurfaceTreatment;
       'api::ui-section.ui-section': ApiUiSectionUiSection;
       'api::video.video': ApiVideoVideo;

@@ -14,5 +14,93 @@
       "localized": true
     }
   },
-  "attributes": {}
+  "attributes": {
+    "name": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "desc": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "icon": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "notes": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.value-item",
+      "repeatable": true
+    },
+    "extend": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.surface-finish-extend-item",
+      "repeatable": false
+    },
+    "materials": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::material.material",
+      "inversedBy": "surface_treatments"
+    },
+    "services": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.value-item",
+      "repeatable": true
+    },
+    "pros": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.kv-item",
+      "repeatable": true
+    },
+    "cons": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.kv-item",
+      "repeatable": true
+    }
+  }
 }

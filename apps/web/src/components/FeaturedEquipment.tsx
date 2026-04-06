@@ -4,7 +4,7 @@ import { Assets } from "@/assets";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { Section } from "./Section";
-import { CommonSection, EquipmentSection } from "cms-types";
+import { CommonSection } from "cms-types";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
 

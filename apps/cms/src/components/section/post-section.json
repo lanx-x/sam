@@ -14,11 +14,6 @@
     "style": {
       "type": "string"
     },
-    "posts": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::post.post"
-    },
     "renderer": {
       "type": "relation",
       "relation": "oneToOne",

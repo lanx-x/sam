@@ -1,7 +1,8 @@
 'use client';
 
-import { CommonSection, EquipmentCategoryList } from "cms-types";
+import { CommonSection, EquipmentCategory } from "cms-types";
 import Image from "next/image";
+import Link from "next/link";
 import { Section, SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import { getEquipment, getEquipmentCategory, getSurfaceFinish } from "@/api";
@@ -13,10 +14,11 @@ import { useState } from "react";
 type Props = {
   categories: Awaited<ReturnType<typeof getEquipmentCategory>>,
   equipments: Awaited<ReturnType<typeof getEquipment>>,
+  basePath: string,
 }
 export function EquipmentClientList(props: Props) {
 
-  const { categories, equipments } = props
+  const { categories, equipments, basePath } = props
   const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>(undefined)
   return (
     <SectionContainer>
@@ -51,7 +53,7 @@ export function EquipmentClientList(props: Props) {
         <div className="px-5 pb-10 xl:px-0">
           {
             equipments.data.filter(xs => activeCategoryId ? (xs.category as any)?.documentId === activeCategoryId : true).map((xs, idx) => (
-              <div key={idx} className="relative flex flex-col xl:flex-row justify-start py-7.5 xl:pr-10 hover:bg-[#f0f7fe] border-b border-b-[#efefef] hover:border-b-[#f0f7fe] duration-300 transition-colors">
+              <Link key={xs.documentId} href={`${basePath}/${xs.documentId}`} className="relative flex flex-col xl:flex-row justify-start py-7.5 xl:pr-10 hover:bg-[#f0f7fe] border-b border-b-[#efefef] hover:border-b-[#f0f7fe] duration-300 transition-colors cursor-pointer">
                 <Image width={360} height={260} src={getStrapiMedia(xs.image) ?? ""} className="w-90 h-65" alt="icon" />
                 <div className="mt-5 xl:mt-0 xl:ml-10 pb-10 relative">
                   <p className="leading-none text-2xl font-semibold mb-2">{xs.title}</p>
@@ -76,7 +78,7 @@ export function EquipmentClientList(props: Props) {
                   </div>
                 </div>
 
-              </div>
+              </Link>
             ))
           }
 

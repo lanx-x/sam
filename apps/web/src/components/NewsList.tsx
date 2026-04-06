@@ -4,7 +4,7 @@ import { NewsClientList } from "./NewsClientList";
 
 const PAGE_SIZE = 12;
 
-export async function NewsList({ section, searchParams }: { section: CommonSection; searchParams: { [key: string]: string | string[] | undefined } }) {
+export async function NewsList({ section, searchParams, slug, lang }: { section: CommonSection; searchParams: { [key: string]: string | string[] | undefined }; slug: string[]; lang: string }) {
   const page = Number(searchParams?.page) || 1
   const categoryId = searchParams?.category as string | undefined
 
@@ -17,5 +17,7 @@ export async function NewsList({ section, searchParams }: { section: CommonSecti
     getNewsCategory({}),
   ])
 
-  return <NewsClientList data={data} pageSize={PAGE_SIZE} categories={categories.data} activeCategoryId={categoryId} />
+  const basePath = ['', lang, ...slug].join('/')
+
+  return <NewsClientList data={data} pageSize={PAGE_SIZE} categories={categories.data} activeCategoryId={categoryId} basePath={basePath} />
 }

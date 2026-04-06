@@ -32,11 +32,6 @@
       "component": "item.button-item",
       "repeatable": true
     },
-    "items": {
-      "type": "component",
-      "component": "item.nest-item",
-      "repeatable": true
-    },
     "extend": {
       "type": "component",
       "component": "item.kv-item",

@@ -1,15 +1,20 @@
 {
-  "collectionName": "components_item_surface_finish_extend_items",
+  "collectionName": "components_item_category_items",
   "info": {
-    "displayName": "SurfaceTreatmentExtendItem"
+    "displayName": "CategoryItem"
   },
   "options": {},
   "attributes": {
-    "title": {
-      "type": "string"
+    "name": {
+      "type": "string",
+      "required": true
     },
     "desc": {
-      "type": "text"
+      "type": "string"
+    },
+    "isAll": {
+      "type": "boolean",
+      "default": false
     },
     "image": {
       "type": "media",
@@ -20,9 +25,6 @@
         "videos",
         "audios"
       ]
-    },
-    "content": {
-      "type": "blocks"
     }
   },
   "config": {}

@@ -1,6 +1,6 @@
 import { defaultLocale } from "@/i18n";
 import { fetchStrapi } from "@/utils/strapi";
-import type { HomePageData, PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceFinishList, EquipmentList, EquipmentCategoryList, CaseStudy, News, NewsCategory, Video, Material, MaterialCategory } from "cms-types";
+import type { HomePageData, PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceTreatment, Equipment, EquipmentCategory, CaseStudy, News, NewsCategory, Video, Material, MaterialCategory } from "cms-types";
 
 export type { HomePageData, PageData };
 
@@ -29,7 +29,7 @@ export async function getPatternPages(payload: { [key: string]: any }) {
 }
 
 export async function getSurfaceFinish(params: { [key: string]: any }) {
-  return fetchStrapi<StrapiCollectionResponse<SurfaceFinishList>>('/surface-finishes', {
+  return fetchStrapi<StrapiCollectionResponse<SurfaceTreatment>>('/surface-finishes', {
     params: {
       pLevel: true,
       'pagination[pageSize]': 100,
@@ -39,7 +39,7 @@ export async function getSurfaceFinish(params: { [key: string]: any }) {
 }
 
 export async function getEquipment(params: { [key: string]: any }) {
-  return fetchStrapi<StrapiCollectionResponse<EquipmentList>>('/equipments', {
+  return fetchStrapi<StrapiCollectionResponse<Equipment>>('/equipments', {
     params: {
       pLevel: 10,
       'pagination[pageSize]': 100,
@@ -49,7 +49,7 @@ export async function getEquipment(params: { [key: string]: any }) {
 }
 
 export async function getEquipmentCategory(params: { [key: string]: any }) {
-  return fetchStrapi<StrapiCollectionResponse<EquipmentCategoryList>>('/equipment-categories', {
+  return fetchStrapi<StrapiCollectionResponse<EquipmentCategory>>('/equipment-categories', {
     params: {
       pLevel: true,
       'pagination[pageSize]': 100,
@@ -95,10 +95,11 @@ export async function getVideo(params: { [key: string]: any }) {
   })
 }
 
-export async function getMaterial(params: { [key: string]: any }) {
+export async function getMaterial(params: { [key: string]: any } = {}) {
   return fetchStrapi<StrapiCollectionResponse<Material>>('/materials', {
     params: {
-      pLevel: true,
+      pLevel: 10,
+      'pagination[pageSize]': 100,
       ...params,
     }
   })
