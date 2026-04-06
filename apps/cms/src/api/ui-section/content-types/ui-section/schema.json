@@ -64,8 +64,7 @@
     "actions": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::action.action",
-      "mappedBy": "ui_section"
+      "target": "api::action.action"
     },
     "data": {
       "type": "component",

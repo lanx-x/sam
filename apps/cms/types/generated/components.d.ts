@@ -1,5 +1,15 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface GlobalDisplayText extends Struct.ComponentSchema {
+  collectionName: 'components_global_display_texts';
+  info: {
+    displayName: 'DisplayText';
+  };
+  attributes: {
+    Subscribe: Schema.Attribute.Text;
+  };
+}
+
 export interface GlobalNav extends Struct.ComponentSchema {
   collectionName: 'components_global_navs';
   info: {
@@ -239,117 +249,10 @@ export interface SectionCommonSection extends Struct.ComponentSchema {
   };
 }
 
-export interface SectionEquipmentSection extends Struct.ComponentSchema {
-  collectionName: 'components_section_equipment_sections';
-  info: {
-    displayName: 'EquipmentSection';
-  };
-  attributes: {
-    desc: Schema.Attribute.Text;
-    equipments: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::equipment.equipment'
-    >;
-    label: Schema.Attribute.String;
-    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
-    style: Schema.Attribute.String;
-    title: Schema.Attribute.String;
-  };
-}
-
-export interface SectionFaqSection extends Struct.ComponentSchema {
-  collectionName: 'components_section_faq_sections';
-  info: {
-    displayName: 'FAQSection';
-  };
-  attributes: {
-    desc: Schema.Attribute.Text;
-    faqs: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'>;
-    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
-    style: Schema.Attribute.String;
-    title: Schema.Attribute.String;
-  };
-}
-
-export interface SectionIndustrySection extends Struct.ComponentSchema {
-  collectionName: 'components_section_industry_sections';
-  info: {
-    displayName: 'IndustrySection';
-  };
-  attributes: {
-    desc: Schema.Attribute.Text;
-    industries: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::industry.industry'
-    >;
-    label: Schema.Attribute.String;
-    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
-    title: Schema.Attribute.String;
-  };
-}
-
-export interface SectionPostSection extends Struct.ComponentSchema {
-  collectionName: 'components_section_post_sections';
-  info: {
-    displayName: 'PostSection';
-  };
-  attributes: {
-    desc: Schema.Attribute.Text;
-    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
-    style: Schema.Attribute.String;
-    title: Schema.Attribute.String;
-  };
-}
-
-export interface SectionSpeSection extends Struct.ComponentSchema {
-  collectionName: 'components_section_spe_sections';
-  info: {
-    displayName: 'SpeSection';
-  };
-  attributes: {
-    desc: Schema.Attribute.Text;
-    label: Schema.Attribute.String;
-    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
-    specifications: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::specification.specification'
-    >;
-    style: Schema.Attribute.String;
-    title: Schema.Attribute.String;
-  };
-}
-
-export interface SectionStorySection extends Struct.ComponentSchema {
-  collectionName: 'components_section_story_sections';
-  info: {
-    displayName: 'StorySection';
-  };
-  attributes: {
-    desc: Schema.Attribute.Text;
-    label: Schema.Attribute.String;
-    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
-    style: Schema.Attribute.String;
-    title: Schema.Attribute.String;
-  };
-}
-
-export interface SectionSurfaceFinishSection extends Struct.ComponentSchema {
-  collectionName: 'components_section_surface_finish_sections';
-  info: {
-    displayName: 'SurfaceFinishSection';
-  };
-  attributes: {
-    desc: Schema.Attribute.Text;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
-    style: Schema.Attribute.String;
-    title: Schema.Attribute.String;
-  };
-}
-
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'global.display-text': GlobalDisplayText;
       'global.nav': GlobalNav;
       'global.seo': GlobalSeo;
       'item.button-item': ItemButtonItem;
@@ -369,13 +272,6 @@ declare module '@strapi/strapi' {
       'list.featured-story-list': ListFeaturedStoryList;
       'list.featured-surface-finish-list': ListFeaturedSurfaceFinishList;
       'section.common-section': SectionCommonSection;
-      'section.equipment-section': SectionEquipmentSection;
-      'section.faq-section': SectionFaqSection;
-      'section.industry-section': SectionIndustrySection;
-      'section.post-section': SectionPostSection;
-      'section.spe-section': SectionSpeSection;
-      'section.story-section': SectionStorySection;
-      'section.surface-finish-section': SectionSurfaceFinishSection;
     }
   }
 }

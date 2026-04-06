@@ -15,26 +15,16 @@
     }
   },
   "attributes": {
-    "title": {
+    "name": {
       "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true,
-      "unique": true
-    },
-    "desc": {
-      "type": "text",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       }
     },
-    "label": {
-      "type": "string",
+    "desc": {
+      "type": "text",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -55,6 +45,55 @@
         "videos",
         "audios"
       ]
+    },
+    "detailPageTitle": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "detailPageDesc": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "detailPageBanner": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "detailPageFeatures": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.kv-item",
+      "repeatable": true
+    },
+    "detailPageContent": {
+      "type": "blocks",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

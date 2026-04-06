@@ -478,10 +478,6 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    ui_section: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::ui-section.ui-section'
-    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -733,13 +729,39 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    detailPageBanner: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    label: Schema.Attribute.String &
+    detailPageContent: Schema.Attribute.Blocks &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    detailPageDesc: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    detailPageFeatures: Schema.Attribute.Component<'item.kv-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    detailPageTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -750,15 +772,13 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::industry.industry'
     >;
-    publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique &
+    name: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1150,6 +1170,12 @@ export interface ApiSiteSite extends Struct.SingleTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     desc: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    display_text: Schema.Attribute.Component<'global.display-text', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

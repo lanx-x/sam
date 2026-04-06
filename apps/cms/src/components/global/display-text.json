@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_global_display_texts",
+  "info": {
+    "displayName": "DisplayText"
+  },
+  "options": {},
+  "attributes": {
+    "Subscribe": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

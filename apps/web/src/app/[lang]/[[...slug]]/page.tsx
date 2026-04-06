@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
-import { getPage, getPatternPages } from "@/api";
+import { getPage, getPatternPages, getSite } from "@/api";
 import { getLocale } from "@/i18n";
 import { logger } from "@/utils/logger";
 import type { Metadata } from "next";
 import { CmpMap } from "@/components";
+import { CommonSection, Site } from "cms-types";
 
 // TODO: 
 // export async function generateMetadata({
@@ -29,6 +30,7 @@ export default async function CatchAllPage({ params, searchParams, }: { params: 
   const sp = await searchParams
   logger.debug('page params:', { lang, slug });
 
+  const site = await getSite()
   const locale = getLocale(lang)
   const pageSlug = ['/', ...slug].join('/').replace(/^\/\//, '/')
 
@@ -67,9 +69,25 @@ export default async function CatchAllPage({ params, searchParams, }: { params: 
             return null;
           }
 
-          return <Cmp key={section.id} section={section} documentId={documentId} searchParams={sp} slug={slug} lang={lang} />;
+          return <Cmp
+            key={section.id}
+            site={site}
+            section={section}
+            documentId={documentId}
+            searchParams={sp}
+            slug={slug}
+            lang={lang} />;
         })
       }
     </div>
   )
+}
+
+export type CmpProps = {
+  site: Site,
+  section: CommonSection,
+  documentId: string | null,
+  searchParams: { [key: string]: string | string[] | undefined },
+  slug: string[]
+  lang: string
 }

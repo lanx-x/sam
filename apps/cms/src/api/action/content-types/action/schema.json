@@ -42,12 +42,6 @@
       "component": "item.kv-item",
       "repeatable": true
     },
-    "ui_section": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::ui-section.ui-section",
-      "inversedBy": "actions"
-    },
     "admin_note": {
       "type": "string",
       "private": true,

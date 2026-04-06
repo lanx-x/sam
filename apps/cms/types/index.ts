@@ -43,5 +43,7 @@ export type NewsCategory = StrapiDocument<"api::news-category.news-category">;
 export type Video = StrapiDocument<"api::video.video">;
 export type Material = StrapiDocument<"api::material.material">;
 export type MaterialCategory = StrapiDocument<"api::material-category.material-category">;
+export type Industry = StrapiDocument<"api::industry.industry">;
+export type Site = StrapiDocument<"api::site.site">;
 
 export type CommonSection = StrapiComponent<"section.common-section">;

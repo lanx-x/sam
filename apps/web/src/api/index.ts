@@ -1,6 +1,6 @@
 import { defaultLocale } from "@/i18n";
 import { fetchStrapi } from "@/utils/strapi";
-import type { HomePageData, PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceTreatment, Equipment, EquipmentCategory, CaseStudy, News, NewsCategory, Video, Material, MaterialCategory } from "cms-types";
+import type { HomePageData, PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceTreatment, Equipment, EquipmentCategory, CaseStudy, News, NewsCategory, Video, Material, MaterialCategory, Industry, Site } from "cms-types";
 
 export type { HomePageData, PageData };
 
@@ -112,5 +112,25 @@ export async function getMaterialCategory(params: { [key: string]: any }) {
       'pagination[pageSize]': 100,
       ...params,
     }
+  })
+}
+
+export async function getIndustry(params: { [key: string]: any } = {}) {
+  return fetchStrapi<StrapiCollectionResponse<Industry>>('/industries', {
+    params: {
+      pLevel: 10,
+      'pagination[pageSize]': 100,
+      ...params,
+    }
+  })
+}
+
+export async function getSite(params: { [key: string]: any } = {}) {
+  return fetchStrapi<StrapiSingleResponse<Site>>('/site', {
+    params: {
+      pLevel: true,
+      ...params,
+    },
+    // next: { revalidate: 3600 },
   })
 }
