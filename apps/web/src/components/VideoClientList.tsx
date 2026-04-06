@@ -47,7 +47,7 @@ export function VideoClientList({ data, pageSize }: Props) {
   return (
     <div className="my-12.5 px-5 xl:px-0">
       <div className="xl:w-7xl xl:mx-auto">
-        <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-y-5 xl:grid-cols-3">
           {data.data.map((video) => {
             const meta = getVideoMeta(video);
             const thumbnailSrc = meta.thumbnail
@@ -60,7 +60,7 @@ export function VideoClientList({ data, pageSize }: Props) {
               <button
                 key={video.documentId}
                 onClick={() => setActiveVideo(meta)}
-                className="!cursor-pointer group text-left duration-300 transition-colors rounded-xl overflow-hidden bg-white hover:bg-[rgba(0,118,238,0.1)] xl:p-5 xl:h-87.5 flex flex-col"
+                className="cursor-pointer! group text-left duration-300 transition-colors rounded-xl overflow-hidden bg-white hover:bg-[rgba(0,118,238,0.1)] xl:p-2.5 xl:h-87.5 flex flex-col"
               >
                 <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-[#f5f5f5] cursor-pointer">
                   {thumbnailSrc ? (

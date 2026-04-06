@@ -40,6 +40,7 @@ import { CaseStudyDetail } from "./CaseStudyDetail";
 import { NewsList } from "./NewsList";
 import { NewsDetail } from "./NewsDetail";
 import { VideoList } from "./VideoList";
+import { MaterialList } from "./MaterialList";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -86,4 +87,5 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   NewsList,
   NewsDetail,
   VideoList,
+  MaterialList,
 }

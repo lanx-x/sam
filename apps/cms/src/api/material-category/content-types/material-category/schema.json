@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "equipment_categories",
+  "collectionName": "material_categories",
   "info": {
-    "singularName": "equipment-category",
-    "pluralName": "equipment-categories",
-    "displayName": "EquipmentCategory"
+    "singularName": "material-category",
+    "pluralName": "material-categories",
+    "displayName": "MaterialCategory"
   },
   "options": {
     "draftAndPublish": true
@@ -22,8 +22,7 @@
           "localized": true
         }
       },
-      "required": true,
-      "unique": true
+      "required": true
     },
     "desc": {
       "type": "text",
@@ -32,6 +31,15 @@
           "localized": true
         }
       }
+    },
+    "isAll": {
+      "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": false
     },
     "image": {
       "type": "media",
@@ -47,15 +55,6 @@
         "videos",
         "audios"
       ]
-    },
-    "isAll": {
-      "type": "boolean",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "default": false
     }
   }
 }

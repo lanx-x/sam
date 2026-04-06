@@ -48,7 +48,7 @@ export function CaseStudyClientList({ data, pageSize }: Props) {
   }, [router, searchParams]);
 
   return (
-    <div className="my-15">
+    <div className="my-12.5">
       <div className="xl:w-7xl xl:mx-auto">
         <div className="grid grid-cols-2 gap-5 xl:grid-cols-3 xl:gap-y-5">
           {data.data.map((xs) => (
