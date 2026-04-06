@@ -6,9 +6,6 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
       defaultDepth: 10, // Default is 5
     }
   },
-  navigation: {
-    enabled: true,
-  },
   oembed: {
     enabled: true,
   },

@@ -1,0 +1,88 @@
+{
+  "collectionName": "components_item_nav_groupt_items",
+  "info": {
+    "displayName": "NavGrouptItem"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "type": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "home",
+        "capabilities",
+        "solutions",
+        "resources",
+        "about"
+      ]
+    },
+    "children": {
+      "type": "component",
+      "component": "item.nav-group-item",
+      "repeatable": true
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "external"
+            },
+            false
+          ]
+        }
+      }
+    },
+    "external_url": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "external"
+            },
+            true
+          ]
+        }
+      }
+    },
+    "external": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "config": {}
+}

@@ -10,14 +10,6 @@ export interface GlobalDisplayText extends Struct.ComponentSchema {
   };
 }
 
-export interface GlobalNav extends Struct.ComponentSchema {
-  collectionName: 'components_global_navs';
-  info: {
-    displayName: 'Nav';
-  };
-  attributes: {};
-}
-
 export interface GlobalSeo extends Struct.ComponentSchema {
   collectionName: 'components_global_seos';
   info: {
@@ -80,6 +72,63 @@ export interface ItemKvItem extends Struct.ComponentSchema {
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     key: Schema.Attribute.String & Schema.Attribute.Required;
     value: Schema.Attribute.String;
+  };
+}
+
+export interface ItemNavBasicItem extends Struct.ComponentSchema {
+  collectionName: 'components_item_nav_basic_items';
+  info: {
+    displayName: 'NavBasicItem';
+  };
+  attributes: {
+    desc: Schema.Attribute.Text;
+    external: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    external_url: Schema.Attribute.String;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    name: Schema.Attribute.String;
+    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+  };
+}
+
+export interface ItemNavGroupItem extends Struct.ComponentSchema {
+  collectionName: 'components_item_nav_group_items';
+  info: {
+    displayName: 'NavNestItem';
+  };
+  attributes: {
+    children: Schema.Attribute.Component<'item.nav-basic-item', true>;
+    desc: Schema.Attribute.Text;
+    external: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    external_url: Schema.Attribute.String;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    name: Schema.Attribute.String;
+    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    title: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<['LW Solutions', 'Industries']>;
+  };
+}
+
+export interface ItemNavGrouptItem extends Struct.ComponentSchema {
+  collectionName: 'components_item_nav_groupt_items';
+  info: {
+    displayName: 'NavGrouptItem';
+  };
+  attributes: {
+    children: Schema.Attribute.Component<'item.nav-group-item', true>;
+    desc: Schema.Attribute.Text;
+    external: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    external_url: Schema.Attribute.String;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    title: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<
+      ['home', 'capabilities', 'solutions', 'resources', 'about']
+    > &
+      Schema.Attribute.Required;
   };
 }
 
@@ -253,12 +302,14 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'global.display-text': GlobalDisplayText;
-      'global.nav': GlobalNav;
       'global.seo': GlobalSeo;
       'item.button-item': ItemButtonItem;
       'item.category-item': ItemCategoryItem;
       'item.common-item': ItemCommonItem;
       'item.kv-item': ItemKvItem;
+      'item.nav-basic-item': ItemNavBasicItem;
+      'item.nav-group-item': ItemNavGroupItem;
+      'item.nav-groupt-item': ItemNavGrouptItem;
       'item.nest-item': ItemNestItem;
       'item.spe-item': ItemSpeItem;
       'item.surface-finish-extend-item': ItemSurfaceFinishExtendItem;

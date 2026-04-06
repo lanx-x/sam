@@ -1,0 +1,68 @@
+{
+  "collectionName": "components_item_nav_basic_items",
+  "info": {
+    "displayName": "NavBasicItem"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "external"
+            },
+            false
+          ]
+        }
+      }
+    },
+    "external": {
+      "type": "boolean",
+      "default": false
+    },
+    "external_url": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "external"
+            },
+            true
+          ]
+        }
+      }
+    }
+  },
+  "config": {}
+}
