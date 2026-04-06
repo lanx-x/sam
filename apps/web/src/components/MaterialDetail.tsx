@@ -1,4 +1,4 @@
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
 import { getMaterial } from "@/api";
 import { getStrapiMedia } from "@/utils/strapi";
@@ -7,7 +7,7 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { SectionContainer, SectionHeaderRowDir } from "./Section";
 import { SurfaceTreatmentItem } from "./SurfaceFinish";
 
-export async function MaterialDetail({ documentId, section }: { documentId: string, section: CommonSection }) {
+export async function MaterialDetail({ documentId, section }: CmpProps) {
   const data = (await getMaterial({ 'filters[documentId][$eq]': documentId })).data?.[0]
 
   return (

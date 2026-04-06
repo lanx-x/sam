@@ -1,4 +1,4 @@
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
 import Link from "next/link";
 import { Section, SectionContainer } from "./Section";
@@ -6,7 +6,7 @@ import { getStrapiMedia } from "@/utils/strapi";
 import { getCaseStudy } from "@/api";
 import { BlocksContent } from "./BlocksContent";
 
-export async function CaseStudyDetail({ documentId, section }: { documentId: string, section: CommonSection }) {
+export async function CaseStudyDetail({ documentId, section }: CmpProps) {
   const data = (await getCaseStudy({ 'filters[documentId][$eq]': documentId })).data?.[0]
 
   if (!data) {

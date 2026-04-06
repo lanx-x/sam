@@ -1,8 +1,8 @@
 import { Section, SectionContainer } from "./Section";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 
-export function WorkWith({ section }: { section: CommonSection }) {
+export function WorkWith({ section }: CmpProps) {
   return (
     <Section
       title={section.payload?.title!}

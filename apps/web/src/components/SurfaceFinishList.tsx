@@ -1,11 +1,11 @@
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import { getSurfaceFinish } from "@/api";
 import { mergeExtension } from "@/utils";
 
-export async function SurfaceFinishList({ section }: { section: CommonSection }) {
+export async function SurfaceFinishList({ section }: CmpProps) {
   const extension = mergeExtension(section)
 
   const data = await getSurfaceFinish({})
@@ -15,7 +15,7 @@ export async function SurfaceFinishList({ section }: { section: CommonSection })
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
-      className={extension.style}
+      className={extension['style']?.value}
     >
       <div>
         <div className={`text-lg font-bold py-6 text-secondary ${share}`}>

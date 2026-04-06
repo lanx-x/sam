@@ -6,10 +6,10 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Section } from "./Section";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 
-export function FeaturedComment({ section }: { section: CommonSection }) {
+export function FeaturedComment({ section }: CmpProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({

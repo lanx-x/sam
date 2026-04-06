@@ -7,11 +7,11 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Section } from "./Section";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
 
-export function FeaturedCaseStudy({ section }: { section: CommonSection }) {
+export function FeaturedCaseStudy({ section }: CmpProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
@@ -47,7 +47,7 @@ export function FeaturedCaseStudy({ section }: { section: CommonSection }) {
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
-      className={`bg-[#fafafa] ${extension.style}`}
+      className={`bg-[#fafafa] ${extension['style']?.value}`}
     >
       <div className="py-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
@@ -76,7 +76,7 @@ export function FeaturedCaseStudy({ section }: { section: CommonSection }) {
                     </div>
 
                     <div className="hidden text-right text-accent text-base justify-end font-medium items-center xl:flex">
-                      <p className="mr-2">{extension.open_url}</p>
+                      <p className="mr-2">{extension['open_url']?.value}</p>
                       <Image src={Assets.ArrowR} alt="arrow" />
                     </div>
                   </div>

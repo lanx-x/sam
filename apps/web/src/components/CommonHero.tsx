@@ -1,13 +1,13 @@
 import { collectExtend } from "@/utils";
 import { getStrapiMedia, } from "@/utils/strapi";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
 
-export function CommonHero({ section }: { section: CommonSection }) {
+export function CommonHero({ section }: CmpProps) {
   const extension = collectExtend(section.extension as any)
 
   return (
-    <div className={`${extension.style}`}>
+    <div className={`${extension['style']?.value}`}>
       <div className={`px-5 py-10 text-center xl:text-left xl:px-0 xl:w-7xl xl:mx-auto`}>
         <div className="relative flex flex-col xl:flex-row">
           <div className="mb-10 xl:mr-50 text-left xl:mb-30">

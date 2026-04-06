@@ -1,13 +1,13 @@
 'use client';
 import { getStrapiMedia } from "@/utils/strapi";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoPlay from "embla-carousel-autoplay";
 import { collectExtend } from "@/utils";
 
-export function Ship({ section }: { section: CommonSection }) {
+export function Ship({ section }: CmpProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
@@ -59,7 +59,7 @@ export function Ship({ section }: { section: CommonSection }) {
   const images = section.payload?.extra_images ?? []
 
   return (
-    <div className={`${extension.style}`}>
+    <div className={`${extension['style']?.value}`}>
       <div className="px-5 py-10 text-center flex flex-col xl:flex-row xl:w-7xl xl:mx-auto xl:py-20 xl:text-left xl:px-0" >
         <div className="">
           <h2 className="section-title">{section.payload?.title}</h2>

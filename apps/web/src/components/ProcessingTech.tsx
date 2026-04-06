@@ -1,17 +1,17 @@
 import { Assets } from "@/assets";
 import Image from "next/image";
 import { Section } from "./Section";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
 
-export function ProcessingTech({ section }: { section: CommonSection }) {
+export function ProcessingTech({ section }: CmpProps) {
   const extension = collectExtend(section.payload?.extension as any, section.extension as any)
   return (
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
-      className={extension.style}
+      className={extension['style']?.value}
     >
       <div className="px-5 mt-10 grid grid-cols-1 gap-3 xl:grid-cols-2 xl:gap-5 xl:px-0">
         {

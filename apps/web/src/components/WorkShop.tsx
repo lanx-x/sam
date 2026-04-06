@@ -3,12 +3,12 @@
 import { Assets } from "@/assets";
 import { cn } from "@/utils/cn";
 import { getStrapiMedia } from "@/utils/strapi";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export function WorkShop({ section }: { section: CommonSection }) {
+export function WorkShop({ section }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   })

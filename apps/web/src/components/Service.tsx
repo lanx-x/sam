@@ -1,9 +1,9 @@
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { Section } from "./Section";
 import Image from "next/image";
 import { getStrapiMedia } from "@/utils/strapi";
 
-export function Service({ section }: { section: CommonSection }) {
+export function Service({ section }: CmpProps) {
   return (
     <Section
       title={section.payload?.title!}

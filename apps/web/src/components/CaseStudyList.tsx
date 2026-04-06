@@ -1,8 +1,8 @@
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getCaseStudy } from "@/api";
 import { CaseStudyClientList } from "./CaseStudyClientList";
 
-export async function CaseStudyList({ section, searchParams, slug, lang }: { section: CommonSection; searchParams: { [key: string]: string | string[] | undefined }; slug: string[]; lang: string }) {
+export async function CaseStudyList({ section, searchParams, slug, lang }: CmpProps) {
   const pageSize = 12
   const page = Number(searchParams?.page) || 1
   const data = await getCaseStudy({

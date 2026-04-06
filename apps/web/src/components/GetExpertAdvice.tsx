@@ -1,10 +1,10 @@
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { Section } from "./Section";
 import Image from "next/image";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend, mergeExtension } from "@/utils";
 
-export function GetExpertAdvice({ section }: { section: CommonSection }) {
+export function GetExpertAdvice({ section }: CmpProps) {
 
   const extension = mergeExtension(section)
   return (
@@ -24,7 +24,7 @@ export function GetExpertAdvice({ section }: { section: CommonSection }) {
           }
         </div>
 
-        <p className="text-secondary">{extension.declare}</p>
+        <p className="text-secondary">{extension['declare']?.value}</p>
 
       </div>
 

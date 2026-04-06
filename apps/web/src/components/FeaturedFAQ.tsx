@@ -4,16 +4,16 @@ import { Assets } from "@/assets";
 import Image from "next/image";
 import { useState } from "react";
 import { SectionContainer } from "./Section";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { collectExtend } from "@/utils";
 
-export function FeaturedFAQ({ section }: { section: CommonSection }) {
+export function FeaturedFAQ({ section }: CmpProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const extension = collectExtend(section.payload?.extension as any, section.extension as any)
 
   return (
-    <div className={`bg-[#fafafa] py-10 xl:py-20 ${extension.style}`}>
+    <div className={`bg-[#fafafa] py-10 xl:py-20 ${extension['style']?.value}`}>
       <SectionContainer>
         <div className="w-full flex flex-col text-center xl:text-left xl:flex-row">
           <div className="shrink-0 xl:mr-42.5 xl:w-76.75">

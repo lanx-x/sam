@@ -1,7 +1,7 @@
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { Section } from "./Section";
 
-export function WhySamples({ section }: { section: CommonSection }) {
+export function WhySamples({ section }: CmpProps) {
   return (
     <Section
       title={section.payload?.title!}

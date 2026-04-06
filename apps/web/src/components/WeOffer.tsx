@@ -1,14 +1,14 @@
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { Section } from "./Section";
 import Image from "next/image";
 import { getStrapiMedia } from "@/utils/strapi";
 import { Assets } from "@/assets";
 import { collectExtend } from "@/utils";
 
-export function WeOffer({ section }: { section: CommonSection }) {
+export function WeOffer({ section }: CmpProps) {
   const extension = collectExtend(section.extension as any)
 
-  const flexOpts = extension.start_from === 'right' ? 'xl:flex-row xl:even:flex-row-reverse' : 'xl:flex-row-reverse xl:even:flex-row'
+  const flexOpts = extension['start_from']?.value === 'right' ? 'xl:flex-row xl:even:flex-row-reverse' : 'xl:flex-row-reverse xl:even:flex-row'
   return (
     <Section
       title={section.payload?.title!}

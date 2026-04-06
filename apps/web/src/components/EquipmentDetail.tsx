@@ -1,4 +1,4 @@
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
 import { Section, SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
@@ -9,7 +9,7 @@ import { getEnabledCategories } from "trace_events";
 import { EquipmentClientList } from "./EquipmentClientList";
 import { BlocksContent } from "./BlocksContent";
 
-export async function EquipmentDetail({ documentId, section }: { documentId: string, section: CommonSection }) {
+export async function EquipmentDetail({ documentId, section }: CmpProps) {
   const extension = mergeExtension(section)
 
   const data = (await getEquipment({ 'filters[documentId][$eq]': documentId })).data?.[0]

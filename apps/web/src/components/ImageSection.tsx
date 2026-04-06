@@ -3,10 +3,10 @@ import Image, { StaticImageData } from "next/image";
 import { PropsWithChildren } from "react";
 import { Section } from "./Section";
 import type { SectionProps } from "./Section";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 
-export function ImageSection({ section }: { section: CommonSection }) {
+export function ImageSection({ section }: CmpProps) {
   return (
     <Section
       title={section.payload?.title!}

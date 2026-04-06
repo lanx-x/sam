@@ -1,9 +1,9 @@
 import { Assets } from "@/assets";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
 import { Section } from "./Section";
 
-export function Tolerance({ section }: { section: CommonSection }) {
+export function Tolerance({ section }: CmpProps) {
   const data = section.data ?? []
   return (
     <Section

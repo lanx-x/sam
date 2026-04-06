@@ -8,13 +8,14 @@ import { CustomerStory, Equipment, FAQ, SayAbout, Specification, WorkShop, WorkW
 import { getHomePage, type HomePageData } from "@/api";
 import { getStrapiMedia } from "@/utils/strapi";
 import { defaultLocale, isLocale } from "@/i18n";
-import type { CapItemData, CapSectionData, CommonSection, StatItemData } from "cms-types";
+import type { CapItemData, CapSectionData, StatItemData } from "cms-types";
 import { Section } from "./Section";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 
 type StatDisplayItem = Pick<StatItemData, "label" | "value" | "image">;
 type CapDisplayItem = Pick<CapItemData, "label" | "desc" | "image">;
 
-export function Cap({ section }: { section: CommonSection }) {
+export function Cap({ section }: CmpProps) {
   return (
     <Section
       title={section.payload?.title!}

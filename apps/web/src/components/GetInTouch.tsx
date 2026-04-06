@@ -1,9 +1,9 @@
 import { Section } from "./Section";
 import { Subscribe } from "./Subscribe";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 
-export function GetInTouch({ section }: { section: CommonSection }) {
+export function GetInTouch({ section }: CmpProps) {
   return (
     <Section
       title={section.payload?.title!}

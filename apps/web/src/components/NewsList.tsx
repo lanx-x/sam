@@ -1,10 +1,10 @@
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getNews, getNewsCategory } from "@/api";
 import { NewsClientList } from "./NewsClientList";
 
 const PAGE_SIZE = 12;
 
-export async function NewsList({ section, searchParams, slug, lang }: { section: CommonSection; searchParams: { [key: string]: string | string[] | undefined }; slug: string[]; lang: string }) {
+export async function NewsList({ section, searchParams, slug, lang }: CmpProps) {
   const page = Number(searchParams?.page) || 1
   const categoryId = searchParams?.category as string | undefined
 

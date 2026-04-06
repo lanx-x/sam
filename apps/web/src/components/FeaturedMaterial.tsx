@@ -6,11 +6,11 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Section } from "./Section";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
 
-export function FeaturedMaterial({ section }: { section: CommonSection }) {
+export function FeaturedMaterial({ section }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   })
@@ -21,7 +21,7 @@ export function FeaturedMaterial({ section }: { section: CommonSection }) {
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
-      className={`xl:text-left ${extension.style}`}
+      className={`xl:text-left ${extension['style']?.value}`}
 
     >
       <div className="relative mt-10">

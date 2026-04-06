@@ -2,10 +2,10 @@
 
 import { Assets } from "@/assets";
 import { getStrapiMedia } from "@/utils/strapi";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
 
-export function Industry({ section }: { section: CommonSection }) {
+export function Industry({ section }: CmpProps) {
   return (
     <div className="px-5 py-10 text-center xl:text-left xl:py-20 xl:px-0 xl:w-7xl xl:mx-auto">
       <div className="grid grid-cols-1 gap-2 xl:grid-cols-2 xl:gap-8">

@@ -3,9 +3,9 @@ import { CommonHero } from "./CommonHero"
 import { getStrapiMedia } from "@/utils/strapi"
 import Image from "next/image"
 import { BlocksContent } from "./BlocksContent"
-import { CommonSection } from "cms-types"
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page"
 
-export async function SurfaceFinishDetail({ documentId, section }: { documentId: string, section: CommonSection }) {
+export async function SurfaceFinishDetail({ documentId, section }: CmpProps) {
   const data = (await getSurfaceFinish({ 'filters[documentId][$eq]': documentId }))?.data?.[0]
 
   if (!data) {

@@ -6,10 +6,10 @@ import { Assets } from "@/assets";
 import { useEffect, useState } from "react";
 import { cn } from "@/utils/cn";
 import { Section } from "./Section";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 
-export function OneStop({ section }: { section: CommonSection }) {
+export function OneStop({ section }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     containScroll: "trimSnaps",

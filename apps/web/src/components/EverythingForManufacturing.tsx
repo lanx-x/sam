@@ -1,14 +1,14 @@
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { Section } from "./Section";
 import Image from "next/image";
 import { getStrapiMedia } from "@/utils/strapi";
 import { Assets } from "@/assets";
 import { collectExtend } from "@/utils";
 
-export function EverythingForManufacturing({ section }: { section: CommonSection }) {
+export function EverythingForManufacturing({ section }: CmpProps) {
   const args = collectExtend(section.extend as any)
 
-  const flexOpts = args.start_from === 'left' ? 'xl:flex-row xl:group-even:flex-row-reverse' : 'xl:flex-row-reverse xl:group-even:flex-row'
+  const flexOpts = args['start_from']?.value === 'left' ? 'xl:flex-row xl:group-even:flex-row-reverse' : 'xl:flex-row-reverse xl:group-even:flex-row'
 
   return (
     <Section

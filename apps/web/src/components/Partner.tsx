@@ -1,6 +1,6 @@
 'use client';
 import { getStrapiMedia } from "@/utils/strapi";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import AutoScroll from "embla-carousel-auto-scroll";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
@@ -16,7 +16,7 @@ function extendsListTo<T>(size: number, list: T[]) {
   return extended
 }
 
-export function Partner({ section }: { section: CommonSection }) {
+export function Partner({ section }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       align: "start",

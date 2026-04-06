@@ -1,17 +1,18 @@
 import { Assets } from "@/assets";
-import { CommonSection, SurfaceTreatment } from "cms-types";
+import { SurfaceTreatment } from "cms-types";
 import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 
-export function SurfaceFinish({ section }: { section: CommonSection }) {
+export function SurfaceFinish({ section }: CmpProps) {
   const extension = collectExtend(section.payload?.extension as any, section.extension as any)
   return (
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
-      className={`${extension.style}`}
+      className={`${extension['style']?.value}`}
     >
 
       <div className="text-left grid grid-cols-2 gap-1.5 mt-10 xl:grid-cols-4 xl:gap-5">

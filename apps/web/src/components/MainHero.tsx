@@ -5,7 +5,7 @@ import Image from "next/image";
 import AutoScroll from "embla-carousel-auto-scroll";
 import useEmblaCarousel from "embla-carousel-react";
 import { Assets } from "@/assets";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 
 const ROTATE_INTERVAL = 3000;
@@ -18,7 +18,7 @@ const partnerLogos = [
 ] as const;
 const marqueeLogos = Array.from({ length: 10 }, () => partnerLogos).flat();
 
-export function MainHero({ section }: { section: CommonSection }) {
+export function MainHero({ section }: CmpProps) {
   const items = section.payload?.data ?? []
 
   const [activeIndex, setActiveIndex] = useState(0);

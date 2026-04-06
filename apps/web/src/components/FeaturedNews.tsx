@@ -1,12 +1,12 @@
 'use client';
 import { Assets } from "@/assets";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import dayjs from "dayjs";
 
-export function FeaturedNews({ section }: { section: CommonSection }) {
+export function FeaturedNews({ section }: CmpProps) {
   return (
     <Section
       title={section.payload?.title!}

@@ -4,11 +4,11 @@ import { Assets } from "@/assets";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { Section } from "./Section";
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
 
-export function FeaturedEquipment({ section }: { section: CommonSection }) {
+export function FeaturedEquipment({ section }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   })
@@ -49,7 +49,7 @@ export function FeaturedEquipment({ section }: { section: CommonSection }) {
 
                   <div className="flex items-center">
 
-                    <p className="text-accent text-sm font-medium flex flex-row items-center mr-3">{extension.open_label}</p>
+                    <p className="text-accent text-sm font-medium flex flex-row items-center mr-3">{extension['open_label']?.value}</p>
                     <Image src={Assets.Link} alt="link" />
                   </div>
                 </div>

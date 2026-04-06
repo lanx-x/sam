@@ -1,4 +1,4 @@
-import { CommonSection } from "cms-types";
+import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
 import Link from "next/link";
 import { SectionContainer } from "./Section";
@@ -8,7 +8,7 @@ import { BlocksContent } from "./BlocksContent";
 import dayjs from "dayjs";
 import { extractBlockText } from "@/utils";
 
-export async function NewsDetail({ documentId, section, slug, lang }: { documentId: string, section: CommonSection; slug: string[]; lang: string }) {
+export async function NewsDetail({ documentId, section, slug, lang }: CmpProps) {
   const basePath = ['', lang, ...slug.slice(0, -1)].join('/')
   const data = (await getNews({ 'filters[documentId][$eq]': documentId })).data?.[0]
 
