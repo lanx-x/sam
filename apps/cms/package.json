@@ -24,8 +24,9 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.30.3",
     "strapi-plugin-navigation": "^3.3.7",
+    "strapi-plugin-oembed": "^2.0.2",
     "strapi-v5-plugin-populate-deep": "^4.3.2",
-    "styled-components": "^6.3.12"
+    "styled-components": "6.1.11"
   },
   "devDependencies": {
     "@types/node": "^20.19.37",

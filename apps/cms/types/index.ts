@@ -32,7 +32,6 @@ export type StrapiSingleResponse<T> = {
   meta: Record<string, never>;
 };
 
-export type HomePageData = StrapiDocument<"api::home-page.home-page">;
 export type PageData = StrapiDocument<"api::page.page">;
 export type SurfaceFinishList = StrapiDocument<"api::surface-finish.surface-finish">;
 export type EquipmentList = StrapiDocument<"api::equipment.equipment">;

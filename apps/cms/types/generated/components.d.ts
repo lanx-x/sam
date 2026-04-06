@@ -112,6 +112,19 @@ export interface ItemValueItem extends Struct.ComponentSchema {
   };
 }
 
+export interface ItemVideoItem extends Struct.ComponentSchema {
+  collectionName: 'components_item_video_items';
+  info: {
+    displayName: 'VideoItem';
+  };
+  attributes: {
+    desc: Schema.Attribute.Text;
+    thumbnail: Schema.Attribute.Media<'files' | 'images'>;
+    title: Schema.Attribute.String;
+    video: Schema.Attribute.Media<'files' | 'videos'>;
+  };
+}
+
 export interface ListFeaturedEquipmentList extends Struct.ComponentSchema {
   collectionName: 'components_list_featured_equipment_lists';
   info: {
@@ -302,7 +315,6 @@ export interface SectionStorySection extends Struct.ComponentSchema {
     desc: Schema.Attribute.Text;
     label: Schema.Attribute.String;
     renderer: Schema.Attribute.Relation<'oneToOne', 'api::renderer.renderer'>;
-    stories: Schema.Attribute.Relation<'oneToMany', 'api::story.story'>;
     style: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
@@ -338,6 +350,7 @@ declare module '@strapi/strapi' {
       'item.spe-item': ItemSpeItem;
       'item.surface-finish-extend-item': ItemSurfaceFinishExtendItem;
       'item.value-item': ItemValueItem;
+      'item.video-item': ItemVideoItem;
       'list.featured-equipment-list': ListFeaturedEquipmentList;
       'list.featured-faq-list': ListFeaturedFaqList;
       'list.featured-industry-list': ListFeaturedIndustryList;

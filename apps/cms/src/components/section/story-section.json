@@ -11,11 +11,6 @@
     "desc": {
       "type": "text"
     },
-    "stories": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::story.story"
-    },
     "label": {
       "type": "string"
     },

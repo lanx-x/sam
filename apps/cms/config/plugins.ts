@@ -9,9 +9,9 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
   navigation: {
     enabled: true,
   },
-  documentation: {
+  oembed: {
     enabled: true,
-  }
+  },
 });
 
 export default config;
