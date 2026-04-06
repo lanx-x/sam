@@ -39,6 +39,7 @@ export type EquipmentCategoryList = StrapiDocument<"api::equipment-category.equi
 export type CaseStudy = StrapiDocument<"api::case-study.case-study">;
 export type News = StrapiDocument<"api::news.news">;
 export type NewsCategory = StrapiDocument<"api::news-category.news-category">;
+export type Video = StrapiDocument<"api::video.video">;
 
 export type CommonSection = StrapiComponent<"section.common-section">;
 export type StorySection = StrapiComponent<"section.story-section">

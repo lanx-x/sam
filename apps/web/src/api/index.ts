@@ -1,6 +1,6 @@
 import { defaultLocale } from "@/i18n";
 import { fetchStrapi } from "@/utils/strapi";
-import type { HomePageData, PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceFinishList, EquipmentList, EquipmentCategoryList, CaseStudy, News, NewsCategory } from "cms-types";
+import type { HomePageData, PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceFinishList, EquipmentList, EquipmentCategoryList, CaseStudy, News, NewsCategory, Video } from "cms-types";
 
 export type { HomePageData, PageData };
 
@@ -81,6 +81,15 @@ export async function getNewsCategory(params: { [key: string]: any }) {
     params: {
       pLevel: true,
       'pagination[pageSize]': 100,
+      ...params,
+    }
+  })
+}
+
+export async function getVideo(params: { [key: string]: any }) {
+  return fetchStrapi<StrapiCollectionResponse<Video>>('/videos', {
+    params: {
+      pLevel: true,
       ...params,
     }
   })
