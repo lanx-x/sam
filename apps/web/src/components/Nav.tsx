@@ -30,16 +30,33 @@ const getChild = (type: NavChildItem['type'], group: NavGrouptItem) => group.chi
 
 
 export function Nav(props: { data: Navigation, site: Site }) {
-  return (
-    <header className="sticky top-0 z-40">
-      <div className="block xl:hidden">
-        <MobileNav {...props} />
-      </div>
+  const [stuck, setStuck] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
-      <div className="hidden xl:block">
-        <DesktopNav {...props} />
-      </div>
-    </header>
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([e]) => setStuck(!e.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <>
+      <div ref={sentinelRef} className="h-0" />
+      <header className={`sticky top-0 z-40 transition-shadow duration-300 ${stuck ? 'shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]' : ''}`}>
+        <div className="block xl:hidden">
+          <MobileNav {...props} />
+        </div>
+
+        <div className="hidden xl:block">
+          <DesktopNav {...props} />
+        </div>
+      </header>
+    </>
   )
 }
 
@@ -48,13 +65,33 @@ export function MobileNav(props: { data: Navigation, site: Site }) {
   const { data, site } = props;
 
   const [isOpen, setIsOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [menuTop, setMenuTop] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const navRef = useRef<HTMLElement>(null);
   const locale = useLocale();
   const [openId, setOpenId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      const navBottom = navRef.current?.getBoundingClientRect().bottom ?? 0;
+      setMenuTop(navBottom);
+      requestAnimationFrame(() => setVisible(true));
+      document.body.style.overflow = 'hidden';
+    } else {
+      setVisible(false);
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
 
   const handleToggle = () => {
     setIsOpen((current) => !current);
   };
+
+  const closeMenu = useCallback(() => {
+    setIsOpen(false);
+  }, []);
 
   const toggleGroup = (id: string) => {
     setOpenId((current) => current === id ? null : id);
@@ -62,7 +99,7 @@ export function MobileNav(props: { data: Navigation, site: Site }) {
 
   return (
     <div className="relative">
-      <nav className="flex flex-row bg-white h-15 items-center px-5">
+      <nav ref={navRef} className="flex flex-row bg-white h-15 items-center px-5">
         <Link href={withLang(locale, "/")} className="flex items-center gap-2 shrink-0 flex-1">
           <Image src={Assets.Logo} width={40} height={40} alt="logo" className="w-10 h-10" />
           <Image src={Assets.LogoText} width={96} height={14} alt="" className="w-26.25 h-3.5 hidden sm:block" />
@@ -74,56 +111,58 @@ export function MobileNav(props: { data: Navigation, site: Site }) {
       </nav>
 
       {
-        isOpen && <div className="bg-[#111] vh-100">
-          <div className="h-full overflow-y-auto px-5">
-            <div className="">
+        isOpen && (
+          <div
+            className="fixed inset-x-0 bottom-0 bg-[#111] z-50 transition-transform duration-300 ease-out"
+            style={{ top: menuTop, transform: visible ? 'translateY(0)' : 'translateY(100%)' }}
+          >
+            <div className="h-full overflow-y-auto overscroll-contain px-5 pb-8">
               {data?.value?.filter(xs => xs.type !== 'home')?.map((group, index) => (
                 <div
                   key={index}
-                  className={`transition-all duration-300 ease-out ${isOpen ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
-                  style={{ transitionDelay: isOpen ? `${index * 60}ms` : "0ms" }}>
+                  className={`transition-all duration-300 ease-out ${visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
+                  style={{ transitionDelay: visible ? `${index * 60}ms` : "0ms" }}>
                   <button className="block font-medium w-full text-left h-16 text-base capitalize text-white" onClick={() => toggleGroup(String(group.id))}>
-                    {group.type === 'about' ? <Link href={withLang(locale, getHref(group))}>{group.name}</Link> : group.name}
+                    {group.type === 'about' ? <Link href={withLang(locale, getHref(group))} onClick={closeMenu}>{group.name}</Link> : group.name}
                   </button>
 
+                  <div className={`grid transition-all duration-300 ease-out ${openId === String(group.id) ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                    <div className="overflow-hidden">
+                      {group.type === 'about' && null}
 
-                  <div className={`${openId === String(group.id) ? 'h-auto opacity-100' : 'h-0 opacity-0'} transition-all duration-300`}>
-                    {group.type === 'about' && null}
-
-                    {group.type === 'solutions' && (
-                      <div>
-                        {
-                          group.children?.map(nested => (
-                            <div key={nested.id} className="">
-                              <h4 className="text-base text-white font-medium h-16 leading-16 px-5 border-b border-[#333]">{nested.name}</h4>
-                              <div>
-                                {
-                                  nested.children?.map((child, childIdx) => (
-                                    <Link className="block text-white h-12 leading-12 px-5" key={child.id} href={withLang(locale, getHref(child))} >{child.name}</Link>
-                                  ))
-                                }
-
+                      {group.type === 'solutions' && (
+                        <div>
+                          {
+                            group.children?.map(nested => (
+                              <div key={nested.id} className="">
+                                <h4 className="text-base text-white font-medium h-16 leading-16 px-5 border-b border-[#333]">{nested.name}</h4>
+                                <div>
+                                  {
+                                    nested.children?.map((child, childIdx) => (
+                                      <Link className="block text-white h-12 leading-12 px-5" key={child.id} href={withLang(locale, getHref(child))} onClick={closeMenu}>{child.name}</Link>
+                                    ))
+                                  }
+                                </div>
                               </div>
-
-                            </div>
-                          ))
-                        }
-                      </div>
-                    )}
-
-                    {['capabilities', 'resources'].includes(group.type!) &&
-                      group.children?.map((child, childIdx) => (
-                        <div key={child.id} className="h-12 flex items-center">
-                          <p className="pl-5 font-sm text-white">{child.name}</p>
+                            ))
+                          }
                         </div>
-                      ))
-                    }
+                      )}
+
+                      {['capabilities', 'resources'].includes(group.type!) &&
+                        group.children?.map((child, childIdx) => (
+                          <Link key={child.id} className="h-12 flex items-center" href={withLang(locale, getHref(child))} onClick={closeMenu}>
+                            <p className="pl-5 font-sm text-white">{child.name}</p>
+                          </Link>
+                        ))
+                      }
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-        </div>
+        )
       }
     </div>
   );

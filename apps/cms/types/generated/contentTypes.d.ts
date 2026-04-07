@@ -484,6 +484,37 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBroadcastBroadcast extends Struct.CollectionTypeSchema {
+  collectionName: 'broadcasts';
+  info: {
+    displayName: 'Broadcast';
+    pluralName: 'broadcasts';
+    singularName: 'broadcast';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::broadcast.broadcast'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.Enumeration<['url', 'popup']> &
+      Schema.Attribute.DefaultTo<'popup'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    url: Schema.Attribute.String;
+  };
+}
+
 export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
   collectionName: 'case_studies';
   info: {
@@ -2086,6 +2117,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::action.action': ApiActionAction;
+      'api::broadcast.broadcast': ApiBroadcastBroadcast;
       'api::case-study.case-study': ApiCaseStudyCaseStudy;
       'api::equipment-category.equipment-category': ApiEquipmentCategoryEquipmentCategory;
       'api::equipment.equipment': ApiEquipmentEquipment;

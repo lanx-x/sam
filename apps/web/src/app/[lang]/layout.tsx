@@ -8,7 +8,7 @@ import { Broadcast } from "@/components/Broadcast";
 import { Nav } from "@/components/Nav";
 import { Subscribe } from "@/components/Subscribe";
 import { GetInTouch } from "@/components/GetInTouch";
-import { getNavigation, getSite } from "@/api";
+import { getNavigation, getSite, getBroadcast } from "@/api";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -92,12 +92,13 @@ export default async function RootLayout({
 
   const { data: navData } = await getNavigation("owqgz3ze0n1a15777qpdokl0", { locale });
   const site = await getSite()
+  const broadcasts = await getBroadcast({ locale })
 
   return (
     <html lang={locale} className={`h-full antialiased`}>
       <body className={`${roboto.variable} min-h-full flex flex-col font-sans`}>
         <I18nProvider locale={locale} messages={messages}>
-          <Broadcast />
+          <Broadcast data={broadcasts.data} site={site.data} />
           <Nav data={navData} site={site.data} />
           {children}
           <Footer />

@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "broadcasts",
+  "info": {
+    "singularName": "broadcast",
+    "pluralName": "broadcasts",
+    "displayName": "Broadcast"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "text"
+    },
+    "url": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "url"
+          ]
+        }
+      }
+    },
+    "type": {
+      "type": "enumeration",
+      "default": "popup",
+      "enum": [
+        "url",
+        "popup"
+      ]
+    }
+  }
+}

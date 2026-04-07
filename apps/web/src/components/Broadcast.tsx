@@ -1,99 +1,168 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
 import { Assets } from "@/assets";
+import { useLocale } from "@/i18n";
+import type { Broadcast as BroadcastType, Site } from "cms-types";
+
+const INTERVAL = 5000;
 
 const languages = [
-  {
-    code: "EN",
-    label: "English",
-    message: "Broadcast notification message content for all CNC machining updates and support notices.",
-  },
-  {
-    code: "中文",
-    label: "中文",
-    message: "用于展示数控加工服务更新、通知公告以及售后支持信息的广播内容。",
-  },
+  { code: "EN", label: "English" },
+  { code: "中文", label: "中文" },
 ] as const;
 
 type Language = (typeof languages)[number];
 
-export function Broadcast() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeLanguage, setActiveLanguage] = useState<Language>(languages[0]);
-  const containerRef = useRef<HTMLDivElement>(null);
+function matchLang(locale: string) {
+  return languages.find((l) => l.code.toLowerCase() === locale) ?? languages[0];
+}
 
-  useEffect(() => {
-    const handlePointerDown = (event: MouseEvent) => {
-      if (!containerRef.current?.contains(event.target as Node)) {
-        setIsOpen(false);
+export function Broadcast(props: { data: BroadcastType[]; site: Site }) {
+  const { data: items, site } = props;
+  const email = site.email?.[0]?.value;
+  const locale = useLocale();
+
+  const [activeLanguage, setActiveLanguage] = useState<Language>(matchLang(locale));
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
+
+  // Popup
+  const [popup, setPopup] = useState<BroadcastType | null>(null);
+
+  const handleClick = useCallback(
+    (item: BroadcastType) => {
+      if (item.type === "popup") {
+        setPopup(item);
+      } else if (item.url) {
+        window.open(item.url, "_blank", "noopener,noreferrer");
       }
-    };
+    },
+    [],
+  );
 
-    document.addEventListener("mousedown", handlePointerDown);
-    return () => document.removeEventListener("mousedown", handlePointerDown);
+  // Language dropdown close on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (!langRef.current?.contains(e.target as Node)) setLangOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  const plugins = items.length > 1 ? [Autoplay({ delay: 3000 })] : [];
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      align: "start",
+      dragFree: true,
+      axis: 'y',
+      active: true,
+      defaultInteraction: false,
+      loop: items.length > 1,
+    },
+    plugins,
+  );
+
+  useEffect(() => {
+    if (items.length <= 1) return;
+    const autoplay = emblaApi?.plugins()?.autoplay
+    if (!autoplay) return
+
+    autoplay.play()
+  }, [emblaApi, items.length])
+
+  if (!items.length) return null;
+
   return (
-    <div className="bg-[#fafafa]">
-      <div className="flex flex-col px-5 py-4.5 xl:px-0 xl:w-7xl xl:mx-auto xl:flex-row">
-        <div className="flex flex-row items-center xl:flex-1">
-          <Image
-            className="w-4 h-4 mr-2"
-            src={Assets.Broadcast}
-            alt="broadcast"
-            width={20}
-            height={20}
-          />
-          <span className="truncate">{activeLanguage.message}</span>
-        </div>
-
-        <div className="flex flex-row items-center">
-          <Image
-            className="w-4 h-4 mr-2"
-            src={Assets.Mail}
-            alt="mail"
-            width={20}
-            height={20}
-          />
-          <span>elena@lwmetalmachining.com</span>
-
-          <div className="relative ml-auto" ref={containerRef}>
-            <button
-              type="button"
-              className="flex flex-row items-center"
-              onClick={() => setIsOpen((current) => !current)}
-            >
-              <Image
-                className="w-4 h-4 mr-1"
-                src={Assets.Lang}
-                alt="lang"
-              />
-              <span>{activeLanguage.code}</span>
-            </button>
-
-            {isOpen ? (
-              <div className="absolute right-0 top-full z-20 mt-2 min-w-28 overflow-hidden rounded-md border border-[#efefef] bg-white shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]">
-                {languages.map((language) => (
-                  <button
-                    key={language.code}
-                    type="button"
-                    className="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-[#fafafa]"
-                    onClick={() => {
-                      setActiveLanguage(language);
-                      setIsOpen(false);
-                    }}
-                  >
-                    <span>{language.label}</span>
-                    {language.code === activeLanguage.code ? <span>{language.code}</span> : null}
-                  </button>
+    <>
+      <div className="bg-[#fafafa]">
+        <div className="flex flex-col py-4 xl:py-0 xl:flex-row xl:items-center px-5 xl:px-0 xl:w-7xl xl:mx-auto xl:h-10">
+          {/* Broadcast carousel */}
+          <div className="pr-20 mb-1 xl:mb-0 xl:max-w-230 flex xl:flex-row items-center w-full overflow-hidden">
+            <Image className="w-4 h-4 mr-2 shrink-0" src={Assets.Broadcast} alt="broadcast" width={20} height={20} />
+            <div className="flex-1 h-5 overflow-hidden" ref={emblaRef}>
+              <div className="flex flex-col">
+                {items.map((item) => (
+                  <div key={item.documentId} className="min-w-0 shrink-0 h-5 flex items-center">
+                    <button
+                      type="button"
+                      className="truncate text-left w-full"
+                      onClick={() => handleClick(item)}
+                    >
+                      {item.content}
+                    </button>
+                  </div>
                 ))}
               </div>
-            ) : null}
+            </div>
+          </div>
+
+          <div className="flex flex-row">
+            {email && (
+              <div className="flex flex-row items-center">
+                <Image className="w-4 h-4 mr-2" src={Assets.Mail} alt="mail" width={20} height={20} />
+                <span>{email}</span>
+              </div>
+            )}
+
+            <div className="relative xl:ml-12.5 ml-auto" ref={langRef}>
+              <button
+                type="button"
+                className="flex flex-row items-center"
+                onClick={() => setLangOpen((c) => !c)}
+              >
+                <Image className="w-4 h-4 mr-1" src={Assets.Lang} alt="lang" />
+                <span>{activeLanguage.code}</span>
+              </button>
+
+              {langOpen && (
+                <div className="absolute right-0 top-full z-20 mt-2 min-w-28 overflow-hidden rounded-md border border-[#efefef] bg-white shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      type="button"
+                      className="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-[#fafafa]"
+                      onClick={() => {
+                        setActiveLanguage(lang);
+                        setLangOpen(false);
+                      }}
+                    >
+                      <span>{lang.label}</span>
+                      {lang.code === activeLanguage.code && <span>{lang.code}</span>}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Popup overlay */}
+      {popup && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50"
+          onClick={() => setPopup(null)}
+        >
+          <div
+            className="relative mx-5 max-w-lg w-full rounded-lg bg-white p-8 shadow-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="absolute top-4 right-4"
+              onClick={() => setPopup(null)}
+            >
+              <Image src={Assets.Close} alt="close" />
+            </button>
+            <p className="text-base leading-relaxed text-primary whitespace-pre-wrap">{popup.content}</p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
