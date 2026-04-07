@@ -44,7 +44,7 @@ export function SectionHeaderRowDir(props: { title: string, desc: string, classN
     <div className={`grid grid-cols-1 gap-2 xl:grid-cols-2 xl:gap-8 ${props.className}`}>
       <h2 className="section-title mb-0">{props.title}</h2>
       <div className="">
-        <div className="hidden h-1 w-16 bg-accent my-3 xl:block"></div>
+        <div className="h-1 w-16 bg-accent my-3 xl:block"></div>
         <p className="section-desc">{props.desc}</p>
       </div>
     </div>

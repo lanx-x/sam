@@ -44,6 +44,13 @@ import { MaterialList } from "./MaterialList";
 import { MaterialDetail } from "./MaterialDetail";
 import { IndustryDetail } from "./IndustryDetail";
 import { HelpFrom } from "./HelpFrom";
+import { Intro } from "./Intro";
+import { MileStone } from "./MileStone";
+import { WhatWeDo } from "./WhatWeDo";
+import { ISOStandard } from "./ISOStandar";
+import { Mission } from "./Mission";
+import { Gallery } from "./Gallery";
+import { PartnerStory } from "./PartnerStory";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -95,4 +102,12 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   IndustryDetail,
 
   HelpFrom,
+
+  Intro,
+  MileStone,
+  WhatWeDo,
+  ISOStandard,
+  Mission,
+  PartnerStory,
+  Gallery,
 }

@@ -8,8 +8,6 @@ import { Assets } from "@/assets";
 import { useLocale } from "@/i18n";
 import type { Broadcast as BroadcastType, Site } from "cms-types";
 
-const INTERVAL = 5000;
-
 const languages = [
   { code: "EN", label: "English" },
   { code: "中文", label: "中文" },
@@ -53,27 +51,28 @@ export function Broadcast(props: { data: BroadcastType[]; site: Site }) {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  const plugins = items.length > 1 ? [Autoplay({ delay: 3000 })] : [];
-
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       align: "start",
-      dragFree: true,
-      axis: 'y',
+      axis: "y",
       active: true,
-      defaultInteraction: false,
       loop: items.length > 1,
     },
-    plugins,
+    [
+      Autoplay({
+        active: true,
+      })
+    ]
   );
 
   useEffect(() => {
-    if (items.length <= 1) return;
-    const autoplay = emblaApi?.plugins()?.autoplay
-    if (!autoplay) return
+    if (!emblaApi || items.length <= 1) return;
+    const autoplay = emblaApi.plugins()?.autoplay;
+    if (!autoplay) return;
+
 
     autoplay.play()
-  }, [emblaApi, items.length])
+  }, [emblaApi]);
 
   if (!items.length) return null;
 
@@ -85,9 +84,9 @@ export function Broadcast(props: { data: BroadcastType[]; site: Site }) {
           <div className="pr-20 mb-1 xl:mb-0 xl:max-w-230 flex xl:flex-row items-center w-full overflow-hidden">
             <Image className="w-4 h-4 mr-2 shrink-0" src={Assets.Broadcast} alt="broadcast" width={20} height={20} />
             <div className="flex-1 h-5 overflow-hidden" ref={emblaRef}>
-              <div className="flex flex-col">
+              <div className="flex h-full flex-col">
                 {items.map((item) => (
-                  <div key={item.documentId} className="min-w-0 shrink-0 h-5 flex items-center">
+                  <div key={item.documentId} className="min-w-0 shrink-0 basis-full flex items-center">
                     <button
                       type="button"
                       className="truncate text-left w-full"

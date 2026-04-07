@@ -41,6 +41,7 @@ import Logo from "./logo.svg";
 import Mail from "./mail.svg";
 import Map from "./map.png";
 import Menu from "./menu.svg";
+import Milestone from "./milestone.svg";
 import Minus from "./minus.svg";
 import Plus from "./plus.svg";
 import Ptech from "./ptech.png";
@@ -95,6 +96,7 @@ export const Assets = {
   Mail,
   Map,
   Menu,
+  Milestone,
   Minus,
   Plus,
   Ptech,
