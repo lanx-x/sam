@@ -2,21 +2,10 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import AutoScroll from "embla-carousel-auto-scroll";
-import useEmblaCarousel from "embla-carousel-react";
-import { Assets } from "@/assets";
 import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 
 const ROTATE_INTERVAL = 3000;
-const partnerLogos = [
-  Assets.Corp01,
-  Assets.Corp02,
-  Assets.Corp03,
-  Assets.Corp04,
-  Assets.Corp05,
-] as const;
-const marqueeLogos = Array.from({ length: 10 }, () => partnerLogos).flat();
 
 export function MainHero({ section }: CmpProps) {
   const items = section.payload?.data ?? []
@@ -27,28 +16,6 @@ export function MainHero({ section }: CmpProps) {
     () => `banner-progress-${activeIndex}`,
     [activeIndex],
   );
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      align: "start",
-      dragFree: true,
-      loop: true,
-    },
-    [
-      AutoScroll({
-        active: true,
-        speed: 0.9,
-        startDelay: 0,
-      }),
-    ],
-  );
-
-  useEffect(() => {
-    const autoScroll = emblaApi?.plugins()?.autoScroll
-    if (!autoScroll) return
-
-    autoScroll.play()
-
-  }, [emblaApi])
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
@@ -115,15 +82,6 @@ export function MainHero({ section }: CmpProps) {
         </div>
       </div>
 
-      <div className="absolute bottom-5 left-0 h-10 w-full overflow-hidden" ref={emblaRef}>
-        <div className="flex h-full items-center">
-          {marqueeLogos.map((logo, idx) => (
-            <div key={`${logo.src}-${idx}`} className="mr-9 flex h-full flex-[0_0_auto] items-center">
-              <Image src={logo} alt={`corp-${(idx % partnerLogos.length) + 1}`} className="h-5 w-auto object-contain" />
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }

@@ -46,16 +46,6 @@
         }
       }
     },
-    "display_text": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "global.display-text",
-      "repeatable": false
-    },
     "email": {
       "type": "component",
       "pluginOptions": {
@@ -115,6 +105,39 @@
       },
       "component": "item.kv-item",
       "repeatable": true
+    },
+    "logo_with_text": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "footer": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "display_text": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "global.display-text",
+      "repeatable": false
     }
   }
 }

@@ -61,16 +61,15 @@ export default async function CatchAllPage({ params, searchParams, }: { params: 
   return (
     <div>
       {
-        pageData.content?.map((section) => {
+        pageData.content?.map((section, idx) => {
           const Cmp = CmpMap[section.payload?.renderer?.cmp];
-
           if (!Cmp) {
             logger.warn(`Unknown renderer: ${section.payload?.renderer?.cmp}`);
             return null;
           }
 
           return <Cmp
-            key={section.id}
+            key={idx}
             site={site}
             section={section}
             documentId={documentId}

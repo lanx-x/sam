@@ -61,6 +61,7 @@ export function Broadcast(props: { data: BroadcastType[]; site: Site }) {
     [
       Autoplay({
         active: true,
+        defaultInteraction: false,
       })
     ]
   );

@@ -6,6 +6,7 @@ export interface GlobalDisplayText extends Struct.ComponentSchema {
     displayName: 'DisplayText';
   };
   attributes: {
+    EmailPH: Schema.Attribute.String;
     Subscribe: Schema.Attribute.Text;
   };
 }
@@ -56,7 +57,12 @@ export interface ItemCommonItem extends Struct.ComponentSchema {
     extend: Schema.Attribute.Component<'item.kv-item', true>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     label: Schema.Attribute.String;
-    target: Schema.Attribute.String;
+    target_page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    target_type: Schema.Attribute.Enumeration<
+      ['internal_url', 'external_url', 'popup']
+    > &
+      Schema.Attribute.DefaultTo<'external_url'>;
+    target_url: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }

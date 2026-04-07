@@ -6,7 +6,8 @@
       "Bash(find /Users/simon/Developer/longwang -type d -name app -not -path */node_modules/*)",
       "Bash(find:*)",
       "Bash(cd:*)",
-      "Bash(pnpm --filter web exec tsc --noEmit)"
+      "Bash(pnpm --filter web exec tsc --noEmit)",
+      "mcp__figma__get_design_context"
     ]
   }
 }

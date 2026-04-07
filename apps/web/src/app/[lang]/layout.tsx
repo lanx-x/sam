@@ -9,6 +9,7 @@ import { Nav } from "@/components/Nav";
 import { Subscribe } from "@/components/Subscribe";
 import { GetInTouch } from "@/components/GetInTouch";
 import { getNavigation, getSite, getBroadcast } from "@/api";
+import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,63 +22,6 @@ const roboto = Roboto({
   variable: "--font-roboto",
   display: "swap",
 });
-
-function Footer() {
-  return (
-    <div className="px-5 mt-15 xl:px-0 xl:w-7xl xl:mx-auto">
-      <div className="flex flex-col xl:flex-row">
-        <div className="mb-15 xl:mr-39.5 xl:mb-23">
-          <div className="flex flex-row items-center mb-4">
-            <Image className="w-10 h-10 mr-3" src={Assets.Logo} alt="logo" />
-            <Image className="w-30 h-4" src={Assets.LogoText} alt="logo-text" />
-          </div>
-
-          <p className="mb-5 text-base">Elit amet incidunt nesciunt quod a? Perspiciatis dicta quam nostrum.</p>
-
-          <div className="text-sm text-secondary" >
-            <p>Tel: 832412414141</p>
-            <p>Mobile: 832412414141</p>
-            <p>Email: 832412414141@qq.com</p>
-            <p className="mt-5">Address: DBuilding,Xianxi Industrial Gardan,Shatou,Zhen an Road,Chang an,Dongguan,China</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-10 mb-10 xl:grid-cols-4">
-          {
-            [1, 2, 3, 4].map((xs, idx) => (
-              <div key={idx}>
-                <p className="font-medium text-base mb-6">Dolor</p>
-                <ul className="text-sm">
-                  <li className="mb-3">Adipisicing adipisicing</li>
-                  <li className="mb-3">Amet veritatis</li>
-                  <li className="mb-3">Adipisicing vel</li>
-                  <li className="mb-3">Adipisicing tenetur?</li>
-                </ul>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-
-      <div className="flex flex-col xl:flex-row-reverse xl:items-center mb-5">
-        <Subscribe className="border border-[#efefef] mb-10 xl:w-143 xl:mb-0" />
-
-        <div className="flex flex-row items-center xl:flex-1">
-          <Image className="w-6 h-6 mr-6" src={Assets.X} alt="x" />
-          <Image className="w-6 h-6 mr-6" src={Assets.Ins} alt="x" />
-          <Image className="w-6 h-6 mr-6" src={Assets.Facebook} alt="x" />
-          <Image className="w-6 h-6 mr-6" src={Assets.In} alt="x" />
-        </div>
-      </div>
-
-
-      <div className="w-full h-px bg-[#efefef]"></div>
-      <p className="text-sm text-secondary my-7.5">Copyright © 2018-2025 SlowMist Limited. All Rights Reserved. 闽ICP备18006755号-1  闽公网安备35020302032841号</p>
-
-    </div>
-  )
-}
-
 
 export default async function RootLayout({
   children,
@@ -101,7 +45,7 @@ export default async function RootLayout({
           <Broadcast data={broadcasts.data} site={site.data} />
           <Nav data={navData} site={site.data} />
           {children}
-          <Footer />
+          <Footer navigation={navData} lang={lang} site={site.data} />
         </I18nProvider>
       </body>
     </html>

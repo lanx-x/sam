@@ -90,7 +90,7 @@ export function FeaturedCaseStudy({ section }: CmpProps) {
 
       <div className="hidden xl:flex mx-auto justify-center">
         {
-          section.payload?.case_studies?.map((xs, idx) => (
+          section.payload?.dynamic?.[0]?.case_studies?.map((xs, idx) => (
             <div key={idx} className="cursor-pointer" onClick={() => emblaApi?.goTo(idx)}>
               <p className={`text-xs ${selectedIndex === idx ? 'text-[#666]' : 'text-[#bfbfbf]'}`}>0{idx + 1}</p>
               <div className={`w-12 h-1 border-b border-l ${selectedIndex === idx ? 'border-secondary' : 'border-[#efefef]'} last:border-r`}></div>

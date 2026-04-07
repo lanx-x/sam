@@ -24,9 +24,6 @@
         "audios"
       ]
     },
-    "target": {
-      "type": "string"
-    },
     "actions": {
       "type": "component",
       "component": "item.button-item",
@@ -36,6 +33,43 @@
       "type": "component",
       "component": "item.kv-item",
       "repeatable": true
+    },
+    "target_type": {
+      "type": "enumeration",
+      "default": "external_url",
+      "enum": [
+        "internal_url",
+        "external_url",
+        "popup"
+      ]
+    },
+    "target_page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "target_type"
+            },
+            "internal_url"
+          ]
+        }
+      }
+    },
+    "target_url": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "target_type"
+            },
+            "external_url"
+          ]
+        }
+      }
     }
   },
   "config": {}

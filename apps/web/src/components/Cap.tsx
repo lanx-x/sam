@@ -1,21 +1,11 @@
-'use client';
-
 import Image from "next/image";
 import { Assets } from "@/assets";
-import { Hero } from "./_components/Hero";
-import { OneStop } from "./_components/OneStop";
-import { CustomerStory, Equipment, FAQ, SayAbout, Specification, WorkShop, WorkWith } from "./_components/Misc";
-import { getHomePage, type HomePageData } from "@/api";
 import { getStrapiMedia } from "@/utils/strapi";
-import { defaultLocale, isLocale } from "@/i18n";
-import type { CapItemData, CapSectionData, StatItemData } from "cms-types";
 import { Section } from "./Section";
 import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import Link from "next/link";
 
-type StatDisplayItem = Pick<StatItemData, "label" | "value" | "image">;
-type CapDisplayItem = Pick<CapItemData, "label" | "desc" | "image">;
-
-export function Cap({ section }: CmpProps) {
+export function Cap({ section, lang }: CmpProps) {
   return (
     <Section
       title={section.payload?.title!}
@@ -36,8 +26,10 @@ export function Cap({ section }: CmpProps) {
                     <p className="font-semibold text-2xl/none text-white mb-8">{xs.title}</p>
                     <p className="text-white text-sm leading-4.5 flex-1">{xs.desc}</p>
                     <div className="text-white font-medium text-base flex flex-row items-center">
-                      <span>{xs.label}</span>
-                      <Image src={Assets.LinkWhite} alt="link" className="ml-3" />
+                      <Link href={`/${lang}${xs.target_page?.slug}`} className="block flex items-center">
+                        <span>{xs.label}</span>
+                        <Image src={Assets.LinkWhite} alt="link" className="ml-3" />
+                      </Link>
 
                     </div>
                   </div>

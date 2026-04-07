@@ -11,7 +11,7 @@
 }
 
 @utility section-desc {
-  @apply text-sm xl:text-base leading-none;
+  @apply text-sm xl:text-base leading-5;
 }
 
 @theme inline {

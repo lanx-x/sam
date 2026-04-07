@@ -101,8 +101,8 @@ export function MobileNav(props: { data: Navigation, site: Site }) {
     <div className="relative">
       <nav ref={navRef} className="flex flex-row bg-white h-15 items-center px-5">
         <Link href={withLang(locale, "/")} className="flex items-center gap-2 shrink-0 flex-1">
-          <Image src={Assets.Logo} width={40} height={40} alt="logo" className="w-10 h-10" />
-          <Image src={Assets.LogoText} width={96} height={14} alt="" className="w-26.25 h-3.5 hidden sm:block" />
+          <Image src={getStrapiMedia(site.logo_with_text) ?? ""} width={160} height={40} alt="logo" className="w-40 h-10 hidden xl:block" />
+          <Image src={getStrapiMedia(site.logo) ?? ""} width={40} height={40} alt="logo" className="w-10 h-10 xl:hidden" />
         </Link>
 
         <button ref={buttonRef} type="button" aria-label={isOpen ? "Close menu" : "Open menu"} onClick={handleToggle}>
@@ -394,7 +394,7 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
                           {
                             group.children?.map((child, childIdx) => (
                               <Link key={child.id} href={withLang(locale, getHref(child))} className="block p-5 hover:bg-primary">
-                                <h3 className="text-lg text-white font-medium leading-none">{child.name}</h3>
+                                <h3 className="mb-2 text-lg text-white font-medium leading-none">{child.name}</h3>
                                 <p className="text-sm text-white/66 leading-4.5">{child.desc}</p>
 
                               </Link>
