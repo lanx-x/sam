@@ -89,6 +89,16 @@
       },
       "component": "item.kv-item",
       "repeatable": true
+    },
+    "parameter": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.kv-item",
+      "repeatable": true
     }
   }
 }

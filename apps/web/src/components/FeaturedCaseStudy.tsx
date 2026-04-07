@@ -10,6 +10,7 @@ import { Section } from "./Section";
 import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
+import { CaseStudy } from "cms-types";
 
 export function FeaturedCaseStudy({ section }: CmpProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -52,7 +53,7 @@ export function FeaturedCaseStudy({ section }: CmpProps) {
       <div className="py-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
           {
-            section.payload?.dynamic?.[0]?.case_studies?.map((xs, idx) => (
+            (section.payload?.dynamic?.[0]?.case_studies as CaseStudy[])?.map((xs, idx) => (
               <div className="w-full shrink-0 flex items-center justify-center px-5 xl:px-0" key={idx}>
 
                 <div
@@ -60,7 +61,7 @@ export function FeaturedCaseStudy({ section }: CmpProps) {
                   key={idx}>
                   <Image width={640} height={520} className="object-cover w-full aspect-64/52 xl:w-160" src={getStrapiMedia(xs.image) ?? ""} alt="" />
                   <div className="flex flex-col px-5 pt-4 pb-7 text-left xl:px-10 xl:pt-6 xl:pb-8">
-                    <span className="self-start leading-8 bg-[#e5f2ff] border border-accent h-8 px-3.5 font-semibold rounded-sm inline-block xl:text-lg xl:h-10 xl:leading-10">{xs.industry}</span>
+                    <span className="self-start leading-8 bg-[#e5f2ff] border border-accent h-8 px-3.5 font-semibold rounded-sm inline-block xl:text-lg xl:h-10 xl:leading-10">{xs.industry?.name}</span>
                     <p className="my-2 font-semibold text-lg leading-none xl:mt-4 xl:mb-3 xl:text-[32px]">{xs.title}</p>
                     <p className="text-sm leading-3.5 xl:text-base xl:leading-5">{xs.desc}</p>
 

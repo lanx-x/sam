@@ -256,10 +256,7 @@ export interface ListFeaturedSpeList extends Struct.ComponentSchema {
     displayName: 'FeaturedMaterial';
   };
   attributes: {
-    specifications: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::specification.specification'
-    >;
+    materials: Schema.Attribute.Relation<'oneToMany', 'api::material.material'>;
   };
 }
 

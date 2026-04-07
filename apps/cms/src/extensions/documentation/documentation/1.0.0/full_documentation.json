@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-04-07T16:09:24.906Z"
+    "x-generation-date": "2026-04-07T16:33:14.199Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -19709,6 +19709,12 @@
                   "$ref": "#/components/schemas/ItemKvItemComponent"
                 }
               },
+              "parameter": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ItemKvItemComponent"
+                }
+              },
               "locale": {
                 "type": "string"
               },
@@ -21759,6 +21765,12 @@
                           "$ref": "#/components/schemas/ItemKvItemComponent"
                         }
                       },
+                      "parameter": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ItemKvItemComponent"
+                        }
+                      },
                       "createdAt": {
                         "type": "string",
                         "format": "date-time"
@@ -21974,6 +21986,12 @@
             }
           },
           "cons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemKvItemComponent"
+            }
+          },
+          "parameter": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ItemKvItemComponent"
@@ -25441,7 +25459,7 @@
               "list.featured-spe-list"
             ]
           },
-          "specifications": {
+          "materials": {
             "type": "array",
             "items": {
               "type": "object",
@@ -36045,6 +36063,12 @@
                   }
                 },
                 "cons": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemKvItemComponent"
+                  }
+                },
+                "parameter": {
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/ItemKvItemComponent"

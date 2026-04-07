@@ -7,6 +7,7 @@ import { Section } from "./Section";
 import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
+import Link from "next/link";
 
 export function FeaturedEquipment({ section }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -47,11 +48,12 @@ export function FeaturedEquipment({ section }: CmpProps) {
 
                   </div>
 
-                  <div className="flex items-center">
-
-                    <p className="text-accent text-sm font-medium flex flex-row items-center mr-3">{extension['open_label']?.value}</p>
-                    <Image src={Assets.Link} alt="link" />
-                  </div>
+                  <Link href={""}>
+                    <div className="flex items-center">
+                      <p className="text-accent text-sm font-medium flex flex-row items-center mr-3">{extension['open_label']?.value}</p>
+                      <Image src={Assets.Link} alt="link" />
+                    </div>
+                  </Link>
                 </div>
               ))
             }

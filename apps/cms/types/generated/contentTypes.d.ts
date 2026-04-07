@@ -935,6 +935,12 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    parameter: Schema.Attribute.Component<'item.kv-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     pros: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

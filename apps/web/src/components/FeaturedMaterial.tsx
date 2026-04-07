@@ -9,6 +9,7 @@ import { Section } from "./Section";
 import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
+import { Material } from "cms-types";
 
 export function FeaturedMaterial({ section }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -28,11 +29,11 @@ export function FeaturedMaterial({ section }: CmpProps) {
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex flex-row">
             {
-              section.payload?.dynamic?.[0]?.specifications?.map((xs, idx) => (
-                <div key={xs.id} className="shrink-0 w-305/390 bg-[#fafafa] rounded-lg overflow-hidden ml-5 xl:first:ml-0  xl:w-76.25">
-                  <Image className="object-cover w-full rounded-lg xl:h-40" width={305} height={160} src={getStrapiMedia(xs.image?.[0]) ?? ""} alt="" />
+              (section.payload?.dynamic?.[0]?.materials as Material[])?.map((xs, idx) => (
+                <div key={idx} className="shrink-0 w-305/390 bg-[#fafafa] rounded-lg overflow-hidden ml-5 xl:first:ml-0  xl:w-76.25">
+                  <Image className="object-cover w-full rounded-lg xl:h-40" width={305} height={160} src={getStrapiMedia(xs.image) ?? ""} alt="" />
                   <div className="px-5 text-left">
-                    <p className="my-5 text-lg font-semibold leading-none">{xs.title}</p>
+                    <p className="my-5 text-lg font-semibold leading-none">{xs.name}</p>
 
                     {
                       xs.parameter?.map((item, idx) => (

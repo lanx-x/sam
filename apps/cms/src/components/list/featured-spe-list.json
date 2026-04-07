@@ -5,10 +5,10 @@
   },
   "options": {},
   "attributes": {
-    "specifications": {
+    "materials": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::specification.specification"
+      "target": "api::material.material"
     }
   },
   "config": {}
