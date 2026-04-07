@@ -17,7 +17,7 @@ import { ProcessingTech } from "./ProcessingTech";
 import dynamic from "next/dynamic";
 import { ImageSection } from "./ImageSection";
 import { Ship } from "./Ship";
-import { SurfaceFinish } from "./SurfaceFinish";
+import { FeaturedSurfaceTreatment } from "./FeaturedSurfaceTreatment";
 import { Tolerance } from "./Tolerance";
 import { FeaturedNews } from "./FeaturedNews";
 import { Service } from "./Service";
@@ -72,7 +72,7 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   ProcessingTech,
   ImageSection,
   Ship,
-  SurfaceFinish,
+  FeaturedSurfaceTreatment,
   Tolerance,
   FeaturedNews,
   Service,

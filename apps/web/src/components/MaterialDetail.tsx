@@ -5,7 +5,7 @@ import { getStrapiMedia } from "@/utils/strapi";
 import { BlocksContent } from "./BlocksContent";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { SectionContainer, SectionHeaderRowDir } from "./Section";
-import { SurfaceTreatmentItem } from "./SurfaceFinish";
+import { SurfaceTreatmentItem } from "./FeaturedSurfaceTreatment";
 
 export async function MaterialDetail({ documentId, section }: CmpProps) {
   const data = (await getMaterial({ 'filters[documentId][$eq]': documentId })).data?.[0]
