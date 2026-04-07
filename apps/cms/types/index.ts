@@ -46,4 +46,6 @@ export type MaterialCategory = StrapiDocument<"api::material-category.material-c
 export type Industry = StrapiDocument<"api::industry.industry">;
 export type Site = StrapiDocument<"api::site.site">;
 
+export type Navigation = StrapiDocument<"api::navigation.navigation">;
+
 export type CommonSection = StrapiComponent<"section.common-section">;

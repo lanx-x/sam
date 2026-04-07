@@ -1,6 +1,6 @@
 import { defaultLocale } from "@/i18n";
 import { fetchStrapi } from "@/utils/strapi";
-import type { HomePageData, PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceTreatment, Equipment, EquipmentCategory, CaseStudy, News, NewsCategory, Video, Material, MaterialCategory, Industry, Site } from "cms-types";
+import type { HomePageData, PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceTreatment, Equipment, EquipmentCategory, CaseStudy, News, NewsCategory, Video, Material, MaterialCategory, Industry, Site, Navigation } from "cms-types";
 
 export type { HomePageData, PageData };
 
@@ -132,5 +132,14 @@ export async function getSite(params: { [key: string]: any } = {}) {
       ...params,
     },
     // next: { revalidate: 3600 },
+  })
+}
+
+export async function getNavigation(documentId: string, params: { [key: string]: any } = {}) {
+  return fetchStrapi<StrapiSingleResponse<Navigation>>(`/navigations/${documentId}`, {
+    params: {
+      pLevel: true,
+      ...params,
+    },
   })
 }

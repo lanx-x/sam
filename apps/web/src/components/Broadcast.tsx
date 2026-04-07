@@ -37,7 +37,7 @@ export function Broadcast() {
 
   return (
     <div className="bg-[#fafafa]">
-      <div className="flex flex-col px-5 py-4.5 xl:w-320 xl:mx-auto xl:flex-row">
+      <div className="flex flex-col px-5 py-4.5 xl:px-0 xl:w-7xl xl:mx-auto xl:flex-row">
         <div className="flex flex-row items-center xl:flex-1">
           <Image
             className="w-4 h-4 mr-2"

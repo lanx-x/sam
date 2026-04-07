@@ -1204,7 +1204,7 @@ export interface ApiSiteSite extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
-    contact: Schema.Attribute.Component<'item.kv-item', true> &
+    address: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1225,7 +1225,13 @@ export interface ApiSiteSite extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
-    email: Schema.Attribute.Email &
+    email: Schema.Attribute.Component<'item.kv-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    fax: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1239,6 +1245,12 @@ export interface ApiSiteSite extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
+    mobile: Schema.Attribute.Component<'item.kv-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     name: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1246,6 +1258,18 @@ export interface ApiSiteSite extends Struct.SingleTypeSchema {
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
+    social: Schema.Attribute.Component<'item.kv-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    tel: Schema.Attribute.Component<'item.kv-item', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

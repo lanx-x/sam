@@ -5,9 +5,10 @@ import Image from "next/image";
 import { Assets } from "@/assets";
 import { defaultLocale, getDictionary, isLocale, type Locale, I18nProvider } from "@/i18n";
 import { Broadcast } from "@/components/Broadcast";
-import { Menu } from "@/components/Menu";
+import { Nav } from "@/components/Nav";
 import { Subscribe } from "@/components/Subscribe";
 import { GetInTouch } from "@/components/GetInTouch";
+import { getNavigation, getSite } from "@/api";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,20 +21,6 @@ const roboto = Roboto({
   variable: "--font-roboto",
   display: "swap",
 });
-
-function Nav() {
-  return (
-    <div className="">
-      <div className="flex flex-row items-center px-5 py-3 xl:w-320 xl:mx-auto" data-nav-root>
-        <Image className="w-9 h-9 mr-2" src={Assets.Logo} width={36} height={36} alt="logo" />
-        <Image className="w-24 h-3" src={Assets.LogoText} width={96} height={14} alt="logo" />
-        <div className="ml-auto">
-          <Menu />
-        </div>
-      </div>
-    </div>
-  )
-}
 
 function Footer() {
   return (
@@ -103,15 +90,15 @@ export default async function RootLayout({
   const locale: Locale = isLocale(lang) ? lang : defaultLocale;
   const messages = await getDictionary(locale);
 
+  const { data: navData } = await getNavigation("owqgz3ze0n1a15777qpdokl0", { locale });
+  const site = await getSite()
+
   return (
-    <html
-      lang={locale}
-      className={`h-full antialiased`}
-    >
+    <html lang={locale} className={`h-full antialiased`}>
       <body className={`${roboto.variable} min-h-full flex flex-col font-sans`}>
         <I18nProvider locale={locale} messages={messages}>
           <Broadcast />
-          <Nav />
+          <Nav data={navData} site={site.data} />
           {children}
           <Footer />
         </I18nProvider>
