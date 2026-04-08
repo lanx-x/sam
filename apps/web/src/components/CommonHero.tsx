@@ -10,12 +10,12 @@ export function CommonHero({ section }: CmpProps) {
     <div className={`${extension['style']?.value}`}>
       <div className={`px-5 py-10 text-center xl:text-left xl:px-0 xl:w-7xl xl:mx-auto`}>
         <div className="relative flex flex-col xl:flex-row">
-          <div className="mb-10 xl:mr-50 text-left xl:mb-30">
+          <div className="mb-10 xl:mr-25 text-left xl:mb-30">
             <h2 className="text-4xl mb-5 font-black xl:text-[64px] leading-none">{section.payload?.title}</h2>
             <p className="text-base leading-none">{section.payload?.desc}</p>
           </div>
 
-          <Image width={540} height={320} className="w-full rounded-2xl xl:rounded-3xl xl:w-135 xl:h-80 object-cover" src={getStrapiMedia(section.payload?.image) ?? ""} alt="" />
+          <Image width={580} height={420} className="shrink-0 w-full rounded-2xl xl:rounded-3xl xl:w-145 xl:h-105 object-cover" src={getStrapiMedia(section.payload?.image) ?? ""} alt="" />
 
 
           <div className="flex flex-col mt-10 xl:flex-row xl:absolute xl:left-0 xl:bottom-0">

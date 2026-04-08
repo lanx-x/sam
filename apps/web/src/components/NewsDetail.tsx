@@ -48,7 +48,7 @@ export async function NewsDetail({ documentId, section, slug, lang }: CmpProps) 
 
   return (
     <div className="px-5 xl:px-0">
-      <SectionContainer>
+      <SectionContainer className="xl:w-211.5">
         <div className="pt-15 xl:pt-20 pb-28 border-b border-b-[#efefef]">
           <span className="text-sm text-secondary">{dayjs(data.date as string).format('YYYY-MM-DD HH:mm')}</span>
           <p className="leading-none text-2xl xl:text-4xl font-medium mt-2 mb-5">{data.title}</p>
@@ -67,9 +67,9 @@ export async function NewsDetail({ documentId, section, slug, lang }: CmpProps) 
 
       {relatedNews.length > 0 && (
         <div className="pt-10 pb-10 xl:pb-35">
-          <SectionContainer>
+          <SectionContainer className="xl:w-211.5">
             <p className="text-left text-[32px] font-medium mb-5 leading-none">Next</p>
-            <div className="grid grid-cols-1 gap-5 xl:grid-cols-3 mx-auto">
+            <div className="grid grid-cols-1 gap-5 xl:grid-cols-2 mx-auto">
               {relatedNews.map(xs => (
                 <Link key={xs.documentId} href={`${basePath}/${xs.documentId}`} className="group overflow-hidden">
 
