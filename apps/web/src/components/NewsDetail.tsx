@@ -16,11 +16,35 @@ export async function NewsDetail({ documentId, section, slug, lang }: CmpProps) 
     return <div className="py-30 text-3xl font-semibold text-center">News: {documentId} not found.</div>
   }
 
-  const nextNews = (await getNews({
-    'filters[documentId][$ne]': documentId,
-    'pagination[pageSize]': 2,
-    'sort[0]': 'date:desc',
-  })).data
+  const currentDate = data.date as string
+
+  // Get next (newer) and previous (older) news by date
+  const [nextItems, prevItems] = await Promise.all([
+    getNews({
+      'filters[documentId][$ne]': documentId,
+      'filters[date][$gt]': currentDate,
+      'pagination[pageSize]': 2,
+      'sort[0]': 'date:asc',
+    }),
+    getNews({
+      'filters[documentId][$ne]': documentId,
+      'filters[date][$lt]': currentDate,
+      'pagination[pageSize]': 2,
+      'sort[0]': 'date:desc',
+    }),
+  ])
+
+  const hasNext = (nextItems.data?.length ?? 0) > 0
+  const hasPrev = (prevItems.data?.length ?? 0) > 0
+
+  // If both exist: show 1 prev + 1 next
+  // If no prev: show 2 next
+  // If no next: show 2 prev
+  const relatedNews = !hasPrev
+    ? nextItems.data!.slice(0, 2)
+    : !hasNext
+      ? prevItems.data!.slice(0, 2)
+      : [prevItems.data![0], nextItems.data![0]]
 
   return (
     <div className="px-5 xl:px-0">
@@ -41,12 +65,12 @@ export async function NewsDetail({ documentId, section, slug, lang }: CmpProps) 
         </div>
       </SectionContainer>
 
-      {nextNews.length > 0 && (
+      {relatedNews.length > 0 && (
         <div className="pt-10 pb-10 xl:pb-35">
           <SectionContainer>
             <p className="text-left text-[32px] font-medium mb-5 leading-none">Next</p>
             <div className="grid grid-cols-1 gap-5 xl:grid-cols-3 mx-auto">
-              {nextNews.map(xs => (
+              {relatedNews.map(xs => (
                 <Link key={xs.documentId} href={`${basePath}/${xs.documentId}`} className="group overflow-hidden">
 
                   <div className="border-b border-[#efefef] hover:border-accent">

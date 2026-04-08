@@ -2,7 +2,7 @@ import { defaultLocale } from "@/i18n";
 import { fetchStrapi } from "@/utils/strapi";
 import type { PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceTreatment, Equipment, EquipmentCategory, CaseStudy, News, NewsCategory, Video, Material, MaterialCategory, Industry, Site, Navigation, Broadcast } from "cms-types";
 
-export type { HomePageData, PageData };
+export type { PageData };
 
 export async function getPage(payload: { [key: string]: any }) {
   const { slug, ...params } = payload

@@ -31,7 +31,6 @@
     },
     "target_type": {
       "type": "enumeration",
-      "default": "external_url",
       "enum": [
         "internal_url",
         "external_url",
@@ -70,6 +69,11 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::action.action"
+    },
+    "pppage": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
     }
   },
   "config": {}

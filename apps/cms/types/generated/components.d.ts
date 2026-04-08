@@ -57,11 +57,11 @@ export interface ItemCommonItem extends Struct.ComponentSchema {
     extension: Schema.Attribute.Component<'item.kv-item', true>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     label: Schema.Attribute.String;
+    pppage: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
     target_page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
     target_type: Schema.Attribute.Enumeration<
       ['internal_url', 'external_url', 'popup']
-    > &
-      Schema.Attribute.DefaultTo<'external_url'>;
+    >;
     target_url: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
