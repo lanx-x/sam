@@ -28,7 +28,7 @@ export function Footer({ site, navigation, lang }: { site: Site, lang: string, n
                   <p className="capitalize mr-2">{site[xs]?.[0]?.key ?? xs}:</p>
                   <div>
                     {site[xs]?.map(item => (
-                      <p key={item.id}>{item.value}</p>
+                      <p key={item.id}>{xs === 'email' ? <a href={`mailto:${item.value}`} className="hover:text-accent transition-colors">{item.value}</a> : item.value}</p>
                     ))}
 
                   </div>

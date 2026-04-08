@@ -414,8 +414,8 @@ export function DesktopNav(props: { data: Navigation, site: Site, lang: string }
                                 <p className="capitalize mr-1">{xs}: </p>
                                 <div>
                                   {
-                                    site[xs]?.map(xs => (
-                                      <p key={xs.id} className="">{xs.value}</p>
+                                    site[xs]?.map(item => (
+                                      <p key={item.id} className="">{xs === 'email' ? <a href={`mailto:${item.value}`} className="hover:text-white transition-colors">{item.value}</a> : item.value}</p>
                                     ))
                                   }
                                 </div>

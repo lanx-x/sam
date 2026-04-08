@@ -105,7 +105,7 @@ export function Broadcast(props: { data: BroadcastType[]; site: Site }) {
             {email && (
               <div className="flex flex-row items-center">
                 <Image className="w-4 h-4 mr-2" src={Assets.Mail} alt="mail" width={20} height={20} />
-                <span>{email}</span>
+                <a href={`mailto:${email}`} className="hover:text-accent transition-colors">{email}</a>
               </div>
             )}
 
