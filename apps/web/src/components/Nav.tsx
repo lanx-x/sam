@@ -7,30 +7,18 @@ import { Assets } from "@/assets";
 import { useLocale, useTranslations } from "@/i18n";
 import { Menu } from "./Menu";
 import { getStrapiMedia } from "@/utils/strapi";
-import type { Navigation, Site } from "cms-types";
+import type { Navigation, PageData, Site } from "cms-types";
 import type { StrapiComponent } from "cms-types";
+import { getHref, withLang } from "@/utils";
 
-type NavGrouptItem = NonNullable<Navigation["value"]>[number];
-type NavChildItem = NonNullable<NonNullable<NavGrouptItem["children"]>>[number];
-
-function getHref(item: NavGrouptItem | NavChildItem): string | undefined {
-  if (item.external && item.external_url) return item.external_url;
-  if (item.target_type === 'external_url' && item.external_url) return item.external_url;
-  const slug = item.page?.slug;
-  if (!slug) return '#';
-  return slug.startsWith('/') ? slug : `/${slug}/${item.target_anchor}`;
-}
-
-function withLang(locale: string, path: string | undefined): string {
-  if (!path) return "#";
-  if (path.startsWith('http')) return path
-  return `/${locale}${path.startsWith("/") ? path : `/${path}`}`;
-}
+export type NavGrouptItem = NonNullable<Navigation["value"]>[number];
+export type NavChildItem = NonNullable<NonNullable<NavGrouptItem["children"]>>[number];
+export type NavBasicItem = NonNullable<NonNullable<NavChildItem['children']>>[number];
 
 const getChild = (type: NavChildItem['type'], group: NavGrouptItem) => group.children?.find(xs => xs.type === type)
 
 
-export function Nav(props: { data: Navigation, site: Site }) {
+export function Nav(props: { data: Navigation, site: Site, lang: string }) {
   const [stuck, setStuck] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
@@ -62,15 +50,14 @@ export function Nav(props: { data: Navigation, site: Site }) {
 }
 
 
-export function MobileNav(props: { data: Navigation, site: Site }) {
-  const { data, site } = props;
+export function MobileNav(props: { data: Navigation, site: Site, lang: string }) {
+  const { data, site, lang } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
   const [menuTop, setMenuTop] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const navRef = useRef<HTMLElement>(null);
-  const locale = useLocale();
   const [openId, setOpenId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -101,7 +88,7 @@ export function MobileNav(props: { data: Navigation, site: Site }) {
   return (
     <div className="relative">
       <nav ref={navRef} className="flex flex-row bg-white h-15 items-center px-5">
-        <Link href={withLang(locale, "/")} className="flex items-center gap-2 shrink-0 flex-1">
+        <Link href={withLang(lang, "/")} className="flex items-center gap-2 shrink-0 flex-1">
           <Image src={getStrapiMedia(site.logo_with_text) ?? ""} width={160} height={40} alt="logo" className="w-40 h-10 hidden xl:block" />
           <Image src={getStrapiMedia(site.logo) ?? ""} width={40} height={40} alt="logo" className="w-10 h-10 xl:hidden" />
         </Link>
@@ -124,7 +111,7 @@ export function MobileNav(props: { data: Navigation, site: Site }) {
                   className={`transition-all duration-300 ease-out ${visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
                   style={{ transitionDelay: visible ? `${index * 60}ms` : "0ms" }}>
                   <button className="block font-medium w-full text-left h-16 text-base capitalize text-white" onClick={() => toggleGroup(String(group.id))}>
-                    {group.type === 'about' ? <Link href={withLang(locale, getHref(group))} onClick={closeMenu}>{group.name}</Link> : group.name}
+                    {group.type === 'about' ? <Link href={withLang(lang, getHref(group))} onClick={closeMenu}>{group.name}</Link> : group.name}
                   </button>
 
                   <div className={`grid transition-all duration-300 ease-out ${openId === String(group.id) ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
@@ -140,7 +127,13 @@ export function MobileNav(props: { data: Navigation, site: Site }) {
                                 <div>
                                   {
                                     nested.children?.map((child, childIdx) => (
-                                      <Link className="block text-white h-12 leading-12 px-5" key={child.id} href={withLang(locale, getHref(child))} onClick={closeMenu}>{child.name}</Link>
+                                      <Link
+                                        className="block text-white h-12 leading-12 px-5"
+                                        key={child.id}
+                                        href={withLang(lang, (nested.type === 'Industries' && child.target_type === 'industry' && child.industry) ? `/solutions/industry/${child.industry.documentId}` : getHref(child))}
+                                        onClick={closeMenu}>
+                                        {child.name}
+                                      </Link>
                                     ))
                                   }
                                 </div>
@@ -152,7 +145,7 @@ export function MobileNav(props: { data: Navigation, site: Site }) {
 
                       {['capabilities', 'resources'].includes(group.type!) &&
                         group.children?.map((child, childIdx) => (
-                          <Link key={child.id} className="h-12 flex items-center" href={withLang(locale, getHref(child))} onClick={closeMenu}>
+                          <Link key={child.id} className="h-12 flex items-center" href={withLang(lang, getHref(child))} onClick={closeMenu}>
                             <p className="pl-5 font-sm text-white">{child.name}</p>
                           </Link>
                         ))
@@ -171,9 +164,8 @@ export function MobileNav(props: { data: Navigation, site: Site }) {
 }
 
 
-export function DesktopNav(props: { data: Navigation, site: Site }) {
-  const { data, site } = props;
-  const locale = useLocale();
+export function DesktopNav(props: { data: Navigation, site: Site, lang: string }) {
+  const { data, site, lang } = props;
   const groups = data.value ?? [];
   const [openKey, setOpenKey] = useState<string | null>(null);
   const [activeChild, setActiveChild] = useState(0);
@@ -193,11 +185,15 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
     clearTimeout(timer.current);
   }, []);
 
+  const close = useCallback(() => {
+    setOpenKey(null);
+  }, []);
+
   return (
     <div>
       <nav className="bg-white h-15" onMouseLeave={scheduleClose}>
         <div className="flex items-center h-full xl:w-7xl xl:mx-auto">
-          <Link href={withLang(locale, "/")} className="flex items-center gap-2 shrink-0">
+          <Link href={withLang(lang, "/")} className="flex items-center gap-2 shrink-0">
             <Image src={Assets.Logo} width={40} height={40} alt="logo" className="w-10 h-10" />
             <Image src={Assets.LogoText} width={96} height={14} alt="" className="w-26.25 h-3.5 hidden sm:block" />
           </Link>
@@ -212,7 +208,7 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
               return (
                 <Link
                   key={idx}
-                  href={href ? withLang(locale, href) : "#"}
+                  href={href ? withLang(lang, href) : "#"}
                   className={`text-sm leading-none transition-colors duration-300 ${isActive ? "text-accent font-medium" : "text-primary hover:text-accent"}`}
                   {...(hasChildren && item.name ? { onMouseEnter: () => open(item.name!) } : {})}>
                   {item.name}
@@ -220,7 +216,7 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
               )
             })}
 
-            <Link href={withLang(locale, "/quote")} className="bg-accent text-white text-sm font-medium rounded-sm px-10 py-3 transition-opacity hover:opacity-90">
+            <Link href={withLang(lang, "/quote")} className="bg-accent text-white text-sm font-medium rounded-sm px-10 py-3 transition-opacity hover:opacity-90">
               Get a Free Quote
             </Link>
           </div>
@@ -262,17 +258,21 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
                         </div>
 
                         {/* Featured image */}
-                        {group.children?.[activeChild]?.image && (
-                          <div className="relative h-40 w-100 rounded-lg overflow-hidden">
+                        {group.featured_news && (
+                          <Link onClick={close} href={withLang(lang, `/resources/news/${group.featured_news.documentId}`)} className="relative block py-4 px-5 h-40 w-100 rounded-lg overflow-hidden">
                             <Image src={getStrapiMedia(group.children[activeChild].image) || Assets.Banner} fill alt="" className="object-cover" />
-                          </div>
+
+                            <h4 className="relative z-10 text-lg text-white font-medium m-w-45">{group.featured_news?.title}</h4>
+
+                            <Image src={Assets.NavFeaturedArrow} alt="arrow" width={22} height={22} className="absolute z-10 w-5.5. h-5 left-5 bottom-5" />
+                          </Link>
                         )}
                       </div>
 
                       {/* Right - children items */}
                       <div className="py-10">
                         {group.children?.map((child, childIdx) => {
-                          const href = withLang(locale, getHref(child))
+                          const href = withLang(lang, getHref(child))
 
                           return (
                             <Link
@@ -280,6 +280,7 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
                               href={href}
                               className={`group block mb-1 last:mb-0 h-30 p-5 transition-colors ${activeChild === childIdx ? "bg-primary" : "hover:bg-primary"} `}
                               onMouseEnter={() => setActiveChild(childIdx)}
+                              onClick={close}
                             >
                               <div className="w-full flex flex-row gap-3 items-center">
                                 {
@@ -314,9 +315,10 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
                           return (
                             <Link
                               key={childIdx}
-                              href={withLang(locale, getHref(child))}
+                              href={withLang(lang, getHref(child))}
                               className={`group block mb-1 last:mb-0 h-30 p-5 transition-colors ${activeChild === childIdx ? "bg-primary" : "hover:bg-primary"} `}
                               onMouseEnter={() => setActiveChild(childIdx)}
+                              onClick={close}
                             >
                               <div className="w-full flex flex-row gap-3 items-center">
                                 {
@@ -339,13 +341,13 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
                         <h3 className="text-accent text-lg font-medium pl-4">{getChild('Industries', group)?.name}</h3>
                         <div className="mt-0.5">
                           {
-                            getChild('Industries', group)?.children?.map((industry, idx) => (
-                              <Link key={industry.id} href={withLang(locale, getHref(industry))} className="group block mb-1 last-mb-0 h-16 pl-4 hover:bg-primary">
+                            getChild('Industries', group)?.children?.map((xs, idx) => (
+                              <Link key={xs.id} href={withLang(lang, `/solutions/industry/${xs.industry?.documentId!}`)} className="group block mb-1 last-mb-0 h-16 pl-4 hover:bg-primary" onClick={close}>
                                 <div className="flex flex-row items-center gap-2 h-full">
                                   <div className="relative w-8 h-8">
-                                    <Image fill className="object-cover" alt="" src={getStrapiMedia(industry.icon) ?? ""} />
+                                    <Image fill className="object-cover" alt="" src={getStrapiMedia(xs.icon) ?? ""} />
                                   </div>
-                                  <p className="text-lg text-white font-medium">{industry.name}</p>
+                                  <p className="text-lg text-white font-medium">{xs.name}</p>
                                 </div>
                               </Link>
 
@@ -365,7 +367,7 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
                       <div className="py-10 pr-10 flex-1 grid grid-cols-3 gap-5">
                         {
                           group.children?.map((child, childIdx) => (
-                            <Link key={child.id} target={child.external ? '_blank' : ""} href={withLang(locale, getHref(child))} className="block min-h-40 w-75 py-4 px-5 hover:bg-primary">
+                            <Link key={child.id} target={child.target_type === 'external_url' ? '_blank' : ""} href={withLang(lang, getHref(child))} className="block min-h-40 w-75 py-4 px-5 hover:bg-primary" onClick={close}>
                               <div className="relative w-8 h-8">
                                 <Image src={getStrapiMedia(child.icon) ?? ""} alt="" fill className="object-cover" />
                               </div>
@@ -380,7 +382,7 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
                       </div>
 
                       <div className="min-h-140 relative w-80">
-                        <Image src={getStrapiMedia(group.children?.[activeChild]?.image) ?? ""} alt="" fill className="object-cover" />
+                        <Image src={getStrapiMedia(group?.image) ?? ""} alt="" fill className="object-cover" />
                       </div>
                     </div>
                   )
@@ -394,7 +396,7 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
                         <div className="grid grid-cols-2 gap-5">
                           {
                             group.children?.map((child, childIdx) => (
-                              <Link key={child.id} href={"/en/about#milestone"} className="block p-5 hover:bg-primary">
+                              <Link key={child.id} href={withLang(lang, getHref(child))} className="block p-5 hover:bg-primary" onClick={close}>
                                 <h3 className="mb-2 text-lg text-white font-medium leading-none">{child.name}</h3>
                                 <p className="text-sm text-white/66 leading-4.5">{child.desc}</p>
 
@@ -426,7 +428,7 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
 
 
                       <div className="relative w-full h-90">
-                        <Image src={Assets.Cap} fill alt="" className="object-cover" />
+                        <Image src={getStrapiMedia(group.image) ?? ""} fill alt="" className="object-cover" />
                       </div>
 
                     </div>

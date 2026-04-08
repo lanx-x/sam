@@ -7,7 +7,7 @@ import { mergeExtension } from "@/utils";
 export function Intro({ section }: CmpProps) {
   const extension = mergeExtension(section)
   return (
-    <div className="bg-[#fafafa] py-10 xl:py-20">
+    <div className="bg-[#fafafa] py-10 xl:py-20" id="profile">
       <SectionContainer className="px-5 xl:px-0 grid gap-10 xl:gap-20 grid-cols-1 xl:grid-cols-2">
         <div className="w-full aspect-35/40 xl:w-140 xl:aspect-14/16 relative">
           <Image src={getStrapiMedia(section.payload?.image) ?? ""} alt="" fill className="object-cover" />

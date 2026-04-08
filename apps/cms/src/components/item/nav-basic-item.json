@@ -31,34 +31,15 @@
         "audios"
       ]
     },
-    "page": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::page.page",
-      "conditions": {
-        "visible": {
-          "==": [
-            {
-              "var": "external"
-            },
-            false
-          ]
-        }
-      }
-    },
-    "external": {
-      "type": "boolean",
-      "default": false
-    },
     "external_url": {
       "type": "string",
       "conditions": {
         "visible": {
           "==": [
             {
-              "var": "external"
+              "var": "target_type"
             },
-            true
+            "external_url"
           ]
         }
       }
@@ -68,13 +49,24 @@
       "enum": [
         "internal_page",
         "external_url",
+        "industry",
         "popup"
       ]
     },
     "target_page": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::page.page"
+      "target": "api::page.page",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "target_type"
+            },
+            "internal_page"
+          ]
+        }
+      }
     },
     "target_anchor": {
       "type": "string",
@@ -85,6 +77,21 @@
               "var": "target_type"
             },
             "internal_page"
+          ]
+        }
+      }
+    },
+    "industry": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::industry.industry",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "target_type"
+            },
+            "industry"
           ]
         }
       }

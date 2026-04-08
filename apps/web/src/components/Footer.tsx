@@ -5,14 +5,12 @@ import Image from "next/image";
 import { Assets } from "@/assets";
 import { defaultLocale, getDictionary, isLocale, type Locale, I18nProvider } from "@/i18n";
 import { Broadcast } from "@/components/Broadcast";
-import { Nav } from "@/components/Nav";
 import { Subscribe } from "@/components/Subscribe";
-import { GetInTouch } from "@/components/GetInTouch";
-import { getNavigation, getSite, getBroadcast } from "@/api";
 import { Navigation, Site } from "cms-types";
 import { getStrapiMedia } from "@/utils/strapi";
 import Link from "next/link";
-export function Footer({ site, navigation }: { site: Site, lang: string, navigation: Navigation }) {
+import { getHref, withLang } from "@/utils";
+export function Footer({ site, navigation, lang }: { site: Site, lang: string, navigation: Navigation }) {
   return (
     <div className="px-5 mt-15 xl:px-0 xl:w-7xl xl:mx-auto">
       <div className="flex flex-col xl:flex-row">
@@ -51,7 +49,7 @@ export function Footer({ site, navigation }: { site: Site, lang: string, navigat
                 <p className="font-medium text-base mb-6">{group.name}</p>
                 <ul className="text-sm">
                   {children?.map(item => (
-                    <li className="mb-3" key={item.id}>{item.name}</li>
+                    <Link href={withLang(lang, getHref(item))} className="block mb-3" key={item.id}>{item.name}</Link>
                   ))}
                 </ul>
               </div>

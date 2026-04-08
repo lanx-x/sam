@@ -64,85 +64,87 @@ export function Gallery({ section }: CmpProps) {
   }, [mobileApi]);
 
   return (
-    <Section
-      className="bg-[#f0f7fe] py-10 xl:py-20"
-      title={section.payload?.title!}
-      desc={section.payload?.desc!}>
-      {/* Mobile: 2x3 grouped carousel */}
-      <div className="xl:hidden px-5 mt-10">
-        <div ref={mobileRef} className="overflow-hidden">
-          <div className="flex">
-            {mobileGroups.map((group, gIdx) => (
-              <div key={gIdx} className="min-w-0 shrink-0 basis-full">
-                <div className="grid grid-cols-2 gap-3">
-                  {group.map((img, iIdx) => (
-                    <div key={iIdx} className="relative aspect-[167/145] rounded-xl overflow-hidden">
-                      <Image
-                        src={getStrapiMedia(img) ?? ""}
-                        alt=""
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 1279px) 50vw"
-                      />
-                    </div>
-                  ))}
+    <div id="team">
+      <Section
+        className="bg-[#f0f7fe] py-10 xl:py-20"
+        title={section.payload?.title!}
+        desc={section.payload?.desc!}>
+        {/* Mobile: 2x3 grouped carousel */}
+        <div className="xl:hidden px-5 mt-10">
+          <div ref={mobileRef} className="overflow-hidden">
+            <div className="flex">
+              {mobileGroups.map((group, gIdx) => (
+                <div key={gIdx} className="min-w-0 shrink-0 basis-full">
+                  <div className="grid grid-cols-2 gap-3">
+                    {group.map((img, iIdx) => (
+                      <div key={iIdx} className="relative aspect-[167/145] rounded-xl overflow-hidden">
+                        <Image
+                          src={getStrapiMedia(img) ?? ""}
+                          alt=""
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 1279px) 50vw"
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
+          {mobileGroups.length > 1 && (
+            <div className="flex justify-center gap-2 mt-6">
+              {mobileGroups.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={`size-2 rounded-full transition-colors duration-300 ${idx === mobileIdx ? "bg-accent" : "bg-[#d9d9d9]"}`}
+                  onClick={() => mobileApi?.goTo(idx)}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
-        {mobileGroups.length > 1 && (
-          <div className="flex justify-center gap-2 mt-6">
-            {mobileGroups.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                className={`size-2 rounded-full transition-colors duration-300 ${idx === mobileIdx ? "bg-accent" : "bg-[#d9d9d9]"}`}
-                onClick={() => mobileApi?.goTo(idx)}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Desktop: 3x2 grouped carousel */}
-      <div className="hidden xl:block mt-15">
-        <div ref={desktopRef} className="overflow-hidden">
-          <div className="flex">
-            {desktopGroups.map((group, gIdx) => (
-              <div key={gIdx} className="min-w-0 shrink-0 basis-full px-5">
-                <div className="grid grid-cols-3 gap-5">
-                  {group.map((img, iIdx) => (
-                    <div key={iIdx} className="relative aspect-[414/360] rounded-xl overflow-hidden">
-                      <Image
-                        src={getStrapiMedia(img) ?? ""}
-                        alt=""
-                        fill
-                        className="object-cover"
-                        sizes="420px"
-                      />
-                    </div>
-                  ))}
+        {/* Desktop: 3x2 grouped carousel */}
+        <div className="hidden xl:block mt-15">
+          <div ref={desktopRef} className="overflow-hidden">
+            <div className="flex">
+              {desktopGroups.map((group, gIdx) => (
+                <div key={gIdx} className="min-w-0 shrink-0 basis-full px-5">
+                  <div className="grid grid-cols-3 gap-5">
+                    {group.map((img, iIdx) => (
+                      <div key={iIdx} className="relative aspect-[414/360] rounded-xl overflow-hidden">
+                        <Image
+                          src={getStrapiMedia(img) ?? ""}
+                          alt=""
+                          fill
+                          className="object-cover"
+                          sizes="420px"
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
 
-        {desktopGroups.length > 1 && (
-          <div className="flex justify-center gap-2 mt-10">
-            {desktopGroups.map((_, idx) => (
-              <button
-                key={idx}
-                type="button"
-                className={`size-2 rounded-full transition-colors duration-300 ${idx === desktopIdx ? "bg-accent" : "bg-[#d9d9d9]"}`}
-                onClick={() => desktopApi?.goTo(idx)}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    </Section>
+          {desktopGroups.length > 1 && (
+            <div className="flex justify-center gap-2 mt-10">
+              {desktopGroups.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={`size-2 rounded-full transition-colors duration-300 ${idx === desktopIdx ? "bg-accent" : "bg-[#d9d9d9]"}`}
+                  onClick={() => desktopApi?.goTo(idx)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </Section>
+    </div>
   );
 }

@@ -88,16 +88,15 @@ export interface ItemNavBasicItem extends Struct.ComponentSchema {
   };
   attributes: {
     desc: Schema.Attribute.Text;
-    external: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     external_url: Schema.Attribute.String;
     icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    industry: Schema.Attribute.Relation<'oneToOne', 'api::industry.industry'>;
     name: Schema.Attribute.String;
-    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
     target_anchor: Schema.Attribute.String;
     target_page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
     target_type: Schema.Attribute.Enumeration<
-      ['internal_page', 'external_url', 'popup']
+      ['internal_page', 'external_url', 'industry', 'popup']
     >;
   };
 }
@@ -110,18 +109,15 @@ export interface ItemNavGroupItem extends Struct.ComponentSchema {
   attributes: {
     children: Schema.Attribute.Component<'item.nav-basic-item', true>;
     desc: Schema.Attribute.Text;
-    external: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     external_url: Schema.Attribute.String;
     icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     name: Schema.Attribute.String;
-    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
-    target_anchor: Schema.Attribute.String;
+    target_anchor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#'>;
     target_page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
     target_type: Schema.Attribute.Enumeration<
       ['internal_page', 'external_url', 'popup']
     >;
-    target_url: Schema.Attribute.String;
     title: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<['LW Solutions', 'Industries']>;
   };
@@ -135,12 +131,11 @@ export interface ItemNavGrouptItem extends Struct.ComponentSchema {
   attributes: {
     children: Schema.Attribute.Component<'item.nav-group-item', true>;
     desc: Schema.Attribute.Text;
-    external: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     external_url: Schema.Attribute.String;
+    featured_news: Schema.Attribute.Relation<'oneToOne', 'api::news.news'>;
     icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     name: Schema.Attribute.String & Schema.Attribute.Required;
-    page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
     target_anchor: Schema.Attribute.String;
     target_page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
     target_type: Schema.Attribute.Enumeration<

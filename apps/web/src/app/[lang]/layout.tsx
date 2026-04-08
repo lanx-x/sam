@@ -43,7 +43,7 @@ export default async function RootLayout({
       <body className={`${roboto.variable} min-h-full flex flex-col font-sans`}>
         <I18nProvider locale={locale} messages={messages}>
           <Broadcast data={broadcasts.data} site={site.data} />
-          <Nav data={navData} site={site.data} />
+          <Nav data={navData} site={site.data} lang={locale} />
           {children}
           <Footer navigation={navData} lang={lang} site={site.data} />
         </I18nProvider>

@@ -51,37 +51,18 @@
         "audios"
       ]
     },
-    "page": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::page.page",
-      "conditions": {
-        "visible": {
-          "==": [
-            {
-              "var": "external"
-            },
-            false
-          ]
-        }
-      }
-    },
     "external_url": {
       "type": "string",
       "conditions": {
         "visible": {
           "==": [
             {
-              "var": "external"
+              "var": "target_type"
             },
-            true
+            "external_url"
           ]
         }
       }
-    },
-    "external": {
-      "type": "boolean",
-      "default": false
     },
     "target_type": {
       "type": "enumeration",
@@ -94,7 +75,17 @@
     "target_page": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::page.page"
+      "target": "api::page.page",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "target_type"
+            },
+            "internal_page"
+          ]
+        }
+      }
     },
     "target_anchor": {
       "type": "string",
@@ -108,6 +99,11 @@
           ]
         }
       }
+    },
+    "featured_news": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::news.news"
     }
   },
   "config": {}

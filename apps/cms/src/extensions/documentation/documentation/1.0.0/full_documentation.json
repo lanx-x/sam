@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-04-08T01:46:56.305Z"
+    "x-generation-date": "2026-04-08T08:32:44.735Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -17400,6 +17400,9 @@
               "a": {
                 "type": "string"
               },
+              "tag": {
+                "type": "string"
+              },
               "locale": {
                 "type": "string"
               },
@@ -17480,6 +17483,9 @@
             "type": "string"
           },
           "a": {
+            "type": "string"
+          },
+          "tag": {
             "type": "string"
           },
           "createdAt": {
@@ -17898,6 +17904,9 @@
                   "type": "string"
                 },
                 "a": {
+                  "type": "string"
+                },
+                "tag": {
                   "type": "string"
                 },
                 "createdAt": {
@@ -24186,27 +24195,6 @@
               }
             }
           },
-          "page": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "documentId": {
-                "type": "string"
-              }
-            }
-          },
-          "external": {
-            "type": "boolean"
-          },
           "external_url": {
             "type": "string"
           },
@@ -24215,6 +24203,7 @@
             "enum": [
               "internal_page",
               "external_url",
+              "industry",
               "popup"
             ]
           },
@@ -24238,6 +24227,24 @@
           },
           "target_anchor": {
             "type": "string"
+          },
+          "industry": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "documentId": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -24620,30 +24627,6 @@
               }
             }
           },
-          "page": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "documentId": {
-                "type": "string"
-              }
-            }
-          },
-          "external_url": {
-            "type": "string"
-          },
-          "external": {
-            "type": "boolean"
-          },
           "target_type": {
             "type": "string",
             "enum": [
@@ -24670,7 +24653,7 @@
               }
             }
           },
-          "target_url": {
+          "external_url": {
             "type": "string"
           },
           "target_anchor": {
@@ -25060,29 +25043,8 @@
               }
             }
           },
-          "page": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "documentId": {
-                "type": "string"
-              }
-            }
-          },
           "external_url": {
             "type": "string"
-          },
-          "external": {
-            "type": "boolean"
           },
           "target_type": {
             "type": "string",
@@ -25112,6 +25074,24 @@
           },
           "target_anchor": {
             "type": "string"
+          },
+          "featured_news": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "documentId": {
+                "type": "string"
+              }
+            }
           }
         }
       },

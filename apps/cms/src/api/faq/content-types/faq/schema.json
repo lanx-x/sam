@@ -23,7 +23,7 @@
         }
       },
       "required": true,
-      "unique": true
+      "unique": false
     },
     "a": {
       "type": "text",
@@ -34,6 +34,14 @@
       },
       "required": true,
       "unique": false
+    },
+    "tag": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

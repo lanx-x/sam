@@ -722,7 +722,12 @@ export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     q: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.Unique &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    tag: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

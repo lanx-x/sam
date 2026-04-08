@@ -43,6 +43,7 @@ import Map from "./map.png";
 import Menu from "./menu.svg";
 import Milestone from "./milestone.svg";
 import Minus from "./minus.svg";
+import NavFeaturedArrow from "./nav-featured-arrow.svg";
 import Plus from "./plus.svg";
 import Ptech from "./ptech.png";
 import QuoteL from "./quote-l.svg";
@@ -98,6 +99,7 @@ export const Assets = {
   Menu,
   Milestone,
   Minus,
+  NavFeaturedArrow,
   Plus,
   Ptech,
   QuoteL,

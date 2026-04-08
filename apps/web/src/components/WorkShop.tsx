@@ -18,7 +18,7 @@ export function WorkShop({ section }: CmpProps) {
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
           {
-            section.data?.map((xs, idx) => (
+            section.payload?.data?.map((xs, idx) => (
               <div key={idx} className="ml-5 shrink-0 w-20/39 xl:w-100">
                 <Image width={400} height={240} src={getStrapiMedia(xs.image) ?? ""} alt="" className="rounded-lg mb-5" />
                 <div>
