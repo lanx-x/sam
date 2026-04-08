@@ -69,7 +69,9 @@ export async function fetchStrapi<T>(
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       logger.error(`[Strapi]`, errorData);
-      throw new Error(`Strapi request failed: ${response.statusText}`);
+      const err = new Error(`Strapi request failed: ${response.statusText}`) as Error & { data: unknown };
+      err.data = errorData;
+      throw err;
     }
 
     const data = await response.json();

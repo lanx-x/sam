@@ -1386,6 +1386,36 @@ export interface ApiSpecificationSpecification
   };
 }
 
+export interface ApiSubscriberSubscriber extends Struct.CollectionTypeSchema {
+  collectionName: 'subscribers';
+  info: {
+    displayName: 'Subscriber';
+    pluralName: 'subscribers';
+    singularName: 'subscriber';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::subscriber.subscriber'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSurfaceTreatmentSurfaceTreatment
   extends Struct.CollectionTypeSchema {
   collectionName: 'surface_treatments';
@@ -1428,7 +1458,7 @@ export interface ApiSurfaceTreatmentSurfaceTreatment
         };
       }>;
     featured_news: Schema.Attribute.Relation<'oneToMany', 'api::news.news'>;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+    icon: Schema.Attribute.Media<'images' | 'files'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1449,7 +1479,7 @@ export interface ApiSurfaceTreatmentSurfaceTreatment
           localized: true;
         };
       }>;
-    notes: Schema.Attribute.Component<'item.value-item', true> &
+    notes: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1462,7 +1492,7 @@ export interface ApiSurfaceTreatmentSurfaceTreatment
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
-    services: Schema.Attribute.Component<'item.value-item', true> &
+    services: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -2153,6 +2183,7 @@ declare module '@strapi/strapi' {
       'api::renderer.renderer': ApiRendererRenderer;
       'api::site.site': ApiSiteSite;
       'api::specification.specification': ApiSpecificationSpecification;
+      'api::subscriber.subscriber': ApiSubscriberSubscriber;
       'api::surface-treatment.surface-treatment': ApiSurfaceTreatmentSurfaceTreatment;
       'api::ui-section.ui-section': ApiUiSectionUiSection;
       'api::video.video': ApiVideoVideo;

@@ -7,7 +7,7 @@
   "attributes": {
     "key": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "value": {
       "type": "string",

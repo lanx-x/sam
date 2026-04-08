@@ -41,20 +41,8 @@
       "multiple": false,
       "allowedTypes": [
         "images",
-        "files",
-        "videos",
-        "audios"
+        "files"
       ]
-    },
-    "notes": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "item.value-item",
-      "repeatable": true
     },
     "extend": {
       "type": "component",
@@ -71,16 +59,6 @@
       "relation": "manyToMany",
       "target": "api::material.material",
       "inversedBy": "surface_treatments"
-    },
-    "services": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "item.value-item",
-      "repeatable": true
     },
     "pros": {
       "type": "component",
@@ -106,6 +84,26 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::news.news"
+    },
+    "notes": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.kv-item",
+      "repeatable": true
+    },
+    "services": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.kv-item",
+      "repeatable": true
     }
   }
 }
