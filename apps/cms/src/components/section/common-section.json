@@ -18,6 +18,11 @@
     "admin_note": {
       "type": "string",
       "private": true
+    },
+    "overwrite_style": {
+      "type": "component",
+      "component": "item.kv-item",
+      "repeatable": true
     }
   },
   "config": {}

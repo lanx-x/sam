@@ -8,7 +8,7 @@ import { Assets } from "@/assets";
 export function MileStone({ section }: CmpProps) {
   const extension = mergeExtension(section)
   return (
-    <div className="py-10 xl:py-20">
+    <div className="py-10 xl:py-20" id="milestone">
       <SectionContainer className="px-5 xl:px-0">
         <SectionHeaderRowDir title={section.payload?.title!} desc={section.payload?.desc!} />
 

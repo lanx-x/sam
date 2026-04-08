@@ -52,9 +52,9 @@ export interface ItemCommonItem extends Struct.ComponentSchema {
     displayName: 'CommonItem';
   };
   attributes: {
-    actions: Schema.Attribute.Component<'item.button-item', true>;
+    actions: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
     desc: Schema.Attribute.Text;
-    extend: Schema.Attribute.Component<'item.kv-item', true>;
+    extension: Schema.Attribute.Component<'item.kv-item', true>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     label: Schema.Attribute.String;
     target_page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
@@ -94,6 +94,11 @@ export interface ItemNavBasicItem extends Struct.ComponentSchema {
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     name: Schema.Attribute.String;
     page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    target_anchor: Schema.Attribute.String;
+    target_page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    target_type: Schema.Attribute.Enumeration<
+      ['internal_page', 'external_url', 'popup']
+    >;
   };
 }
 
@@ -111,6 +116,12 @@ export interface ItemNavGroupItem extends Struct.ComponentSchema {
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     name: Schema.Attribute.String;
     page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    target_anchor: Schema.Attribute.String;
+    target_page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    target_type: Schema.Attribute.Enumeration<
+      ['internal_page', 'external_url', 'popup']
+    >;
+    target_url: Schema.Attribute.String;
     title: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<['LW Solutions', 'Industries']>;
   };
@@ -130,6 +141,11 @@ export interface ItemNavGrouptItem extends Struct.ComponentSchema {
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    target_anchor: Schema.Attribute.String;
+    target_page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    target_type: Schema.Attribute.Enumeration<
+      ['internal_page', 'external_url', 'popup']
+    >;
     title: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<
       ['home', 'capabilities', 'solutions', 'resources', 'about']
@@ -294,6 +310,7 @@ export interface SectionCommonSection extends Struct.ComponentSchema {
   attributes: {
     admin_note: Schema.Attribute.String & Schema.Attribute.Private;
     extension: Schema.Attribute.Component<'item.kv-item', true>;
+    overwrite_style: Schema.Attribute.Component<'item.kv-item', true>;
     payload: Schema.Attribute.Relation<
       'oneToOne',
       'api::ui-section.ui-section'

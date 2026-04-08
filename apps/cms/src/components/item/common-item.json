@@ -24,12 +24,7 @@
         "audios"
       ]
     },
-    "actions": {
-      "type": "component",
-      "component": "item.button-item",
-      "repeatable": true
-    },
-    "extend": {
+    "extension": {
       "type": "component",
       "component": "item.kv-item",
       "repeatable": true
@@ -70,6 +65,11 @@
           ]
         }
       }
+    },
+    "actions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::action.action"
     }
   },
   "config": {}

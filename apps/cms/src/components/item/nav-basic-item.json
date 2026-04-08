@@ -62,6 +62,32 @@
           ]
         }
       }
+    },
+    "target_type": {
+      "type": "enumeration",
+      "enum": [
+        "internal_page",
+        "external_url",
+        "popup"
+      ]
+    },
+    "target_page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    },
+    "target_anchor": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "target_type"
+            },
+            "internal_page"
+          ]
+        }
+      }
     }
   },
   "config": {}

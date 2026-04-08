@@ -632,8 +632,7 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
     category: Schema.Attribute.Relation<
       'oneToOne',
       'api::equipment-category.equipment-category'
-    > &
-      Schema.Attribute.Private;
+    >;
     content: Schema.Attribute.Blocks &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

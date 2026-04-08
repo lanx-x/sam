@@ -1,12 +1,12 @@
-import { getSurfaceFinish } from "@/api"
 import { CommonHero } from "./CommonHero"
 import { getStrapiMedia } from "@/utils/strapi"
 import Image from "next/image"
 import { BlocksContent } from "./BlocksContent"
 import { CmpProps } from "@/app/[lang]/[[...slug]]/page"
+import { getSurfaceTreatment } from "@/api"
 
-export async function SurfaceFinishDetail({ documentId, section }: CmpProps) {
-  const data = (await getSurfaceFinish({ 'filters[documentId][$eq]': documentId }))?.data?.[0]
+export async function SurfaceTreatmentDetail({ documentId, section }: CmpProps) {
+  const data = (await getSurfaceTreatment({ 'filters[documentId][$eq]': documentId }))?.data?.[0]
 
   if (!data) {
     return <div className="py-30 text-3xl font-semibold text-center">Surface finish: {documentId} not found.</div>
@@ -52,20 +52,20 @@ export async function SurfaceFinishDetail({ documentId, section }: CmpProps) {
               <p className="text-lg font-bold">{data.name}</p>
               <p className="">{data.desc}</p>
               <p className="">{data.services?.map(xs => xs.value).join(', ')}</p>
-              <p className="">{data.applicable_materials?.map(xs => xs.value).join(', ')}</p>
+              <p className="">{data.materials?.map(xs => xs.name).join(', ')}</p>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-5 mb-20">
             {
-              ['advantages', 'disadvantages', 'notes'].map(xs => {
-                if (!data[xs as 'advantages' | 'notes']?.length) return null
+              ['pros', 'cons', 'notes'].map(xs => {
+                if (!data[xs as 'pros' | 'notes']?.length) return null
 
                 return (
                   <div key={xs} className="bg-[#f7fbfe] min-h-90 p-10">
                     <p className="text-2xl font-semibold capitalize">{xs}</p>
                     <ol className={`mt-5 ml-4 text-base ${xs === 'notes' ? 'list-disc' : 'list-decimal'} xlist-inside`}>
-                      {data[xs as 'advantages' | 'notes']?.map((xs, idx) => (<li key={idx}>{xs.value}</li>))}
+                      {data[xs as 'pros' | 'notes']?.map((xs, idx) => (<li key={idx}>{xs.value}</li>))}
                     </ol>
                   </div>
                 )

@@ -25,19 +25,22 @@ export function EquipmentClientList(props: Props) {
       <div className="grid grid-cols-1 xl:grid-cols-[240px_1fr] gap-20">
         <div className="hidden xl:block w-60 -mt-16">
           {
-            categories.data?.map((xs) => {
+            categories.data?.filter(xs => xs.isAll)?.map(xs => (
+              <div
+                onClick={() => setActiveCategoryId(undefined)}
+                key={xs.documentId}
+                className="cursor-pointer relative h-16 flex justify-start items-center overflow-hidden text-base font-semibold">
+                <Image fill src={Assets.EquipListBg} alt="" />
+                <p className="relative z-10 text-white truncate px-5">{xs.name}</p>
+              </div>
+            ))
+          }
+          {
+            categories.data?.filter(xs => !xs.isAll)?.map((xs) => {
               const docId = xs.documentId
               const isAll = (xs as any).isAll
               const isActive = isAll ? !activeCategoryId : activeCategoryId === docId
-              return isAll ? (
-                <div
-                  onClick={() => setActiveCategoryId(undefined)}
-                  key={docId}
-                  className="cursor-pointer relative h-16 flex justify-start items-center overflow-hidden text-base font-semibold">
-                  <Image fill src={Assets.EquipListBg} alt="" />
-                  <p className="relative z-10 text-white truncate px-5">{xs.name}</p>
-                </div>
-              ) : (
+              return (
                 <div
                   onClick={() => setActiveCategoryId(docId)}
                   key={docId}

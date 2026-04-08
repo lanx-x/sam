@@ -119,7 +119,7 @@ export async function MaterialDetail({ documentId, section }: CmpProps) {
                     </div>
 
                     <div className="px-3 py-1 xl:py-3.5 xl:px-5 w-full bg-[rgba(0,0,0,0.7)] absolute left-0 bottom-0 z-10">
-                      <span className="text-base xl:text-2xl font-semibold text-white">{xs.title}</span>
+                      <span className="text-base xl:text-2xl font-semibold text-white">{xs.name}</span>
                     </div>
                   </div>
                 ))

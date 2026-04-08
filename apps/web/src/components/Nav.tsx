@@ -15,9 +15,10 @@ type NavChildItem = NonNullable<NonNullable<NavGrouptItem["children"]>>[number];
 
 function getHref(item: NavGrouptItem | NavChildItem): string | undefined {
   if (item.external && item.external_url) return item.external_url;
+  if (item.target_type === 'external_url' && item.external_url) return item.external_url;
   const slug = item.page?.slug;
   if (!slug) return '#';
-  return slug.startsWith('/') ? slug : `/${slug}`;
+  return slug.startsWith('/') ? slug : `/${slug}/${item.target_anchor}`;
 }
 
 function withLang(locale: string, path: string | undefined): string {
@@ -393,7 +394,7 @@ export function DesktopNav(props: { data: Navigation, site: Site }) {
                         <div className="grid grid-cols-2 gap-5">
                           {
                             group.children?.map((child, childIdx) => (
-                              <Link key={child.id} href={withLang(locale, getHref(child))} className="block p-5 hover:bg-primary">
+                              <Link key={child.id} href={"/en/about#milestone"} className="block p-5 hover:bg-primary">
                                 <h3 className="mb-2 text-lg text-white font-medium leading-none">{child.name}</h3>
                                 <p className="text-sm text-white/66 leading-4.5">{child.desc}</p>
 

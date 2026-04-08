@@ -21,17 +21,17 @@ import { FeaturedSurfaceTreatment } from "./FeaturedSurfaceTreatment";
 import { Tolerance } from "./Tolerance";
 import { FeaturedNews } from "./FeaturedNews";
 import { Service } from "./Service";
-import { IndustrySolution } from "./IndustrySolution";
-import { Industry } from "./Industry";
+import { FeaturedIndustrySolution } from "./FeaturedIndustrySolution";
+import { FeaturedIndustry } from "./FeaturedIndustry";
 import { WhyUs } from "./WhyUs";
-import { WeOffer } from "./WeOffer";
+import { WhatWeOffer } from "./WhatWeOffer";
 import { GetExpertAdvice } from "./GetExpertAdvice";
 import { WhySamples } from "./WhySamples";
 import { WhyUsProduct } from "./WhyUsProduct";
 import { EverythingForManufacturing } from "./EverythingForManufacturing";
 import { ImageHero } from "./ImageHero";
-import { SurfaceFinishList } from "./SurfaceFinishList";
-import { SurfaceFinishDetail } from "./SurfaceFinishDetail";
+import { SurfaceTreatmentList } from "./SurfaceTreatmentList";
+import { SurfaceTreatmentDetail } from "./SurfaceTreatmentDetail";
 import { FullImageHero } from "./FullImageHero";
 import { EquipmentList } from "./EquipmentList";
 import { EquipmentDetail } from "./EquipmentDetail";
@@ -77,18 +77,18 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   FeaturedNews,
   Service,
 
-  Industry,
-  IndustrySolution,
+  FeaturedIndustry,
+  FeaturedIndustrySolution,
 
   WhyUs,
-  WeOffer,
+  WhatWeOffer,
   GetExpertAdvice,
   WhySamples,
   WhyUsProduct,
   EverythingForManufacturing,
   ImageHero,
-  SurfaceFinishList,
-  SurfaceFinishDetail,
+  SurfaceTreatmentList,
+  SurfaceTreatmentDetail,
 
   FullImageHero,
   EquipmentList,

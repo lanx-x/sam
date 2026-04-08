@@ -10,7 +10,7 @@ import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
 
-export function IndustrySolution({ section }: CmpProps) {
+export function FeaturedIndustrySolution({ section }: CmpProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
 

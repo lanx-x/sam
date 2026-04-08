@@ -3,21 +3,21 @@ import { Section } from "./Section";
 import Image from "next/image";
 import { getStrapiMedia } from "@/utils/strapi";
 import { Assets } from "@/assets";
-import { collectExtend } from "@/utils";
+import { collectExtend, mergeExtension } from "@/utils";
 
 export function EverythingForManufacturing({ section }: CmpProps) {
-  const args = collectExtend(section.extend as any)
+  const extension = mergeExtension(section)
 
-  const flexOpts = args['start_from']?.value === 'left' ? 'xl:flex-row xl:group-even:flex-row-reverse' : 'xl:flex-row-reverse xl:group-even:flex-row'
+  const flexOpts = extension['start_from']?.value === 'left' ? 'xl:flex-row xl:group-even:flex-row-reverse' : 'xl:flex-row-reverse xl:group-even:flex-row'
 
   return (
     <Section
-      title={section.title!}
-      desc={section.desc!}
+      title={section.payload?.title!}
+      desc={section.payload?.desc!}
     >
       <div className="text-left mt-10 px-5 xl:px-0 xl:mt-20">
         {
-          section.data?.map((xs, index) => (
+          section.payload?.data?.map((xs, index) => (
             <div key={xs.id} className={`group mb-10 flex flex-col xl:mb-15`}>
               <div className={`flex flex-col ${flexOpts} xl:mb-10`}>
                 <div className="shrink-0 relative w-full aspect-350/242 rounded-2xl overflow-hidden xl:w-130 xl:aspect-52/36">
@@ -43,12 +43,12 @@ export function EverythingForManufacturing({ section }: CmpProps) {
 
               <div className="grid grid-cols-2 gap-2 xl:grid-cols-4 xl:gap-5">
                 {
-                  xs.items?.map(item => (
+                  xs.extension?.map(item => (
                     <div key={item.id} className="bg-[#fafafa] rounded-lg py-5 px-4">
-                      <Image width={64} height={64} src={getStrapiMedia(item.image) ?? ""} alt="icon" className="mr-2 w-12 aspect-square" />
-                      <p className="text-lg mt-5 mb-3 font-semibold leading-none">{item.title}</p>
+                      <Image width={64} height={64} src={getStrapiMedia(item.image) ?? ""} alt="icon" className="mr-2 w-12 aspect-square object-cover" />
+                      <p className="text-lg mt-5 mb-3 font-semibold leading-none">{item.key}</p>
 
-                      <p className="">{item.desc}</p>
+                      <p className="">{item.value}</p>
                     </div>
                   ))
                 }

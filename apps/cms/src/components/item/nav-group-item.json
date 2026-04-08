@@ -77,6 +77,55 @@
     "external": {
       "type": "boolean",
       "default": false
+    },
+    "target_type": {
+      "type": "enumeration",
+      "enum": [
+        "internal_page",
+        "external_url",
+        "popup"
+      ]
+    },
+    "target_page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "target_type"
+            },
+            "internal_page"
+          ]
+        }
+      }
+    },
+    "target_url": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "target_type"
+            },
+            "external_url"
+          ]
+        }
+      }
+    },
+    "target_anchor": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "target_type"
+            },
+            "internal_page"
+          ]
+        }
+      }
     }
   },
   "config": {}

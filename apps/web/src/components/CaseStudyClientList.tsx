@@ -68,9 +68,12 @@ export function CaseStudyClientList({ data, pageSize, basePath }: Props) {
                 <p className="text-sm text-[rgba(34,34,34,0.66)] leading-5 line-clamp-2">{xs.desc}</p>
               </div>
 
-              <span className="absolute top-6.5 left-5.5 inline-block text-sm bg-[#e5f2ff] border border-accent px-2 py-1 rounded-sm font-semibold">
-                {xs.industry}
-              </span>
+              {
+                xs.industry?.name &&
+                <span className="absolute top-6.5 left-5.5 inline-block text-sm bg-[#e5f2ff] border border-accent px-2 py-1 rounded-sm font-semibold">
+                  {xs.industry?.name}
+                </span>
+              }
             </Link>
           ))}
         </div>

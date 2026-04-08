@@ -28,8 +28,8 @@ export async function getPatternPages(payload: { [key: string]: any }) {
   });
 }
 
-export async function getSurfaceFinish(params: { [key: string]: any }) {
-  return fetchStrapi<StrapiCollectionResponse<SurfaceTreatment>>('/surface-finishes', {
+export async function getSurfaceTreatment(params: { [key: string]: any }) {
+  return fetchStrapi<StrapiCollectionResponse<SurfaceTreatment>>('/surface-treatments', {
     params: {
       pLevel: true,
       'pagination[pageSize]': 100,

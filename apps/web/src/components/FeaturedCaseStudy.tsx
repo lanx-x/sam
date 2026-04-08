@@ -61,7 +61,7 @@ export function FeaturedCaseStudy({ section }: CmpProps) {
                   key={idx}>
                   <Image width={640} height={520} className="object-cover w-full aspect-64/52 xl:w-160" src={getStrapiMedia(xs.image) ?? ""} alt="" />
                   <div className="flex flex-col px-5 pt-4 pb-7 text-left xl:px-10 xl:pt-6 xl:pb-8">
-                    <span className="self-start leading-8 bg-[#e5f2ff] border border-accent h-8 px-3.5 font-semibold rounded-sm inline-block xl:text-lg xl:h-10 xl:leading-10">{xs.industry?.name}</span>
+                    {xs.industry?.name && <span className="self-start leading-8 bg-[#e5f2ff] border border-accent h-8 px-3.5 font-semibold rounded-sm inline-block xl:text-lg xl:h-10 xl:leading-10">{xs.industry?.name}</span>}
                     <p className="my-2 font-semibold text-lg leading-none xl:mt-4 xl:mb-3 xl:text-[32px]">{xs.title}</p>
                     <p className="text-sm leading-3.5 xl:text-base xl:leading-5">{xs.desc}</p>
 

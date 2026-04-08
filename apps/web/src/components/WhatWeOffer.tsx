@@ -5,7 +5,7 @@ import { getStrapiMedia } from "@/utils/strapi";
 import { Assets } from "@/assets";
 import { collectExtend } from "@/utils";
 
-export function WeOffer({ section }: CmpProps) {
+export function WhatWeOffer({ section }: CmpProps) {
   const extension = collectExtend(section.extension as any)
 
   const flexOpts = extension['start_from']?.value === 'right' ? 'xl:flex-row xl:even:flex-row-reverse' : 'xl:flex-row-reverse xl:even:flex-row'
@@ -23,14 +23,14 @@ export function WeOffer({ section }: CmpProps) {
                 <p className="my-5">{xs.desc}</p>
                 <div className="my-5">
                   {
-                    xs.items?.map(item => (
+                    xs.extension?.map(item => (
                       <div key={item.id} className="mb-5">
                         <div className="mb-2 flex flex-row items-center">
                           <Image src={Assets.CheckBlue} alt="icon" className="mr-2 w-5.5 aspect-square" />
-                          <p className="text-lg font-semibold">{item.title}</p>
+                          <p className="text-lg font-semibold">{item.key}</p>
                         </div>
 
-                        <p className="">{item.desc}</p>
+                        <p className="">{item.value}</p>
                       </div>
                     ))
                   }

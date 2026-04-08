@@ -5,7 +5,7 @@ import { getStrapiMedia } from "@/utils/strapi";
 import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
 
-export function Industry({ section }: CmpProps) {
+export function FeaturedIndustry({ section }: CmpProps) {
   return (
     <div className="px-5 py-10 text-center xl:text-left xl:py-20 xl:px-0 xl:w-7xl xl:mx-auto">
       <div className="grid grid-cols-1 gap-2 xl:grid-cols-2 xl:gap-8">
@@ -22,7 +22,7 @@ export function Industry({ section }: CmpProps) {
             <div className="relative" key={idx}>
               <Image width={305} height={300} src={getStrapiMedia(xs.image) ?? ""} className="object-cover w-full" alt="" />
               <div className="bg-[rgba(0,0,0,0.7)] absolute w-full bottom-0 z-10 px-3 py-2">
-                <p className="text-white font-semibold xl:text-2xl">{xs.label}</p>
+                <p className="text-white font-semibold xl:text-2xl">{xs.name}</p>
               </div>
 
             </div>

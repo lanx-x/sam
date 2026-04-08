@@ -70,8 +70,7 @@
     "category": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::equipment-category.equipment-category",
-      "private": true
+      "target": "api::equipment-category.equipment-category"
     },
     "image": {
       "type": "media",

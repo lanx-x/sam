@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-04-07T16:33:14.199Z"
+    "x-generation-date": "2026-04-08T01:46:56.305Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -24209,6 +24209,35 @@
           },
           "external_url": {
             "type": "string"
+          },
+          "target_type": {
+            "type": "string",
+            "enum": [
+              "internal_page",
+              "external_url",
+              "popup"
+            ]
+          },
+          "target_page": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "documentId": {
+                "type": "string"
+              }
+            }
+          },
+          "target_anchor": {
+            "type": "string"
           }
         }
       },
@@ -24614,6 +24643,38 @@
           },
           "external": {
             "type": "boolean"
+          },
+          "target_type": {
+            "type": "string",
+            "enum": [
+              "internal_page",
+              "external_url",
+              "popup"
+            ]
+          },
+          "target_page": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "documentId": {
+                "type": "string"
+              }
+            }
+          },
+          "target_url": {
+            "type": "string"
+          },
+          "target_anchor": {
+            "type": "string"
           }
         }
       },
@@ -25022,6 +25083,35 @@
           },
           "external": {
             "type": "boolean"
+          },
+          "target_type": {
+            "type": "string",
+            "enum": [
+              "internal_page",
+              "external_url",
+              "popup"
+            ]
+          },
+          "target_page": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "documentId": {
+                "type": "string"
+              }
+            }
+          },
+          "target_anchor": {
+            "type": "string"
           }
         }
       },
@@ -25042,27 +25132,6 @@
             "type": "string"
           },
           "desc": {
-            "type": "string"
-          }
-        }
-      },
-      "ItemButtonItemComponent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "label": {
-            "type": "string"
-          },
-          "action": {
             "type": "string"
           }
         }
@@ -25261,13 +25330,7 @@
               }
             }
           },
-          "actions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ItemButtonItemComponent"
-            }
-          },
-          "extend": {
+          "extension": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ItemKvItemComponent"
@@ -25395,6 +25458,27 @@
           },
           "target_url": {
             "type": "string"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "documentId": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -26506,6 +26590,12 @@
           },
           "admin_note": {
             "type": "string"
+          },
+          "overwrite_style": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemKvItemComponent"
+            }
           }
         }
       },
