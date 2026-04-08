@@ -101,6 +101,11 @@
       },
       "component": "item.kv-item",
       "repeatable": true
+    },
+    "featured_news": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::news.news"
     }
   }
 }

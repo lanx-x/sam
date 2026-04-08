@@ -87,6 +87,11 @@
         "videos",
         "audios"
       ]
+    },
+    "featured_news": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::news.news"
     }
   }
 }

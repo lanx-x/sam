@@ -1,12 +1,30 @@
-'use client';
 import { Assets } from "@/assets";
 import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import dayjs from "dayjs";
+import { mergeExtension } from "@/utils";
+import { getMaterial, getNews, getSurfaceTreatment } from "@/api";
+import { News } from "cms-types";
 
-export function FeaturedNews({ section }: CmpProps) {
+export async function FeaturedNews({ section, documentId, slug }: CmpProps) {
+  const extension = mergeExtension(section)
+
+  let news = ((section.payload?.dynamic?.[0] as any)?.news) as News[] ?? []
+
+  if (extension.basedOnId?.value === 'true') {
+    if (slug.join('/').includes('resources/material')) {
+      const featured = (await getMaterial({ 'filters[documentId][$eq]': documentId })).data?.[0]?.featured_news
+      news = featured?.length ? featured : news
+    }
+    if (slug.join('/').includes('solutions/surface-treatment')) {
+      const featured = (await getSurfaceTreatment({ 'filters[documentId][$eq]': documentId })).data?.[0]?.featured_news
+      news = featured?.length ? featured : news
+    }
+    // news = await getNews({})
+  }
+
   return (
     <Section
       title={section.payload?.title!}
@@ -15,7 +33,7 @@ export function FeaturedNews({ section }: CmpProps) {
 
       <div className="px-5 mt-10 grid grid-cols-1 gap-5 xl:grid-cols-3 xl:px-0">
         {
-          section.payload?.dynamic?.[0]?.news?.map((xs, idx) => (
+          news.map((xs, idx) => (
             <div key={xs.documentId} className="text-left group border-b border-[#efefef] hover:border-accent">
               <div className="h-full pb-5 border-b border-transparent group-hover:border-accent">
                 <Image width={413} height={232} src={getStrapiMedia(xs.image) ?? ""} alt="" className="w-full object-cover rounded-xl" />
