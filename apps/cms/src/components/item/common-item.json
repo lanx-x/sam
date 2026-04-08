@@ -29,51 +29,13 @@
       "component": "item.kv-item",
       "repeatable": true
     },
-    "target_type": {
-      "type": "enumeration",
-      "enum": [
-        "internal_url",
-        "external_url",
-        "popup"
-      ]
-    },
-    "target_page": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::page.page",
-      "conditions": {
-        "visible": {
-          "==": [
-            {
-              "var": "target_type"
-            },
-            "internal_url"
-          ]
-        }
-      }
-    },
     "target_url": {
-      "type": "string",
-      "conditions": {
-        "visible": {
-          "==": [
-            {
-              "var": "target_type"
-            },
-            "external_url"
-          ]
-        }
-      }
+      "type": "string"
     },
     "actions": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::action.action"
-    },
-    "pppage": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::page.page"
     }
   },
   "config": {}
