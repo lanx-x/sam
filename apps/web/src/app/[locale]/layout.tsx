@@ -33,7 +33,7 @@ export default async function RootLayout({
 
   const { data: navData } = await api.getNavigation("owqgz3ze0n1a15777qpdokl0");
   const site = await api.getSite();
-  const broadcasts = await globalApi.getBroadcast();
+  const broadcasts = await api.getBroadcast();
 
   return (
     <html lang={locale} className={`h-full antialiased`}>

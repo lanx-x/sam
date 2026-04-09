@@ -1,7 +1,3 @@
-/**
- * page controller
- */
+import { createLocaleFallbackController } from "../../../utils/create-locale-fallback-controller";
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreController('api::page.page');
+export default createLocaleFallbackController("api::page.page");

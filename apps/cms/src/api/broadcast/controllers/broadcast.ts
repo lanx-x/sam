@@ -3,5 +3,6 @@
  */
 
 import { factories } from '@strapi/strapi';
+import { createLocaleFallbackController } from "../../../utils/create-locale-fallback-controller";
 
-export default factories.createCoreController('api::broadcast.broadcast');
+export default createLocaleFallbackController('api::broadcast.broadcast');

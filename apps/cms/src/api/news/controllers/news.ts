@@ -1,7 +1,3 @@
-/**
- * news controller
- */
+import { createLocaleFallbackController } from "../../../utils/create-locale-fallback-controller";
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreController('api::news.news');
+export default createLocaleFallbackController("api::news.news");

@@ -20,9 +20,9 @@ export function getLocale(value: string, localeList: LocaleItem[]): Locale {
 }
 
 export function localizePath(locale: Locale, path: string, defaultLocale: Locale) {
-  if (locale === defaultLocale) {
-    return path === "" ? "/" : path;
-  }
+  // if (locale === defaultLocale) {
+  //   return path === "" ? "/" : path;
+  // }
 
   return path === "/" ? `/${locale}` : `/${locale}${path}`;
 }

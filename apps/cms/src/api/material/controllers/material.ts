@@ -1,7 +1,3 @@
-/**
- * material controller
- */
+import { createLocaleFallbackController } from "../../../utils/create-locale-fallback-controller";
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreController('api::material.material');
+export default createLocaleFallbackController("api::material.material");

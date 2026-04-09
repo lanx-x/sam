@@ -1,7 +1,3 @@
-/**
- * site controller
- */
+import { createLocaleFallbackController } from "../../../utils/create-locale-fallback-controller";
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreController('api::site.site');
+export default createLocaleFallbackController("api::site.site");

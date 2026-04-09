@@ -173,12 +173,13 @@ export function createLocalizedApi(locale: Locale) {
     getIndustry: (params: { [key: string]: any } = {}) => getIndustry({ ...params, locale }),
     getSite: (params: { [key: string]: any } = {}) => getSite({ ...params, locale }),
     getNavigation: (documentId: string, params: { [key: string]: any } = {}) => getNavigation(documentId, { ...params, locale }),
+
+    getCaseStudy: (params: { [key: string]: any } = {}) => getCaseStudy({ ...params, locale }),
+    getBroadcast: (params: { [key: string]: any } = {}) => getBroadcast({ ...params, locale }),
   };
 }
 
 export const globalApi = {
-  getCaseStudy,
-  getBroadcast,
   getI18nLocales,
 };
 

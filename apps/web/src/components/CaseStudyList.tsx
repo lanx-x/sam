@@ -1,11 +1,12 @@
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
-import { globalApi } from "@/api";
+import { createLocalizedApi, globalApi } from "@/api";
 import { CaseStudyClientList } from "./CaseStudyClientList";
 
 export async function CaseStudyList({ section, searchParams, slug, locale }: CmpProps) {
   const pageSize = 12
   const page = Number(searchParams?.page) || 1
-  const data = await globalApi.getCaseStudy({
+  const api = createLocalizedApi(locale);
+  const data = await api.getCaseStudy({
     'pagination[page]': page,
     'pagination[pageSize]': pageSize,
 

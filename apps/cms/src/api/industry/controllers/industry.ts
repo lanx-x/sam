@@ -1,7 +1,3 @@
-/**
- * industry controller
- */
+import { createLocaleFallbackController } from "../../../utils/create-locale-fallback-controller";
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreController('api::industry.industry');
+export default createLocaleFallbackController("api::industry.industry");

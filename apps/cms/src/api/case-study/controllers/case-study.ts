@@ -4,4 +4,5 @@
 
 import { factories } from '@strapi/strapi';
 
-export default factories.createCoreController('api::case-study.case-study');
+import { createLocaleFallbackController } from "../../../utils/create-locale-fallback-controller";
+export default createLocaleFallbackController('api::case-study.case-study');

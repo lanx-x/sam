@@ -1,7 +1,3 @@
-/**
- * equipment-category controller
- */
+import { createLocaleFallbackController } from "../../../utils/create-locale-fallback-controller";
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreController('api::equipment-category.equipment-category');
+export default createLocaleFallbackController("api::equipment-category.equipment-category");

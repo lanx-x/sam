@@ -1,7 +1,3 @@
-/**
- * navigation controller
- */
+import { createLocaleFallbackController } from "../../../utils/create-locale-fallback-controller";
 
-import { factories } from '@strapi/strapi';
-
-export default factories.createCoreController('api::navigation.navigation');
+export default createLocaleFallbackController("api::navigation.navigation");
