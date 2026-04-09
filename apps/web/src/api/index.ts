@@ -144,6 +144,10 @@ export async function getNavigation(documentId: string, params: { [key: string]:
   })
 }
 
+export async function getI18nLocales() {
+  return fetchStrapi<{ id: number; code: string; name: string }[]>('/i18n/locales')
+}
+
 export async function getBroadcast(params: { [key: string]: any } = {}) {
   return fetchStrapi<StrapiCollectionResponse<Broadcast>>('/broadcasts', {
     params: {

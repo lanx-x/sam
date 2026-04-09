@@ -1,30 +1,39 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { Assets } from "@/assets";
-import { useLocale } from "@/i18n";
+import { cn } from "@/utils/cn";
+import { useLocale, localizePath, type Locale } from "@/i18n";
 import type { Broadcast as BroadcastType, Site } from "cms-types";
 
-const languages = [
-  { code: "EN", label: "English" },
-  { code: "中文", label: "中文" },
-] as const;
+type StrapiLocale = { id: number; code: string; name: string };
 
-type Language = (typeof languages)[number];
+const FALLBACK_LABELS: Record<string, string> = {
+  en: "EN",
+  cn: "中文",
+};
 
-function matchLang(locale: string) {
-  return languages.find((l) => l.code.toLowerCase() === locale) ?? languages[0];
+function getLocaleLabel(code: string) {
+  return FALLBACK_LABELS[code] ?? code.toUpperCase();
 }
 
-export function Broadcast(props: { data: BroadcastType[]; site: Site }) {
-  const { data: items, site } = props;
+export function Broadcast(props: { data: BroadcastType[]; site: Site; localeList: StrapiLocale[] }) {
+  const { data: items, site, localeList } = props;
   const email = site.email?.[0]?.value;
-  const locale = useLocale();
+  const currentLocale = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
 
-  const [activeLanguage, setActiveLanguage] = useState<Language>(matchLang(locale));
+  // Filter locales that are supported by the project
+  const supportedLocales = localeList
+    .map((l) => ({ ...l, code: l.code as Locale, label: getLocaleLabel(l.code) }));
+
+  const currentLang = supportedLocales.find((l) => l.code === currentLocale) ?? supportedLocales[0];
+
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
 
@@ -51,6 +60,21 @@ export function Broadcast(props: { data: BroadcastType[]; site: Site }) {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+  const handleLanguageChange = useCallback(
+    (targetLocale: Locale) => {
+      if (targetLocale === currentLocale) {
+        setLangOpen(false);
+        return;
+      }
+      // Strip current locale prefix from pathname to get the base path
+      const basePath = pathname.replace(/^\/(en|cn)(?=\/|$)/, "");
+      const newPath = localizePath(targetLocale, basePath || "/");
+      router.push(newPath);
+      setLangOpen(false);
+    },
+    [currentLocale, pathname, router],
+  );
+
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       align: "start",
@@ -71,7 +95,6 @@ export function Broadcast(props: { data: BroadcastType[]; site: Site }) {
     const autoplay = emblaApi.plugins()?.autoplay;
     if (!autoplay) return;
 
-
     autoplay.play()
   }, [emblaApi]);
 
@@ -79,7 +102,7 @@ export function Broadcast(props: { data: BroadcastType[]; site: Site }) {
 
   return (
     <>
-      <div className="bg-[#fafafa]">
+      <div className="relative z-50 bg-[#fafafa]">
         <div className="flex flex-col py-4 xl:py-0 xl:flex-row xl:items-center px-5 xl:px-0 xl:w-7xl xl:mx-auto xl:h-10">
           {/* Broadcast carousel */}
           <div className="pr-20 mb-1 xl:mb-0 xl:max-w-230 flex xl:flex-row items-center w-full overflow-hidden">
@@ -116,23 +139,23 @@ export function Broadcast(props: { data: BroadcastType[]; site: Site }) {
                 onClick={() => setLangOpen((c) => !c)}
               >
                 <Image className="w-4 h-4 mr-1" src={Assets.Lang} alt="lang" />
-                <span>{activeLanguage.code}</span>
+                <span>{currentLang?.label ?? currentLocale}</span>
               </button>
 
               {langOpen && (
                 <div className="absolute right-0 top-full z-20 mt-2 min-w-28 overflow-hidden rounded-md border border-[#efefef] bg-white shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]">
-                  {languages.map((lang) => (
+                  {supportedLocales.map((lang) => (
                     <button
                       key={lang.code}
                       type="button"
-                      className="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-[#fafafa]"
-                      onClick={() => {
-                        setActiveLanguage(lang);
-                        setLangOpen(false);
-                      }}
+                      className={cn(
+                        "flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-[#fafafa]",
+                        lang.code === currentLocale && "text-accent"
+                      )}
+                      onClick={() => handleLanguageChange(lang.code)}
                     >
-                      <span>{lang.label}</span>
-                      {lang.code === activeLanguage.code && <span>{lang.code}</span>}
+                      <span>{lang.name}</span>
+                      {lang.code === currentLocale && <span className="text-xs">&#10003;</span>}
                     </button>
                   ))}
                 </div>
@@ -145,7 +168,7 @@ export function Broadcast(props: { data: BroadcastType[]; site: Site }) {
       {/* Popup overlay */}
       {popup && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50"
+          className="fixed inset-0 z-99 flex items-center justify-center bg-black/50"
           onClick={() => setPopup(null)}
         >
           <div

@@ -8,7 +8,7 @@ import { Broadcast } from "@/components/Broadcast";
 import { Nav } from "@/components/Nav";
 import { Subscribe } from "@/components/Subscribe";
 import { GetInTouch } from "@/components/GetInTouch";
-import { getNavigation, getSite, getBroadcast } from "@/api";
+import { getNavigation, getSite, getBroadcast, getI18nLocales } from "@/api";
 import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
 
@@ -38,12 +38,13 @@ export default async function RootLayout({
   const { data: navData } = await getNavigation("owqgz3ze0n1a15777qpdokl0", { locale });
   const site = await getSite()
   const broadcasts = await getBroadcast({ locale })
+  const localeList = await getI18nLocales()
 
   return (
     <html lang={locale} className={`h-full antialiased`}>
       <body className={`${roboto.variable} min-h-full flex flex-col font-sans`}>
         <I18nProvider locale={locale} messages={messages}>
-          <Broadcast data={broadcasts.data} site={site.data} />
+          <Broadcast data={broadcasts.data} site={site.data} localeList={localeList} />
           <Nav data={navData} site={site.data} lang={locale} />
           {children}
           <Footer navigation={navData} lang={lang} site={site.data} />
