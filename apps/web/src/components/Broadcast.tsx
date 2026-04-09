@@ -121,7 +121,7 @@ export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale;
                 onClick={() => setLocaleOpen((c) => !c)}
               >
                 <Image className="w-4 h-4 mr-1" src={Assets.Locale} alt="locale" />
-                <span>{currentLocaleOption?.label ?? currentLocale}</span>
+                <span>{currentLocaleOption?.name ?? currentLocale}</span>
               </button>
 
               {localeOpen && (
