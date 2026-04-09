@@ -4,6 +4,7 @@ import { Assets } from "@/assets";
 import { getStrapiMedia } from "@/utils/strapi";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Image from "next/image";
+import { Industry } from "cms-types";
 
 export function FeaturedIndustry({ section }: CmpProps) {
   return (
@@ -18,7 +19,7 @@ export function FeaturedIndustry({ section }: CmpProps) {
 
       <div className="grid grid-cols-2 text-left gap-2 mt-10 xl:grid-cols-4 xl:gap-5">
         {
-          section.payload?.dynamic?.[0]?.industries?.map((xs, idx) => (
+          ((section.payload?.dynamic?.[0] as any)?.industries as Industry[])?.map((xs, idx) => (
             <div className="relative" key={idx}>
               <Image width={305} height={300} src={getStrapiMedia(xs.image) ?? ""} className="object-cover w-full" alt="" />
               <div className="bg-[rgba(0,0,0,0.7)] absolute w-full bottom-0 z-10 px-3 py-2">

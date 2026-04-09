@@ -32,7 +32,7 @@ export function getStrapiMedia(media: MediaLike) {
   if (typeof media === 'string' || (typeof media === 'object' && 'src' in media)) return media;
   const url = media.url || media.data?.attributes?.url;
   if (!url) return null;
-  return url.startsWith("http") ? url : getStrapiURL(url);
+  return url.startsWith("http") ? url : `/proxy-via-next${url}`;
 }
 
 export async function fetchStrapi<T>(

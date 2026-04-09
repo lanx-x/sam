@@ -53,7 +53,7 @@ export function FeaturedCaseStudy({ section }: CmpProps) {
       <div className="py-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
           {
-            (section.payload?.dynamic?.[0]?.case_studies as CaseStudy[])?.map((xs, idx) => (
+            ((section.payload?.dynamic?.[0] as any)?.case_studies as CaseStudy[])?.map((xs, idx) => (
               <div className="w-full shrink-0 flex items-center justify-center px-5 xl:px-0" key={idx}>
 
                 <div
@@ -91,7 +91,7 @@ export function FeaturedCaseStudy({ section }: CmpProps) {
 
       <div className="hidden xl:flex mx-auto justify-center">
         {
-          section.payload?.dynamic?.[0]?.case_studies?.map((xs, idx) => (
+          ((section.payload?.dynamic?.[0] as any)?.case_studies as CaseStudy[])?.map((xs, idx) => (
             <div key={idx} className="cursor-pointer" onClick={() => emblaApi?.goTo(idx)}>
               <p className={`text-xs ${selectedIndex === idx ? 'text-[#666]' : 'text-[#bfbfbf]'}`}>0{idx + 1}</p>
               <div className={`w-12 h-1 border-b border-l ${selectedIndex === idx ? 'border-secondary' : 'border-[#efefef]'} last:border-r`}></div>

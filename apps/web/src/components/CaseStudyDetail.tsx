@@ -1,5 +1,5 @@
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
-import { globalApi } from "@/api";
+import { createLocalizedApi, globalApi } from "@/api";
 import Image from "next/image";
 import Link from "next/link";
 import { Section, SectionContainer } from "./Section";
@@ -7,7 +7,8 @@ import { getStrapiMedia } from "@/utils/strapi";
 import { BlocksContent } from "./BlocksContent";
 
 export async function CaseStudyDetail({ documentId, section, locale, slug }: CmpProps) {
-  const data = (await globalApi.getCaseStudy({ 'filters[documentId][$eq]': documentId })).data?.[0]
+  const api = createLocalizedApi(locale)
+  const data = (await api.getCaseStudy({ 'filters[documentId][$eq]': documentId })).data?.[0]
   const basePath = ['', locale, ...slug].join('/')
 
 
@@ -15,7 +16,7 @@ export async function CaseStudyDetail({ documentId, section, locale, slug }: Cmp
     return <div className="py-30 text-3xl font-semibold text-center">Case study: {documentId} not found.</div>
   }
 
-  const others = (await globalApi.getCaseStudy({
+  const others = (await api.getCaseStudy({
     'filters[documentId][$ne]': documentId,
     'pagination[pageSize]': 3,
   })).data

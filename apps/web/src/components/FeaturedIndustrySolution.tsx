@@ -8,7 +8,8 @@ import { useEffect, useState } from "react";
 import { Section } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
-import { collectExtend } from "@/utils";
+import { collectExtend, mergeExtension } from "@/utils";
+import { Industry } from "cms-types";
 
 export function FeaturedIndustrySolution({ section }: CmpProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -41,7 +42,7 @@ export function FeaturedIndustrySolution({ section }: CmpProps) {
     };
   }, [emblaApi]);
 
-  const extension = collectExtend(section.payload?.extension as any, section.extension as any)
+  const extension = mergeExtension(section)
 
   return (
     <Section
@@ -51,7 +52,7 @@ export function FeaturedIndustrySolution({ section }: CmpProps) {
       <div className="py-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
           {
-            section.payload?.dynamic?.[0]?.industries?.map((xs, idx) => (
+            ((section.payload?.dynamic?.[0] as any)?.industries as Industry[])?.map((xs, idx) => (
               <div className="w-full flex shrink-0 px-5 flex-col items-center justify-center xl:flex-row" key={xs.id}>
 
                 <Image width={860} height={540} className="object-cover w-full shrink-0 aspect-35/22 rounded-xl xl:w-215 xl:aspect-86/54" src={getStrapiMedia(xs.image) ?? ""} alt="" />
@@ -59,11 +60,11 @@ export function FeaturedIndustrySolution({ section }: CmpProps) {
                   <div className="hidden absolute w-18 h-2 bg-accent top-14 -left-9 xl:block">
 
                   </div>
-                  <p className="font-semibold text-2xl leading-none mb-5">{xs.title}</p>
+                  <p className="font-semibold text-2xl leading-none mb-5">{xs.name}</p>
                   <p className="flex-1 text-sm leading-3.5 xl:text-base xl:leading-5">{xs.desc}</p>
 
                   <div className="flex flex-row text-accent text-base font-medium items-center">
-                    <p className="mr-2">{section.label}</p>
+                    <p className="mr-2">{extension.label?.value}</p>
                     <Image src={Assets.Link} alt="arrow" />
                   </div>
                 </div>
@@ -76,7 +77,7 @@ export function FeaturedIndustrySolution({ section }: CmpProps) {
 
       <div className="hidden xl:flex mx-auto justify-center">
         {
-          section.payload?.dynamic?.[0]?.industries?.map((xs, idx) => (
+          ((section.payload?.dynamic?.[0] as any)?.industries as Industry[])?.map((xs, idx) => (
             <div key={idx} className={`w-2 h-2 rounded-full mx-1 duration-300 transition-colors ${selectedIndex === idx ? 'bg-accent' : 'bg-[#d9d9d9]'}`} onClick={() => emblaApi?.goTo(idx)}>
             </div>
           ))

@@ -38,6 +38,7 @@ export type SurfaceTreatment = StrapiDocument<"api::surface-treatment.surface-tr
 export type Equipment = StrapiDocument<"api::equipment.equipment">;
 export type EquipmentCategory = StrapiDocument<"api::equipment-category.equipment-category">;
 export type CaseStudy = StrapiDocument<"api::case-study.case-study">;
+export type FAQ = StrapiDocument<"api::faq.faq">;
 export type News = StrapiDocument<"api::news.news">;
 export type NewsCategory = StrapiDocument<"api::news-category.news-category">;
 export type Video = StrapiDocument<"api::video.video">;

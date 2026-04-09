@@ -4,7 +4,7 @@ import { useState, useRef, useCallback, useEffect, type ComponentProps } from "r
 import { cn } from "@/utils/cn"
 import { Assets } from "@/assets";
 import Image from "next/image";
-import { fetchStrapi, getStrapiURL } from "@/utils/strapi";
+import { fetchStrapi } from "@/utils/strapi";
 
 function Toast({ message, onDone }: { message: string; onDone: () => void }) {
   useEffect(() => {
@@ -117,7 +117,7 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
       if (file) {
         const fd = new FormData()
         fd.append('files', file)
-        const uploadRes = await fetch(`${getStrapiURL()}/api/upload`, {
+        const uploadRes = await fetch('/proxy-via-next/api/upload', {
           method: 'POST',
           headers: strapiHeaders,
           body: fd,
@@ -127,7 +127,7 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
         fileId = uploaded.id
       }
 
-      await fetchStrapi('/inquiries', {
+      await fetch('/proxy-via-next/api/inquiries', {
         method: 'POST',
         headers: strapiHeaders,
         body: JSON.stringify({

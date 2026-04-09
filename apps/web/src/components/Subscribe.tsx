@@ -2,7 +2,6 @@
 
 import { useState, useEffect, type ComponentProps } from "react";
 import { cn } from "@/utils/cn"
-import { fetchStrapi } from "@/utils/strapi";
 
 type Props = ComponentProps<"div"> & { label?: string, placeholder?: string };
 
@@ -33,18 +32,21 @@ export function Subscribe({ className, label, placeholder }: Props) {
 
     setStatus('loading')
     try {
-      await fetchStrapi('/subscribers', {
-        headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_FORM_TOKEN}` },
+      const res = await fetch('/proxy-via-next/api/subscribers', {
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_FORM_TOKEN}` },
         method: 'POST',
         body: JSON.stringify({ data: { email } }),
       })
+      if (!res.ok) {
+        const errData = await res.json().catch(() => null);
+        throw new Error(errData?.error?.message || `Request failed (${res.status})`);
+      }
       setStatus('success')
       setValue('')
       setToast('Subscribed successfully!')
     } catch (err: unknown) {
       setStatus('error')
-      const msg = (err as { data?: { error?: { message?: string } } })?.data?.error?.message
-      setToast(msg ?? 'Subscription failed, please try again.')
+      setToast((err as Error)?.message || 'Subscription failed, please try again.')
     }
   }
 

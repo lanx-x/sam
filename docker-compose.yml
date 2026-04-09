@@ -1,0 +1,36 @@
+services:
+  cms:
+    build:
+      context: .
+      dockerfile: apps/cms/Dockerfile
+    container_name: lw-cms
+    restart: unless-stopped
+    ports:
+      - "11337:1337"
+    volumes:
+      - ./apps/cms/.tmp:/app/apps/cms/.tmp
+    env_file:
+      - apps/cms/.env
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        - NEXT_PUBLIC_STRAPI_API_URL=http://cms:1337
+        - NEXT_PUBLIC_STRAPI_FORM_TOKEN=${NEXT_PUBLIC_STRAPI_FORM_TOKEN}
+    container_name: lw-web
+    restart: unless-stopped
+    ports:
+      - "33000:3000"
+    depends_on:
+      - cms
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - apps/web/.env
+
+

@@ -119,7 +119,7 @@ export function VideoClientList({ data, pageSize }: Props) {
                   className="w-full aspect-video"
                   controls
                   autoPlay
-                  src={activeVideo.videoSrc}
+                  src={activeVideo.videoSrc as string}
                 />
               )
             )}

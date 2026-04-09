@@ -70,12 +70,12 @@ export function OneStop({ section }: CmpProps) {
 
                   <div className="mt-5 grid grid-cols-1 xl:mt-6 xl:grid-cols-2">
                     {
-                      xs.items?.map((item, idx) => (
+                      xs.extension?.map((item, idx) => (
                         <div key={item.id} className="flex flex-row items-center shrink-0 mb-2 xl:mr-15 xl:mb-3">
                           <div className="w-4 h-4 flex justify-center items-center mr-2 bg-accent rounded-full">
                             <Image src={Assets.Check} className="w-2 " alt="check" />
                           </div>
-                          <span className="font-semibold text-sm">{item.title}</span>
+                          <span className="font-semibold text-sm">{item.value}</span>
                         </div>
                       ))
                     }

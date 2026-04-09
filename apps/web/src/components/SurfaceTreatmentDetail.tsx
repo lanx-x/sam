@@ -4,8 +4,11 @@ import Image from "next/image"
 import { BlocksContent } from "./BlocksContent"
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page"
 import { createLocalizedApi } from "@/api"
+import { CommonSection } from "cms-types"
 
-export async function SurfaceTreatmentDetail({ documentId, section, locale }: CmpProps) {
+export async function SurfaceTreatmentDetail(props: CmpProps) {
+  const { documentId, section, locale } = props
+
   const api = createLocalizedApi(locale);
   const data = (await api.getSurfaceTreatment({ 'filters[documentId][$eq]': documentId }))?.data?.[0]
 
@@ -21,6 +24,7 @@ export async function SurfaceTreatmentDetail({ documentId, section, locale }: Cm
   return (
     <div>
       <CommonHero
+        {...props}
         section={{
           id: data.id,
           payload: {
@@ -32,8 +36,7 @@ export async function SurfaceTreatmentDetail({ documentId, section, locale }: Cm
             image: data.extend?.image || data.icon,
           },
           extension: [{ id: 0, key: 'style', value: 'bg-[#fafafa]' }]
-
-        }}
+        } as CommonSection}
       />
       <div className="xl:w-7xl xl:mx-auto">
         <div>

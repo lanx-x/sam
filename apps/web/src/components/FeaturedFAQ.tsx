@@ -6,6 +6,7 @@ import { useState } from "react";
 import { SectionContainer } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { collectExtend } from "@/utils";
+import { FAQ } from "cms-types";
 
 export function FeaturedFAQ({ section }: CmpProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -23,7 +24,7 @@ export function FeaturedFAQ({ section }: CmpProps) {
 
           <div className="px-5 text-left mt-10 xl:mt-0 xl:px-0">
             {
-              section.payload?.dynamic?.[0]?.faqs?.map((xs, idx) => (
+              ((section.payload?.dynamic?.[0] as any)?.faqs as FAQ[])?.map((xs, idx) => (
                 <div className="py-5 border-b border-b-[#efefef]" key={idx}>
                   <button
                     type="button"

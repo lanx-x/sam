@@ -24,10 +24,10 @@ export function WhyUsProduct({ section }: CmpProps) {
                 <p className="text-base">{xs.desc}</p>
 
                 {
-                  xs.items?.map(item => (
+                  xs.extension?.map(item => (
                     <div key={item.id} className="mt-5">
-                      <p className="text-base font-bold">{item.title}</p>
-                      <p className="text-base">{item.desc}</p>
+                      <p className="text-base font-bold">{item.key}</p>
+                      <p className="text-base">{item.value}</p>
                     </div>
                   ))
                 }

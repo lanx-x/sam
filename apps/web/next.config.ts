@@ -1,10 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ['10.0.0.10', '127.0.0.1', 'localhost'],
+  output: 'standalone',
+  allowedDevOrigins: ['127.0.0.1', 'localhost', 'cms:1337'],
   images: {
     dangerouslyAllowLocalIP: process.env.NODE_ENV === "development",
     remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'cms',
+        port: '1337',
+        pathname: '/uploads/**',
+      },
       {
         protocol: 'http',
         hostname: '127.0.0.1',
@@ -14,12 +21,6 @@ const nextConfig: NextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '1337',
-        pathname: '/uploads/**',
-      },
-      {
-        protocol: 'http',
-        hostname: '10.0.0.10',
         port: '1337',
         pathname: '/uploads/**',
       },
