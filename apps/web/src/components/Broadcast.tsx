@@ -7,7 +7,7 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { Assets } from "@/assets";
 import { cn } from "@/utils/cn";
-import { useLocale, localizePath, type Locale } from "@/i18n";
+import { localizePath, type Locale } from "@/i18n";
 import type { Broadcast as BroadcastType, Site } from "cms-types";
 
 type StrapiLocale = { id: number; code: string; name: string };
@@ -21,10 +21,9 @@ function getLocaleLabel(code: string) {
   return FALLBACK_LABELS[code] ?? code.toUpperCase();
 }
 
-export function Broadcast(props: { data: BroadcastType[]; site: Site; localeList: StrapiLocale[] }) {
-  const { data: items, site, localeList } = props;
+export function Broadcast(props: { currentLocale: Locale; data: BroadcastType[]; site: Site; localeList: StrapiLocale[] }) {
+  const { currentLocale, data: items, site, localeList } = props;
   const email = site.email?.[0]?.value;
-  const currentLocale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -32,10 +31,10 @@ export function Broadcast(props: { data: BroadcastType[]; site: Site; localeList
   const supportedLocales = localeList
     .map((l) => ({ ...l, code: l.code as Locale, label: getLocaleLabel(l.code) }));
 
-  const currentLang = supportedLocales.find((l) => l.code === currentLocale) ?? supportedLocales[0];
+  const currentLocaleOption = supportedLocales.find((l) => l.code === currentLocale) ?? supportedLocales[0];
 
-  const [langOpen, setLangOpen] = useState(false);
-  const langRef = useRef<HTMLDivElement>(null);
+  const [localeOpen, setLocaleOpen] = useState(false);
+  const localeRef = useRef<HTMLDivElement>(null);
 
   // Popup
   const [popup, setPopup] = useState<BroadcastType | null>(null);
@@ -51,26 +50,26 @@ export function Broadcast(props: { data: BroadcastType[]; site: Site; localeList
     [],
   );
 
-  // Language dropdown close on outside click
+  // Locale dropdown close on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (!langRef.current?.contains(e.target as Node)) setLangOpen(false);
+      if (!localeRef.current?.contains(e.target as Node)) setLocaleOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  const handleLanguageChange = useCallback(
+  const handleLocaleChange = useCallback(
     (targetLocale: Locale) => {
       if (targetLocale === currentLocale) {
-        setLangOpen(false);
+        setLocaleOpen(false);
         return;
       }
       // Strip current locale prefix from pathname to get the base path
       const basePath = pathname.replace(/^\/(en|cn)(?=\/|$)/, "");
       const newPath = localizePath(targetLocale, basePath || "/");
       router.push(newPath);
-      setLangOpen(false);
+      setLocaleOpen(false);
     },
     [currentLocale, pathname, router],
   );
@@ -132,30 +131,30 @@ export function Broadcast(props: { data: BroadcastType[]; site: Site; localeList
               </div>
             )}
 
-            <div className="relative xl:ml-12.5 ml-auto" ref={langRef}>
+            <div className="relative xl:ml-12.5 ml-auto" ref={localeRef}>
               <button
                 type="button"
                 className="flex flex-row items-center"
-                onClick={() => setLangOpen((c) => !c)}
+                onClick={() => setLocaleOpen((c) => !c)}
               >
-                <Image className="w-4 h-4 mr-1" src={Assets.Lang} alt="lang" />
-                <span>{currentLang?.label ?? currentLocale}</span>
+                <Image className="w-4 h-4 mr-1" src={Assets.Locale} alt="locale" />
+                <span>{currentLocaleOption?.label ?? currentLocale}</span>
               </button>
 
-              {langOpen && (
+              {localeOpen && (
                 <div className="absolute right-0 top-full z-20 mt-2 min-w-28 overflow-hidden rounded-md border border-[#efefef] bg-white shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]">
-                  {supportedLocales.map((lang) => (
+                  {supportedLocales.map((locale) => (
                     <button
-                      key={lang.code}
+                      key={locale.code}
                       type="button"
                       className={cn(
                         "flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-[#fafafa]",
-                        lang.code === currentLocale && "text-accent"
+                        locale.code === currentLocale && "text-accent"
                       )}
-                      onClick={() => handleLanguageChange(lang.code)}
+                      onClick={() => handleLocaleChange(locale.code)}
                     >
-                      <span>{lang.name}</span>
-                      {lang.code === currentLocale && <span className="text-xs">&#10003;</span>}
+                      <span>{locale.name}</span>
+                      {locale.code === currentLocale && <span className="text-xs">&#10003;</span>}
                     </button>
                   ))}
                 </div>

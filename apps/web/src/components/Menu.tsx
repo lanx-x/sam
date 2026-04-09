@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Assets } from "@/assets";
-import { localizePath, useLocale, useTranslations } from "@/i18n";
+import { localizePath, type Locale, type Messages } from "@/i18n";
 
 const menuGroups = [
   {
@@ -75,12 +75,15 @@ const standaloneItems = [
   },
 ] as const;
 
-export function Menu() {
+type MenuProps = {
+  locale: Locale;
+  menu: Messages["menu"];
+};
+
+export function Menu({ locale, menu }: MenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [panelTop, setPanelTop] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const locale = useLocale();
-  const menu = useTranslations("menu");
 
   const measurePanelTop = () => {
     if (!buttonRef.current) {

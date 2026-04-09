@@ -25,8 +25,8 @@ export function getHref(item: Pick<NavBasicItem, 'target_type' | 'target_page' |
   return `/${slug}/${item.target_anchor ?? ''}`.replaceAll(/\/\//g, '/')
 }
 
-export function withLang(lang: string, path: string): string {
+export function withLocalePath(locale: string, path: string): string {
   if (path.startsWith('http')) return path
 
-  return `/${lang}/${path}`.replaceAll(/\/\/+/g, '/')
+  return `/${locale}/${path}`.replaceAll(/\/\/+/g, '/')
 }

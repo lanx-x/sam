@@ -2,7 +2,7 @@
 
 import { Assets } from "@/assets";
 import { getStrapiMedia } from "@/utils/strapi";
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Image from "next/image";
 
 export function FeaturedIndustry({ section }: CmpProps) {

@@ -1,6 +1,6 @@
 'use client';
 import { getStrapiMedia } from "@/utils/strapi";
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import AutoScroll from "embla-carousel-auto-scroll";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";

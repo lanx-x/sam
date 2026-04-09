@@ -1,4 +1,4 @@
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { Section, SectionContainer, SectionHeaderRowDir } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import Image from "next/image";

@@ -4,7 +4,7 @@ import { Assets } from "@/assets";
 import Image from "next/image";
 import { useState } from "react";
 import { SectionContainer } from "./Section";
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { collectExtend } from "@/utils";
 
 export function FeaturedFAQ({ section }: CmpProps) {

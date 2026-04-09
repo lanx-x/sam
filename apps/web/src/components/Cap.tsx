@@ -2,10 +2,10 @@ import Image from "next/image";
 import { Assets } from "@/assets";
 import { getStrapiMedia } from "@/utils/strapi";
 import { Section } from "./Section";
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Link from "next/link";
 
-export function Cap({ section, lang }: CmpProps) {
+export function Cap({ section, locale }: CmpProps) {
   return (
     <Section
       title={section.payload?.title!}
@@ -26,7 +26,7 @@ export function Cap({ section, lang }: CmpProps) {
                     <p className="font-semibold text-2xl/none text-white mb-8">{xs.title}</p>
                     <p className="text-white text-sm leading-4.5 flex-1">{xs.desc}</p>
                     <div className="text-white font-medium text-base flex flex-row items-center">
-                      <Link href={`/${lang}/${xs.target_url ?? ''}`} className="flex items-center">
+                      <Link href={`/${locale}/${xs.target_url ?? ''}`} className="flex items-center">
                         <span>{xs.label}</span>
                         <Image src={Assets.LinkWhite} alt="link" className="ml-3" />
                       </Link>

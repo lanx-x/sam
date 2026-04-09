@@ -4,7 +4,7 @@ import { getIndustry } from "@/api";
 import { getStrapiMedia } from "@/utils/strapi";
 import { BlocksContent } from "./BlocksContent";
 import { Section, SectionContainer } from "./Section";
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { mergeExtension } from "@/utils";
 import { ActionButton } from "./ActionButton";
 

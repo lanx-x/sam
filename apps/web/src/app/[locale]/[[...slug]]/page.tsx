@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { getPage, getPatternPages, getSite } from "@/api";
 import { getLocale } from "@/i18n";
 import { logger } from "@/utils/logger";
-import type { Metadata } from "next";
 import { CmpMap } from "@/components";
 import { CommonSection, Site } from "cms-types";
 
@@ -10,10 +9,10 @@ import { CommonSection, Site } from "cms-types";
 // export async function generateMetadata({
 //   params,
 // }: {
-//   params: Promise<{ lang: string; slug: string[] }>;
+//   params: Promise<{ locale: string; slug: string[] }>;
 // }): Promise<Metadata> {
-//   const { lang, slug } = await params;
-//   const locale = getLocale(lang) ?? defaultLocale;
+//   const { locale: routeLocale, slug } = await params;
+//   const locale = getLocale(routeLocale);
 //   const page = await getPage(slug.join("/"), locale);
 //
 //   if (!page) return {};
@@ -25,13 +24,13 @@ import { CommonSection, Site } from "cms-types";
 //   };
 // }
 
-export default async function CatchAllPage({ params, searchParams, }: { params: Promise<{ lang: string; slug: string[] }>; searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
-  const { lang, slug = [] } = await params
+export default async function CatchAllPage({ params, searchParams, }: { params: Promise<{ locale: string; slug: string[] }>; searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
+  const { locale: routeLocale, slug = [] } = await params
   const sp = await searchParams
-  logger.debug('page params:', { lang, slug });
+  logger.debug('page params:', { locale: routeLocale, slug });
 
   const site = await getSite()
-  const locale = getLocale(lang)
+  const locale = getLocale(routeLocale)
   const pageSlug = ['/', ...slug].join('/').replace(/^\/\//, '/')
 
   // 1. 只拿 slug 列表，判断是否命中 {{id}} 模式
@@ -62,9 +61,15 @@ export default async function CatchAllPage({ params, searchParams, }: { params: 
     <div>
       {
         pageData.content?.map((section, idx) => {
-          const Cmp = CmpMap[section.payload?.renderer?.cmp];
+          const rendererName = section.payload?.renderer?.cmp;
+          if (!rendererName) {
+            logger.warn("Section renderer is missing.");
+            return null;
+          }
+
+          const Cmp = CmpMap[rendererName];
           if (!Cmp) {
-            logger.warn(`Unknown renderer: ${section.payload?.renderer?.cmp}`);
+            logger.warn(`Unknown renderer: ${rendererName}`);
             return null;
           }
 
@@ -75,7 +80,7 @@ export default async function CatchAllPage({ params, searchParams, }: { params: 
             documentId={documentId}
             searchParams={sp}
             slug={slug}
-            lang={lang} />;
+            locale={locale} />;
         })
       }
     </div>
@@ -87,6 +92,6 @@ export type CmpProps = {
   section: CommonSection,
   documentId: string | null,
   searchParams: { [key: string]: string | string[] | undefined },
-  slug: string[]
-  lang: string
+  slug: string[],
+  locale: string
 }

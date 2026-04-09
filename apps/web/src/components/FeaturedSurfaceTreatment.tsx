@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 
 export function FeaturedSurfaceTreatment({ section }: CmpProps) {
   const extension = collectExtend(section.payload?.extension as any, section.extension as any)

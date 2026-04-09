@@ -2,7 +2,7 @@ import { CommonHero } from "./CommonHero"
 import { getStrapiMedia } from "@/utils/strapi"
 import Image from "next/image"
 import { BlocksContent } from "./BlocksContent"
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page"
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page"
 import { getSurfaceTreatment } from "@/api"
 
 export async function SurfaceTreatmentDetail({ documentId, section }: CmpProps) {

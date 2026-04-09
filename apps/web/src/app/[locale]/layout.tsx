@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import Image from "next/image";
-import { Assets } from "@/assets";
-import { defaultLocale, getDictionary, isLocale, type Locale, I18nProvider } from "@/i18n";
+import { defaultLocale, isLocale, type Locale } from "@/i18n";
 import { Broadcast } from "@/components/Broadcast";
 import { Nav } from "@/components/Nav";
-import { Subscribe } from "@/components/Subscribe";
-import { GetInTouch } from "@/components/GetInTouch";
 import { getNavigation, getSite, getBroadcast, getI18nLocales } from "@/api";
 import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
@@ -29,11 +25,10 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ lang: string }>;
+  params: Promise<{ locale: string }>;
 }>) {
-  const { lang } = await params;
-  const locale: Locale = isLocale(lang) ? lang : defaultLocale;
-  const messages = await getDictionary(locale);
+  const { locale: routeLocale } = await params;
+  const locale: Locale = isLocale(routeLocale) ? routeLocale : defaultLocale;
 
   const { data: navData } = await getNavigation("owqgz3ze0n1a15777qpdokl0", { locale });
   const site = await getSite()
@@ -43,13 +38,11 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`h-full antialiased`}>
       <body className={`${roboto.variable} min-h-full flex flex-col font-sans`}>
-        <I18nProvider locale={locale} messages={messages}>
-          <Broadcast data={broadcasts.data} site={site.data} localeList={localeList} />
-          <Nav data={navData} site={site.data} lang={locale} />
-          {children}
-          <Footer navigation={navData} lang={lang} site={site.data} />
-          <FloatingActions site={site.data} />
-        </I18nProvider>
+        <Broadcast currentLocale={locale} data={broadcasts.data} site={site.data} localeList={localeList} />
+        <Nav data={navData} site={site.data} locale={locale} />
+        {children}
+        <Footer navigation={navData} locale={locale} site={site.data} />
+        <FloatingActions site={site.data} />
       </body>
     </html>
   );

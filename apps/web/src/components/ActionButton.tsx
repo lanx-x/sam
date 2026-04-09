@@ -1,15 +1,15 @@
 import { cn } from "@/utils/cn";
-import { getHref, withLang } from "@/utils";
+import { withLocalePath } from "@/utils";
 import type { Action } from "cms-types";
 import Link from "next/link";
 
 type ActionButtonProps = {
   action: Action;
   className?: string;
-  lang?: string;
+  locale?: string;
 };
 
-export function ActionButton({ action, className, lang }: ActionButtonProps) {
+export function ActionButton({ action, className, locale }: ActionButtonProps) {
   const { label, target_type, target_url } = action;
   const classes = cn(
     "h-13 px-4 rounded-sm text-white bg-primary font-medium truncate flex items-center justify-center",
@@ -26,7 +26,7 @@ export function ActionButton({ action, className, lang }: ActionButtonProps) {
       );
     case 'internal_page':
       return (
-        <Link href={withLang(lang ?? '', target_url!)} className={classes}>
+        <Link href={withLocalePath(locale ?? '', target_url!)} className={classes}>
           {label}
         </Link>
       );

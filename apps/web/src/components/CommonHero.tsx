@@ -1,6 +1,6 @@
 import { collectExtend } from "@/utils";
 import { getStrapiMedia, } from "@/utils/strapi";
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Image from "next/image";
 import { ActionButton } from "./ActionButton";
 

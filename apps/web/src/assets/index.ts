@@ -34,10 +34,10 @@ import IndustryCat from "./industry-cat.svg";
 import Ins from "./ins.svg";
 import Iqc from "./iqc.png";
 import Iso from "./iso.png";
-import Lang from "./lang.svg";
 import LinkCircle from "./link-circle.svg";
 import LinkWhite from "./link-white.svg";
 import Link from "./link.svg";
+import Locale from "./locale.svg";
 import LogoText from "./logo-text.svg";
 import Logo from "./logo.svg";
 import Mail from "./mail.svg";
@@ -93,10 +93,10 @@ export const Assets = {
   Ins,
   Iqc,
   Iso,
-  Lang,
   LinkCircle,
   LinkWhite,
   Link,
+  Locale,
   LogoText,
   Logo,
   Mail,

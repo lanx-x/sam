@@ -1,4 +1,4 @@
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
@@ -6,11 +6,11 @@ import { getSurfaceTreatment } from "@/api";
 import { mergeExtension } from "@/utils";
 import Link from "next/link";
 
-export async function SurfaceTreatmentList({ section, lang, slug }: CmpProps) {
+export async function SurfaceTreatmentList({ section, locale, slug }: CmpProps) {
   const extension = mergeExtension(section)
 
   const data = await getSurfaceTreatment({})
-  const basePath = ['', lang, ...slug].join('/')
+  const basePath = ['', locale, ...slug].join('/')
 
 
   const share = "grid items-center xl:gap-10 justify-items-left grid-cols-1 xl:grid-cols-[160px_1fr_2fr_1fr_1fr] border-b border-[#bfbfbf] text-left";

@@ -1,4 +1,4 @@
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Image from "next/image";
 import Link from "next/link";
 import { SectionContainer } from "./Section";
@@ -8,8 +8,8 @@ import { BlocksContent } from "./BlocksContent";
 import dayjs from "dayjs";
 import { extractBlockText } from "@/utils";
 
-export async function NewsDetail({ documentId, section, slug, lang }: CmpProps) {
-  const basePath = ['', lang, ...slug.slice(0, -1)].join('/')
+export async function NewsDetail({ documentId, section, slug, locale }: CmpProps) {
+  const basePath = ['', locale, ...slug.slice(0, -1)].join('/')
   const data = (await getNews({ 'filters[documentId][$eq]': documentId })).data?.[0]
 
   if (!data) {

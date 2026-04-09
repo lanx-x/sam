@@ -1,10 +1,10 @@
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getNews, getNewsCategory } from "@/api";
 import { NewsClientList } from "./NewsClientList";
 
 const PAGE_SIZE = 12;
 
-export async function NewsList({ section, searchParams, slug, lang }: CmpProps) {
+export async function NewsList({ section, searchParams, slug, locale }: CmpProps) {
   const page = Number(searchParams?.page) || 1
   const categoryId = searchParams?.category as string | undefined
 
@@ -17,7 +17,7 @@ export async function NewsList({ section, searchParams, slug, lang }: CmpProps) 
     getNewsCategory({}),
   ])
 
-  const basePath = ['', lang, ...slug].join('/')
+  const basePath = ['', locale, ...slug].join('/')
 
   return <NewsClientList data={data} pageSize={PAGE_SIZE} categories={categories.data} activeCategoryId={categoryId} basePath={basePath} />
 }

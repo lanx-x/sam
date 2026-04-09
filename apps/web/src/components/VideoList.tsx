@@ -1,4 +1,4 @@
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getVideo } from "@/api";
 import { VideoClientList } from "./VideoClientList";
 

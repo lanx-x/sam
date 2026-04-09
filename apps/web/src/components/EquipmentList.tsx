@@ -1,4 +1,4 @@
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Image from "next/image";
 import { Section, SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
@@ -8,12 +8,12 @@ import { Assets } from "@/assets";
 import { getEnabledCategories } from "trace_events";
 import { EquipmentClientList } from "./EquipmentClientList";
 
-export async function EquipmentList({ section, slug, lang }: CmpProps) {
+export async function EquipmentList({ section, slug, locale }: CmpProps) {
   const extension = mergeExtension(section)
 
   const categories = await getEquipmentCategory({})
   const data = await getEquipment({})
-  const basePath = ['', lang, ...slug].join('/')
+  const basePath = ['', locale, ...slug].join('/')
 
   return <EquipmentClientList categories={categories} equipments={data} basePath={basePath} />
 }

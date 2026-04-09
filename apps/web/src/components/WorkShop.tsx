@@ -3,7 +3,7 @@
 import { Assets } from "@/assets";
 import { cn } from "@/utils/cn";
 import { getStrapiMedia } from "@/utils/strapi";
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";

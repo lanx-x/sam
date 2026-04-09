@@ -2,13 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 import { ActionButton } from "./ActionButton";
 
 const ROTATE_INTERVAL = 3000;
 
-export function MainHero({ section, lang }: CmpProps) {
+export function MainHero({ section, locale }: CmpProps) {
   const items = section.payload?.data ?? []
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -77,7 +77,7 @@ export function MainHero({ section, lang }: CmpProps) {
         <div className="flex mt-20 pb-29 flex-row gap-3 xl:gap-5 xl:pb-34.5 xl:justify-start xl:mt-10">
           {
             section.payload?.actions?.map(xs => (
-              <ActionButton lang={lang} key={xs.id} action={xs} className="w-full h-12 flex items-center justify-center bg-white first:bg-accent rounded-sm first:text-white text-primary font-medium truncate xl:w-50 xl:h-13 xl:mr-5 xl:text-base" />
+              <ActionButton locale={locale} key={xs.id} action={xs} className="w-full h-12 flex items-center justify-center bg-white first:bg-accent rounded-sm first:text-white text-primary font-medium truncate xl:w-50 xl:h-13 xl:mr-5 xl:text-base" />
             ))
           }
         </div>

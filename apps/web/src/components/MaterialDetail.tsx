@@ -1,4 +1,4 @@
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Image from "next/image";
 import { getMaterial } from "@/api";
 import { getStrapiMedia } from "@/utils/strapi";

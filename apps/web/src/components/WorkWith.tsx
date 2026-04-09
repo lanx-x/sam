@@ -1,5 +1,5 @@
 import { Section, SectionContainer } from "./Section";
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 
 export function WorkWith({ section }: CmpProps) {

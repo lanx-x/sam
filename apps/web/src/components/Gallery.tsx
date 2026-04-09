@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { Section, SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 

@@ -1,4 +1,4 @@
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Image from "next/image";
 import Link from "next/link";
 import { Section, SectionContainer } from "./Section";
@@ -6,9 +6,9 @@ import { getStrapiMedia } from "@/utils/strapi";
 import { getCaseStudy } from "@/api";
 import { BlocksContent } from "./BlocksContent";
 
-export async function CaseStudyDetail({ documentId, section, lang, slug }: CmpProps) {
+export async function CaseStudyDetail({ documentId, section, locale, slug }: CmpProps) {
   const data = (await getCaseStudy({ 'filters[documentId][$eq]': documentId })).data?.[0]
-  const basePath = ['', lang, ...slug].join('/')
+  const basePath = ['', locale, ...slug].join('/')
 
 
   if (!data) {
@@ -68,7 +68,7 @@ export async function CaseStudyDetail({ documentId, section, lang, slug }: CmpPr
             <p className="text-center text-3xl font-semibold mb-10">More Success Stories</p>
             <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
               {others.map((xs) => (
-                <Link key={xs.documentId} href={`/${lang}/${xs.documentId}`} className="group rounded-lg overflow-hidden">
+                <Link key={xs.documentId} href={`/${locale}/${xs.documentId}`} className="group rounded-lg overflow-hidden">
                   <div className="relative aspect-413/336 overflow-hidden rounded-lg">
                     <Image
                       fill

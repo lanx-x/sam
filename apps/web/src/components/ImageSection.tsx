@@ -3,7 +3,7 @@ import Image, { StaticImageData } from "next/image";
 import { PropsWithChildren } from "react";
 import { Section } from "./Section";
 import type { SectionProps } from "./Section";
-import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 
 export function ImageSection({ section }: CmpProps) {
