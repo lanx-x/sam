@@ -20,7 +20,7 @@ export function WorkShop({ section }: CmpProps) {
           {
             section.payload?.data?.map((xs, idx) => (
               <div key={idx} className="ml-5 shrink-0 w-20/39 xl:w-100">
-                <Image width={400} height={240} src={getStrapiMedia(xs.image) ?? ""} alt="" className="rounded-lg mb-5" />
+                <Image width={400} height={240} src={getStrapiMedia(xs.image) ?? ""} alt="" className="rounded-lg mb-5 object-cover w-full" />
                 <div>
                   <p className="text-base font-semibold mb-2 leading-none xl:text-lg">{xs.title}</p>
                   <p className="leading-none text-sm">{xs.desc}</p>
