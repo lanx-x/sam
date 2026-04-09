@@ -31,14 +31,15 @@ export function Marquee({ section }: CmpProps) {
     if (!autoScroll) return
 
     autoScroll.play()
-
   }, [emblaApi])
 
   const extendLogos = useMemo(() => Array.from({ length: 10 }, () => section.payload?.extra_images).flat(), [section.payload])
 
+  const overlap = extension.overlap ? '-mt-10 bottom-5' : ''
+
 
   return (
-    <div style={{ marginTop: '-60px' }} className={`relative h-10 ${extension.style?.value}`}>
+    <div style={{}} className={`relative h-10 ${overlap}  ${extension.style?.value}`}>
       <div className="overflow-hidden h-full" ref={emblaRef}>
         <div className="flex h-full items-center">
           {extendLogos?.map((logo, idx) => (
