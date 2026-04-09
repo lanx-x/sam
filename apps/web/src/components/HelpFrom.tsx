@@ -12,34 +12,34 @@ export function HelpFrom({ section }: CmpProps) {
 
   const steps = section.payload?.data
 
-  const gridOpts = "grid grid-cols-[600px_1fr]"
+  const gridOpts = "grid grid-cols-1 xl:grid-cols-[600px_1fr]"
 
   return (
-    <div className="bg-white py-20">
+    <div className="bg-white py-20 px-5 xl:px-0">
       <SectionContainer>
         <SectionHeaderRowDir
           title={section.payload?.title!}
           desc={section.payload?.desc!}
         />
 
-        <div className="mt-15">
+        <div className="mt-10 xl:mt-15">
           {
             steps?.map((step: any, idx: number) => {
               const isActive = activeIndex === idx
               return (
-                <div key={idx} className={`py-12.5 first:border-t border-[#bfbfbf] border-b transition-colors`}>
-                  <button onClick={() => setActiveIndex(isActive ? -1 : idx)} className={`w-full cursor-pointer text-left ${gridOpts}`}>
+                <div key={idx} className={`py-5 xl:py-12.5 first:border-t border-[#bfbfbf] border-b transition-colors`}>
+                  <button onClick={() => setActiveIndex(isActive ? -1 : idx)} className={`relative w-full cursor-pointer text-left ${gridOpts}`}>
                     <span className="text-[32px]">{String(idx + 1).padStart(2, '0')}</span>
                     <div className="flex flex-row items-center">
-                      <div className="text-[32px] font-semibold flex-1">{step.title}</div>
-                      <div className="relative w-4 h-4">
+                      <div className="text-2xl xl:text-[32px] font-semibold flex-1">{step.title}</div>
+                      <div className="absolute right-0 top-4 xl:top-0 xl:relative w-4 h-4">
                         <Image src={isActive ? Assets.Minus : Assets.Plus} fill alt="plus" />
                       </div>
                     </div>
                   </button>
 
                   {isActive && (
-                    <div className={`mt-6 mb-10 ${gridOpts}`}>
+                    <div className={`mt-6 mb-0 xl:mb-10 ${gridOpts}`}>
                       <div></div>
                       <div>
                         {step.image && (
@@ -47,7 +47,7 @@ export function HelpFrom({ section }: CmpProps) {
                             <Image fill src={getStrapiMedia(step.image) ?? ""} alt="" className="object-cover" />
                           </div>
                         )}
-                        <p className="text-base leading-5.5">{step.desc}</p>
+                        <p className="text-sm xl:text-base leading-5.5">{step.desc}</p>
                       </div>
                     </div>
                   )}

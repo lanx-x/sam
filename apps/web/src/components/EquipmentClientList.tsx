@@ -62,7 +62,7 @@ export function EquipmentClientList(props: Props) {
                   <Image width={360} height={260} src={getStrapiMedia(xs.image) ?? ""} className="w-90 h-65 object-contain" alt="icon" />
                 </div>
                 <div className="mt-5 xl:mt-0 xl:ml-10 pb-10 relative">
-                  <p className="leading-none text-2xl font-semibold mb-2">{xs.title}</p>
+                  <p className="leading-none text-2xl font-semibold mb-2">{xs.name}</p>
                   <p className="text-base leading-5">{xs.desc}</p>
 
 

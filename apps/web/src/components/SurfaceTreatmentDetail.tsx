@@ -57,7 +57,7 @@ export async function SurfaceTreatmentDetail({ documentId, section }: CmpProps) 
                 <Image width={120} height={120} src={getStrapiMedia(data.icon) ?? ""} alt="icon" />
                 <p className="text-lg font-bold">{data.name}</p>
                 <p className="">{data.desc}</p>
-                <p className="">{data.services?.map(xs => xs.value).join(', ')}</p>
+                <p className="">{data.services}</p>
                 <p className="">{data.materials?.map(xs => xs.name).join(', ')}</p>
               </div>
             </div>
@@ -76,7 +76,7 @@ export async function SurfaceTreatmentDetail({ documentId, section }: CmpProps) 
               </div>
               <div className={`${mobileShare}`}>
                 <span className="text-sm text-secondary font-bold">Services</span>
-                <span className="text-base">{data.services?.map(xs => xs.value).join(', ')}</span>
+                <span className="text-base">{data.services}</span>
               </div>
               <div className={`${mobileShare}`}>
                 <span className="text-sm text-secondary font-bold">Applicable Materials</span>

@@ -17,7 +17,7 @@ export function FeaturedSurfaceTreatment({ section }: CmpProps) {
 
       <div className="text-left grid grid-cols-2 gap-1.5 mt-10 xl:grid-cols-4 xl:gap-5 px-5 xl:px-0">
         {
-          section.payload?.dynamic?.[0]?.surface_treatments?.map((xs, idx) => (
+          ((section.payload?.dynamic?.[0] as any)?.surface_treatments as SurfaceTreatment[])?.map((xs, idx) => (
             <SurfaceTreatmentItem item={xs} key={xs.id} />
           ))
         }

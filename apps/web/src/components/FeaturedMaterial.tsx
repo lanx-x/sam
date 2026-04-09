@@ -18,6 +18,14 @@ export function FeaturedMaterial({ section }: CmpProps) {
 
   const extension = collectExtend(section.payload?.extension as any, section.extension as any)
 
+  const renderItem = (key: string, value: string) => (
+
+    <div key={key} className="flex flex-col border-b-[#efefef] border-b pb-4 mb-4 last:border-none">
+      <span className="text-base capitalize">{key.split('_').join(' ')}</span>
+      <span className="text-sm capitalize">{value}</span>
+    </div>
+  )
+
   return (
     <Section
       title={section.payload?.title!}
@@ -35,14 +43,9 @@ export function FeaturedMaterial({ section }: CmpProps) {
                   <div className="px-5 text-left">
                     <p className="my-5 text-lg font-semibold leading-none">{xs.name}</p>
 
-                    {
-                      xs.parameter?.map((item, idx) => (
-                        <div key={idx} className="flex flex-col border-b-[#efefef] border-b pb-4 mb-4 last:border-none">
-                          <span className="text-base">{item.key}</span>
-                          <span className="text-sm">{item.value}</span>
-                        </div>
-                      ))
-                    }
+                    {(['strength', 'processability', 'corrosion_resistance'] as const).map(key => renderItem(key, xs[key]?.name!))}
+                    {renderItem('Typical applications', xs.typical_applications!)}
+                    {xs.parameter?.map((item, idx) => renderItem(item.key!, item.value!))}
                   </div>
                 </div>
               ))
@@ -62,4 +65,5 @@ export function FeaturedMaterial({ section }: CmpProps) {
   )
 
 }
+
 

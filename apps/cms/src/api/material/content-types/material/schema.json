@@ -31,6 +31,21 @@
         }
       }
     },
+    "icon": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
     "image": {
       "type": "media",
       "pluginOptions": {
@@ -115,20 +130,28 @@
       "component": "item.material-specification-item",
       "repeatable": true
     },
-    "icon": {
-      "type": "media",
+    "processability": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::quality-level.quality-level"
+    },
+    "strength": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::quality-level.quality-level"
+    },
+    "corrosion_resistance": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::quality-level.quality-level"
+    },
+    "typical_applications": {
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      },
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      }
     }
   }
 }

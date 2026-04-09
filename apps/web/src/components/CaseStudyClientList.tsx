@@ -50,11 +50,14 @@ export function CaseStudyClientList({ data, pageSize, basePath }: Props) {
   }, [router, searchParams]);
 
   return (
-    <div className="my-12.5">
+    <div className="my-10 xl:my-12.5 px-5 xl:px-0">
       <div className="xl:w-7xl xl:mx-auto">
-        <div className="grid grid-cols-2 gap-5 xl:grid-cols-3 xl:gap-y-5">
+        <div className="grid grid-cols-1 xl:gap-5 gap-12 xl:grid-cols-3 xl:gap-y-5">
           {data.data.map((xs) => (
-            <Link key={xs.id} href={`${basePath}/${xs.documentId}`} className="cursor-pointer relative p-2.5 group rounded-xl duration-300 transition-colors w-108.25 overflow-hidden bg-white hover:bg-[rgba(0,118,238,0.1)]">
+            <Link
+              key={xs.id}
+              href={`${basePath}/${xs.documentId}`}
+              className="cursor-pointer relative xl:p-2.5 group rounded-xl duration-300 transition-colors xl:w-108.25 overflow-hidden bg-white hover:bg-[rgba(0,118,238,0.1)]">
               <div className="relative rounded-xl aspect-413/336 w-full overflow-hidden">
                 <Image
                   fill

@@ -110,18 +110,16 @@
       "component": "item.kv-item",
       "repeatable": true
     },
-    "services": {
-      "type": "component",
+    "content": {
+      "type": "blocks",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      },
-      "component": "item.kv-item",
-      "repeatable": true
+      }
     },
-    "content": {
-      "type": "blocks",
+    "services": {
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true

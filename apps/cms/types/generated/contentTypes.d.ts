@@ -680,6 +680,13 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::equipment.equipment'
     >;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     parameter: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -688,13 +695,6 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -919,6 +919,10 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    corrosion_resistance: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::quality-level.quality-level'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -962,6 +966,10 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    processability: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::quality-level.quality-level'
+    >;
     pros: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -978,10 +986,20 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    strength: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::quality-level.quality-level'
+    >;
     surface_treatments: Schema.Attribute.Relation<
       'manyToMany',
       'api::surface-treatment.surface-treatment'
     >;
+    typical_applications: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1202,6 +1220,64 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiQualityLevelQualityLevel
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'quality_levels';
+  info: {
+    displayName: 'QualityLevel';
+    pluralName: 'quality-levels';
+    singularName: 'quality-level';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    desc: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::quality-level.quality-level'
+    >;
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    value: Schema.Attribute.Enumeration<
+      ['excellence', 'excellent', 'good', 'medium', 'fair', 'poor']
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
   };
 }
 
@@ -1470,7 +1546,7 @@ export interface ApiSurfaceTreatmentSurfaceTreatment
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
-    services: Schema.Attribute.Component<'item.kv-item', true> &
+    services: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -2158,6 +2234,7 @@ declare module '@strapi/strapi' {
       'api::news-category.news-category': ApiNewsCategoryNewsCategory;
       'api::news.news': ApiNewsNews;
       'api::page.page': ApiPagePage;
+      'api::quality-level.quality-level': ApiQualityLevelQualityLevel;
       'api::renderer.renderer': ApiRendererRenderer;
       'api::site.site': ApiSiteSite;
       'api::subscriber.subscriber': ApiSubscriberSubscriber;

@@ -8,6 +8,7 @@ import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
 import Link from "next/link";
+import { Equipment } from "cms-types";
 
 export function FeaturedEquipment({ section }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -27,12 +28,16 @@ export function FeaturedEquipment({ section }: CmpProps) {
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex flex-row w-full">
             {
-              section.payload?.dynamic?.[0]?.equipment?.map((xs, idx) => (
+              ((section.payload?.dynamic?.[0] as any)?.equipment as Equipment[])?.map((xs, idx) => (
                 <div key={xs.id} className="w-305/390 ml-5 shrink-0 text-left xl:w-76.25 xl:ml-0 xl:mr-5">
-                  <Image src={getStrapiMedia(xs.image) ?? ""} width={305} height={220} className="object-cover w-full xl:h-55" alt="" />
+
+                  <div className="relative w-76.25 h-55 shrink-0 overflow-hidden flex items-center justify-center">
+                    <Image fill className="object-cover -z-10" src={Assets.EquipBase} alt="" />
+                    <Image width={305} height={220} src={getStrapiMedia(xs.image) ?? ""} className="w-72 h-51 object-contain" alt="icon" />
+                  </div>
 
                   <div className="">
-                    <p className="mt-6 mb-4 text-lg font-semibold">Dolor unde dolorem.</p>
+                    <p className="mt-6 mb-4 text-lg font-semibold">{xs.name}</p>
 
                     <div className="border-b border-b-[#efefef] pb-6 mb-4">
                       {

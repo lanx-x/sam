@@ -10,6 +10,14 @@ import { SurfaceTreatmentItem } from "./FeaturedSurfaceTreatment";
 export async function MaterialDetail({ documentId, section }: CmpProps) {
   const data = (await getMaterial({ 'filters[documentId][$eq]': documentId })).data?.[0]
 
+  const dict = {
+    tensile_strength: 'Tensile Strength, Yield (MPa)',
+    fatigue_strength: 'Fatigue Strength (MPa)',
+    elongation_at_break: 'Elongation at Break (%)',
+    hardness: 'Hardness (Brinell)',
+    density: 'Density (g/cm³)'
+  } as const
+
   return (
     <div>
       <div>
@@ -42,8 +50,56 @@ export async function MaterialDetail({ documentId, section }: CmpProps) {
 
         <div className="px-5 xl:px-0 grid grid-cols-1 xl:grid-cols-[480px_1fr] gap-10 xl:gap-30 xl:w-7xl xl:mx-auto py-10 xl:py-20">
           <Image width={480} height={480} src={getStrapiMedia(data.icon) ?? ""} className="w-full xl:w-120 object-cover" alt="" />
-          {data.content && <BlocksRenderer content={data.content} />}
+          <div>
+            {data.content && <BlocksRenderer content={data.content} />}
+
+            <div className="mt-10">
+              {
+                [
+                  ...(['strength', 'processability', 'corrosion_resistance'] as const).map(key => ({ key, value: data[key]?.name })),
+                  { key: 'Typical applications', value: data.typical_applications },
+                ].map(({ key, value }) => (
+                  <div key={key} className="flex w-full xl:w-67 flex-col border-b-[#efefef] border-b pb-4 mb-4 last:border-none">
+                    <span className="text-base capitalize mb-2">{key?.split('_').join(' ')}</span>
+                    <span className="text-sm capitalize">{value}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
         </div>
+
+
+        {/*specifications */}
+        <SectionContainer className="px-5 xl:px-0">
+          {
+            data.specification?.map(xs => (
+              <div key={xs.id} className="py-10">
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 xl:gap-30 mb-10">
+                  <h3 className="text-5xl font-semibold">{xs.name}</h3>
+                  <p className="text-base">{xs.desc}</p>
+                </div>
+
+                <div>
+                  <div className="grid grid-cols-5 items-center">
+                    {
+                      Object.entries(dict).map(([key, value]) => <span key={key} className="xl:text-lg text-sm font-bold text-secondary">{value}</span>)
+                    }
+                  </div>
+
+                  <div className="grid grid-cols-5 border-t border-b border-secondary min-h-20 items-center mt-4">
+                    {
+                      Object.entries(dict).map(([key, value]) => <span key={key} className="text-sm xl:text-base">{xs[key as keyof typeof dict]}</span>)
+                    }
+                  </div>
+
+                </div>
+
+              </div>
+            ))
+          }
+
+        </SectionContainer>
 
 
         <SectionContainer className="mt-15 mb-10 xl:mb-25 px-5 xl:px-0">
@@ -86,7 +142,7 @@ export async function MaterialDetail({ documentId, section }: CmpProps) {
                       <ul className="text-base leading-6 list-disc ml-5 mt-5">
                         {
                           data?.[xs as 'pros' | 'cons']?.map((item, idx) => (
-                            <li key={idx}>{item.key}</li>
+                            <li key={idx}>{item.value}</li>
                           ))
 
                         }
