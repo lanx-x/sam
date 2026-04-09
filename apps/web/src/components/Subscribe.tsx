@@ -49,7 +49,7 @@ export function Subscribe({ className, label, placeholder }: Props) {
 
   return (
     <>
-      <div className={cn("relative bg-bg w-full h-12 rounded-sm flex flex-row justify-start", className)}>
+      <div className={cn("relative bg-bg w-full h-12 rounded-sm overflow-hidden flex flex-row justify-start", className)}>
         <input
           className={cn(
             "flex-1 text-sm h-full border-none text-primary px-4 placeholder:text-secondary outline-none",

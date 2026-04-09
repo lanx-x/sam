@@ -52,13 +52,13 @@ export function CaseStudyClientList({ data, pageSize, basePath }: Props) {
   return (
     <div className="my-10 xl:my-12.5 px-5 xl:px-0">
       <div className="xl:w-7xl xl:mx-auto">
-        <div className="grid grid-cols-1 xl:gap-5 gap-12 xl:grid-cols-3 xl:gap-y-5">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-5">
           {data.data.map((xs) => (
             <Link
               key={xs.id}
               href={`${basePath}/${xs.documentId}`}
-              className="cursor-pointer relative xl:p-2.5 group rounded-xl duration-300 transition-colors xl:w-108.25 overflow-hidden bg-white hover:bg-[rgba(0,118,238,0.1)]">
-              <div className="relative rounded-xl aspect-413/336 w-full overflow-hidden">
+              className="cursor-pointer relative xl:p-2.5 group rounded-xl duration-300 transition-colors overflow-hidden bg-white hover:bg-[rgba(0,118,238,0.1)]">
+              <div className="relative rounded-xl aspect-350/285 xl:aspect-413/336 w-full overflow-hidden">
                 <Image
                   fill
                   src={getStrapiMedia(xs.image) ?? ""}
@@ -68,12 +68,12 @@ export function CaseStudyClientList({ data, pageSize, basePath }: Props) {
               </div>
               <div className="pb-7 mt-5 text-left">
                 <p className="text-lg font-semibold leading-none mb-2">{xs.title}</p>
-                <p className="text-sm text-[rgba(34,34,34,0.66)] leading-5 line-clamp-2">{xs.desc}</p>
+                <p className="text-sm text-primary/66 leading-5 line-clamp-2">{xs.desc}</p>
               </div>
 
               {
                 xs.industry?.name &&
-                <span className="absolute top-6.5 left-5.5 inline-block text-sm bg-[#e5f2ff] border border-accent px-2 py-1 rounded-sm font-semibold">
+                <span className="absolute top-4 xl:top-6.5 left-3 xl:left-5.5 inline-block text-sm bg-[#e5f2ff] border border-accent px-2 py-1 rounded-sm font-semibold">
                   {xs.industry?.name}
                 </span>
               }

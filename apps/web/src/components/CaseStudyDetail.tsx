@@ -63,13 +63,13 @@ export async function CaseStudyDetail({ documentId, section, lang, slug }: CmpPr
       </div>
 
       {others.length > 0 && (
-        <div className="mt-20 bg-[#fafafa] py-15">
+        <div className="mt-20 bg-[#fafafa] py-15 px-5 xl:px-0">
           <SectionContainer>
             <p className="text-center text-3xl font-semibold mb-10">More Success Stories</p>
             <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
               {others.map((xs) => (
-                <Link key={xs.documentId} href={`/${lang}/${xs.documentId}`} className="group rounded-lg overflow-hidden bg-white">
-                  <div className="relative aspect-413/336 overflow-hidden">
+                <Link key={xs.documentId} href={`/${lang}/${xs.documentId}`} className="group rounded-lg overflow-hidden">
+                  <div className="relative aspect-413/336 overflow-hidden rounded-lg">
                     <Image
                       fill
                       src={getStrapiMedia(xs.image) ?? ""}
@@ -77,7 +77,7 @@ export async function CaseStudyDetail({ documentId, section, lang, slug }: CmpPr
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <div className="p-6 text-left">
+                  <div className="text-left mt-5">
                     {xs.industry?.name && <span className="inline-block text-xs text-accent border border-accent px-2 py-0.5 rounded-sm font-medium mb-2">{xs.industry?.name}</span>}
                     <p className="text-lg font-semibold leading-tight mb-2">{xs.title}</p>
                     <p className="text-sm text-secondary leading-5 line-clamp-2">{xs.desc}</p>

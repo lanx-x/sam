@@ -96,7 +96,7 @@ export function VideoClientList({ data, pageSize }: Props) {
           onClick={() => setActiveVideo(null)}
         >
           <div
-            className="relative w-full max-w-7xl mx-4 bg-black rounded-xl overflow-hidden"
+            className="relative w-full max-w-7xl mx-5 bg-black rounded-xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <button
