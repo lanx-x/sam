@@ -98,7 +98,7 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
   }, [])
 
   const FORM_TOKEN = process.env.NEXT_PUBLIC_STRAPI_FORM_TOKEN!
-  const strapiHeaders = { Authorization: `Bearer ${FORM_TOKEN}` }
+  const strapiHeaders = { 'Content-Type': 'application/json', Authorization: `Bearer ${FORM_TOKEN}` }
 
   const handleSubmit = async () => {
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
@@ -119,7 +119,7 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
         fd.append('files', file)
         const uploadRes = await fetch('/proxy-via-next/api/upload', {
           method: 'POST',
-          headers: strapiHeaders,
+          headers: { Authorization: `Bearer ${FORM_TOKEN}` },
           body: fd,
         })
         if (!uploadRes.ok) throw new Error('File upload failed')
@@ -127,7 +127,7 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
         fileId = uploaded.id
       }
 
-      await fetch('/proxy-via-next/api/inquiries', {
+      const res = await fetch('/proxy-via-next/api/inquiries', {
         method: 'POST',
         headers: strapiHeaders,
         body: JSON.stringify({
@@ -141,6 +141,10 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
           },
         }),
       })
+      if (!res.ok) {
+        const errData = await res.json().catch(() => null);
+        throw new Error(errData?.error?.message || `Request failed (${res.status})`);
+      }
 
       setToast('Submitted successfully!')
       setForm({ name: '', email: '', company: '', phone: '', message: '' })

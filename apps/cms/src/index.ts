@@ -1,20 +1,24 @@
-// import type { Core } from '@strapi/strapi';
+import type { Core } from '@strapi/strapi';
 
 export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
   register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+  async bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    strapi.server.use(async (ctx, next) => {
+      if (ctx.path.startsWith('/api/')) {
+        const method = ctx.method;
+        const path = ctx.path;
+        const auth = ctx.request.header.authorization || 'NONE';
+        const token = auth !== 'NONE' ? `${auth.slice(0, 15)}...` : 'NONE';
+
+        strapi.log.info(`[debug-api] ${method} ${path} | auth: ${token}`);
+
+        await next();
+
+        strapi.log.info(`[debug-api] ${method} ${path} → ${ctx.status}`);
+      } else {
+        await next();
+      }
+    });
+  },
 };
