@@ -37,13 +37,24 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
     phone: '',
     message: '',
   })
-  const [files, setFiles] = useState<File[]>([])
+  const [file, setFile] = useState<File | null>(null)
   const [dragOver, setDragOver] = useState(false)
+  const [invalidFile, setInvalidFile] = useState(false)
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [toast, setToast] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const ACCEPTED_FORMATS = '.stp,.step,.stl,.igs,.iges,.prt,.sldprt,.sat,.x_t,.jpg,.png,.pdf,.jpeg,.zip,.rar'
+  const ACCEPTED_FORMATS = '.zip,.rar,.7z,.tar,.gz,.bz2,.xz'
+  const isArchive = (f: File) => ACCEPTED_FORMATS.split(',').some(ext => f.name.toLowerCase().endsWith(ext.slice(1)))
+
+  const setValidFile = (f: File | null) => {
+    if (f && !isArchive(f)) {
+      setInvalidFile(true)
+      return
+    }
+    setInvalidFile(false)
+    setFile(f)
+  }
 
   const updateField = (field: string, value: string) => {
     setForm(prev => ({ ...prev, [field]: value }))
@@ -63,19 +74,19 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     setDragOver(false)
-    const dropped = Array.from(e.dataTransfer.files)
-    setFiles(prev => [...prev, ...dropped])
+    const dropped = e.dataTransfer.files[0] ?? null
+    setValidFile(dropped)
   }, [])
 
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFiles(prev => [...prev, ...Array.from(e.target.files!)])
-    }
+    const selected = e.target.files?.[0] ?? null
+    setValidFile(selected)
     e.target.value = ''
   }, [])
 
-  const removeFile = useCallback((index: number) => {
-    setFiles(prev => prev.filter((_, i) => i !== index))
+  const removeFile = useCallback(() => {
+    setFile(null)
+    setInvalidFile(false)
   }, [])
 
   const handleSubmit = async () => {
@@ -93,7 +104,7 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
       // TODO: submit to API
       setToast('Submitted successfully!')
       setForm({ name: '', email: '', company: '', phone: '', message: '' })
-      setFiles([])
+      setFile(null)
     } catch {
       setToast('Submission failed, please try again.')
     } finally {
@@ -189,8 +200,8 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
 
             <div
               className={cn(
-                "border border-dashed border-[#dfdfdf] rounded flex flex-col items-center justify-center cursor-pointer transition-colors",
-                dragOver && 'border-accent bg-blue-50/50',
+                "border border-dashed rounded flex flex-col items-center justify-center cursor-pointer transition-colors",
+                invalidFile ? 'border-red-400' : dragOver ? 'border-accent bg-blue-50/50' : 'border-[#dfdfdf]',
                 'min-h-50 xl:min-h-85 p-5',
               )}
               onDragOver={handleDragOver}
@@ -201,35 +212,25 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
               <input
                 ref={fileInputRef}
                 type="file"
-                multiple
                 accept={ACCEPTED_FORMATS}
                 className="hidden"
                 onChange={handleFileSelect}
               />
 
               {
-                files.length > 0
+                file
                   ? (
                     <div className="flex flex-wrap gap-2 px-4 w-full">
-                      {files.map((file, i) => (
-                        <div key={`${file.name}-${i}`} className="flex items-center gap-2 bg-[#f6f8fa] rounded px-3 py-1.5 text-sm text-primary">
-                          <span className="max-w-[180px] truncate">{file.name}</span>
-                          <button
-                            type="button"
-                            className="text-secondary hover:text-primary text-lg leading-none"
-                            onClick={e => { e.stopPropagation(); removeFile(i) }}
-                          >
-                            ×
-                          </button>
-                        </div>
-                      ))}
-                      <button
-                        type="button"
-                        className="text-accent text-sm underline"
-                        onClick={e => { e.stopPropagation(); fileInputRef.current?.click() }}
-                      >
-                        Add more
-                      </button>
+                      <div className="flex items-center gap-2 bg-[#f6f8fa] rounded px-3 py-1.5 text-sm text-primary">
+                        <span className="max-w-[180px] truncate">{file.name}</span>
+                        <button
+                          type="button"
+                          className="text-secondary hover:text-primary text-lg leading-none"
+                          onClick={e => { e.stopPropagation(); removeFile() }}
+                        >
+                          ×
+                        </button>
+                      </div>
                     </div>)
                   : (
                     <div className="flex flex-col items-center justify-center">
@@ -238,7 +239,7 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
                         Drag & Drop Your Files Here
                       </p>
                       <p className="text-secondary text-sm xl:text-base text-center mt-2 px-4">
-                        Available file formats: stp, step, stl, igs, iges, prt, sldprt, sat, x_t, jpg, png, pdf, jpeg, zip, rar
+                        Available file formats: zip, rar, 7z, tar, gz, bz2, xz
                       </p>
 
                       <div className="flex justify-center mt-13.5">
