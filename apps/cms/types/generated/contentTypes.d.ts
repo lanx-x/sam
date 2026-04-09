@@ -929,6 +929,12 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
         };
       }>;
     featured_news: Schema.Attribute.Relation<'oneToMany', 'api::news.news'>;
+    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -963,6 +969,15 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
+    specification: Schema.Attribute.Component<
+      'item.material-specification-item',
+      true
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     surface_treatments: Schema.Attribute.Relation<
       'manyToMany',
       'api::surface-treatment.surface-treatment'
@@ -1337,65 +1352,6 @@ export interface ApiSiteSite extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiSpecificationSpecification
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'specifications';
-  info: {
-    displayName: 'Specification';
-    pluralName: 'specifications';
-    singularName: 'specification';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    desc: Schema.Attribute.Text &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    image: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    > &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::specification.specification'
-    >;
-    parameter: Schema.Attribute.Component<'item.kv-item', true> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiSubscriberSubscriber extends Struct.CollectionTypeSchema {
   collectionName: 'subscribers';
   info: {
@@ -1449,6 +1405,12 @@ export interface ApiSurfaceTreatmentSurfaceTreatment
           localized: true;
         };
       }>;
+    content: Schema.Attribute.Blocks &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1469,6 +1431,12 @@ export interface ApiSurfaceTreatmentSurfaceTreatment
       }>;
     featured_news: Schema.Attribute.Relation<'oneToMany', 'api::news.news'>;
     icon: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -2192,7 +2160,6 @@ declare module '@strapi/strapi' {
       'api::page.page': ApiPagePage;
       'api::renderer.renderer': ApiRendererRenderer;
       'api::site.site': ApiSiteSite;
-      'api::specification.specification': ApiSpecificationSpecification;
       'api::subscriber.subscriber': ApiSubscriberSubscriber;
       'api::surface-treatment.surface-treatment': ApiSurfaceTreatmentSurfaceTreatment;
       'api::ui-section.ui-section': ApiUiSectionUiSection;

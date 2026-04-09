@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_item_material_specification_items",
+  "info": {
+    "displayName": "MaterialSpecificationItem"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "text"
+    },
+    "tensile_strength": {
+      "type": "string"
+    },
+    "fatigue_strength": {
+      "type": "string"
+    },
+    "elongation_at_break": {
+      "type": "string"
+    },
+    "hardness": {
+      "type": "string"
+    },
+    "density": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

@@ -24,7 +24,7 @@ export async function EquipmentDetail({ documentId, section }: CmpProps) {
             <div className="mt-7.5 xl:mt-9 xl:w-120">
               {
                 data.parameter?.map((xs, idx) => (
-                  <div className="border-b border-[#bfbfbf] h-10 grid grid-cols-2 items-center first:border-t px-2 text-base">
+                  <div key={idx} className="border-b border-[#bfbfbf] h-10 grid grid-cols-2 items-center first:border-t px-2 text-base">
                     <span>{xs.key}:</span>
                     <span>{xs.value}</span>
                   </div>

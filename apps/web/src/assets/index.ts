@@ -22,6 +22,7 @@ import Corp02 from "./corp-02.svg";
 import Corp03 from "./corp-03.svg";
 import Corp04 from "./corp-04.svg";
 import Corp05 from "./corp-05.png";
+import EmailBlue from "./email-blue.svg";
 import EquipBase from "./equip-base.png";
 import EquipListBg from "./equip-list-bg.svg";
 import Expand from "./expand.svg";
@@ -79,6 +80,7 @@ export const Assets = {
   Corp03,
   Corp04,
   Corp05,
+  EmailBlue,
   EquipBase,
   EquipListBg,
   Expand,

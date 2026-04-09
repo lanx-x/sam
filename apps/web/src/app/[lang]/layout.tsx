@@ -10,6 +10,7 @@ import { Subscribe } from "@/components/Subscribe";
 import { GetInTouch } from "@/components/GetInTouch";
 import { getNavigation, getSite, getBroadcast } from "@/api";
 import { Footer } from "@/components/Footer";
+import { FloatingActions } from "@/components/FloatingActions";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -46,6 +47,7 @@ export default async function RootLayout({
           <Nav data={navData} site={site.data} lang={locale} />
           {children}
           <Footer navigation={navData} lang={lang} site={site.data} />
+          <FloatingActions site={site.data} />
         </I18nProvider>
       </body>
     </html>

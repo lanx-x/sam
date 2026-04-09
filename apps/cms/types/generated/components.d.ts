@@ -76,6 +76,22 @@ export interface ItemKvItem extends Struct.ComponentSchema {
   };
 }
 
+export interface ItemMaterialSpecificationItem extends Struct.ComponentSchema {
+  collectionName: 'components_item_material_specification_items';
+  info: {
+    displayName: 'MaterialSpecificationItem';
+  };
+  attributes: {
+    density: Schema.Attribute.String;
+    desc: Schema.Attribute.Text;
+    elongation_at_break: Schema.Attribute.String;
+    fatigue_strength: Schema.Attribute.String;
+    hardness: Schema.Attribute.String;
+    name: Schema.Attribute.String;
+    tensile_strength: Schema.Attribute.String;
+  };
+}
+
 export interface ItemNavBasicItem extends Struct.ComponentSchema {
   collectionName: 'components_item_nav_basic_items';
   info: {
@@ -317,6 +333,7 @@ declare module '@strapi/strapi' {
       'item.category-item': ItemCategoryItem;
       'item.common-item': ItemCommonItem;
       'item.kv-item': ItemKvItem;
+      'item.material-specification-item': ItemMaterialSpecificationItem;
       'item.nav-basic-item': ItemNavBasicItem;
       'item.nav-group-item': ItemNavGroupItem;
       'item.nav-groupt-item': ItemNavGrouptItem;

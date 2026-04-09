@@ -44,6 +44,21 @@
         "files"
       ]
     },
+    "image": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
     "extend": {
       "type": "component",
       "pluginOptions": {
@@ -104,6 +119,14 @@
       },
       "component": "item.kv-item",
       "repeatable": true
+    },
+    "content": {
+      "type": "blocks",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
