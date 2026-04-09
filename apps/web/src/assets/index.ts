@@ -55,6 +55,7 @@ import Ruler1On from "./ruler-1-on.svg";
 import RulerOff from "./ruler-off.svg";
 import RulerOn from "./ruler-on.svg";
 import Top from "./top.svg";
+import Upload from "./upload.png";
 import Whatsapp from "./whatsapp.svg";
 import X from "./x.svg";
 
@@ -113,6 +114,7 @@ export const Assets = {
   RulerOff,
   RulerOn,
   Top,
+  Upload,
   Whatsapp,
   X,
 } as const;

@@ -2,6 +2,8 @@
 
 import { useState, useRef, useCallback, useEffect, type ComponentProps } from "react"
 import { cn } from "@/utils/cn"
+import { Assets } from "@/assets";
+import Image from "next/image";
 
 function Toast({ message, onDone }: { message: string; onDone: () => void }) {
   useEffect(() => {
@@ -234,7 +236,7 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
                     </div>)
                   : (
                     <div className="flex flex-col items-center justify-center">
-                      <UploadIcon />
+                      <Image src={Assets.Upload} alt="upload" width={64} height={64} className="w-16 h-16 object-cover" />
                       <p className="text-primary text-xl xl:text-2xl mt-4 text-center">
                         Drag & Drop Your Files Here
                       </p>
