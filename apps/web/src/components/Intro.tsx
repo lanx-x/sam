@@ -3,6 +3,7 @@ import { Section, SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import Image from "next/image";
 import { mergeExtension } from "@/utils";
+import { FormGetQuote } from "./FormGetQuote";
 
 export function Intro({ section }: CmpProps) {
   const extension = mergeExtension(section)

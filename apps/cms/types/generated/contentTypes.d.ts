@@ -472,7 +472,16 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
     publishedAt: Schema.Attribute.DateTime;
-    target: Schema.Attribute.String &
+    target_page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
+    target_type: Schema.Attribute.Enumeration<
+      ['internal_page', 'external_url', 'popup']
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    target_url: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -980,6 +989,7 @@ export interface ApiNavigationNavigation extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    action: Schema.Attribute.Relation<'oneToOne', 'api::action.action'>;
     admin_note: Schema.Attribute.String &
       Schema.Attribute.Private &
       Schema.Attribute.SetPluginOptions<{

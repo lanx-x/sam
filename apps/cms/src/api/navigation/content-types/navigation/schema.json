@@ -33,6 +33,11 @@
           "localized": true
         }
       }
+    },
+    "action": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::action.action"
     }
   }
 }

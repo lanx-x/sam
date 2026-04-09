@@ -52,6 +52,7 @@ import { Mission } from "./Mission";
 import { Gallery } from "./Gallery";
 import { PartnerStory } from "./PartnerStory";
 import { Marquee } from "./Marquee";
+import { FormGetQuote } from "./FormGetQuote";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -112,4 +113,6 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   PartnerStory,
   Gallery,
   Marquee,
+
+  FormGetQuote,
 }

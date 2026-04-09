@@ -216,9 +216,11 @@ export function DesktopNav(props: { data: Navigation, site: Site, lang: string }
               )
             })}
 
-            <Link href={withLang(lang, "/quote")} className="bg-accent text-white text-sm font-medium rounded-sm px-10 py-3 transition-opacity hover:opacity-90">
-              Get a Free Quote
-            </Link>
+            {
+              data.action && <Link href={withLang(lang, getHref(data.action))} className="bg-accent text-white text-sm font-medium rounded-sm px-10 h-12 flex items-center justify-center transition-opacity hover:opacity-90">{data.action.label}</Link>
+
+
+            }
           </div>
         </div>
       </nav>

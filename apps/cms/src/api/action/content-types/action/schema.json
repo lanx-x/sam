@@ -24,14 +24,6 @@
       },
       "required": true
     },
-    "target": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
     "extension": {
       "type": "component",
       "pluginOptions": {
@@ -48,6 +40,52 @@
       "pluginOptions": {
         "i18n": {
           "localized": true
+        }
+      }
+    },
+    "target_type": {
+      "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "enum": [
+        "internal_page",
+        "external_url",
+        "popup"
+      ]
+    },
+    "target_page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "target_type"
+            },
+            "internal_page"
+          ]
+        }
+      }
+    },
+    "target_url": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "target_type"
+            },
+            "external_url"
+          ]
         }
       }
     }
