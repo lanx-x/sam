@@ -3,10 +3,11 @@ import { getStrapiMedia } from "@/utils/strapi"
 import Image from "next/image"
 import { BlocksContent } from "./BlocksContent"
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page"
-import { getSurfaceTreatment } from "@/api"
+import { createLocalizedApi } from "@/api"
 
-export async function SurfaceTreatmentDetail({ documentId, section }: CmpProps) {
-  const data = (await getSurfaceTreatment({ 'filters[documentId][$eq]': documentId }))?.data?.[0]
+export async function SurfaceTreatmentDetail({ documentId, section, locale }: CmpProps) {
+  const api = createLocalizedApi(locale);
+  const data = (await api.getSurfaceTreatment({ 'filters[documentId][$eq]': documentId }))?.data?.[0]
 
   if (!data) {
     return <div className="py-30 text-3xl font-semibold text-center">Surface finish: {documentId} not found.</div>

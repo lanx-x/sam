@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import { defaultLocale, isLocale, type Locale } from "@/i18n";
 import { Broadcast } from "@/components/Broadcast";
 import { Nav } from "@/components/Nav";
-import { getNavigation, getSite, getBroadcast, getI18nLocales } from "@/api";
+import { createLocalizedApi, globalApi } from "@/api";
 import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
+import { getRuntimeLocale } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,17 +28,17 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale: routeLocale } = await params;
-  const locale: Locale = isLocale(routeLocale) ? routeLocale : defaultLocale;
+  const { locale, localeList, defaultLocale } = await getRuntimeLocale(routeLocale);
+  const api = createLocalizedApi(locale);
 
-  const { data: navData } = await getNavigation("owqgz3ze0n1a15777qpdokl0", { locale });
-  const site = await getSite()
-  const broadcasts = await getBroadcast({ locale })
-  const localeList = await getI18nLocales()
+  const { data: navData } = await api.getNavigation("owqgz3ze0n1a15777qpdokl0");
+  const site = await api.getSite();
+  const broadcasts = await globalApi.getBroadcast();
 
   return (
     <html lang={locale} className={`h-full antialiased`}>
       <body className={`${roboto.variable} min-h-full flex flex-col font-sans`}>
-        <Broadcast currentLocale={locale} data={broadcasts.data} site={site.data} localeList={localeList} />
+        <Broadcast currentLocale={locale} defaultLocale={defaultLocale} data={broadcasts.data} site={site.data} localeList={localeList} />
         <Nav data={navData} site={site.data} locale={locale} />
         {children}
         <Footer navigation={navData} locale={locale} site={site.data} />

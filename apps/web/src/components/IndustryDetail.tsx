@@ -1,6 +1,6 @@
 import { CommonSection } from "cms-types";
 import Image from "next/image";
-import { getIndustry } from "@/api";
+import { createLocalizedApi } from "@/api";
 import { getStrapiMedia } from "@/utils/strapi";
 import { BlocksContent } from "./BlocksContent";
 import { Section, SectionContainer } from "./Section";
@@ -8,8 +8,9 @@ import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { mergeExtension } from "@/utils";
 import { ActionButton } from "./ActionButton";
 
-export async function IndustryDetail({ documentId, section, site }: CmpProps) {
-  const data = (await getIndustry({ 'filters[documentId][$eq]': documentId })).data?.[0]
+export async function IndustryDetail({ documentId, section, site, locale }: CmpProps) {
+  const api = createLocalizedApi(locale);
+  const data = (await api.getIndustry({ 'filters[documentId][$eq]': documentId })).data?.[0]
 
   const extension = mergeExtension(section)
 

@@ -1,6 +1,6 @@
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
+import { createLocalizedApi } from "@/api";
 import Image from "next/image";
-import { getMaterial } from "@/api";
 import { getStrapiMedia } from "@/utils/strapi";
 import { BlocksContent } from "./BlocksContent";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
@@ -8,8 +8,9 @@ import { SectionContainer, SectionHeaderRowDir } from "./Section";
 import { SurfaceTreatmentItem } from "./FeaturedSurfaceTreatment";
 import { ActionButton } from "./ActionButton";
 
-export async function MaterialDetail({ documentId, section }: CmpProps) {
-  const data = (await getMaterial({ 'filters[documentId][$eq]': documentId })).data?.[0]
+export async function MaterialDetail({ documentId, section, locale }: CmpProps) {
+  const api = createLocalizedApi(locale);
+  const data = (await api.getMaterial({ 'filters[documentId][$eq]': documentId })).data?.[0]
 
   const dict = {
     tensile_strength: 'Tensile Strength, Yield (MPa)',

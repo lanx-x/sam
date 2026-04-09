@@ -1,12 +1,13 @@
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
-import { getVideo } from "@/api";
+import { createLocalizedApi } from "@/api";
 import { VideoClientList } from "./VideoClientList";
 
 const PAGE_SIZE = 12;
 
-export async function VideoList({ section, searchParams }: CmpProps) {
+export async function VideoList({ section, searchParams, locale }: CmpProps) {
+  const api = createLocalizedApi(locale);
   const page = Number(searchParams?.page) || 1
-  const data = await getVideo({
+  const data = await api.getVideo({
     'pagination[page]': page,
     'pagination[pageSize]': PAGE_SIZE,
   })

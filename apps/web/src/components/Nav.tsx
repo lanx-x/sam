@@ -4,11 +4,8 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Assets } from "@/assets";
-import { useLocale, useTranslations } from "@/i18n";
-import { Menu } from "./Menu";
 import { getStrapiMedia } from "@/utils/strapi";
-import type { Navigation, PageData, Site } from "cms-types";
-import type { StrapiComponent } from "cms-types";
+import type { Navigation, Site } from "cms-types";
 import { getHref, withLocalePath } from "@/utils";
 import { ActionButton } from "./ActionButton";
 

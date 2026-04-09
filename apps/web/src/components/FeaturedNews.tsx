@@ -1,25 +1,26 @@
 import { Assets } from "@/assets";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
+import { createLocalizedApi } from "@/api";
 import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import dayjs from "dayjs";
 import { mergeExtension } from "@/utils";
-import { getMaterial, getNews, getSurfaceTreatment } from "@/api";
 import { News } from "cms-types";
 
-export async function FeaturedNews({ section, documentId, slug }: CmpProps) {
+export async function FeaturedNews({ section, documentId, slug, locale }: CmpProps) {
+  const api = createLocalizedApi(locale);
   const extension = mergeExtension(section)
 
   let news = ((section.payload?.dynamic?.[0] as any)?.news) as News[] ?? []
 
   if (extension.basedOnId?.value === 'true') {
     if (slug.join('/').includes('resources/material')) {
-      const featured = (await getMaterial({ 'filters[documentId][$eq]': documentId })).data?.[0]?.featured_news
+      const featured = (await api.getMaterial({ 'filters[documentId][$eq]': documentId })).data?.[0]?.featured_news
       news = featured?.length ? featured : news
     }
     if (slug.join('/').includes('solutions/surface-treatment')) {
-      const featured = (await getSurfaceTreatment({ 'filters[documentId][$eq]': documentId })).data?.[0]?.featured_news
+      const featured = (await api.getSurfaceTreatment({ 'filters[documentId][$eq]': documentId })).data?.[0]?.featured_news
       news = featured?.length ? featured : news
     }
     // news = await getNews({})

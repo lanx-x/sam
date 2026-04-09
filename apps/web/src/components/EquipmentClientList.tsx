@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Section, SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
-import { getEquipment, getEquipmentCategory, getSurfaceFinish } from "@/api";
+import { getEquipment, getEquipmentCategory } from "@/api";
 import { mergeExtension } from "@/utils";
 import { Assets } from "@/assets";
 import { getEnabledCategories } from "trace_events";

@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { defaultLocale, isLocale } from "./config";
+import { globalApi } from "@/api";
+import { getDefaultLocale, isLocale } from "./config";
 
-export function handleI18nProxy(request: NextRequest) {
+export async function handleI18nProxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (
@@ -17,7 +18,10 @@ export function handleI18nProxy(request: NextRequest) {
   const segments = pathname.split("/").filter(Boolean);
   const firstSegment = segments[0];
 
-  if (firstSegment && isLocale(firstSegment)) {
+  const localeList = await globalApi.getI18nLocales();
+  const defaultLocale = getDefaultLocale(localeList);
+
+  if (firstSegment && isLocale(firstSegment, localeList)) {
     if (firstSegment === defaultLocale) {
       const redirectUrl = request.nextUrl.clone();
       const normalizedPath = segments.slice(1).join("/");

@@ -7,31 +7,15 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { Assets } from "@/assets";
 import { cn } from "@/utils/cn";
-import { localizePath, type Locale } from "@/i18n";
+import { localizePath, stripLocaleFromPath, type Locale, type LocaleItem } from "@/i18n";
 import type { Broadcast as BroadcastType, Site } from "cms-types";
 
-type StrapiLocale = { id: number; code: string; name: string };
-
-const FALLBACK_LABELS: Record<string, string> = {
-  en: "EN",
-  cn: "中文",
-};
-
-function getLocaleLabel(code: string) {
-  return FALLBACK_LABELS[code] ?? code.toUpperCase();
-}
-
-export function Broadcast(props: { currentLocale: Locale; data: BroadcastType[]; site: Site; localeList: StrapiLocale[] }) {
-  const { currentLocale, data: items, site, localeList } = props;
+export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale; data: BroadcastType[]; site: Site; localeList: LocaleItem[] }) {
+  const { currentLocale, defaultLocale, data: items, site, localeList } = props;
   const email = site.email?.[0]?.value;
   const pathname = usePathname();
   const router = useRouter();
-
-  // Filter locales that are supported by the project
-  const supportedLocales = localeList
-    .map((l) => ({ ...l, code: l.code as Locale, label: getLocaleLabel(l.code) }));
-
-  const currentLocaleOption = supportedLocales.find((l) => l.code === currentLocale) ?? supportedLocales[0];
+  const currentLocaleOption = localeList.find((locale) => locale.code === currentLocale) ?? localeList[0];
 
   const [localeOpen, setLocaleOpen] = useState(false);
   const localeRef = useRef<HTMLDivElement>(null);
@@ -65,13 +49,12 @@ export function Broadcast(props: { currentLocale: Locale; data: BroadcastType[];
         setLocaleOpen(false);
         return;
       }
-      // Strip current locale prefix from pathname to get the base path
-      const basePath = pathname.replace(/^\/(en|cn)(?=\/|$)/, "");
-      const newPath = localizePath(targetLocale, basePath || "/");
+      const basePath = stripLocaleFromPath(pathname, localeList);
+      const newPath = localizePath(targetLocale, basePath || "/", defaultLocale);
       router.push(newPath);
       setLocaleOpen(false);
     },
-    [currentLocale, pathname, router],
+    [currentLocale, defaultLocale, localeList, pathname, router],
   );
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -143,7 +126,7 @@ export function Broadcast(props: { currentLocale: Locale; data: BroadcastType[];
 
               {localeOpen && (
                 <div className="absolute right-0 top-full z-20 mt-2 min-w-28 overflow-hidden rounded-md border border-[#efefef] bg-white shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]">
-                  {supportedLocales.map((locale) => (
+                  {localeList.map((locale) => (
                     <button
                       key={locale.code}
                       type="button"

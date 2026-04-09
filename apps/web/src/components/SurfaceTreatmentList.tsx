@@ -2,14 +2,15 @@ import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
-import { getSurfaceTreatment } from "@/api";
+import { createLocalizedApi } from "@/api";
 import { mergeExtension } from "@/utils";
 import Link from "next/link";
 
 export async function SurfaceTreatmentList({ section, locale, slug }: CmpProps) {
+  const api = createLocalizedApi(locale);
   const extension = mergeExtension(section)
 
-  const data = await getSurfaceTreatment({})
+  const data = await api.getSurfaceTreatment({})
   const basePath = ['', locale, ...slug].join('/')
 
 

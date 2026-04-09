@@ -1,16 +1,17 @@
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
+import { createLocalizedApi } from "@/api";
 import Image from "next/image";
 import Link from "next/link";
 import { SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
-import { getNews } from "@/api";
 import { BlocksContent } from "./BlocksContent";
 import dayjs from "dayjs";
 import { extractBlockText } from "@/utils";
 
 export async function NewsDetail({ documentId, section, slug, locale }: CmpProps) {
+  const api = createLocalizedApi(locale);
   const basePath = ['', locale, ...slug.slice(0, -1)].join('/')
-  const data = (await getNews({ 'filters[documentId][$eq]': documentId })).data?.[0]
+  const data = (await api.getNews({ 'filters[documentId][$eq]': documentId })).data?.[0]
 
   if (!data) {
     return <div className="py-30 text-3xl font-semibold text-center">News: {documentId} not found.</div>
@@ -20,13 +21,13 @@ export async function NewsDetail({ documentId, section, slug, locale }: CmpProps
 
   // Get next (newer) and previous (older) news by date
   const [nextItems, prevItems] = await Promise.all([
-    getNews({
+    api.getNews({
       'filters[documentId][$ne]': documentId,
       'filters[date][$gt]': currentDate,
       'pagination[pageSize]': 2,
       'sort[0]': 'date:asc',
     }),
-    getNews({
+    api.getNews({
       'filters[documentId][$ne]': documentId,
       'filters[date][$lt]': currentDate,
       'pagination[pageSize]': 2,

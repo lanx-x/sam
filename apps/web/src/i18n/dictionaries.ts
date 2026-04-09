@@ -1,6 +1,5 @@
 import en from "./dictionaries/en.json";
 import cn from "./dictionaries/cn.json";
-import type { Locale } from "./config";
 
 export const dictionaries = {
   en,
@@ -9,6 +8,6 @@ export const dictionaries = {
 
 export type Messages = (typeof dictionaries)[keyof typeof dictionaries];
 
-export async function getDictionary(locale: Locale): Promise<Messages> {
-  return dictionaries[locale] ?? dictionaries.en;
+export async function getDictionary(locale: string): Promise<Messages> {
+  return dictionaries[locale as keyof typeof dictionaries] ?? dictionaries.en;
 }

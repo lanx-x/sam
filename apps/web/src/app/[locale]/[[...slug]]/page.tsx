@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
-import { getPage, getPatternPages, getSite } from "@/api";
-import { getLocale } from "@/i18n";
+import { createLocalizedApi } from "@/api";
 import { logger } from "@/utils/logger";
 import { CmpMap } from "@/components";
 import { CommonSection, Site } from "cms-types";
+import { getRuntimeLocale } from "@/i18n/server";
 
 // TODO: 
 // export async function generateMetadata({
@@ -13,7 +13,8 @@ import { CommonSection, Site } from "cms-types";
 // }): Promise<Metadata> {
 //   const { locale: routeLocale, slug } = await params;
 //   const locale = getLocale(routeLocale);
-//   const page = await getPage(slug.join("/"), locale);
+//   const api = createLocalizedApi(locale);
+//   const page = await api.getPage({ slug: slug.join("/") });
 //
 //   if (!page) return {};
 //
@@ -29,12 +30,13 @@ export default async function CatchAllPage({ params, searchParams, }: { params: 
   const sp = await searchParams
   logger.debug('page params:', { locale: routeLocale, slug });
 
-  const site = await getSite()
-  const locale = getLocale(routeLocale)
+  const { locale } = await getRuntimeLocale(routeLocale);
+  const api = createLocalizedApi(locale);
+  const site = await api.getSite()
   const pageSlug = ['/', ...slug].join('/').replace(/^\/\//, '/')
 
   // 1. 只拿 slug 列表，判断是否命中 {{id}} 模式
-  const { data: patternPages } = await getPatternPages({ locale })
+  const { data: patternPages } = await api.getPatternPages()
   let matchedSlug: string | null = null
   let documentId: string | null = null
 
@@ -50,8 +52,8 @@ export default async function CatchAllPage({ params, searchParams, }: { params: 
 
   // 2. 命中模式页 → 请求模板页完整数据；否则精确查找
   const pageData = matchedSlug
-    ? (await getPage({ slug: matchedSlug, locale })).data[0]
-    : (await getPage({ slug: pageSlug, locale })).data[0]
+    ? (await api.getPage({ slug: matchedSlug })).data[0]
+    : (await api.getPage({ slug: pageSlug })).data[0]
 
   if (!pageData) {
     notFound();

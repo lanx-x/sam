@@ -1,18 +1,19 @@
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
+import { createLocalizedApi } from "@/api";
 import Image from "next/image";
 import { Section, SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
-import { getEquipment, getEquipmentCategory, getSurfaceFinish } from "@/api";
 import { mergeExtension } from "@/utils";
 import { Assets } from "@/assets";
 import { getEnabledCategories } from "trace_events";
 import { EquipmentClientList } from "./EquipmentClientList";
 import { BlocksContent } from "./BlocksContent";
 
-export async function EquipmentDetail({ documentId, section }: CmpProps) {
+export async function EquipmentDetail({ documentId, section, locale }: CmpProps) {
+  const api = createLocalizedApi(locale);
   const extension = mergeExtension(section)
 
-  const data = (await getEquipment({ 'filters[documentId][$eq]': documentId })).data?.[0]
+  const data = (await api.getEquipment({ 'filters[documentId][$eq]': documentId })).data?.[0]
 
   return (
     <div className="">

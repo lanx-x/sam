@@ -77,10 +77,11 @@ const standaloneItems = [
 
 type MenuProps = {
   locale: Locale;
+  defaultLocale: Locale;
   menu: Messages["menu"];
 };
 
-export function Menu({ locale, menu }: MenuProps) {
+export function Menu({ locale, defaultLocale, menu }: MenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [panelTop, setPanelTop] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -166,7 +167,7 @@ export function Menu({ locale, menu }: MenuProps) {
                   {group.items.map((item, idx) => (
                     <Link
                       key={idx}
-                      href={localizePath(locale, item.link)}
+                      href={localizePath(locale, item.link, defaultLocale)}
                       className="text-2xl font-semibold leading-none"
                       onClick={handleNavigate}
                     >
@@ -184,7 +185,7 @@ export function Menu({ locale, menu }: MenuProps) {
               {standaloneItems.map((item) => (
                 <Link
                   key={item.link}
-                  href={localizePath(locale, item.link)}
+                  href={localizePath(locale, item.link, defaultLocale)}
                   className="text-2xl font-semibold leading-none"
                   onClick={handleNavigate}
                 >
