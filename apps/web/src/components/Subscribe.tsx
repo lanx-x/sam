@@ -34,6 +34,7 @@ export function Subscribe({ className, label, placeholder }: Props) {
     setStatus('loading')
     try {
       await fetchStrapi('/subscribers', {
+        headers: { Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_FORM_TOKEN}` },
         method: 'POST',
         body: JSON.stringify({ data: { email } }),
       })

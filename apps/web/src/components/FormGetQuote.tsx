@@ -4,6 +4,7 @@ import { useState, useRef, useCallback, useEffect, type ComponentProps } from "r
 import { cn } from "@/utils/cn"
 import { Assets } from "@/assets";
 import Image from "next/image";
+import { fetchStrapi, getStrapiURL } from "@/utils/strapi";
 
 function Toast({ message, onDone }: { message: string; onDone: () => void }) {
   useEffect(() => {
@@ -41,20 +42,25 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
   })
   const [file, setFile] = useState<File | null>(null)
   const [dragOver, setDragOver] = useState(false)
-  const [invalidFile, setInvalidFile] = useState(false)
+  const [invalidFile, setInvalidFile] = useState<string | null>(null)
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [toast, setToast] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const ACCEPTED_FORMATS = '.zip,.rar,.7z,.tar,.gz,.bz2,.xz'
+  const MAX_FILE_SIZE = 10 * 1024 * 1024
   const isArchive = (f: File) => ACCEPTED_FORMATS.split(',').some(ext => f.name.toLowerCase().endsWith(ext.slice(1)))
 
   const setValidFile = (f: File | null) => {
     if (f && !isArchive(f)) {
-      setInvalidFile(true)
+      setInvalidFile('Only archive files are allowed (zip, rar, 7z, tar, gz, bz2, xz)')
       return
     }
-    setInvalidFile(false)
+    if (f && f.size > MAX_FILE_SIZE) {
+      setInvalidFile('File size must be under 10MB')
+      return
+    }
+    setInvalidFile(null)
     setFile(f)
   }
 
@@ -88,11 +94,14 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
 
   const removeFile = useCallback(() => {
     setFile(null)
-    setInvalidFile(false)
+    setInvalidFile(null)
   }, [])
 
+  const FORM_TOKEN = process.env.NEXT_PUBLIC_STRAPI_FORM_TOKEN!
+  const strapiHeaders = { Authorization: `Bearer ${FORM_TOKEN}` }
+
   const handleSubmit = async () => {
-    if (!form.name.trim() || !form.email.trim()) {
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       setStatus('error')
       return
     }
@@ -103,12 +112,42 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
 
     setStatus('loading')
     try {
-      // TODO: submit to API
+      let fileId: number | undefined
+
+      if (file) {
+        const fd = new FormData()
+        fd.append('files', file)
+        const uploadRes = await fetch(`${getStrapiURL()}/api/upload`, {
+          method: 'POST',
+          headers: strapiHeaders,
+          body: fd,
+        })
+        if (!uploadRes.ok) throw new Error('File upload failed')
+        const [uploaded] = await uploadRes.json()
+        fileId = uploaded.id
+      }
+
+      await fetchStrapi('/inquiries', {
+        method: 'POST',
+        headers: strapiHeaders,
+        body: JSON.stringify({
+          data: {
+            name: form.name,
+            email: form.email,
+            company: form.company || undefined,
+            phone: form.phone || undefined,
+            message: form.message,
+            relevant_drawings: fileId,
+          },
+        }),
+      })
+
       setToast('Submitted successfully!')
       setForm({ name: '', email: '', company: '', phone: '', message: '' })
       setFile(null)
-    } catch {
-      setToast('Submission failed, please try again.')
+    } catch (err: unknown) {
+      const msg = (err as { data?: { error?: { message?: string } } })?.data?.error?.message
+      setToast(msg ?? 'Submission failed, please try again.')
     } finally {
       setStatus('idle')
     }
@@ -136,6 +175,9 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
                 value={form.name}
                 onChange={e => updateField('name', e.target.value)}
               />
+              <div className="h-4">
+                {status === 'error' && !form.name.trim() && <p className="text-red-500 text-xs mt-1">Name is required</p>}
+              </div>
             </div>
             <div>
               <label className="block text-primary text-base mb-3">Company</label>
@@ -165,6 +207,11 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
                 value={form.email}
                 onChange={e => updateField('email', e.target.value)}
               />
+              <div className="h-4">
+                {status === 'error' && (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) && (
+                  <p className="text-red-500 text-xs mt-1">{!form.email.trim() ? 'Email is required' : 'Invalid email format'}</p>
+                )}
+              </div>
             </div>
             <div>
               <label className="block text-primary text-base mb-3">Phone</label>
@@ -194,85 +241,102 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
               value={form.message}
               onChange={e => updateField('message', e.target.value)}
             />
+            <div className="h-4">
+              {status === 'error' && !form.message.trim() && <p className="text-red-500 text-xs mt-1">Message is required</p>}
+            </div>
           </div>
 
           {/* Row 4: File Upload */}
           <div className="mt-5">
             <p className="text-primary text-base mb-3">Relevant Drawings (Optional):</p>
 
-            <div
-              className={cn(
-                "border border-dashed rounded flex flex-col items-center justify-center cursor-pointer transition-colors",
-                invalidFile ? 'border-red-400' : dragOver ? 'border-accent bg-blue-50/50' : 'border-[#dfdfdf]',
-                'min-h-50 xl:min-h-85 p-5',
-              )}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              onClick={() => fileInputRef.current?.click()}
-            >
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept={ACCEPTED_FORMATS}
-                className="hidden"
-                onChange={handleFileSelect}
-              />
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept={ACCEPTED_FORMATS}
+              className="hidden"
+              onChange={handleFileSelect}
+            />
 
-              {
-                file
-                  ? (
-                    <div className="flex flex-wrap gap-2 px-4 w-full">
-                      <div className="flex items-center gap-2 bg-[#f6f8fa] rounded px-3 py-1.5 text-sm text-primary">
-                        <span className="max-w-[180px] truncate">{file.name}</span>
-                        <button
-                          type="button"
-                          className="text-secondary hover:text-primary text-lg leading-none"
-                          onClick={e => { e.stopPropagation(); removeFile() }}
-                        >
-                          ×
-                        </button>
-                      </div>
-                    </div>)
-                  : (
-                    <div className="flex flex-col items-center justify-center">
-                      <Image src={Assets.Upload} alt="upload" width={64} height={64} className="w-16 h-16 object-cover" />
-                      <p className="text-primary text-xl xl:text-2xl mt-4 text-center">
-                        Drag & Drop Your Files Here
-                      </p>
-                      <p className="text-secondary text-sm xl:text-base text-center mt-2 px-4">
-                        Available file formats: zip, rar, 7z, tar, gz, bz2, xz
-                      </p>
+            {file ? (
+              <div className="flex items-center gap-4 border border-[#dfdfdf] rounded-lg px-4 py-3">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" className="shrink-0">
+                  <rect width="40" height="40" rx="8" fill="#EBF2FF" />
+                  <path d="M13 26V20C13 17.2 15.2 15 18 15H20M20 15L17 18M20 15L23 18" stroke="#0076ee" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <rect x="14" y="20" width="12" height="9" rx="2" stroke="#0076ee" strokeWidth="1.5" />
+                </svg>
+                <div className="flex-1 min-w-0">
+                  <p className="text-primary text-sm font-medium truncate">{file.name}</p>
+                  <p className="text-secondary text-xs mt-0.5">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    className="text-accent text-sm hover:underline"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    Change
+                  </button>
+                  <span className="text-[#dfdfdf]">|</span>
+                  <button
+                    type="button"
+                    className="text-red-400 text-sm hover:text-red-500"
+                    onClick={removeFile}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div
+                className={cn(
+                  "border border-dashed rounded-lg flex flex-col items-center justify-center cursor-pointer transition-colors",
+                  !!invalidFile ? 'border-red-400' : dragOver ? 'border-accent bg-blue-50/50' : 'border-[#dfdfdf] hover:border-accent',
+                  'min-h-50 xl:min-h-85 p-5',
+                )}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <Image src={Assets.Upload} alt="upload" width={64} height={64} className="w-16 h-16 object-cover" />
+                <p className="text-primary text-xl xl:text-2xl mt-4 text-center">
+                  Drag & Drop Your Files Here
+                </p>
+                <p className="text-secondary text-sm xl:text-base text-center mt-2 px-4">
+                  Available file formats: zip, rar, 7z, tar, gz, bz2, xz
+                </p>
 
-                      <div className="flex justify-center mt-13.5">
-                        <button
-                          type="button"
-                          className="border border-accent text-accent h-12 w-[200px] rounded text-base font-medium hover:bg-accent/5 transition-colors"
-                          onClick={() => fileInputRef.current?.click()}
-                        >
-                          Browse Files
-                        </button>
-                      </div>
-                    </div>)
-              }
+                <div className="flex justify-center mt-13.5">
+                  <button
+                    type="button"
+                    className="border border-accent text-accent h-12 w-[200px] rounded text-base font-medium hover:bg-accent/5 transition-colors"
+                    onClick={e => { e.stopPropagation(); fileInputRef.current?.click() }}
+                  >
+                    Browse Files
+                  </button>
+                </div>
+              </div>
+            )}
+            <div className="h-4">
+              {invalidFile && <p className="text-red-500 text-xs mt-1">{invalidFile}</p>}
             </div>
 
-          </div>
-
-          {/* Submit */}
-          <div className="mt-6 xl:mt-8">
-            <button
-              className="bg-accent text-white w-full h-14 rounded font-semibold text-lg disabled:opacity-50 hover:bg-accent/90 transition-colors"
-              disabled={status === 'loading'}
-              onClick={handleSubmit}
-            >
-              {status === 'loading' ? '...' : 'Submit'}
-            </button>
+            {/* Submit */}
+            <div className="mt-6 xl:mt-8">
+              <button
+                className="bg-accent text-white w-full h-14 rounded font-semibold text-lg disabled:opacity-50 hover:bg-accent/90 transition-colors"
+                disabled={status === 'loading'}
+                onClick={handleSubmit}
+              >
+                {status === 'loading' ? '...' : 'Submit'}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {toast && <Toast message={toast} onDone={() => setToast(null)} />}
+        {toast && <Toast message={toast} onDone={() => setToast(null)} />}
+      </div>
     </div>
   )
 }
