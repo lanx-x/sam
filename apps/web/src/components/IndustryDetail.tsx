@@ -6,6 +6,7 @@ import { BlocksContent } from "./BlocksContent";
 import { Section, SectionContainer } from "./Section";
 import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import { mergeExtension } from "@/utils";
+import { ActionButton } from "./ActionButton";
 
 export async function IndustryDetail({ documentId, section, site }: CmpProps) {
   const data = (await getIndustry({ 'filters[documentId][$eq]': documentId })).data?.[0]
@@ -24,9 +25,7 @@ export async function IndustryDetail({ documentId, section, site }: CmpProps) {
           <div className="mt-14 flex flex-col gap-5 xl:flex-row">
             {
               section.payload?.actions?.map((xs, idx) => (
-                <button
-                  key={idx}
-                  className="h-13 flex items-center justify-center xl:w-50 xl:px-8 first:bg-accent first:text-white text-base font-medium">{xs.label}</button>
+                <ActionButton key={idx} action={xs} className="h-13 xl:w-50 xl:px-8 first:bg-accent first:text-white text-base font-medium" />
               ))
             }
           </div>

@@ -6,6 +6,7 @@ import { BlocksContent } from "./BlocksContent";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { SectionContainer, SectionHeaderRowDir } from "./Section";
 import { SurfaceTreatmentItem } from "./FeaturedSurfaceTreatment";
+import { ActionButton } from "./ActionButton";
 
 export async function MaterialDetail({ documentId, section }: CmpProps) {
   const data = (await getMaterial({ 'filters[documentId][$eq]': documentId })).data?.[0]
@@ -29,8 +30,8 @@ export async function MaterialDetail({ documentId, section }: CmpProps) {
 
               <div className="mt-11.25 flex flex-col xl:flex-row gap-5">
                 {
-                  [1, 2].map((xs, idx) => (
-                    <button key={idx} className="xl:min-w-50 text-base font-medium bg-accent rounded-sm px-10 py-4 text-white">Get a Free Quote</button>
+                  section.payload?.actions?.map((xs, idx) => (
+                    <ActionButton key={idx} action={xs} className="xl:min-w-50 text-base font-medium bg-accent rounded-sm px-10 py-4 text-white" />
                   ))
                 }
 

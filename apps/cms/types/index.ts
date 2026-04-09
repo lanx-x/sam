@@ -49,4 +49,6 @@ export type Site = StrapiDocument<"api::site.site">;
 export type Navigation = StrapiDocument<"api::navigation.navigation">;
 export type Broadcast = StrapiDocument<"api::broadcast.broadcast">;
 
+export type Action = StrapiDocument<"api::action.action">;
+
 export type CommonSection = StrapiComponent<"section.common-section">;

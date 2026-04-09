@@ -56,36 +56,11 @@
         "popup"
       ]
     },
-    "target_page": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::page.page",
-      "conditions": {
-        "visible": {
-          "==": [
-            {
-              "var": "target_type"
-            },
-            "internal_page"
-          ]
-        }
-      }
-    },
     "target_url": {
       "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true
-        }
-      },
-      "conditions": {
-        "visible": {
-          "==": [
-            {
-              "var": "target_type"
-            },
-            "external_url"
-          ]
         }
       }
     }

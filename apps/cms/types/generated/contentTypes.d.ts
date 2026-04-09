@@ -472,7 +472,6 @@ export interface ApiActionAction extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::action.action'>;
     publishedAt: Schema.Attribute.DateTime;
-    target_page: Schema.Attribute.Relation<'oneToOne', 'api::page.page'>;
     target_type: Schema.Attribute.Enumeration<
       ['internal_page', 'external_url', 'popup']
     > &

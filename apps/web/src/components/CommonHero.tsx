@@ -2,6 +2,7 @@ import { collectExtend } from "@/utils";
 import { getStrapiMedia, } from "@/utils/strapi";
 import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
+import { ActionButton } from "./ActionButton";
 
 export function CommonHero({ section }: CmpProps) {
   const extension = collectExtend(section.extension as any)
@@ -21,8 +22,7 @@ export function CommonHero({ section }: CmpProps) {
           <div className="flex flex-col mt-10 xl:flex-row xl:absolute xl:left-0 xl:bottom-0">
             {
               section.payload?.actions?.map((xs, idx) => (
-
-                <button key={idx} className="bg-primary first:bg-accent rounded-sm text-white h-13 mb-4 xl:mb-0 xl:mr-5 xl:w-50 xl:aspect-200/52 truncate xl:px-4">{xs.label}</button>
+                <ActionButton key={idx} className="bg-primary first:bg-accent rounded-sm text-white h-13 mb-4 xl:mb-0 xl:mr-5 xl:w-50 xl:aspect-200/52 truncate xl:px-4" action={xs} />
               ))
             }
           </div>

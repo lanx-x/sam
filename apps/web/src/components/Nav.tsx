@@ -10,6 +10,7 @@ import { getStrapiMedia } from "@/utils/strapi";
 import type { Navigation, PageData, Site } from "cms-types";
 import type { StrapiComponent } from "cms-types";
 import { getHref, withLang } from "@/utils";
+import { ActionButton } from "./ActionButton";
 
 export type NavGrouptItem = NonNullable<Navigation["value"]>[number];
 export type NavChildItem = NonNullable<NonNullable<NavGrouptItem["children"]>>[number];
@@ -217,8 +218,7 @@ export function DesktopNav(props: { data: Navigation, site: Site, lang: string }
             })}
 
             {
-              data.action && <Link href={withLang(lang, getHref(data.action))} className="bg-accent text-white text-sm font-medium rounded-sm px-10 h-12 flex items-center justify-center transition-opacity hover:opacity-90">{data.action.label}</Link>
-
+              data.action && <ActionButton lang={lang} action={data.action} className="bg-accent text-white text-sm font-medium rounded-sm px-10 h-12 flex items-center justify-center transition-opacity hover:opacity-90" />
 
             }
           </div>

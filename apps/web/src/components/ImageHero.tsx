@@ -2,6 +2,7 @@ import { mergeExtension } from "@/utils";
 import { getStrapiMedia, getStrapiURL } from "@/utils/strapi";
 import { CmpProps } from "@/app/[lang]/[[...slug]]/page";
 import Image from "next/image";
+import { ActionButton } from "./ActionButton";
 
 export function ImageHero({ section }: CmpProps) {
   const extension = mergeExtension(section)
@@ -15,7 +16,7 @@ export function ImageHero({ section }: CmpProps) {
         <div className="flex flex-col my-10 xl:flex-row xl:justify-center">
           {
             section.payload?.actions?.map((xs, idx) => (
-              <button key={idx} className="bg-primary first:bg-accent rounded-sm text-white h-13 mb-4 xl:mb-0 xl:mr-5 xl:w-50 xl:aspect-200/52 truncate xl:px-4">{xs.label}</button>
+              <ActionButton key={idx} action={xs} className="bg-primary first:bg-accent rounded-sm text-white h-13 mb-4 xl:mb-0 xl:mr-5 xl:w-50 xl:aspect-200/52 truncate xl:px-4" />
             ))
           }
         </div>
