@@ -158,24 +158,39 @@ export async function getBroadcast(params: { [key: string]: any } = {}) {
   })
 }
 
+function bindLocale<TParams extends { [key: string]: any }, TResult>(
+  locale: Locale,
+  apiFn: (params: TParams) => TResult,
+  defaultParams: TParams,
+) {
+  return (params: TParams = defaultParams) => apiFn({ ...params, locale });
+}
+
+function bindLocaleForDocument<TParams extends { [key: string]: any }, TResult>(
+  locale: Locale,
+  apiFn: (documentId: string, params?: TParams) => TResult,
+  defaultParams: TParams,
+) {
+  return (documentId: string, params: TParams = defaultParams) => apiFn(documentId, { ...params, locale });
+}
+
 export function createLocalizedApi(locale: Locale) {
   return {
-    getPage: (payload: { [key: string]: any }) => getPage({ ...payload, locale }),
-    getPatternPages: (payload: { [key: string]: any } = {}) => getPatternPages({ ...payload, locale }),
-    getSurfaceTreatment: (params: { [key: string]: any } = {}) => getSurfaceTreatment({ ...params, locale }),
-    getEquipment: (params: { [key: string]: any } = {}) => getEquipment({ ...params, locale }),
-    getEquipmentCategory: (params: { [key: string]: any } = {}) => getEquipmentCategory({ ...params, locale }),
-    getNews: (params: { [key: string]: any } = {}) => getNews({ ...params, locale }),
-    getNewsCategory: (params: { [key: string]: any } = {}) => getNewsCategory({ ...params, locale }),
-    getVideo: (params: { [key: string]: any } = {}) => getVideo({ ...params, locale }),
-    getMaterial: (params: { [key: string]: any } = {}) => getMaterial({ ...params, locale }),
-    getMaterialCategory: (params: { [key: string]: any } = {}) => getMaterialCategory({ ...params, locale }),
-    getIndustry: (params: { [key: string]: any } = {}) => getIndustry({ ...params, locale }),
-    getSite: (params: { [key: string]: any } = {}) => getSite({ ...params, locale }),
-    getNavigation: (documentId: string, params: { [key: string]: any } = {}) => getNavigation(documentId, { ...params, locale }),
-
-    getCaseStudy: (params: { [key: string]: any } = {}) => getCaseStudy({ ...params, locale }),
-    getBroadcast: (params: { [key: string]: any } = {}) => getBroadcast({ ...params, locale }),
+    getPage: bindLocale(locale, getPage, {} as { [key: string]: any }),
+    getPatternPages: bindLocale(locale, getPatternPages, {}),
+    getSurfaceTreatment: bindLocale(locale, getSurfaceTreatment, {}),
+    getEquipment: bindLocale(locale, getEquipment, {}),
+    getEquipmentCategory: bindLocale(locale, getEquipmentCategory, {}),
+    getNews: bindLocale(locale, getNews, {}),
+    getNewsCategory: bindLocale(locale, getNewsCategory, {}),
+    getVideo: bindLocale(locale, getVideo, {}),
+    getMaterial: bindLocale(locale, getMaterial, {}),
+    getMaterialCategory: bindLocale(locale, getMaterialCategory, {}),
+    getIndustry: bindLocale(locale, getIndustry, {}),
+    getSite: bindLocale(locale, getSite, {}),
+    getNavigation: bindLocaleForDocument(locale, getNavigation, {}),
+    getCaseStudy: bindLocale(locale, getCaseStudy, {}),
+    getBroadcast: bindLocale(locale, getBroadcast, {}),
   };
 }
 

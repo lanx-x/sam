@@ -14,7 +14,6 @@ export async function handleI18nProxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  console.log("###### pathname ", pathname)
   const segments = pathname.split("/").filter(Boolean);
   const firstSegment = segments[0];
 
@@ -22,19 +21,10 @@ export async function handleI18nProxy(request: NextRequest) {
   const defaultLocale = getDefaultLocale(localeList);
 
   if (firstSegment && isLocale(firstSegment, localeList)) {
-    if (firstSegment === defaultLocale) {
-      const redirectUrl = request.nextUrl.clone();
-      const normalizedPath = segments.slice(1).join("/");
-      redirectUrl.pathname = normalizedPath === "" ? "/" : `/${normalizedPath}`;
-      return NextResponse.redirect(redirectUrl);
-    }
-
     return NextResponse.next();
   }
 
-  const rewriteUrl = request.nextUrl.clone();
-  rewriteUrl.pathname = `/${defaultLocale}${pathname === "/" ? "" : pathname}`;
-
-  console.log("######### rewrite to ", rewriteUrl.pathname)
-  return NextResponse.rewrite(rewriteUrl);
+  const redirectUrl = request.nextUrl.clone();
+  redirectUrl.pathname = `/${defaultLocale}/${pathname}`.replaceAll(/\/\//g, '/');
+  return NextResponse.redirect(redirectUrl);
 }
