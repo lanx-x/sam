@@ -74,10 +74,10 @@ export function MainHero({ section, lang }: CmpProps) {
           </p>
         </div>
 
-        <div className="flex mt-20 pb-29 flex-row justify-between xl:pb-34.5 xl:justify-start xl:mt-10">
+        <div className="flex mt-20 pb-29 flex-row gap-3 xl:gap-5 xl:pb-34.5 xl:justify-start xl:mt-10">
           {
             section.payload?.actions?.map(xs => (
-              <ActionButton lang={lang} key={xs.id} action={xs} className="w-16/35 h-12 flex items-center justify-center bg-white first:bg-accent rounded-sm first:text-white text-primary font-medium truncate xl:w-50 xl:h-13 xl:mr-5 xl:text-base" />
+              <ActionButton lang={lang} key={xs.id} action={xs} className="w-full h-12 flex items-center justify-center bg-white first:bg-accent rounded-sm first:text-white text-primary font-medium truncate xl:w-50 xl:h-13 xl:mr-5 xl:text-base" />
             ))
           }
         </div>

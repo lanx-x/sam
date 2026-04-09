@@ -829,6 +829,44 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiInquiryInquiry extends Struct.CollectionTypeSchema {
+  collectionName: 'inquiries';
+  info: {
+    displayName: 'Inquiry';
+    pluralName: 'inquiries';
+    singularName: 'inquiry';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: false;
+    };
+  };
+  attributes: {
+    company: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::inquiry.inquiry'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text;
+    name: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    relevant_drawings: Schema.Attribute.Media<'files'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMaterialCategoryMaterialCategory
   extends Struct.CollectionTypeSchema {
   collectionName: 'material_categories';
@@ -2227,6 +2265,7 @@ declare module '@strapi/strapi' {
       'api::equipment.equipment': ApiEquipmentEquipment;
       'api::faq.faq': ApiFaqFaq;
       'api::industry.industry': ApiIndustryIndustry;
+      'api::inquiry.inquiry': ApiInquiryInquiry;
       'api::material-category.material-category': ApiMaterialCategoryMaterialCategory;
       'api::material.material': ApiMaterialMaterial;
       'api::navigation.navigation': ApiNavigationNavigation;
