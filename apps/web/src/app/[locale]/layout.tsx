@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+
+export const metadata: Metadata = {
+  icons: {
+    icon: "/favicon.svg",
+  },
+};
 import { Broadcast } from "@/components/Broadcast";
 import { Nav } from "@/components/Nav";
 import { createLocalizedApi, globalApi } from "@/api";
