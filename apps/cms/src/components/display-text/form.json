@@ -49,6 +49,9 @@
     },
     "invalid_tips": {
       "type": "string"
+    },
+    "relevant_drawings": {
+      "type": "string"
     }
   },
   "config": {}

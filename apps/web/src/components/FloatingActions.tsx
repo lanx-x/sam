@@ -5,7 +5,7 @@ import { Assets } from "@/assets"
 import Image from "next/image"
 import { Site } from "cms-types"
 
-export function FloatingActions({ site }: { site: Site }) {
+export function FloatingActions({ siteData }: { siteData: Site }) {
   const [showTop, setShowTop] = useState(false)
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export function FloatingActions({ site }: { site: Site }) {
 
         <div className="mx-2.5 border-b border-[#efefef] my-5"></div>
         <a
-          href={`mailto:${site.email?.[0]?.value}`}
+          href={`mailto:${siteData.email?.[0]?.value}`}
           className="flex flex-col items-center justify-center transition-transform hover:scale-110"
         >
           <Image className="w-6 h-6" src={Assets.EmailBlue} alt="Email" width={24} height={24} />

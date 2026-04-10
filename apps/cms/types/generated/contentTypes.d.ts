@@ -1001,6 +1001,18 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    applications_desc: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    applications_title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     category: Schema.Attribute.Relation<
       'oneToOne',
       'api::material-category.material-category'
@@ -1074,6 +1086,18 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    pros_cons_desc: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    pros_cons_title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     specification: Schema.Attribute.Component<
       'item.material-specification-item',
@@ -1088,6 +1112,18 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
       'oneToOne',
       'api::quality-level.quality-level'
     >;
+    surface_treatment_options_desc: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    surface_treatment_options_title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     surface_treatments: Schema.Attribute.Relation<
       'manyToMany',
       'api::surface-treatment.surface-treatment'

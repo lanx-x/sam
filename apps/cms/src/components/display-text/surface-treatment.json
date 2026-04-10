@@ -16,6 +16,9 @@
     },
     "applicable_materials": {
       "type": "string"
+    },
+    "specifications": {
+      "type": "string"
     }
   },
   "config": {}

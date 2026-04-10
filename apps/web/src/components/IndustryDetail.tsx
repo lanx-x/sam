@@ -8,7 +8,7 @@ import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { mergeExtension } from "@/utils";
 import { ActionButton } from "./ActionButton";
 
-export async function IndustryDetail({ documentId, section, site, locale }: CmpProps) {
+export async function IndustryDetail({ documentId, section, locale }: CmpProps) {
   const api = createLocalizedApi(locale);
   const data = (await api.getIndustry({ 'filters[documentId][$eq]': documentId })).data?.[0]
 

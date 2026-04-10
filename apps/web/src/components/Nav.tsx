@@ -15,8 +15,13 @@ export type NavBasicItem = NonNullable<NonNullable<NavChildItem['children']>>[nu
 
 const getChild = (type: NavChildItem['type'], group: NavGrouptItem) => group.children?.find(xs => xs.type === type)
 
+type NavProps = {
+  data: Navigation,
+  siteData: Site,
+  locale: string
+}
 
-export function Nav(props: { data: Navigation, site: Site, locale: string }) {
+export function Nav(props: NavProps) {
   const [stuck, setStuck] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
@@ -48,8 +53,8 @@ export function Nav(props: { data: Navigation, site: Site, locale: string }) {
 }
 
 
-export function MobileNav(props: { data: Navigation, site: Site, locale: string }) {
-  const { data, site, locale } = props;
+export function MobileNav(props: NavProps) {
+  const { data, siteData, locale } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -87,8 +92,8 @@ export function MobileNav(props: { data: Navigation, site: Site, locale: string 
     <div className="relative">
       <nav ref={navRef} className="flex flex-row bg-white h-15 items-center px-5">
         <Link href={withLocalePath(locale, "/")} className="flex items-center gap-2 shrink-0 flex-1">
-          <Image src={getStrapiMedia(site.logo_with_text) ?? ""} width={160} height={40} alt="logo" className="w-40 h-10 hidden xl:block" />
-          <Image src={getStrapiMedia(site.logo) ?? ""} width={40} height={40} alt="logo" className="w-10 h-10 xl:hidden" />
+          <Image src={getStrapiMedia(siteData.logo_with_text) ?? ""} width={160} height={40} alt="logo" className="w-40 h-10 hidden xl:block" />
+          <Image src={getStrapiMedia(siteData.logo) ?? ""} width={40} height={40} alt="logo" className="w-10 h-10 xl:hidden" />
         </Link>
 
         <button ref={buttonRef} type="button" aria-label={isOpen ? "Close menu" : "Open menu"} onClick={handleToggle}>
@@ -162,8 +167,8 @@ export function MobileNav(props: { data: Navigation, site: Site, locale: string 
 }
 
 
-export function DesktopNav(props: { data: Navigation, site: Site, locale: string }) {
-  const { data, site, locale } = props;
+export function DesktopNav(props: NavProps) {
+  const { data, siteData, locale } = props;
   const groups = data.value ?? [];
   const [openKey, setOpenKey] = useState<string | null>(null);
   const [activeChild, setActiveChild] = useState(0);
@@ -413,7 +418,7 @@ export function DesktopNav(props: { data: Navigation, site: Site, locale: string
                                 <p className="capitalize mr-1">{xs}: </p>
                                 <div>
                                   {
-                                    site[xs]?.map(item => (
+                                    siteData[xs]?.map(item => (
                                       <p key={item.id} className="">{xs === 'email' ? <a href={`mailto:${item.value}`} className="hover:text-white transition-colors">{item.value}</a> : item.value}</p>
                                     ))
                                   }

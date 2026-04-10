@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-04-10T01:38:23.873Z"
+    "x-generation-date": "2026-04-10T03:42:32.344Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -22688,6 +22688,24 @@
               "typical_applications": {
                 "type": "string"
               },
+              "surface_treatment_options_title": {
+                "type": "string"
+              },
+              "surface_treatment_options_desc": {
+                "type": "string"
+              },
+              "pros_cons_title": {
+                "type": "string"
+              },
+              "pros_cons_desc": {
+                "type": "string"
+              },
+              "applications_title": {
+                "type": "string"
+              },
+              "applications_desc": {
+                "type": "string"
+              },
               "locale": {
                 "type": "string"
               },
@@ -25956,6 +25974,24 @@
                       "typical_applications": {
                         "type": "string"
                       },
+                      "surface_treatment_options_title": {
+                        "type": "string"
+                      },
+                      "surface_treatment_options_desc": {
+                        "type": "string"
+                      },
+                      "pros_cons_title": {
+                        "type": "string"
+                      },
+                      "pros_cons_desc": {
+                        "type": "string"
+                      },
+                      "applications_title": {
+                        "type": "string"
+                      },
+                      "applications_desc": {
+                        "type": "string"
+                      },
                       "createdAt": {
                         "type": "string",
                         "format": "date-time"
@@ -26289,6 +26325,24 @@
             }
           },
           "typical_applications": {
+            "type": "string"
+          },
+          "surface_treatment_options_title": {
+            "type": "string"
+          },
+          "surface_treatment_options_desc": {
+            "type": "string"
+          },
+          "pros_cons_title": {
+            "type": "string"
+          },
+          "pros_cons_desc": {
+            "type": "string"
+          },
+          "applications_title": {
+            "type": "string"
+          },
+          "applications_desc": {
             "type": "string"
           },
           "createdAt": {
@@ -36219,6 +36273,9 @@
           },
           "invalid_tips": {
             "type": "string"
+          },
+          "relevant_drawings": {
+            "type": "string"
           }
         }
       },
@@ -36302,6 +36359,9 @@
             "type": "string"
           },
           "applicable_materials": {
+            "type": "string"
+          },
+          "specifications": {
             "type": "string"
           }
         }
@@ -40427,6 +40487,24 @@
                   }
                 },
                 "typical_applications": {
+                  "type": "string"
+                },
+                "surface_treatment_options_title": {
+                  "type": "string"
+                },
+                "surface_treatment_options_desc": {
+                  "type": "string"
+                },
+                "pros_cons_title": {
+                  "type": "string"
+                },
+                "pros_cons_desc": {
+                  "type": "string"
+                },
+                "applications_title": {
+                  "type": "string"
+                },
+                "applications_desc": {
                   "type": "string"
                 },
                 "createdAt": {

@@ -31,7 +31,7 @@ const getPageData = cache(async (routeLocale: string, slug: string[]) => {
     ? (await api.getPage({ slug: matchedSlug })).data[0]
     : (await api.getPage({ slug: pageSlug })).data[0];
 
-  return { locale, site, pageData, documentId };
+  return { locale, siteData: site.data, pageData, documentId };
 });
 
 export async function generateMetadata({
@@ -40,15 +40,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string[] }>;
 }): Promise<Metadata> {
   const { locale: routeLocale, slug = [] } = await params;
-  const { pageData, site } = await getPageData(routeLocale, slug);
+  const { pageData, siteData } = await getPageData(routeLocale, slug);
 
   if (!pageData) return {};
 
   const seo = pageData.seo as { title?: string; desc?: string } | null;
-  const siteName = site.data?.name;
 
   return {
-    title: seo?.title ? `${seo.title} — ${siteName}` : siteName,
+    title: seo?.title ? `${seo.title} — ${siteData.name}` : siteData.name,
     description: seo?.desc,
   };
 }
@@ -58,7 +57,7 @@ export default async function CatchAllPage({ params, searchParams }: { params: P
   const sp = await searchParams;
   logger.debug('page params:', { locale: routeLocale, slug });
 
-  const { locale, site, pageData, documentId } = await getPageData(routeLocale, slug);
+  const { locale, siteData, pageData, documentId } = await getPageData(routeLocale, slug);
 
   if (!pageData) {
     notFound();
@@ -82,7 +81,7 @@ export default async function CatchAllPage({ params, searchParams }: { params: P
 
           return <Cmp
             key={idx}
-            site={site}
+            siteData={siteData}
             section={section}
             documentId={documentId}
             searchParams={sp}
@@ -95,7 +94,7 @@ export default async function CatchAllPage({ params, searchParams }: { params: P
 }
 
 export type CmpProps = {
-  site: Site,
+  siteData: Site,
   section: CommonSection,
   documentId: string | null,
   searchParams: { [key: string]: string | string[] | undefined },

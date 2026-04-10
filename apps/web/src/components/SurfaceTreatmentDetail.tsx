@@ -7,10 +7,12 @@ import { createLocalizedApi } from "@/api"
 import { CommonSection } from "cms-types"
 
 export async function SurfaceTreatmentDetail(props: CmpProps) {
-  const { documentId, section, locale } = props
+  const { documentId, section, locale, siteData } = props
 
   const api = createLocalizedApi(locale);
   const data = (await api.getSurfaceTreatment({ 'filters[documentId][$eq]': documentId }))?.data?.[0]
+
+  const displayText = siteData.display_text?.surface_treatment
 
   if (!data) {
     return <div className="py-30 text-3xl font-semibold text-center">Surface finish: {documentId} not found.</div>
@@ -50,7 +52,7 @@ export async function SurfaceTreatmentDetail(props: CmpProps) {
           </div>
 
           <div className="mt-20 xl:mt-39 px-5 xl:px-0">
-            <p className="leading-none text-[32px] xl:text-5xl font-semibold">{data.name} Specifications</p>
+            <p className="leading-none text-[32px] xl:text-5xl font-semibold">{data.name} {displayText?.specifications ?? 'Specifications'}</p>
 
             <div className="hidden xl:block">
               <div className={`${share} py-6`}>
@@ -68,22 +70,22 @@ export async function SurfaceTreatmentDetail(props: CmpProps) {
 
             <div className="xl:hidden flex flex-col mb-10 mt-13.75">
               <div className={`${mobileShare} border-t border-t-[#bfbfbf]`}>
-                <span className="text-base text-secondary font-bold">Surface Finishes</span>
+                <span className="text-base text-secondary font-bold">{displayText?.surface_treatment ?? 'Surface Finishes'}</span>
                 <div className="flex items-center">
                   <Image width={80} height={80} className="object-cover" src={getStrapiMedia(data.icon) ?? ""} alt="icon" />
                   <span className="text-base font-bold">{data.name}</span>
                 </div>
               </div>
               <div className={`${mobileShare}`}>
-                <span className="text-sm text-secondary font-bold">Description</span>
+                <span className="text-sm text-secondary font-bold">{displayText?.desc ?? 'Description'}</span>
                 <span className="text-base">{data.desc}</span>
               </div>
               <div className={`${mobileShare}`}>
-                <span className="text-sm text-secondary font-bold">Services</span>
+                <span className="text-sm text-secondary font-bold">{displayText?.services ?? 'Services'}</span>
                 <span className="text-base">{data.services}</span>
               </div>
               <div className={`${mobileShare}`}>
-                <span className="text-sm text-secondary font-bold">Applicable Materials</span>
+                <span className="text-sm text-secondary font-bold">{displayText?.applicable_materials ?? 'Applicable Materials'}</span>
                 <span className="text-base">{data.materials?.map(xs => xs.name).join(', ')}</span>
               </div>
             </div>

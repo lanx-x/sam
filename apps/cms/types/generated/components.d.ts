@@ -39,6 +39,7 @@ export interface DisplayTextForm extends Struct.ComponentSchema {
     message: Schema.Attribute.String;
     name: Schema.Attribute.String;
     phone: Schema.Attribute.String;
+    relevant_drawings: Schema.Attribute.String;
     remove: Schema.Attribute.String;
     required_tips: Schema.Attribute.String;
     submit: Schema.Attribute.String;
@@ -82,6 +83,7 @@ export interface DisplayTextSurfaceTreatment extends Struct.ComponentSchema {
     applicable_materials: Schema.Attribute.String;
     desc: Schema.Attribute.String;
     services: Schema.Attribute.String;
+    specifications: Schema.Attribute.String;
     surface_treatment: Schema.Attribute.String;
   };
 }

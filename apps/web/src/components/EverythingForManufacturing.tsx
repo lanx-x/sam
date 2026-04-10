@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getStrapiMedia } from "@/utils/strapi";
 import { Assets } from "@/assets";
 import { collectExtend, mergeExtension } from "@/utils";
+import { ActionButton } from "./ActionButton";
 
 export function EverythingForManufacturing({ section }: CmpProps) {
   const extension = mergeExtension(section)
@@ -33,7 +34,7 @@ export function EverythingForManufacturing({ section }: CmpProps) {
 
                   {
                     xs.actions?.map(action => (
-                      <button key={action.id} className="w-full px-10 mt-9 mb-5 h-13 bg-accent text-white xl:w-auto text-base font-medium">{action.label}</button>
+                      <ActionButton key={action.id} action={action} className="w-full px-10 mt-9 mb-5 h-13 bg-accent text-white xl:w-auto text-base font-medium" />
                     ))
                   }
 

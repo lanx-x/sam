@@ -20,7 +20,7 @@ function Toast({ message, onDone }: { message: string; onDone: () => void }) {
   )
 }
 
-export function FormGetQuote({ section, site }: CmpProps) {
+export function FormGetQuote({ section, siteData }: CmpProps) {
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -28,6 +28,7 @@ export function FormGetQuote({ section, site }: CmpProps) {
     phone: '',
     message: '',
   })
+
   const [file, setFile] = useState<File | null>(null)
   const [dragOver, setDragOver] = useState(false)
   const [invalidFile, setInvalidFile] = useState<string | null>(null)
@@ -88,6 +89,8 @@ export function FormGetQuote({ section, site }: CmpProps) {
   const FORM_TOKEN = process.env.NEXT_PUBLIC_STRAPI_FORM_TOKEN!
   const strapiHeaders = { 'Content-Type': 'application/json', Authorization: `Bearer ${FORM_TOKEN}` }
 
+  const displayText = siteData?.display_text?.form
+
   const handleSubmit = async () => {
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       setStatus('error')
@@ -134,16 +137,17 @@ export function FormGetQuote({ section, site }: CmpProps) {
         throw new Error(errData?.error?.message || `Request failed (${res.status})`);
       }
 
-      setToast('Submitted successfully!')
+      setToast(displayText?.success_tips ?? 'Submitted successfully!')
       setForm({ name: '', email: '', company: '', phone: '', message: '' })
       setFile(null)
     } catch (err: unknown) {
       const msg = (err as { data?: { error?: { message?: string } } })?.data?.error?.message
-      setToast(msg ?? 'Submission failed, please try again.')
+      setToast(msg || displayText?.fail_tips || 'Submission failed, please try again.')
     } finally {
       setStatus('idle')
     }
   }
+
 
   return (
     <div className={cn("bg-[#f6f8fa]")}>
@@ -156,26 +160,24 @@ export function FormGetQuote({ section, site }: CmpProps) {
             <div>
               <label className="flex items-center gap-1 text-primary text-base mb-3">
                 <span className="text-red-500">*</span>
-                {site.display_text?.form?.name ?? "x"}
+                {displayText?.name ?? "x"}
               </label>
               <input
                 className={cn(
                   "w-full h-12 border border-[#dfdfdf] rounded px-3 text-primary placeholder:text-secondary outline-none",
                   status === 'error' && !form.name.trim() && 'border-red-400'
                 )}
-                placeholder="Your name"
                 value={form.name}
                 onChange={e => updateField('name', e.target.value)}
               />
               <div className="h-4">
-                {status === 'error' && !form.name.trim() && <p className="text-red-500 text-xs mt-1">Name is required</p>}
+                {status === 'error' && !form.name.trim() && <p className="text-red-500 text-xs mt-1">{displayText?.required_tips}</p>}
               </div>
             </div>
             <div>
-              <label className="block text-primary text-base mb-3">Company</label>
+              <label className="block text-primary text-base mb-3">{displayText?.company ?? 'Company'}</label>
               <input
                 className="w-full h-12 border border-[#dfdfdf] rounded px-3 text-primary placeholder:text-secondary outline-none"
-                placeholder="Your company"
                 value={form.company}
                 onChange={e => updateField('company', e.target.value)}
               />
@@ -187,7 +189,7 @@ export function FormGetQuote({ section, site }: CmpProps) {
             <div>
               <label className="flex items-center gap-1 text-primary text-base mb-3">
                 <span className="text-red-500">*</span>
-                Email
+                {displayText?.email ?? "Email"}
               </label>
               <input
                 className={cn(
@@ -195,22 +197,20 @@ export function FormGetQuote({ section, site }: CmpProps) {
                   status === 'error' && (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) && 'border-red-400'
                 )}
                 type="email"
-                placeholder="Your email"
                 value={form.email}
                 onChange={e => updateField('email', e.target.value)}
               />
               <div className="h-4">
                 {status === 'error' && (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) && (
-                  <p className="text-red-500 text-xs mt-1">{!form.email.trim() ? 'Email is required' : 'Invalid email format'}</p>
+                  <p className="text-red-500 text-xs mt-1">{!form.email.trim() ? displayText?.required_tips : displayText?.invalid_tips}</p>
                 )}
               </div>
             </div>
             <div>
-              <label className="block text-primary text-base mb-3">Phone</label>
+              <label className="block text-primary text-base mb-3">{displayText?.phone}</label>
               <input
                 className="w-full h-12 border border-[#dfdfdf] rounded px-3 text-primary placeholder:text-secondary outline-none"
                 type="tel"
-                placeholder="Your phone number"
                 value={form.phone}
                 onChange={e => updateField('phone', e.target.value)}
               />
@@ -221,7 +221,7 @@ export function FormGetQuote({ section, site }: CmpProps) {
           <div className="mt-5">
             <label className="flex items-center gap-1 text-primary text-base mb-3">
               <span className="text-red-500">*</span>
-              Message
+              {displayText?.message ?? "Message"}
             </label>
             <textarea
               className={cn(
@@ -229,18 +229,17 @@ export function FormGetQuote({ section, site }: CmpProps) {
                 "h-24 xl:h-12",
                 status === 'error' && !form.message.trim() && 'border-red-400'
               )}
-              placeholder="Your message"
               value={form.message}
               onChange={e => updateField('message', e.target.value)}
             />
             <div className="h-4">
-              {status === 'error' && !form.message.trim() && <p className="text-red-500 text-xs mt-1">Message is required</p>}
+              {status === 'error' && !form.message.trim() && <p className="text-red-500 text-xs mt-1">{displayText?.required_tips}</p>}
             </div>
           </div>
 
           {/* Row 4: File Upload */}
           <div className="mt-5">
-            <p className="text-primary text-base mb-3">Relevant Drawings (Optional):</p>
+            <p className="text-primary text-base mb-3">{displayText?.relevant_drawings ?? 'Relevant Drawings (Optional):'}</p>
 
             <input
               ref={fileInputRef}
@@ -267,7 +266,7 @@ export function FormGetQuote({ section, site }: CmpProps) {
                     className="text-accent text-sm hover:underline"
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    Change
+                    {displayText?.change ?? "Change"}
                   </button>
                   <span className="text-[#dfdfdf]">|</span>
                   <button
@@ -275,7 +274,7 @@ export function FormGetQuote({ section, site }: CmpProps) {
                     className="text-red-400 text-sm hover:text-red-500"
                     onClick={removeFile}
                   >
-                    Remove
+                    {displayText?.remove ?? "Remove"}
                   </button>
                 </div>
               </div>
@@ -293,19 +292,18 @@ export function FormGetQuote({ section, site }: CmpProps) {
               >
                 <Image src={Assets.Upload} alt="upload" width={64} height={64} className="w-16 h-16 object-cover" />
                 <p className="text-primary text-xl xl:text-2xl mt-4 text-center">
-                  Drag & Drop Your Files Here
+                  {displayText?.drap_drop_tips ?? 'Drag & Drop Your Files Here'}
                 </p>
                 <p className="text-secondary text-sm xl:text-base text-center mt-2 px-4">
-                  Available file formats: zip, rar, 7z, tar, gz, bz2, xz
+                  {displayText?.files_format_tips ?? 'Available file formats'}: zip, rar, 7z, tar, gz, bz2, xz
                 </p>
 
                 <div className="flex justify-center mt-13.5">
                   <button
                     type="button"
-                    className="border border-accent text-accent h-12 w-[200px] rounded text-base font-medium hover:bg-accent/5 transition-colors"
-                    onClick={e => { e.stopPropagation(); fileInputRef.current?.click() }}
-                  >
-                    Browse Files
+                    className="border border-accent text-accent h-12 w-50 rounded text-base font-medium hover:bg-accent/5 transition-colors"
+                    onClick={e => { e.stopPropagation(); fileInputRef.current?.click() }}>
+                    {displayText?.browse_files}
                   </button>
                 </div>
               </div>
@@ -321,7 +319,7 @@ export function FormGetQuote({ section, site }: CmpProps) {
                 disabled={status === 'loading'}
                 onClick={handleSubmit}
               >
-                {status === 'loading' ? '...' : 'Submit'}
+                {status === 'loading' ? '...' : (displayText?.submit ?? 'Submit')}
               </button>
             </div>
           </div>

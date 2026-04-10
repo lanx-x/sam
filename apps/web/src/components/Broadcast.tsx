@@ -10,9 +10,9 @@ import { cn } from "@/utils/cn";
 import { localizePath, stripLocaleFromPath, type Locale, type LocaleItem } from "@/i18n";
 import type { Broadcast as BroadcastType, Site } from "cms-types";
 
-export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale; data: BroadcastType[]; site: Site; localeList: LocaleItem[] }) {
-  const { currentLocale, defaultLocale, data: items, site, localeList } = props;
-  const email = site.email?.[0]?.value;
+export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale; data: BroadcastType[]; siteData: Site; localeList: LocaleItem[] }) {
+  const { currentLocale, defaultLocale, data: items, siteData, localeList } = props;
+  const email = siteData.email?.[0]?.value;
   const pathname = usePathname();
   const router = useRouter();
   const currentLocaleOption = localeList.find((locale) => locale.code === currentLocale) ?? localeList[0];

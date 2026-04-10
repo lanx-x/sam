@@ -33,17 +33,17 @@ export default async function RootLayout({
   const api = createLocalizedApi(locale);
 
   const { data: navData } = await api.getNavigation("owqgz3ze0n1a15777qpdokl0");
-  const site = await api.getSite();
+  const siteData = (await api.getSite()).data;
   const broadcasts = await api.getBroadcast();
 
   return (
     <html lang={locale} className={`h-full antialiased`}>
       <body className={`${roboto.variable} min-h-full flex flex-col font-sans`}>
-        <Broadcast currentLocale={locale} defaultLocale={defaultLocale} data={broadcasts.data} site={site.data} localeList={localeList} />
-        <Nav data={navData} site={site.data} locale={locale} />
+        <Broadcast currentLocale={locale} defaultLocale={defaultLocale} data={broadcasts.data} siteData={siteData} localeList={localeList} />
+        <Nav data={navData} siteData={siteData} locale={locale} />
         {children}
-        <Footer navigation={navData} locale={locale} site={site.data} />
-        <FloatingActions site={site.data} />
+        <Footer navigation={navData} locale={locale} siteData={siteData} />
+        <FloatingActions siteData={siteData} />
       </body>
     </html>
   );
