@@ -8,9 +8,10 @@ import { SectionContainer, SectionHeaderRowDir } from "./Section";
 import { SurfaceTreatmentItem } from "./FeaturedSurfaceTreatment";
 import { ActionButton } from "./ActionButton";
 
-export async function MaterialDetail({ documentId, section, locale }: CmpProps) {
+export async function MaterialDetail({ documentId, section, locale, siteData }: CmpProps) {
   const api = createLocalizedApi(locale);
   const data = (await api.getMaterial({ 'filters[documentId][$eq]': documentId })).data?.[0]
+  const displayText = siteData?.display_text?.material
 
   const dict = {
     tensile_strength: 'Tensile Strength, Yield (MPa)',
@@ -59,10 +60,10 @@ export async function MaterialDetail({ documentId, section, locale }: CmpProps) 
               {
                 [
                   ...(['strength', 'processability', 'corrosion_resistance'] as const).map(key => ({ key, value: data[key]?.name })),
-                  { key: 'Typical applications', value: data.typical_applications },
+                  { key: 'typical_applications', value: data.typical_applications },
                 ].map(({ key, value }) => (
                   <div key={key} className="flex w-full xl:w-67 flex-col border-b-[#efefef] border-b pb-4 mb-4 last:border-none">
-                    <span className="text-base capitalize mb-2">{key?.split('_').join(' ')}</span>
+                    <span className="text-base capitalize mb-2">{(displayText as any)?.[key] ?? key?.split('_').join(' ')}</span>
                     <span className="text-sm capitalize">{value}</span>
                   </div>
                 ))
@@ -85,7 +86,7 @@ export async function MaterialDetail({ documentId, section, locale }: CmpProps) 
                 <div>
                   <div className="grid grid-cols-5 items-center">
                     {
-                      Object.entries(dict).map(([key, value]) => <span key={key} className="xl:text-lg text-sm font-bold text-secondary">{value}</span>)
+                      Object.entries(dict).map(([key, value]) => <span key={key} className="xl:text-lg text-sm font-bold text-secondary">{displayText?.[key as keyof typeof dict] ?? value}</span>)
                     }
                   </div>
 

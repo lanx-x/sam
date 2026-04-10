@@ -19,6 +19,24 @@
     },
     "density": {
       "type": "string"
+    },
+    "typical_applications": {
+      "type": "string"
+    },
+    "strength": {
+      "type": "string"
+    },
+    "processability": {
+      "type": "string"
+    },
+    "corrosion_resistance": {
+      "type": "string"
+    },
+    "materials": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "string"
     }
   },
   "config": {}

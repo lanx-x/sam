@@ -12,6 +12,11 @@ export function mergeExtension(section: CommonSection): Record<string, { key: st
 }
 
 
+
+export function mergeDisplayText(section: CommonSection): { [key: string]: string } {
+  return section?.payload?.display_text?.filter(xs => xs.key && xs.value)?.reduce((acc, cur) => ({ ...acc, [cur.key!]: cur.value }), {}) ?? {}
+}
+
 export function extractBlockText(blocks: any[]): string {
   if (!blocks?.length) return '';
   return blocks.map(block => block.children?.map((c: any) => c.text || '').join('') || '').join(' ');

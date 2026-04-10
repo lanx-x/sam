@@ -23,6 +23,9 @@
     "address": {
       "type": "string"
     },
+    "contact_us": {
+      "type": "string"
+    },
     "form": {
       "type": "component",
       "component": "display-text.form",

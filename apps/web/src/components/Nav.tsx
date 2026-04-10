@@ -411,7 +411,7 @@ export function DesktopNav(props: NavProps) {
                         </div>
 
                         <div className="mt-5 p-5">
-                          <h3 className="text-lg text-white font-medium leading-none mb-2">Contact us</h3>
+                          <h3 className="text-lg text-white font-medium leading-none mb-2">{props.siteData?.display_text?.contact_us ?? 'Contact us'}</h3>
                           {
                             (['tel', 'mobile', 'email', 'fax', 'address'] as const).map((xs, idx) => (
                               <div className="flex flex-row text-sm mb-2 last:mb-0 leading-4.5 text-white/66" key={idx}>

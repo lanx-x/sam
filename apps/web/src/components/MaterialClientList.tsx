@@ -6,15 +6,17 @@ import { SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import { Assets } from "@/assets";
 import { getMaterial, getMaterialCategory } from "@/api";
+import { Site } from "cms-types";
 
 type Props = {
   categories: Awaited<ReturnType<typeof getMaterialCategory>>,
   materials: Awaited<ReturnType<typeof getMaterial>>,
   basePath: string,
   emptyText?: string,
+  siteData: Site
 }
 
-export function MaterialClientList({ categories, materials, basePath, emptyText }: Props) {
+export function MaterialClientList({ categories, materials, basePath, emptyText, siteData }: Props) {
   // Group all materials by category
   const grouped = materials.data.reduce<Record<string, { name: string; items: typeof materials.data }>>((acc, xs) => {
     const catId = (xs.category as any)?.documentId ?? 'uncategorized'
@@ -27,6 +29,8 @@ export function MaterialClientList({ categories, materials, basePath, emptyText 
   }, {})
 
   const categoryList = categories.data?.filter(xs => !xs.isAll) ?? []
+
+  const displayText = siteData.display_text?.material
 
   const scrollToCategory = (id: string) => {
     document.getElementById(`material-category-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -80,9 +84,9 @@ export function MaterialClientList({ categories, materials, basePath, emptyText 
                   ) : (
                     <>
                       <div className={`bg-white h-12 text-secondary text-left text-base xl:text-lg font-bold ${gridOpts} border-[#bfbfbf] border-b`}>
-                        <p className="xl:pl-5">Materials</p>
+                        <p className="xl:pl-5">{displayText?.materials ?? 'Materials'}</p>
                         <p></p>
-                        <p className="">Description</p>
+                        <p className="">{displayText?.desc ?? 'Description'}</p>
                       </div>
                       {items.items.map((xs) => (
                         <Link key={xs.documentId} href={`${basePath}/${xs.documentId}`} className={`${gridOpts} py-2.5 border-b border-[#bfbfbf] hover:bg-[#f7fbfe] duration-300 transition-colors cursor-pointer`}>

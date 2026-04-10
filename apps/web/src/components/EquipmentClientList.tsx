@@ -1,12 +1,12 @@
 'use client';
 
-import { CommonSection, EquipmentCategory } from "cms-types";
+import { CommonSection, EquipmentCategory, Site } from "cms-types";
 import Image from "next/image";
 import Link from "next/link";
 import { Section, SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import { getEquipment, getEquipmentCategory } from "@/api";
-import { mergeExtension } from "@/utils";
+import { mergeDisplayText, mergeExtension } from "@/utils";
 import { Assets } from "@/assets";
 import { getEnabledCategories } from "trace_events";
 import { useState } from "react";
@@ -15,11 +15,15 @@ type Props = {
   categories: Awaited<ReturnType<typeof getEquipmentCategory>>,
   equipments: Awaited<ReturnType<typeof getEquipment>>,
   basePath: string,
+  siteData: Site,
+  section: CommonSection
 }
 export function EquipmentClientList(props: Props) {
 
-  const { categories, equipments, basePath } = props
+  const { categories, equipments, basePath, siteData, section } = props
   const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>(undefined)
+
+  const displayText = mergeDisplayText(section)
   return (
     <SectionContainer>
       <div className="grid grid-cols-1 xl:grid-cols-[240px_1fr] gap-20">
@@ -79,7 +83,7 @@ export function EquipmentClientList(props: Props) {
                   </div>
 
                   <div className="flex items-center absolute bottom-0 left-0">
-                    <p className="mr-3 text-sm text-accent font-medium">View Details</p>
+                    <p className="mr-3 text-sm text-accent font-medium">{displayText?.view_details ?? 'View Details'}</p>
                     <Image src={Assets.LinkCircle} alt="arrow" />
                   </div>
                 </div>

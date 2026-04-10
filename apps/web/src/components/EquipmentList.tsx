@@ -8,7 +8,8 @@ import { Assets } from "@/assets";
 import { getEnabledCategories } from "trace_events";
 import { EquipmentClientList } from "./EquipmentClientList";
 
-export async function EquipmentList({ section, slug, locale }: CmpProps) {
+export async function EquipmentList(props: CmpProps) {
+  const { section, slug, locale } = props
   const api = createLocalizedApi(locale);
   const extension = mergeExtension(section)
 
@@ -16,5 +17,5 @@ export async function EquipmentList({ section, slug, locale }: CmpProps) {
   const data = await api.getEquipment({})
   const basePath = ['', locale, ...slug].join('/')
 
-  return <EquipmentClientList categories={categories} equipments={data} basePath={basePath} />
+  return <EquipmentClientList {...props} categories={categories} equipments={data} basePath={basePath} />
 }

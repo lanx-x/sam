@@ -11,13 +11,15 @@ import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend } from "@/utils";
 import { Material } from "cms-types";
 
-export function FeaturedMaterial({ section }: CmpProps) {
+export function FeaturedMaterial({ section, siteData }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
   })
 
   const extension = collectExtend(section.payload?.extension as any, section.extension as any)
 
+
+  const displayText = siteData?.display_text?.material
   const renderItem = (key: string, value: string) => (
 
     <div key={key} className="flex flex-col border-b-[#efefef] border-b pb-4 mb-4 last:border-none">
@@ -43,8 +45,8 @@ export function FeaturedMaterial({ section }: CmpProps) {
                   <div className="px-5 text-left">
                     <p className="my-5 text-lg font-semibold leading-none">{xs.name}</p>
 
-                    {(['strength', 'processability', 'corrosion_resistance'] as const).map(key => renderItem(key, xs[key]?.name!))}
-                    {renderItem('Typical applications', xs.typical_applications!)}
+                    {(['strength', 'processability', 'corrosion_resistance'] as const).map(key => renderItem(displayText?.[key] ?? key, xs[key]?.name!))}
+                    {renderItem(displayText?.typical_applications ?? 'typical_applications', xs.typical_applications!)}
                     {xs.parameter?.map((item, idx) => renderItem(item.key!, item.value!))}
                   </div>
                 </div>

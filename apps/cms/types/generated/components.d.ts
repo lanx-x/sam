@@ -7,6 +7,7 @@ export interface DisplayTextCommon extends Struct.ComponentSchema {
   };
   attributes: {
     address: Schema.Attribute.String;
+    contact_us: Schema.Attribute.String;
     email: Schema.Attribute.String;
     fax: Schema.Attribute.String;
     form: Schema.Attribute.Component<'display-text.form', false>;
@@ -53,11 +54,17 @@ export interface DisplayTextMaterial extends Struct.ComponentSchema {
     displayName: 'Material';
   };
   attributes: {
+    corrosion_resistance: Schema.Attribute.String;
     density: Schema.Attribute.String;
+    desc: Schema.Attribute.String;
     elongation_at_break: Schema.Attribute.String;
     fatigue_strength: Schema.Attribute.String;
     hardness: Schema.Attribute.String;
+    materials: Schema.Attribute.String;
+    processability: Schema.Attribute.String;
+    strength: Schema.Attribute.String;
     tensile_strength: Schema.Attribute.String;
+    typical_applications: Schema.Attribute.String;
   };
 }
 
