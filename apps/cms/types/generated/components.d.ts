@@ -1,13 +1,88 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
-export interface GlobalDisplayText extends Struct.ComponentSchema {
-  collectionName: 'components_global_display_texts';
+export interface DisplayTextCommon extends Struct.ComponentSchema {
+  collectionName: 'components_display_text_commons';
   info: {
-    displayName: 'DisplayText';
+    displayName: 'Common';
   };
   attributes: {
-    EmailPH: Schema.Attribute.String;
-    Subscribe: Schema.Attribute.Text;
+    address: Schema.Attribute.String;
+    email: Schema.Attribute.String;
+    fax: Schema.Attribute.String;
+    form: Schema.Attribute.Component<'display-text.form', false>;
+    material: Schema.Attribute.Component<'display-text.material', false>;
+    mobile: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    subscribe: Schema.Attribute.Component<'display-text.subscribe', false>;
+    surface_treatment: Schema.Attribute.Component<
+      'display-text.surface-treatment',
+      false
+    >;
+    tel: Schema.Attribute.String;
+  };
+}
+
+export interface DisplayTextForm extends Struct.ComponentSchema {
+  collectionName: 'components_display_text_forms';
+  info: {
+    displayName: 'Form';
+  };
+  attributes: {
+    browse_files: Schema.Attribute.String;
+    change: Schema.Attribute.String;
+    company: Schema.Attribute.String;
+    drap_drop_tips: Schema.Attribute.String;
+    email: Schema.Attribute.String;
+    fail_tips: Schema.Attribute.String;
+    files_format_tips: Schema.Attribute.String;
+    invalid_tips: Schema.Attribute.String;
+    message: Schema.Attribute.String;
+    name: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    remove: Schema.Attribute.String;
+    required_tips: Schema.Attribute.String;
+    submit: Schema.Attribute.String;
+    success_tips: Schema.Attribute.String;
+  };
+}
+
+export interface DisplayTextMaterial extends Struct.ComponentSchema {
+  collectionName: 'components_display_text_materials';
+  info: {
+    displayName: 'Material';
+  };
+  attributes: {
+    density: Schema.Attribute.String;
+    elongation_at_break: Schema.Attribute.String;
+    fatigue_strength: Schema.Attribute.String;
+    hardness: Schema.Attribute.String;
+    tensile_strength: Schema.Attribute.String;
+  };
+}
+
+export interface DisplayTextSubscribe extends Struct.ComponentSchema {
+  collectionName: 'components_display_text_subscribes';
+  info: {
+    displayName: 'Subscribe';
+  };
+  attributes: {
+    fail_tips: Schema.Attribute.String;
+    placeholder: Schema.Attribute.String;
+    subscribe: Schema.Attribute.String;
+    success_tips: Schema.Attribute.String;
+  };
+}
+
+export interface DisplayTextSurfaceTreatment extends Struct.ComponentSchema {
+  collectionName: 'components_display_text_surface_treatments';
+  info: {
+    displayName: 'SurfaceTreatment';
+  };
+  attributes: {
+    applicable_materials: Schema.Attribute.String;
+    desc: Schema.Attribute.String;
+    services: Schema.Attribute.String;
+    surface_treatment: Schema.Attribute.String;
   };
 }
 
@@ -327,7 +402,11 @@ export interface SectionCommonSection extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
-      'global.display-text': GlobalDisplayText;
+      'display-text.common': DisplayTextCommon;
+      'display-text.form': DisplayTextForm;
+      'display-text.material': DisplayTextMaterial;
+      'display-text.subscribe': DisplayTextSubscribe;
+      'display-text.surface-treatment': DisplayTextSurfaceTreatment;
       'global.seo': GlobalSeo;
       'item.button-item': ItemButtonItem;
       'item.category-item': ItemCategoryItem;

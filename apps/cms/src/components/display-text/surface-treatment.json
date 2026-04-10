@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_display_text_surface_treatments",
+  "info": {
+    "displayName": "SurfaceTreatment"
+  },
+  "options": {},
+  "attributes": {
+    "surface_treatment": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "string"
+    },
+    "services": {
+      "type": "string"
+    },
+    "applicable_materials": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

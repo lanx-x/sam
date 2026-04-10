@@ -1,0 +1,55 @@
+{
+  "collectionName": "components_display_text_forms",
+  "info": {
+    "displayName": "Form"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "submit": {
+      "type": "string"
+    },
+    "change": {
+      "type": "string"
+    },
+    "remove": {
+      "type": "string"
+    },
+    "browse_files": {
+      "type": "string"
+    },
+    "drap_drop_tips": {
+      "type": "string"
+    },
+    "files_format_tips": {
+      "type": "string"
+    },
+    "success_tips": {
+      "type": "string"
+    },
+    "fail_tips": {
+      "type": "string"
+    },
+    "required_tips": {
+      "type": "string"
+    },
+    "invalid_tips": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

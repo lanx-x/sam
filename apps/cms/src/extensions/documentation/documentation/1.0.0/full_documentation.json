@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-04-09T16:32:51.589Z"
+    "x-generation-date": "2026-04-10T01:04:37.075Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -34509,7 +34509,7 @@
                 "type": "string"
               },
               "display_text": {
-                "$ref": "#/components/schemas/GlobalDisplayTextComponent"
+                "$ref": "#/components/schemas/DisplayTextCommonComponent"
               },
               "locale": {
                 "type": "string"
@@ -35611,7 +35611,7 @@
             "type": "string"
           },
           "display_text": {
-            "$ref": "#/components/schemas/GlobalDisplayTextComponent"
+            "$ref": "#/components/schemas/DisplayTextCommonComponent"
           },
           "createdAt": {
             "type": "string",
@@ -36072,7 +36072,7 @@
                   "type": "string"
                 },
                 "display_text": {
-                  "$ref": "#/components/schemas/GlobalDisplayTextComponent"
+                  "$ref": "#/components/schemas/DisplayTextCommonComponent"
                 },
                 "createdAt": {
                   "type": "string",
@@ -36162,7 +36162,7 @@
           }
         }
       },
-      "GlobalDisplayTextComponent": {
+      "DisplayTextFormComponent": {
         "type": "object",
         "properties": {
           "id": {
@@ -36175,11 +36175,179 @@
               }
             ]
           },
-          "Subscribe": {
+          "name": {
             "type": "string"
           },
-          "EmailPH": {
+          "company": {
             "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "submit": {
+            "type": "string"
+          },
+          "change": {
+            "type": "string"
+          },
+          "remove": {
+            "type": "string"
+          },
+          "browse_files": {
+            "type": "string"
+          },
+          "drap_drop_tips": {
+            "type": "string"
+          },
+          "files_format_tips": {
+            "type": "string"
+          },
+          "success_tips": {
+            "type": "string"
+          },
+          "fail_tips": {
+            "type": "string"
+          },
+          "required_tips": {
+            "type": "string"
+          },
+          "invalid_tips": {
+            "type": "string"
+          }
+        }
+      },
+      "DisplayTextSubscribeComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "placeholder": {
+            "type": "string"
+          },
+          "subscribe": {
+            "type": "string"
+          },
+          "success_tips": {
+            "type": "string"
+          },
+          "fail_tips": {
+            "type": "string"
+          }
+        }
+      },
+      "DisplayTextMaterialComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "tensile_strength": {
+            "type": "string"
+          },
+          "fatigue_strength": {
+            "type": "string"
+          },
+          "elongation_at_break": {
+            "type": "string"
+          },
+          "hardness": {
+            "type": "string"
+          },
+          "density": {
+            "type": "string"
+          }
+        }
+      },
+      "DisplayTextSurfaceTreatmentComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "surface_treatment": {
+            "type": "string"
+          },
+          "desc": {
+            "type": "string"
+          },
+          "services": {
+            "type": "string"
+          },
+          "applicable_materials": {
+            "type": "string"
+          }
+        }
+      },
+      "DisplayTextCommonComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "tel": {
+            "type": "string"
+          },
+          "mobile": {
+            "type": "string"
+          },
+          "fax": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "form": {
+            "$ref": "#/components/schemas/DisplayTextFormComponent"
+          },
+          "subscribe": {
+            "$ref": "#/components/schemas/DisplayTextSubscribeComponent"
+          },
+          "material": {
+            "$ref": "#/components/schemas/DisplayTextMaterialComponent"
+          },
+          "surface_treatment": {
+            "$ref": "#/components/schemas/DisplayTextSurfaceTreatmentComponent"
           }
         }
       },
@@ -40544,6 +40712,15 @@
                 ],
                 "example": "string or id"
               },
+              "display_text": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ItemKvItemComponent"
+                }
+              },
+              "admin_note": {
+                "type": "string"
+              },
               "dynamic": {
                 "type": "array",
                 "items": {
@@ -40583,9 +40760,6 @@
                     "list.featured-surface-finish-list": "#/components/schemas/ListFeaturedSurfaceFinishListComponent"
                   }
                 }
-              },
-              "admin_note": {
-                "type": "string"
               },
               "locale": {
                 "type": "string"
@@ -41875,6 +42049,15 @@
               }
             }
           },
+          "display_text": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemKvItemComponent"
+            }
+          },
+          "admin_note": {
+            "type": "string"
+          },
           "dynamic": {
             "type": "array",
             "items": {
@@ -41914,9 +42097,6 @@
                 "list.featured-surface-finish-list": "#/components/schemas/ListFeaturedSurfaceFinishListComponent"
               }
             }
-          },
-          "admin_note": {
-            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -42391,6 +42571,15 @@
                     }
                   }
                 },
+                "display_text": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemKvItemComponent"
+                  }
+                },
+                "admin_note": {
+                  "type": "string"
+                },
                 "dynamic": {
                   "type": "array",
                   "items": {
@@ -42430,9 +42619,6 @@
                       "list.featured-surface-finish-list": "#/components/schemas/ListFeaturedSurfaceFinishListComponent"
                     }
                   }
-                },
-                "admin_note": {
-                  "type": "string"
                 },
                 "createdAt": {
                   "type": "string",

@@ -91,6 +91,27 @@
       "relation": "oneToOne",
       "target": "api::renderer.renderer"
     },
+    "display_text": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "item.kv-item",
+      "repeatable": true
+    },
+    "admin_note": {
+      "type": "string",
+      "private": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true,
+      "unique": true
+    },
     "dynamic": {
       "type": "dynamiczone",
       "pluginOptions": {
@@ -107,17 +128,6 @@
         "list.featured-equipment-list",
         "list.featured-surface-finish-list"
       ]
-    },
-    "admin_note": {
-      "type": "string",
-      "private": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true,
-      "unique": true
     }
   }
 }

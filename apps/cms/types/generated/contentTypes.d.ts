@@ -1455,7 +1455,7 @@ export interface ApiSiteSite extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
-    display_text: Schema.Attribute.Component<'global.display-text', false> &
+    display_text: Schema.Attribute.Component<'display-text.common', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1692,6 +1692,12 @@ export interface ApiUiSectionUiSection extends Struct.CollectionTypeSchema {
         };
       }>;
     desc: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    display_text: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

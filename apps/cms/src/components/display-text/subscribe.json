@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_display_text_subscribes",
+  "info": {
+    "displayName": "Subscribe"
+  },
+  "options": {},
+  "attributes": {
+    "placeholder": {
+      "type": "string"
+    },
+    "subscribe": {
+      "type": "string"
+    },
+    "success_tips": {
+      "type": "string"
+    },
+    "fail_tips": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

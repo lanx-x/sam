@@ -1,0 +1,48 @@
+{
+  "collectionName": "components_display_text_commons",
+  "info": {
+    "displayName": "Common"
+  },
+  "options": {},
+  "attributes": {
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "tel": {
+      "type": "string"
+    },
+    "mobile": {
+      "type": "string"
+    },
+    "fax": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "form": {
+      "type": "component",
+      "component": "display-text.form",
+      "repeatable": false
+    },
+    "subscribe": {
+      "type": "component",
+      "component": "display-text.subscribe",
+      "repeatable": false
+    },
+    "material": {
+      "type": "component",
+      "component": "display-text.material",
+      "repeatable": false
+    },
+    "surface_treatment": {
+      "type": "component",
+      "component": "display-text.surface-treatment",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}

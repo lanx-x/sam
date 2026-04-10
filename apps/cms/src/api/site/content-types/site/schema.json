@@ -136,7 +136,7 @@
           "localized": true
         }
       },
-      "component": "global.display-text",
+      "component": "display-text.common",
       "repeatable": false
     }
   }

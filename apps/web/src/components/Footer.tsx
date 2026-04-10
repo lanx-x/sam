@@ -54,8 +54,8 @@ export function Footer({ site, navigation, locale }: { site: Site, locale: strin
 
       <div className="flex flex-col xl:flex-row-reverse xl:items-center mb-5">
         <Subscribe
-          label={site.display_text?.Subscribe!}
-          placeholder={site.display_text?.EmailPH!}
+          label={site.display_text?.subscribe?.subscribe ?? "Subscribe"}
+          placeholder={site.display_text?.subscribe?.placeholder ?? "Enter your business email"}
           className="border border-[#efefef] mb-10 xl:w-143 xl:mb-0" />
 
         <div className="flex flex-row items-center xl:flex-1">

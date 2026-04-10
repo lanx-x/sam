@@ -5,6 +5,7 @@ import { cn } from "@/utils/cn"
 import { Assets } from "@/assets";
 import Image from "next/image";
 import { fetchStrapi } from "@/utils/strapi";
+import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 
 function Toast({ message, onDone }: { message: string; onDone: () => void }) {
   useEffect(() => {
@@ -19,20 +20,7 @@ function Toast({ message, onDone }: { message: string; onDone: () => void }) {
   )
 }
 
-function UploadIcon() {
-  return (
-    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M32 8v32M32 8L22 18M32 8l10 10" stroke="#0076ee" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M8 40v12a4 4 0 004 4h40a4 4 0 004-4V40" stroke="#0076ee" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-type FormGetQuoteProps = ComponentProps<"div"> & {
-  title?: string
-}
-
-export function FormGetQuote({ className, title }: FormGetQuoteProps) {
+export function FormGetQuote({ section, site }: CmpProps) {
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -158,9 +146,9 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
   }
 
   return (
-    <div className={cn("bg-[#f6f8fa]", className)}>
+    <div className={cn("bg-[#f6f8fa]")}>
       <div className="xl:w-7xl xl:mx-auto px-5 xl:px-0 pb-20">
-        <p className="font-medium text-lg/15 text-primary">{title ?? "Get a Free Quote"}</p>
+        <p className="font-medium text-lg/15 text-primary">{section.payload?.title}</p>
 
         <div className="bg-white rounded-xl px-5 py-10 xl:px-10">
           {/* Row 1: Name & Company */}
@@ -168,7 +156,7 @@ export function FormGetQuote({ className, title }: FormGetQuoteProps) {
             <div>
               <label className="flex items-center gap-1 text-primary text-base mb-3">
                 <span className="text-red-500">*</span>
-                Name
+                {site.display_text?.form?.name ?? "x"}
               </label>
               <input
                 className={cn(

@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_display_text_materials",
+  "info": {
+    "displayName": "Material"
+  },
+  "options": {},
+  "attributes": {
+    "tensile_strength": {
+      "type": "string"
+    },
+    "fatigue_strength": {
+      "type": "string"
+    },
+    "elongation_at_break": {
+      "type": "string"
+    },
+    "hardness": {
+      "type": "string"
+    },
+    "density": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
