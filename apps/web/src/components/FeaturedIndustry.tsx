@@ -5,10 +5,14 @@ import { getStrapiMedia } from "@/utils/strapi";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Image from "next/image";
 import { Industry } from "cms-types";
+import { mergeExtension } from "@/utils";
 
 export function FeaturedIndustry({ section }: CmpProps) {
+  const extension = mergeExtension(section)
+  const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
+
   return (
-    <div className="px-5 py-10 text-center xl:text-left xl:py-20 xl:px-0 xl:w-7xl xl:mx-auto">
+    <div className={`px-5 py-10 text-center xl:text-left xl:py-20 xl:px-0 xl:w-7xl xl:mx-auto ${bg_variant}`}>
       <div className="grid grid-cols-1 gap-2 xl:grid-cols-2 xl:gap-8">
         <h2 className="section-title mb-0">{section.payload?.title}</h2>
         <div className="">

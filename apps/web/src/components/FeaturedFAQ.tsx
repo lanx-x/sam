@@ -5,16 +5,18 @@ import Image from "next/image";
 import { useState } from "react";
 import { SectionContainer } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
-import { collectExtend } from "@/utils";
+import { collectExtend, mergeExtension } from "@/utils";
 import { FAQ } from "cms-types";
 
 export function FeaturedFAQ({ section }: CmpProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const extension = collectExtend(section.payload?.extension as any, section.extension as any)
+  const extension = mergeExtension(section)
+  const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
+
 
   return (
-    <div className={`bg-[#fafafa] py-10 xl:py-20 ${extension['style']?.value}`}>
+    <div className={`py-10 xl:py-20 ${bg_variant}`}>
       <SectionContainer>
         <div className="w-full flex flex-col text-center xl:text-left xl:flex-row">
           <div className="shrink-0 xl:mr-42.5 xl:w-76.75">

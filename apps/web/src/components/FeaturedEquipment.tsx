@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Section } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
-import { collectExtend } from "@/utils";
+import { collectExtend, mergeDisplayText, mergeExtension } from "@/utils";
 import Link from "next/link";
 import { Equipment } from "cms-types";
 
@@ -15,14 +15,16 @@ export function FeaturedEquipment({ section }: CmpProps) {
     align: "start",
   })
 
-  const extension = collectExtend(section.payload?.extension as any)
 
+  const extension = mergeExtension(section)
+  const displayText = mergeDisplayText(section)
+  const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
 
   return (
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
-      className="text-left"
+      className={`text-left ${bg_variant}`}
     >
       <div className="relative mt-10">
         <div className="overflow-hidden" ref={emblaRef}>
@@ -55,7 +57,7 @@ export function FeaturedEquipment({ section }: CmpProps) {
 
                   <Link href={""}>
                     <div className="flex items-center">
-                      <p className="text-accent text-sm font-medium flex flex-row items-center mr-3">{extension['open_label']?.value}</p>
+                      <p className="text-accent text-sm font-medium flex flex-row items-center mr-3">{displayText?.view_details ?? 'View Details'}</p>
                       <Image src={Assets.Link} alt="link" />
                     </div>
                   </Link>

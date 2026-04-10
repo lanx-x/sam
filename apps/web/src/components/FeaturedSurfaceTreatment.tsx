@@ -3,16 +3,18 @@ import { SurfaceTreatment } from "cms-types";
 import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
-import { collectExtend } from "@/utils";
+import { collectExtend, mergeExtension } from "@/utils";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 
 export function FeaturedSurfaceTreatment({ section }: CmpProps) {
-  const extension = collectExtend(section.payload?.extension as any, section.extension as any)
+  const extension = mergeExtension(section)
+  const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
+
   return (
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
-      className={`${extension['style']?.value}`}
+      className={`${bg_variant}`}
     >
 
       <div className="text-left grid grid-cols-2 gap-1.5 mt-10 xl:grid-cols-4 xl:gap-5 px-5 xl:px-0">

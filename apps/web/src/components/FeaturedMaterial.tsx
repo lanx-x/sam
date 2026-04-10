@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { Section } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
-import { collectExtend } from "@/utils";
+import { collectExtend, mergeExtension } from "@/utils";
 import { Material } from "cms-types";
 
 export function FeaturedMaterial({ section, siteData }: CmpProps) {
@@ -16,10 +16,11 @@ export function FeaturedMaterial({ section, siteData }: CmpProps) {
     align: "start",
   })
 
-  const extension = collectExtend(section.payload?.extension as any, section.extension as any)
-
+  const extension = mergeExtension(section)
+  const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
 
   const displayText = siteData?.display_text?.material
+
   const renderItem = (key: string, value: string) => (
 
     <div key={key} className="flex flex-col border-b-[#efefef] border-b pb-4 mb-4 last:border-none">
@@ -32,7 +33,7 @@ export function FeaturedMaterial({ section, siteData }: CmpProps) {
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
-      className={`xl:text-left ${extension['style']?.value}`}
+      className={`xl:text-left ${bg_variant}`}
 
     >
       <div className="relative mt-10">

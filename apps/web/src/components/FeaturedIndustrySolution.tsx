@@ -43,11 +43,14 @@ export function FeaturedIndustrySolution({ section }: CmpProps) {
   }, [emblaApi]);
 
   const extension = mergeExtension(section)
+  const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
+
 
   return (
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
+      className={bg_variant}
     >
       <div className="py-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">

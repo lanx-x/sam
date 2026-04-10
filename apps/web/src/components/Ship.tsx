@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoPlay from "embla-carousel-autoplay";
-import { collectExtend } from "@/utils";
+import { collectExtend, mergeExtension } from "@/utils";
 
 export function Ship({ section }: CmpProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -52,14 +52,14 @@ export function Ship({ section }: CmpProps) {
       console.log("emblaApi.plugins()?.autoplay.play", emblaApi.plugins()?.autoplay.play)
       // emblaApi.plugins().autoplay?.play()
     }
-
   }, [emblaApi])
 
-  const extension = collectExtend(section.payload?.extension as any, section.extension as any)
+  const extension = mergeExtension(section)
+  const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
   const images = section.payload?.extra_images ?? []
 
   return (
-    <div className={`${extension['style']?.value}`}>
+    <div className={`${bg_variant}`}>
       <div className="px-5 py-10 text-center flex flex-col xl:flex-row xl:w-7xl xl:mx-auto xl:py-20 xl:text-left xl:px-0" >
         <div className="">
           <h2 className="section-title">{section.payload?.title}</h2>

@@ -12,6 +12,7 @@ export async function FeaturedNews({ section, documentId, slug, locale }: CmpPro
   const api = createLocalizedApi(locale);
   const extension = mergeExtension(section)
 
+  const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
   let news = ((section.payload?.dynamic?.[0] as any)?.news) as News[] ?? []
 
   if (extension.basedOnId?.value === 'true') {
@@ -30,6 +31,7 @@ export async function FeaturedNews({ section, documentId, slug, locale }: CmpPro
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
+      className={bg_variant}
     >
 
       <div className="px-5 mt-10 grid grid-cols-1 gap-5 xl:grid-cols-3 xl:px-0">

@@ -8,9 +8,14 @@ import { useEffect, useState } from "react";
 import { Section } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
+import { mergeExtension } from "@/utils";
 
 export function FeaturedComment({ section }: CmpProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const extension = mergeExtension(section)
+  const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
+
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
@@ -54,7 +59,7 @@ export function FeaturedComment({ section }: CmpProps) {
       title={section.payload?.title!}
       desc={section.payload?.desc!}
       bg={Assets.Map}
-      className="pb-15 xl:pb-27.25"
+      className={`pb-15 xl:pb-27.25 ${bg_variant}`}
     >
       <div className="mt-18.5 xl:mt-25">
         <div className="relative overflow-hidden z-10 py-10 xl:max-w-420 xl:mx-auto" ref={emblaRef}>

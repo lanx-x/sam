@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Section } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
-import { collectExtend } from "@/utils";
+import { collectExtend, mergeExtension } from "@/utils";
 import { CaseStudy } from "cms-types";
 
 export function FeaturedCaseStudy({ section }: CmpProps) {
@@ -42,13 +42,15 @@ export function FeaturedCaseStudy({ section }: CmpProps) {
     };
   }, [emblaApi]);
 
-  const extension = collectExtend(section.payload?.extension as any, section.extension as any)
+  const extension = mergeExtension(section)
+  const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
+
 
   return (
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
-      className={`bg-[#fafafa] ${extension['style']?.value}`}
+      className={bg_variant}
     >
       <div className="py-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
