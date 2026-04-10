@@ -12,6 +12,7 @@
     "prebuild": "node scripts/generate-assets.mjs"
   },
   "dependencies": {
+    "@next/third-parties": "^16.2.3",
     "@strapi/blocks-react-renderer": "^1.0.2",
     "@tailwindcss/typography": "^0.5.19",
     "clsx": "^2.1.1",

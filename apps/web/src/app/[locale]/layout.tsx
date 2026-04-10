@@ -12,6 +12,7 @@ import { Nav } from "@/components/Nav";
 import { createLocalizedApi, globalApi } from "@/api";
 import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { getRuntimeLocale } from "@/i18n/server";
 
 const roboto = Roboto({
@@ -44,6 +45,7 @@ export default async function RootLayout({
         {children}
         <Footer navigation={navData} locale={locale} siteData={siteData} />
         <FloatingActions siteData={siteData} />
+        {siteData.google_analytics && <GoogleAnalytics gaId={siteData.google_analytics} />}
       </body>
     </html>
   );

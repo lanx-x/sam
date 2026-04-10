@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-04-10T04:25:19.901Z"
+    "x-generation-date": "2026-04-10T04:45:26.498Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -34509,7 +34509,24 @@
                 ],
                 "example": "string or id"
               },
+              "logo_with_text": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "example": "string or id"
+              },
               "desc": {
+                "type": "string"
+              },
+              "google_analytics": {
+                "type": "string"
+              },
+              "footer": {
                 "type": "string"
               },
               "email": {
@@ -34547,20 +34564,6 @@
                 "items": {
                   "$ref": "#/components/schemas/ItemKvItemComponent"
                 }
-              },
-              "logo_with_text": {
-                "oneOf": [
-                  {
-                    "type": "integer"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ],
-                "example": "string or id"
-              },
-              "footer": {
-                "type": "string"
               },
               "display_text": {
                 "$ref": "#/components/schemas/DisplayTextCommonComponent"
@@ -35450,45 +35453,6 @@
               }
             }
           },
-          "desc": {
-            "type": "string"
-          },
-          "email": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ItemKvItemComponent"
-            }
-          },
-          "tel": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ItemKvItemComponent"
-            }
-          },
-          "fax": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ItemKvItemComponent"
-            }
-          },
-          "mobile": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ItemKvItemComponent"
-            }
-          },
-          "address": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ItemKvItemComponent"
-            }
-          },
-          "social": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ItemKvItemComponent"
-            }
-          },
           "logo_with_text": {
             "type": "object",
             "properties": {
@@ -35661,8 +35625,50 @@
               }
             }
           },
+          "desc": {
+            "type": "string"
+          },
+          "google_analytics": {
+            "type": "string"
+          },
           "footer": {
             "type": "string"
+          },
+          "email": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemKvItemComponent"
+            }
+          },
+          "tel": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemKvItemComponent"
+            }
+          },
+          "fax": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemKvItemComponent"
+            }
+          },
+          "mobile": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemKvItemComponent"
+            }
+          },
+          "address": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemKvItemComponent"
+            }
+          },
+          "social": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemKvItemComponent"
+            }
           },
           "display_text": {
             "$ref": "#/components/schemas/DisplayTextCommonComponent"
@@ -35911,45 +35917,6 @@
                     }
                   }
                 },
-                "desc": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ItemKvItemComponent"
-                  }
-                },
-                "tel": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ItemKvItemComponent"
-                  }
-                },
-                "fax": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ItemKvItemComponent"
-                  }
-                },
-                "mobile": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ItemKvItemComponent"
-                  }
-                },
-                "address": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ItemKvItemComponent"
-                  }
-                },
-                "social": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ItemKvItemComponent"
-                  }
-                },
                 "logo_with_text": {
                   "type": "object",
                   "properties": {
@@ -36122,8 +36089,50 @@
                     }
                   }
                 },
+                "desc": {
+                  "type": "string"
+                },
+                "google_analytics": {
+                  "type": "string"
+                },
                 "footer": {
                   "type": "string"
+                },
+                "email": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemKvItemComponent"
+                  }
+                },
+                "tel": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemKvItemComponent"
+                  }
+                },
+                "fax": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemKvItemComponent"
+                  }
+                },
+                "mobile": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemKvItemComponent"
+                  }
+                },
+                "address": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemKvItemComponent"
+                  }
+                },
+                "social": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ItemKvItemComponent"
+                  }
                 },
                 "display_text": {
                   "$ref": "#/components/schemas/DisplayTextCommonComponent"
