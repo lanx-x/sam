@@ -4,6 +4,14 @@ import type { PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceT
 
 export type { PageData };
 
+const revalidate = {
+  disabled: 0,
+  short: 0,
+  normal: 0,
+  long: 0,
+  static: 0,
+} as const
+
 export async function getPage(payload: { [key: string]: any }) {
   const { slug, ...params } = payload
   return fetchStrapi<StrapiCollectionResponse<PageData>>('/pages', {
@@ -12,7 +20,7 @@ export async function getPage(payload: { [key: string]: any }) {
       pLevel: true,
       ...params,
     },
-    // next: { revalidate: 60 }
+    next: { revalidate: revalidate.short, tags: ["pages"] }
   });
 }
 
@@ -24,7 +32,7 @@ export async function getPatternPages(payload: { [key: string]: any }) {
       'fields[0]': 'slug',
       ...payload,
     },
-    next: { revalidate: 60 },
+    next: { revalidate: revalidate.static, tags: ["pages"] },
   });
 }
 
@@ -35,6 +43,7 @@ export async function getSurfaceTreatment(params: { [key: string]: any }) {
       'pagination[pageSize]': 100,
       ...params,
     },
+    next: { revalidate: revalidate.normal, tags: ["surface-treatments"] },
   })
 }
 
@@ -44,7 +53,8 @@ export async function getEquipment(params: { [key: string]: any }) {
       pLevel: 10,
       'pagination[pageSize]': 100,
       ...params,
-    }
+    },
+    next: { revalidate: revalidate.normal, tags: ["equipments"] },
   })
 }
 
@@ -54,7 +64,8 @@ export async function getEquipmentCategory(params: { [key: string]: any }) {
       pLevel: true,
       'pagination[pageSize]': 100,
       ...params,
-    }
+    },
+    next: { revalidate: revalidate.static, tags: ["equipment-categories"] },
   })
 }
 
@@ -63,7 +74,8 @@ export async function getCaseStudy(params: { [key: string]: any }) {
     params: {
       pLevel: true,
       ...params,
-    }
+    },
+    next: { revalidate: revalidate.normal },
   })
 }
 
@@ -72,7 +84,8 @@ export async function getNews(params: { [key: string]: any }) {
     params: {
       pLevel: true,
       ...params,
-    }
+    },
+    next: { revalidate: revalidate.normal, tags: ["case-studies"] },
   })
 }
 
@@ -82,7 +95,8 @@ export async function getNewsCategory(params: { [key: string]: any }) {
       pLevel: true,
       'pagination[pageSize]': 100,
       ...params,
-    }
+    },
+    next: { revalidate: revalidate.static, tags: ["news-categories"] },
   })
 }
 
@@ -91,7 +105,8 @@ export async function getVideo(params: { [key: string]: any }) {
     params: {
       pLevel: true,
       ...params,
-    }
+    },
+    next: { revalidate: revalidate.short, tags: ["videos"] },
   })
 }
 
@@ -101,7 +116,8 @@ export async function getMaterial(params: { [key: string]: any } = {}) {
       pLevel: 10,
       'pagination[pageSize]': 100,
       ...params,
-    }
+    },
+    next: { revalidate: revalidate.normal, tags: ["materials"] },
   })
 }
 
@@ -111,7 +127,8 @@ export async function getMaterialCategory(params: { [key: string]: any }) {
       pLevel: true,
       'pagination[pageSize]': 100,
       ...params,
-    }
+    },
+    next: { revalidate: revalidate.static, tags: ["material-categories"] },
   })
 }
 
@@ -121,7 +138,8 @@ export async function getIndustry(params: { [key: string]: any } = {}) {
       pLevel: 10,
       'pagination[pageSize]': 100,
       ...params,
-    }
+    },
+    next: { revalidate: revalidate.normal, tags: ["industries"] },
   })
 }
 
@@ -131,7 +149,7 @@ export async function getSite(params: { [key: string]: any } = {}) {
       pLevel: true,
       ...params,
     },
-    // next: { revalidate: 3600 },
+    next: { revalidate: revalidate.long, tags: ["site"] },
   })
 }
 
@@ -141,11 +159,14 @@ export async function getNavigation(documentId: string, params: { [key: string]:
       pLevel: true,
       ...params,
     },
+    next: { revalidate: revalidate.long, tags: ["navigations"] },
   })
 }
 
 export async function getI18nLocales() {
-  return fetchStrapi<LocaleItem[]>('/i18n/locales')
+  return fetchStrapi<LocaleItem[]>('/i18n/locales', {
+    next: { revalidate: revalidate.static, tags: ["i18n-locales"] },
+  })
 }
 
 export async function getBroadcast(params: { [key: string]: any } = {}) {
@@ -155,6 +176,7 @@ export async function getBroadcast(params: { [key: string]: any } = {}) {
       'pagination[pageSize]': 100,
       ...params,
     },
+    next: { revalidate: revalidate.static, tags: ["broadcasts"] },
   })
 }
 

@@ -9,6 +9,15 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
   oembed: {
     enabled: true,
   },
+  upload: {
+    config: {
+      providerOptions: {
+        localServer: {
+          maxage: 31536000000, // 1 year in ms (koa-static option)
+        },
+      },
+    },
+  },
 });
 
 export default config;

@@ -6,11 +6,13 @@ import { logger } from "./utils/logger";
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://127.0.0.1:1337';
 
 export async function proxy(request: NextRequest): Promise<NextResponse> {
+  logger.debug("[proxy]", `request from: ${request.nextUrl.href}`)
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith('/proxy-via-next/')) {
     const proxyPath = pathname.replace('/proxy-via-next', '');
     const url = new URL(proxyPath + request.nextUrl.search, STRAPI_URL);
+    logger.debug("[proxy]", `rewrite to: ${url.toString()}`)
     return NextResponse.rewrite(url);
   }
 
@@ -18,5 +20,5 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
 }
 
 export const config = {
-  matcher: ["/", "/proxy-via-next/:path*", "/((?!_next|api|.*\\..*).*)"],
+  matcher: ["/", "/proxy-via-next/:path*", "/((?!_next|api).*)"],
 };
