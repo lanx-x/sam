@@ -116,7 +116,7 @@ export async function MaterialDetail({ documentId, section, locale, siteData }: 
 
             {
               data?.surface_treatments?.map((xs, idx) => (
-                <SurfaceTreatmentItem item={xs} key={xs.id} />
+                <SurfaceTreatmentItem item={xs} key={xs.id} locale={locale} />
 
               ))
             }
