@@ -4,12 +4,14 @@ import type { PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceT
 
 export type { PageData };
 
+const isDev = process.env.NODE_ENV === 'development'
+
+// 开发环境兼用缓存, 其他环境设置无限长的缓存时间(通过 webhook 刷新缓存)
 const revalidate = {
-  disabled: false,
-  short: false,
-  normal: false,
-  long: false,
-  static: false,
+  short: isDev ? 0 : 60 * 60 * 24 * 365,
+  normal: isDev ? 0 : 60 * 60 * 24 * 365,
+  long: isDev ? 0 : 60 * 60 * 24 * 365,
+  static: isDev ? 0 : 60 * 60 * 24 * 365,
 } as const
 
 export const KNOWN_CACHE_TAGS = new Set([
