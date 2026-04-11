@@ -8,10 +8,11 @@ import { useEffect, useState } from "react";
 import { Section } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
-import { collectExtend, mergeExtension } from "@/utils";
+import { collectExtend, mergeDisplayText, mergeExtension } from "@/utils";
 import { Industry } from "cms-types";
+import Link from "next/link";
 
-export function FeaturedIndustrySolution({ section }: CmpProps) {
+export function FeaturedIndustrySolution({ section, locale }: CmpProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
 
@@ -43,6 +44,7 @@ export function FeaturedIndustrySolution({ section }: CmpProps) {
   }, [emblaApi]);
 
   const extension = mergeExtension(section)
+  const displayText = mergeDisplayText(section)
   const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
 
 
@@ -66,10 +68,10 @@ export function FeaturedIndustrySolution({ section }: CmpProps) {
                   <p className="font-semibold text-2xl leading-none mb-5">{xs.name}</p>
                   <p className="flex-1 text-sm leading-3.5 xl:text-base xl:leading-5">{xs.desc}</p>
 
-                  <div className="flex flex-row text-accent text-base font-medium items-center">
-                    <p className="mr-2">{extension.label?.value}</p>
+                  <Link href={`/${locale}/solutions/industry/${xs.documentId}`} className="flex flex-row text-accent text-base font-medium items-center">
+                    <p className="mr-2">{displayText?.view_product ?? "View Product"}</p>
                     <Image src={Assets.Link} alt="arrow" />
-                  </div>
+                  </Link>
                 </div>
               </div>
 

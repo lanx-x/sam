@@ -9,10 +9,11 @@ import { useEffect, useState } from "react";
 import { Section } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
-import { collectExtend, mergeExtension } from "@/utils";
+import { collectExtend, mergeDisplayText, mergeExtension } from "@/utils";
 import { CaseStudy } from "cms-types";
+import Link from "next/link";
 
-export function FeaturedCaseStudy({ section }: CmpProps) {
+export function FeaturedCaseStudy({ section, locale }: CmpProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
@@ -43,6 +44,7 @@ export function FeaturedCaseStudy({ section }: CmpProps) {
   }, [emblaApi]);
 
   const extension = mergeExtension(section)
+  const displayText = mergeDisplayText(section)
   const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
 
 
@@ -78,10 +80,10 @@ export function FeaturedCaseStudy({ section }: CmpProps) {
                       }
                     </div>
 
-                    <div className="hidden text-right text-accent text-base justify-end font-medium items-center xl:flex">
-                      <p className="mr-2">{extension['open_url']?.value}</p>
+                    <Link href={`/${locale}/resources/case-study/${xs.documentId}`} className="hidden text-right text-accent text-base justify-end font-medium items-center xl:flex">
+                      <p className="mr-2">{displayText?.read_full ?? "Read Full Case Study"}</p>
                       <Image src={Assets.ArrowR} alt="arrow" />
-                    </div>
+                    </Link>
                   </div>
                 </div>
               </div>
