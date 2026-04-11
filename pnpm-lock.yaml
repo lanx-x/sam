@@ -74,9 +74,6 @@ importers:
       dayjs:
         specifier: ^1.11.20
         version: 1.11.20
-      embla-carousel-auto-scroll:
-        specifier: 9.0.0-rc01
-        version: 9.0.0-rc01(embla-carousel@9.0.0-rc01)
       embla-carousel-autoplay:
         specifier: 9.0.0-rc01
         version: 9.0.0-rc01(embla-carousel@9.0.0-rc01)
@@ -4505,11 +4502,6 @@ packages:
 
   elliptic@6.6.1:
     resolution: {integrity: sha512-RaddvvMatK2LJHqFJ+YA4WysVN5Ita9E35botqIYspQ4TkRAlCicdzKOjlyv/1Za5RyTNn7di//eEV0uTAfe3g==}
-
-  embla-carousel-auto-scroll@9.0.0-rc01:
-    resolution: {integrity: sha512-9lMYoiriEwy2foZ0i7lHG9rU8TMPxSgw3jXmZr4de/UXzqB/fv+z8deHIOORSlA/5Po+6r6+mov3g2tT3T0S4w==}
-    peerDependencies:
-      embla-carousel: 9.0.0-rc01
 
   embla-carousel-autoplay@9.0.0-rc01:
     resolution: {integrity: sha512-gl7jUe0X9xd5v7IiyFF2FCR+KTBesnutM0gQ3S75oo9EizZi5tJMNdVaFwvzepz6kGzDkkSbKMWitQvAbFVfdQ==}
@@ -15536,10 +15528,6 @@ snapshots:
       minimalistic-assert: 1.0.1
       minimalistic-crypto-utils: 1.0.1
 
-  embla-carousel-auto-scroll@9.0.0-rc01(embla-carousel@9.0.0-rc01):
-    dependencies:
-      embla-carousel: 9.0.0-rc01
-
   embla-carousel-autoplay@9.0.0-rc01(embla-carousel@9.0.0-rc01):
     dependencies:
       embla-carousel: 9.0.0-rc01
@@ -18855,7 +18843,7 @@ snapshots:
     dependencies:
       '@formatjs/ecma402-abstract': 1.18.2
       '@formatjs/icu-messageformat-parser': 2.7.6
-      '@formatjs/intl': 2.10.0(typescript@5.9.3)
+      '@formatjs/intl': 2.10.0(typescript@5.4.4)
       '@formatjs/intl-displaynames': 6.6.6
       '@formatjs/intl-listformat': 7.5.5
       '@types/hoist-non-react-statics': 3.3.7(@types/react@18.3.28)

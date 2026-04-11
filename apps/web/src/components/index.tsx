@@ -12,7 +12,6 @@ import { WorkShop } from "./WorkShop";
 import { FeaturedFAQ } from "./FeaturedFAQ";
 import { GetInTouch } from "./GetInTouch";
 import { CommonHero } from "./CommonHero";
-import { Partner } from "./Partner";
 import { ProcessingTech } from "./ProcessingTech";
 import dynamic from "next/dynamic";
 import { ImageSection } from "./ImageSection";
@@ -69,7 +68,6 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   GetInTouch,
 
   CommonHero,
-  Partner,
   ProcessingTech,
   ImageSection,
   Ship,
