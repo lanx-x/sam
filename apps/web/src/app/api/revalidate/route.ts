@@ -1,5 +1,6 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { KNOWN_CACHE_TAGS } from "@/api";
 import { logger } from "@/utils/logger";
 
 const SECRET = process.env.REVALIDATE_SECRET;
@@ -27,8 +28,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ revalidated: true, tag: body.tag });
     }
 
+    // Strapi webhook: use model field directly as revalidate tag
+    if (body.model) {
+      if (KNOWN_CACHE_TAGS.has(body.model)) {
+        revalidateTag(body.model, 'max');
+        logger.info(`[Revalidate] Revalidated tag: ${body.model} (from Strapi webhook)`);
+        return NextResponse.json({ revalidated: true, tag: body.model });
+      }
+
+      // Unknown model: revalidate everything
+      revalidatePath("/", "layout");
+      logger.warn(`[Revalidate] Unknown model "${body.model}", revalidated everything`);
+      return NextResponse.json({ revalidated: true, scope: "all" });
+    }
+
+    // No model: revalidate everything
     revalidatePath("/", "layout");
-    logger.info("[Revalidate] Revalidated all paths");
+    logger.warn(`[Revalidate] No model in payload, revalidated everything`);
     return NextResponse.json({ revalidated: true, scope: "all" });
   } catch {
     logger.error("[Revalidate] Invalid request body");

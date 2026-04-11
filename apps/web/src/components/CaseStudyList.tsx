@@ -1,5 +1,5 @@
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
-import { createLocalizedApi, globalApi } from "@/api";
+import { createLocalizedApi } from "@/api";
 import { CaseStudyClientList } from "./CaseStudyClientList";
 
 export async function CaseStudyList({ section, searchParams, slug, locale }: CmpProps) {

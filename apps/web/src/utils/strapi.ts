@@ -64,7 +64,8 @@ export async function fetchStrapi<T>(
     });
 
     const duration = Date.now() - start;
-    logger.debug(`[Strapi] ${response.status} ${response.statusText} (${duration}ms)`);
+    const cache = response.headers.get('x-nextjs-cache');
+    logger.debug(`[Strapi] ${response.status} ${cache ?? '-'} ${duration}ms ${url.pathname}${url.search}`);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));

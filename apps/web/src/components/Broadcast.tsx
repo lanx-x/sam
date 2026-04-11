@@ -50,7 +50,7 @@ export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale;
         return;
       }
       const basePath = stripLocaleFromPath(pathname, localeList);
-      const newPath = localizePath(targetLocale, basePath || "/", defaultLocale);
+      const newPath = localizePath(targetLocale, basePath || "/");
       router.push(newPath);
       setLocaleOpen(false);
     },

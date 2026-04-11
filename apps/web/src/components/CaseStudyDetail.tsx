@@ -1,5 +1,5 @@
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
-import { createLocalizedApi, globalApi } from "@/api";
+import { createLocalizedApi } from "@/api";
 import Image from "next/image";
 import Link from "next/link";
 import { Section, SectionContainer } from "./Section";

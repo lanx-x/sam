@@ -1,16 +1,12 @@
-import "server-only";
+// import "server-only";
 
 import { cache } from "react";
 import { notFound } from "next/navigation";
 import { globalApi } from "@/api";
-import { getDefaultLocale, isLocale, getLocale, type LocaleItem } from "./config";
+import { getDefaultLocale, isLocale, getLocale, type LocaleItem } from "./";
 
-export const getLocaleList = async (): Promise<LocaleItem[]> => {
-  return globalApi.getI18nLocales();
-};
-
-export const getRuntimeLocale = cache(async (routeLocale: string) => {
-  const localeList = await getLocaleList();
+export const getRuntimeLocale = (async (routeLocale: string) => {
+  const localeList = await globalApi.getI18nLocales();
 
   if (!isLocale(routeLocale, localeList)) {
     notFound();
