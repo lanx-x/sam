@@ -42,7 +42,7 @@ export function Marquee({ section }: CmpProps) {
   return (
     <div className={`relative h-10 transition-opacity ${ready ? 'opacity-100' : 'opacity-0'} ${variant}`}>
       <style>{marqueeStyle}</style>
-      <div className="flex h-full overflow-hidden">
+      <div className="relative flex h-full overflow-hidden">
         <div aria-hidden className="invisible absolute flex shrink-0" ref={measureRef}>
           {logos.map((logo, idx) => (
             <div key={`m-${logo.id}-${idx}`} className="mr-9 flex h-full flex-[0_0_auto] items-center">
