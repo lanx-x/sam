@@ -8,7 +8,8 @@ services:
     ports:
       - "11337:1337"
     volumes:
-      - ./apps/cms/.tmp:/app/apps/cms/.tmp
+      - ./apps/cms/data:/app/apps/cms/data
+      - ./apps/cms/public/uploads:/app/apps/cms/public/uploads
     env_file:
       - apps/cms/.env
     environment:

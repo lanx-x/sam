@@ -22,6 +22,7 @@ RUN pnpm --filter cms build
 
 FROM base AS runner
 RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN apt-get update && apt-get install -y sqlite3 cron && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -35,6 +36,14 @@ COPY --from=builder /app/apps/cms/dist ./apps/cms/dist
 COPY --from=builder /app/apps/cms/public ./apps/cms/public
 COPY --from=builder /app/apps/cms/tsconfig.json ./apps/cms/tsconfig.json
 
+COPY apps/cms/scripts/backup.sh /app/scripts/backup.sh
+COPY apps/cms/scripts/crontab /etc/cron.d/backup-cron
+COPY apps/cms/scripts/entrypoint.sh /app/scripts/entrypoint.sh
+RUN chmod +x /app/scripts/backup.sh /app/scripts/entrypoint.sh \
+  && chmod 0644 /etc/cron.d/backup-cron \
+  && crontab /etc/cron.d/backup-cron
+
 EXPOSE 1337
 
+ENTRYPOINT ["/app/scripts/entrypoint.sh"]
 CMD ["pnpm", "--filter", "cms", "start"]

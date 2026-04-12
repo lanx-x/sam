@@ -10,3 +10,5 @@ README.md
 dist
 *.log
 tmp
+apps/cms/.tmp
+apps/cms/data

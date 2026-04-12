@@ -131,6 +131,7 @@ apps/cms/build
 apps/cms/.strapi-updater.json
 apps/cms/.strapi-cloud.json
 apps/cms/.tmp
+apps/cms/data
 
 
 
