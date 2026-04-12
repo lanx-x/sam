@@ -1,4 +1,5 @@
 FROM node:22-slim AS base
+ENV TZ=Asia/Shanghai
 
 FROM base AS deps
 RUN corepack enable && corepack prepare pnpm@latest --activate

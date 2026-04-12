@@ -8,10 +8,10 @@ const isDev = process.env.NODE_ENV === 'development'
 
 // 开发环境兼用缓存, 其他环境设置无限长的缓存时间(通过 webhook 刷新缓存)
 const revalidate = {
-  short: isDev ? 0 : 60 * 60 * 24 * 365,
-  normal: isDev ? 0 : 60 * 60 * 24 * 365,
-  long: isDev ? 0 : 60 * 60 * 24 * 365,
-  static: isDev ? 0 : 60 * 60 * 24 * 365,
+  short: isDev ? 0 : 60 * 60 * 24 * 7,
+  normal: isDev ? 0 : 60 * 60 * 24 * 7,
+  long: isDev ? 0 : 60 * 60 * 24 * 7,
+  static: isDev ? 0 : 60 * 60 * 24 * 7,
 } as const
 
 export const KNOWN_CACHE_TAGS = new Set([
@@ -40,7 +40,7 @@ export async function getPage(payload: { [key: string]: any }) {
       pLevel: true,
       ...params,
     },
-    next: { revalidate: revalidate.short, tags: ["page"] }
+    next: { revalidate: revalidate.short, tags: ["page", "material", "news", "case-study", "industry", "equipment", "surface-treatment"] }
   });
 }
 
@@ -63,7 +63,7 @@ export async function getSurfaceTreatment(params: { [key: string]: any }) {
       'pagination[pageSize]': 100,
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["surface-treatment"] },
+    next: { revalidate: revalidate.normal, tags: ["surface-treatment", "material", "news"] },
   })
 }
 
@@ -74,7 +74,7 @@ export async function getEquipment(params: { [key: string]: any }) {
       'pagination[pageSize]': 100,
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["equipment"] },
+    next: { revalidate: revalidate.normal, tags: ["equipment", "equipment-category", "news"] },
   })
 }
 
@@ -85,7 +85,7 @@ export async function getEquipmentCategory(params: { [key: string]: any }) {
       'pagination[pageSize]': 100,
       ...params,
     },
-    next: { revalidate: revalidate.static, tags: ["equipment-category"] },
+    next: { revalidate: revalidate.static, tags: ["equipment-category", "equipment"] },
   })
 }
 
@@ -95,7 +95,7 @@ export async function getCaseStudy(params: { [key: string]: any }) {
       pLevel: true,
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ['case-study'] },
+    next: { revalidate: revalidate.normal, tags: ["case-study", "industry"] },
   })
 }
 
@@ -105,7 +105,7 @@ export async function getNews(params: { [key: string]: any }) {
       pLevel: true,
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["news"] },
+    next: { revalidate: revalidate.normal, tags: ["news", "news-category"] },
   })
 }
 
@@ -116,7 +116,7 @@ export async function getNewsCategory(params: { [key: string]: any }) {
       'pagination[pageSize]': 100,
       ...params,
     },
-    next: { revalidate: revalidate.static, tags: ["news-category"] },
+    next: { revalidate: revalidate.static, tags: ["news-category", "news"] },
   })
 }
 
@@ -137,7 +137,7 @@ export async function getMaterial(params: { [key: string]: any } = {}) {
       'pagination[pageSize]': 100,
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["material"] },
+    next: { revalidate: revalidate.normal, tags: ["material", "material-category", "surface-treatment", "industry", "news"] },
   })
 }
 
@@ -148,7 +148,7 @@ export async function getMaterialCategory(params: { [key: string]: any }) {
       'pagination[pageSize]': 100,
       ...params,
     },
-    next: { revalidate: revalidate.static, tags: ["material-category"] },
+    next: { revalidate: revalidate.static, tags: ["material-category", "material"] },
   })
 }
 
@@ -159,7 +159,7 @@ export async function getIndustry(params: { [key: string]: any } = {}) {
       'pagination[pageSize]': 100,
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["industry"] },
+    next: { revalidate: revalidate.normal, tags: ["industry", "material"] },
   })
 }
 
