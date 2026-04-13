@@ -4,7 +4,7 @@ import { Assets } from "@/assets";
 import { cn } from "@/utils/cn";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Section } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
@@ -18,15 +18,8 @@ export function FeaturedComment({ section }: CmpProps) {
 
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
-    containScroll: "trimSnaps",
-    loop: false,
-    breakpoints: {
-      "(min-width: 1280px)": {
-        align: "center",
-        containScroll: false,
-      },
-    },
+    align: "center",
+    loop: true,
   })
 
   useEffect(() => {
@@ -42,7 +35,7 @@ export function FeaturedComment({ section }: CmpProps) {
       setSelectedIndex(event.detail.targetSnap);
     };
 
-    emblaApi.goTo(1)
+    // emblaApi.goTo(1)
     syncSelectedIndex();
     emblaApi.on("select", onSelect);
     emblaApi.on("reinit", syncSelectedIndex);
@@ -53,31 +46,49 @@ export function FeaturedComment({ section }: CmpProps) {
     };
   }, [emblaApi]);
 
+  const items = section.payload?.data ?? []
+  const cardStyle = useCallback((current: number, idx: number) => {
+    if (idx > current) {
+      return current === 0 && idx === items.length - 1 ? 'xl:scale-82 origin-left' : `xl:scale-82 origin-right`
+    }
+
+    if (idx < current) {
+      return current === items.length - 1 && idx === 0 ? 'xl:scale-82 origin-right' : `xl:scale-82 origin-left`
+    }
+
+    return `xl:scale-100 shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]`
+
+
+  }, [items.length])
+
   return (
-    <Section
-      title={section.payload?.title!}
-      desc={section.payload?.desc!}
-      bg={Assets.Map}
-      className={`pb-15 xl:pb-27.25 ${bg_variant}`}
-    >
-      <div className="mt-18.5 xl:mt-25">
-        <div className="relative overflow-hidden z-10 py-10 xl:max-w-420 xl:mx-auto" ref={emblaRef}>
+    <div className={`xl:min-h-185 pt-10 xl:pt-10 ${bg_variant} w-full relative`} >
+      <div className="flex items-center justify-center absolute w-full top-51.75 xl:top-10">
+        <Image src={Assets.Map} width={1280} height={673} alt="map" className="w-full xl:w-320" />
+      </div>
+
+      <div className="text-center xl:mt-10 mb-20 xl:mb-15 px-5 xl:px-0">
+        <p className="section-title">{section.payload?.title}</p>
+        <p className="section-desc">{section.payload?.desc}</p>
+      </div>
+
+      <div className="xl:max-w-435 mx-auto">
+        <div className="relative z-10 py-10 overflow-hidden" ref={emblaRef}>
           <div className="flex flex-row">
             {
               section.payload?.data?.map((xs, idx) => (
-                <div
-                  className={`basis-full min-w-0 shrink-0 flex justify-center items-center xl:basis-1/3 xl:transition-all xl:duration-300 ${selectedIndex === idx ? "xl:scale-100" : "xl:scale-70"}`}
-                  key={xs.id}
-                >
-                  <div className={`bg-white w-87.5 h-90 rounded-lg flex flex-col shrink-0 px-5 items-center shadow-[0_8px_24px_0_rgba(0,0,0,0.08)] xl:w-full xl:max-w-none`} key={idx}>
+                <div className={`shrink-0 w-full xl:w-145 px-5 xl:px-0`} key={`${xs.id}-${idx}`}>
+                  <div className={`${cardStyle(selectedIndex, idx)} bg-white rounded-lg flex flex-col transition-all duration-500 shrink-0 px-5 xl:px-10 items-center`}>
                     <Image width={80} height={80} src={getStrapiMedia(xs.image) ?? ""} alt="avatar" className="absolute w-20 h-20 -top-10 rounded-full" />
-                    <span className="mt-15 text-[18px] font-semibold mb-2">{xs.title}</span>
+                    <span className="mt-15 text-lg font-semibold mb-2">{xs.title}</span>
                     <span className="text-secondary text-xs">{xs.label}</span>
-                    <Image src={Assets.QuoteL} alt="quote" className="mr-auto xl:-mb-4" />
-                    <p className="text-sm font-medium px-10 my-3">{xs.desc}</p>
-                    <Image className="ml-auto" src={Assets.QuoteR} alt="quote" />
-                    <div className={cn("hidden absolute inset-0 bg-[rgba(250,250,250,0.8)] transition-opacity duration-300 xl:flex", selectedIndex === idx ? 'opacity-0' : 'opacity-100')}></div>
-                    <div className={cn("hidden absolute w-20 h-10 -top-10 rounded-tl-full rounded-tr-full bg-[rgba(250,250,250,0.8)] transition-opacity duration-300 xl:flex", selectedIndex === idx ? 'opacity-0' : 'opacity-100')}></div>
+                    <div className="relative pt-10 pb-14.25">
+                      <p className="absolute left-0 top-2.5 text-accent text-[120px] leading-none text-left">“</p>
+                      <p className="text-sm font-medium px-10 my-3 xl:my-0 xl:px-15 text-center">{xs.desc}</p>
+                      <p className="absolute right-0 -bottom-10 text-accent text-[120px] leading-none text-right">”</p>
+                    </div>
+                    <div className={cn("absolute inset-0 bg-[rgba(250,250,250,0.8)] transition-opacity duration-300 hidden xl:block", selectedIndex === idx ? 'opacity-0' : 'opacity-100')}></div>
+                    <div className={cn("absolute w-20 h-10 -top-10 rounded-tl-full rounded-tr-full bg-[rgba(250,250,250,0.8)] transition-opacity duration-500 hidden xl:block", selectedIndex === idx ? 'opacity-0' : 'opacity-100')}></div>
                   </div>
                 </div>
               ))
@@ -85,10 +96,10 @@ export function FeaturedComment({ section }: CmpProps) {
           </div>
         </div>
 
-        <div className="hidden flex-row mx-auto justify-center xl:flex">
+        <div className="hidden flex-row mx-auto justify-center xl:flex relative z-10">
           {
             section.payload?.data?.map((xs, idx) => (
-              <div key={xs.id} className="cursor-pointer" onClick={() => emblaApi?.goTo(idx)}>
+              <div key={xs.id} className="cursor-pointer text-center" onClick={() => emblaApi?.goTo(idx)}>
                 <p className={`'text-xs ${selectedIndex === idx ? 'text-[#666]' : 'text-[#bfbfbf]'}`}>0{idx + 1}</p>
                 <div className={cn("h-1 w-12 border-b border-l border-[#efefef] last:border-r", selectedIndex === idx ? 'border-secondary' : '')}></div>
               </div>
@@ -97,14 +108,13 @@ export function FeaturedComment({ section }: CmpProps) {
 
         </div>
 
-        <div className="flex flex-row justify-center relative z-10 xl:w-168 xl:mx-auto xl:-top-60 xl:justify-between">
+        <div className="flex flex-row justify-center relative z-10 pb-15 xl:pb-0 xl:w-168 xl:mx-auto xl:-top-60 xl:justify-between">
           <button type="button" onClick={() => emblaApi?.goToPrev()}><Image className="w-12 h-12 mr-3 xl:w-10 xl:h-10 xl:mr-0" src={Assets.BlackArrowL} alt="prev" /></button>
           <button type="button" onClick={() => emblaApi?.goToNext()}><Image className="w-12 h-12 xl:w-10 xl:h-10" src={Assets.BlackArrowR} alt="next" /></button>
         </div>
       </div>
 
 
-    </Section>
+    </div>
   )
 }
-
