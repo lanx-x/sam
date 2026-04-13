@@ -50,11 +50,13 @@ export function FeaturedCaseStudy({ section, locale }: CmpProps) {
 
 
   return (
-    <Section
-      title={section.payload?.title!}
-      desc={section.payload?.desc!}
-      className={bg_variant}
-    >
+    <div className={`${bg_variant} relative py-10 xl:py-20`}>
+      <div className="px-5 xl:px-0 text-center">
+        <p className="section-title">{section.payload?.title}</p>
+        <p className="section-desc">{section.payload?.desc}</p>
+
+      </div>
+
       <div className="py-10 overflow-hidden" ref={emblaRef}>
         <div className="flex flex-row">
           {
@@ -94,7 +96,7 @@ export function FeaturedCaseStudy({ section, locale }: CmpProps) {
         </div>
       </div>
 
-      <div className="hidden xl:flex mx-auto justify-center">
+      <div className="hidden xl:flex mx-auto justify-center text-center">
         {
           ((section.payload?.dynamic?.[0] as any)?.case_studies as CaseStudy[])?.map((xs, idx) => (
             <div key={idx} className="cursor-pointer" onClick={() => emblaApi?.goTo(idx)}>
@@ -114,7 +116,7 @@ export function FeaturedCaseStudy({ section, locale }: CmpProps) {
         </div>
       </div>
 
-    </Section>
+    </div>
   )
 }
 
