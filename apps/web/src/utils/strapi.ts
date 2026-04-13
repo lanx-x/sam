@@ -1,11 +1,12 @@
 import type { StaticImageData } from "next/image";
+import qs from "qs";
 import { logger } from "./logger";
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://127.0.0.1:1337';
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 
 interface FetchOptions extends RequestInit {
-  params?: Record<string, string | number | boolean>;
+  params?: Record<string, unknown>;
 }
 
 type MediaLike =
@@ -44,9 +45,7 @@ export async function fetchStrapi<T>(
   // Build URL with query parameters
   const url = new URL(`${STRAPI_URL}/api${path.startsWith('/') ? path : `/${path}`}`);
   if (params) {
-    Object.entries(params).forEach(([key, value]) => {
-      url.searchParams.append(key, String(value));
-    });
+    url.search = qs.stringify(params);
   }
 
   const start = Date.now();

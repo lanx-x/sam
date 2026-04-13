@@ -176,7 +176,29 @@ export async function getSite(params: { [key: string]: any } = {}) {
 export async function getNavigation(documentId: string, params: { [key: string]: any } = {}) {
   return fetchStrapi<StrapiSingleResponse<Navigation>>(`/navigations/${documentId}`, {
     params: {
-      pLevel: true,
+      populate: {
+        value: {
+          populate: {
+            image: true,
+            featured_news: { fields: ['title', 'documentId'] },
+            children: {
+              populate: {
+                icon: true,
+                image: true,
+                target_page: { fields: ['slug'] },
+                children: {
+                  populate: {
+                    icon: true,
+                    target_page: { fields: ['slug'] },
+                    industry: { fields: ['documentId'] },
+                  },
+                },
+              },
+            },
+          },
+        },
+        action: true,
+      },
       ...params,
     },
     next: { revalidate: revalidate.long, tags: ["navigation"] },
