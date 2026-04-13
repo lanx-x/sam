@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
+import Fade from "embla-carousel-fade";
 import { Assets } from "@/assets";
 import { useEffect, useState } from "react";
 import { cn } from "@/utils/cn";
@@ -14,7 +15,7 @@ export function OneStop({ section }: CmpProps) {
     align: "start",
     containScroll: "trimSnaps",
     loop: true,
-  });
+  }, [Fade()]);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -62,7 +63,7 @@ export function OneStop({ section }: CmpProps) {
               <div
                 key={xs.id}
                 className="flex flex-col shrink-0 w-80 border border-[#bfbfbf] bg-[#fafafa] rounded-xl py-5 px-4 ml-5 text-left xl:ml-0 xl:px-0 xl:w-full xl:border-0 xl:flex-row-reverse">
-                <Image width={480} height={300} src={getStrapiMedia(xs.image) ?? ""} className="object-cover w-72 h-45 xl:w-120 xl:h-75" alt="cap" />
+                <Image width={480} height={300} src={getStrapiMedia(xs.image) ?? ""} className="shrink-0 object-cover w-72 h-45 xl:w-120 xl:h-75" alt="cap" />
                 <div className="shrink-0 invisible xl:visible xl:w-px xl:h-full xl:bg-[#efefef] xl:mx-15"></div>
                 <div>
                   <p className="text-2xl font-semibold mt-5 mb-3 xl:text-[32px] xl:mb-4">{xs.title}</p>
