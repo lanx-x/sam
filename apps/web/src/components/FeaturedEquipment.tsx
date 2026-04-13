@@ -27,12 +27,12 @@ export function FeaturedEquipment({ section, locale }: CmpProps) {
       desc={section.payload?.desc!}
       className={`text-left ${bg_variant}`}
     >
-      <div className="relative mt-10">
+      <div className="relative mt-10 pl-5 xl:pl-0">
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex flex-row w-full">
             {
               ((section.payload?.dynamic?.[0] as any)?.equipment as Equipment[])?.map((xs, idx) => (
-                <div key={xs.id} className="w-305/390 ml-5 shrink-0 text-left xl:w-76.25 xl:ml-0 xl:mr-5">
+                <div key={xs.id} className="w-[78.205128vw] ml-5 shrink-0 text-left xl:w-76.25 xl:ml-0 xl:mr-5">
 
                   <div className="relative w-76.25 h-55 shrink-0 overflow-hidden flex items-center justify-center">
                     <Image fill className="object-cover -z-10" src={Assets.EquipBase} alt="" />
