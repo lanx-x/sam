@@ -203,7 +203,7 @@ export function DesktopNav(props: NavProps) {
           </Link>
 
           {/* Desktop links */}
-          <div className={`hidden xl:flex items-center gap-8 ml-auto ${props.showLogoOnly ? 'xl:hidden' : ''}`}>
+          <div className={`hidden xl:flex items-center gap-15 ml-auto ${props.showLogoOnly ? 'xl:hidden' : ''}`}>
             {groups.map((item, idx) => {
               const href = getHref(item);
               const hasChildren = item.children && item.children.length > 0;
@@ -221,7 +221,7 @@ export function DesktopNav(props: NavProps) {
             })}
 
             {
-              data.action && <ActionButton locale={locale} action={data.action} className="bg-accent text-white text-sm font-medium rounded-sm px-10 h-12 flex items-center justify-center transition-opacity hover:opacity-90" />
+              data.action && <ActionButton locale={locale} action={data.action} className="bg-accent text-white text-sm font-medium rounded-sm px-10 h-12 flex items-center justify-center transition-opacity hover:opacity-90 ml-10" />
 
             }
           </div>

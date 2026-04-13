@@ -150,7 +150,7 @@ export function FormGetQuote({ section, siteData }: CmpProps) {
 
 
   return (
-    <div className={cn("bg-[#f6f8fa] min-h-screen")}>
+    <div className={cn("bg-[#f6f8fa] min-h-[calc(100vh-100px)]")}>
       <div className="xl:w-7xl xl:mx-auto px-5 xl:px-0 pb-20">
         <p className="font-medium text-lg/15 text-primary">{section.payload?.title}</p>
 
