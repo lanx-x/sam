@@ -15,9 +15,9 @@ import Link from "next/link";
 export function FeaturedIndustrySolution({ section, locale }: CmpProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
-
     align: "start",
     containScroll: "trimSnaps",
+    loop: true,
   })
 
   useEffect(() => {

@@ -13,6 +13,7 @@ export function OneStop({ section }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     containScroll: "trimSnaps",
+    loop: true,
   });
 
   const [selectedIndex, setSelectedIndex] = useState(0);

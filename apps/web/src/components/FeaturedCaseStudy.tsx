@@ -18,6 +18,7 @@ export function FeaturedCaseStudy({ section, locale }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     containScroll: "trimSnaps",
+    loop: true,
   })
 
   useEffect(() => {

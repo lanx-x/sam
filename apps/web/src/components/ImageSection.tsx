@@ -13,7 +13,7 @@ export function ImageSection({ section }: CmpProps) {
       desc={section.payload?.desc!}
       className="bg-[#fafafa]"
     >
-      <Image className="w-full mt-10 px-5 xl:px-0" width={1280} height={400} src={getStrapiMedia(section.payload?.image) ?? ""} alt="section-img" />
+      <Image unoptimized className="w-full mt-10 px-5 xl:px-0" width={1280} height={400} src={getStrapiMedia(section.payload?.image) ?? ""} alt="section-img" />
     </Section>
   )
 }

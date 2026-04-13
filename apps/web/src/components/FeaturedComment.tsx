@@ -25,7 +25,6 @@ export function FeaturedComment({ section }: CmpProps) {
       "(min-width: 1280px)": {
         align: "center",
         containScroll: false,
-        loop: false,
       },
     },
   })

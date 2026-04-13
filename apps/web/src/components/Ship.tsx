@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoPlay from "embla-carousel-autoplay";
 import { collectExtend, mergeExtension } from "@/utils";
+import { Assets } from "@/assets";
 
 export function Ship({ section }: CmpProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -78,7 +79,7 @@ export function Ship({ section }: CmpProps) {
           </div>
         </div>
 
-        <div className="mt-5 w-full xl:ml-25 shrink-0 overflow-hidden xl:w-135" ref={emblaRef}>
+        <div className="relative mt-5 w-full xl:ml-25 shrink-0 overflow-hidden xl:w-135" ref={emblaRef}>
           <div className="flex flex-row">
             {
               images.map((xs, idx) => (
@@ -97,8 +98,13 @@ export function Ship({ section }: CmpProps) {
                 </div>
               ))
             }
+
           </div>
 
+          <div className="absolute left-0 top-55 flex flex-row justify-start items-center xl:px-4 w-full xl:opacity-80">
+            <button type="button" onClick={() => emblaApi?.goToPrev()} className="mr-3 xl:mr-auto"><Image className="w-12 h-12" src={Assets.GrayArrowL} alt="left" /></button>
+            <button type="button" onClick={() => emblaApi?.goToNext()}><Image className="w-12 h-12 " src={Assets.GrayArrowR} alt="right" /></button>
+          </div>
         </div>
       </div>
 

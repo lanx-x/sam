@@ -172,13 +172,13 @@ export function DesktopNav(props: NavProps) {
   const { data, siteData, locale } = props;
   const groups = data.value ?? [];
   const [openKey, setOpenKey] = useState<string | null>(null);
-  const [activeChild, setActiveChild] = useState(0);
+  const [activeChild, setActiveChild] = useState(-1);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const open = useCallback((key: string) => {
     clearTimeout(timer.current);
     setOpenKey(key);
-    setActiveChild(0);
+    setActiveChild(-1);
   }, []);
 
   const scheduleClose = useCallback(() => {
@@ -265,7 +265,7 @@ export function DesktopNav(props: NavProps) {
                         {/* Featured image */}
                         {group.featured_news && (
                           <Link onClick={close} href={withLocalePath(locale, `/resources/news/${group.featured_news.documentId}`)} className="relative block py-4 px-5 h-40 w-100 rounded-lg overflow-hidden">
-                            <Image src={getStrapiMedia(group.children[activeChild].image) || Assets.Banner} fill alt="" className="object-cover" />
+                            <Image src={getStrapiMedia(group.children[activeChild]?.image ?? "") || Assets.Banner} fill alt="" className="object-cover" />
 
                             <h4 className="relative z-10 text-lg text-white font-medium m-w-45">{group.featured_news?.title}</h4>
 

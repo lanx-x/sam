@@ -15,6 +15,7 @@ import Link from "next/link";
 export function FeaturedMaterial({ section, siteData, locale }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
+    loop: true,
   })
 
   const extension = mergeExtension(section)

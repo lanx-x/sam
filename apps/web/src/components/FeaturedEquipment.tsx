@@ -13,6 +13,7 @@ import { Equipment } from "cms-types";
 export function FeaturedEquipment({ section, locale }: CmpProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
+    loop: true,
   })
 
 
