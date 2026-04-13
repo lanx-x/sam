@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_display_text_case_studies",
+  "info": {
+    "displayName": "CaseStudy"
+  },
+  "options": {},
+  "attributes": {
+    "key_parameters": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

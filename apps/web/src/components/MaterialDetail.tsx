@@ -52,9 +52,9 @@ export async function MaterialDetail({ documentId, section, locale, siteData }: 
         </div>
 
         <div className="px-5 xl:px-0 grid grid-cols-1 xl:grid-cols-[480px_1fr] gap-10 xl:gap-30 xl:w-7xl xl:mx-auto py-10 xl:py-20">
-          <Image width={480} height={480} src={getStrapiMedia(data.icon) ?? ""} className="w-full xl:w-120 object-cover" alt="" />
+          <Image width={480} height={480} src={getStrapiMedia(data.icon) ?? ""} className="w-full xl:w-120 object-cover aspect-square" alt="" />
           <div>
-            {data.content && <BlocksRenderer content={data.content} />}
+            {data.content && <div className="prose"><BlocksContent content={data.content} /></div>}
 
             <div className="mt-10">
               {

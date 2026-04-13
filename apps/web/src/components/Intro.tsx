@@ -14,7 +14,7 @@ export function Intro({ section }: CmpProps) {
           <Image src={getStrapiMedia(section.payload?.image) ?? ""} alt="" fill className="object-cover" />
         </div>
 
-        <div>
+        <div className="xl:pt-15">
           <div className="flex flex-row items-end">
             <div className="w-8 border-b-2 border-accent mb-2 mr-2"></div>
             <span className="text-lg font-semibold leading-5 text-accent">{extension.label.value}</span>

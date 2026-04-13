@@ -19,8 +19,8 @@ export function WhyUsProduct({ section }: CmpProps) {
               <div className="relative w-full aspect-35/22">
                 <Image fill className="object-cover rounded-xl" src={getStrapiMedia(xs.image) ?? ""} alt="icon" />
               </div>
-              <div className="px-5 py-10">
-                <p className="mb-4 text-lg font-bold leading-none">{xs.title}</p>
+              <div className="px-5 py-8">
+                <p className="mb-4 text-lg font-bold leading-none xl:text-2xl">{xs.title}</p>
                 <p className="text-base">{xs.desc}</p>
 
                 {

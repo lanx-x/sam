@@ -26,6 +26,9 @@
     "contact_us": {
       "type": "string"
     },
+    "industry": {
+      "type": "string"
+    },
     "form": {
       "type": "component",
       "component": "display-text.form",
@@ -44,6 +47,11 @@
     "surface_treatment": {
       "type": "component",
       "component": "display-text.surface-treatment",
+      "repeatable": false
+    },
+    "case_study": {
+      "type": "component",
+      "component": "display-text.case-study",
       "repeatable": false
     }
   },

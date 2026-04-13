@@ -8,7 +8,7 @@ export function WhatWeDo({ section }: CmpProps) {
   const extension = mergeExtension(section)
   return (
     <div className="py-10 xl:py-20">
-      <SectionContainer className="grid grid-cols-1 xl:grid-cols-2 gap-10 xl:gap-23.5 px-5 xl:px-0">
+      <SectionContainer className="grid grid-cols-1 xl:grid-cols-[580px_1fr] gap-10 xl:gap-45 px-5 xl:px-0">
         <div>
           <div className="flex flex-row items-center">
             <div className="w-9 border-b-2 border-accent mr-2 mb-0.5"></div>

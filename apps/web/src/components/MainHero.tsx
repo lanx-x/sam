@@ -6,7 +6,7 @@ import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 import { ActionButton } from "./ActionButton";
 
-const ROTATE_INTERVAL = 3000;
+const ROTATE_INTERVAL = 6000;
 
 export function MainHero({ section, locale }: CmpProps) {
   const items = section.payload?.data ?? []
@@ -54,7 +54,7 @@ export function MainHero({ section, locale }: CmpProps) {
                     className="block w-fit max-w-full text-left mb-4 xl:mb-10 xl:mr-5"
                     onClick={() => setActiveIndex(index)}
                   >
-                    <p className="text-secondary font-medium mb-1 leading-none xl:text-base">{item.title}</p>
+                    <p className={`text-secondary font-medium mb-1 leading-none xl:text-base ${isActive && 'text-white'}`}>{item.title}</p>
                     <div className={`h-0.5 w-full overflow-hidden rounded-full bg-[#d9d9d9] transition-opacity duration-400 ${isActive ? "opacity-100" : "opacity-0"}`} >
                       <div
                         className="h-full rounded-full bg-accent"

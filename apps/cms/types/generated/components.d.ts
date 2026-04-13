@@ -1,5 +1,15 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface DisplayTextCaseStudy extends Struct.ComponentSchema {
+  collectionName: 'components_display_text_case_studies';
+  info: {
+    displayName: 'CaseStudy';
+  };
+  attributes: {
+    key_parameters: Schema.Attribute.String;
+  };
+}
+
 export interface DisplayTextCommon extends Struct.ComponentSchema {
   collectionName: 'components_display_text_commons';
   info: {
@@ -7,10 +17,12 @@ export interface DisplayTextCommon extends Struct.ComponentSchema {
   };
   attributes: {
     address: Schema.Attribute.String;
+    case_study: Schema.Attribute.Component<'display-text.case-study', false>;
     contact_us: Schema.Attribute.String;
     email: Schema.Attribute.String;
     fax: Schema.Attribute.String;
     form: Schema.Attribute.Component<'display-text.form', false>;
+    industry: Schema.Attribute.String;
     material: Schema.Attribute.Component<'display-text.material', false>;
     mobile: Schema.Attribute.String;
     phone: Schema.Attribute.String;
@@ -411,6 +423,7 @@ export interface SectionCommonSection extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'display-text.case-study': DisplayTextCaseStudy;
       'display-text.common': DisplayTextCommon;
       'display-text.form': DisplayTextForm;
       'display-text.material': DisplayTextMaterial;

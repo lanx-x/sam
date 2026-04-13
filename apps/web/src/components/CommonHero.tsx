@@ -9,7 +9,7 @@ export function CommonHero({ section }: CmpProps) {
 
   return (
     <div className={`${extension['style']?.value}`}>
-      <div className={`px-5 py-10 text-center xl:text-left xl:px-0 xl:w-7xl xl:mx-auto`}>
+      <div className={`px-5 py-10 xl:py-15 text-center xl:text-left xl:px-0 xl:w-7xl xl:mx-auto`}>
         <div className="relative flex flex-col xl:flex-row">
           <div className="mb-10 xl:mr-25 text-left xl:mb-30">
             <h2 className="text-4xl mb-5 font-black xl:text-[64px] leading-none">{section.payload?.title}</h2>

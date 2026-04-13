@@ -33,7 +33,7 @@ export function FeaturedFAQ({ section }: CmpProps) {
                     className="cursor-pointer flex flex-row items-center justify-start text-left w-full"
                     onClick={() => setOpenIndex((current) => current === idx ? null : idx)}
                   >
-                    <p className="text-base font-semibold flex-1">{xs.q}</p>
+                    <p className="text-base font-medium flex-1 xl:text-lg">{xs.q}</p>
                     <Image src={openIndex === idx ? Assets.Minus : Assets.Plus} alt="plus" className="w-4 h-4" />
                   </button>
 

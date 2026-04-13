@@ -34,8 +34,7 @@ export function FeaturedSurfaceTreatment({ section, locale }: CmpProps) {
 export function SurfaceTreatmentItem({ item, locale }: { item: SurfaceTreatment, locale: string }) {
 
   return (
-
-    <Link href={`/${locale}/solutions/surface-treatment/${item.documentId}`} className="rounded-lg overflow-hidden bg-[#fafafa] min-h-80 border border-transparent hover:border-accent cursor-pointer">
+    <Link href={`/${locale}/solutions/surface-treatment/${item.documentId}`} className="duration-300 rounded-lg overflow-hidden bg-[#fafafa] min-h-80 border border-transparent hover:border-accent cursor-pointer hover:shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]">
       <div className="w-full aspect-305/160 relative">
         <Image fill src={getStrapiMedia(item.icon) ?? ""} alt="" className="w-full object-cover" />
       </div>

@@ -30,6 +30,10 @@
 /*   } */
 /* } */
 
+a, button {
+  cursor: pointer;
+}
+
 html {
   min-width: 375px;
 }

@@ -29,12 +29,12 @@ export function EverythingForManufacturing({ section }: CmpProps) {
 
                 <div>
                   <p className="text-accent text-lg font-semibold mt-5">{xs.label}</p>
-                  <p className="mt-2 mb-4 text-2xl font-semibold">{xs.title}</p>
+                  <p className="mt-2 mb-4 text-2xl font-semibold xl:text-[32px]">{xs.title}</p>
                   <p className="text-base">{xs.desc}</p>
 
                   {
                     xs.actions?.map(action => (
-                      <ActionButton key={action.id} action={action} className="w-full px-10 mt-9 mb-5 h-13 bg-accent text-white xl:w-auto text-base font-medium" />
+                      <ActionButton key={action.id} action={action} className="w-full px-10 mt-9 mb-5 h-13 bg-accent text-white xl:w-50 text-base font-medium" />
                     ))
                   }
 
@@ -45,8 +45,8 @@ export function EverythingForManufacturing({ section }: CmpProps) {
               <div className="grid grid-cols-2 gap-2 xl:grid-cols-4 xl:gap-5">
                 {
                   xs.extension?.map(item => (
-                    <div key={item.id} className="bg-[#fafafa] rounded-lg py-5 px-4">
-                      <Image width={64} height={64} src={getStrapiMedia(item.image) ?? ""} alt="icon" className="mr-2 w-12 aspect-square object-cover" />
+                    <div key={item.id} className="bg-[#fafafa] rounded-lg py-5 px-4 xl:py-8 xl:px-8">
+                      <Image width={64} height={64} src={getStrapiMedia(item.image) ?? ""} alt="icon" className="mr-2 w-12 xl:w-16 aspect-square object-cover" />
                       <p className="text-lg mt-5 mb-3 font-semibold leading-none">{item.key}</p>
 
                       <p className="">{item.value}</p>

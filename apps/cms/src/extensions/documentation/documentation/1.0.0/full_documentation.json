@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-04-12T13:28:21.351Z"
+    "x-generation-date": "2026-04-13T08:00:04.201Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -36393,6 +36393,24 @@
           }
         }
       },
+      "DisplayTextCaseStudyComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "key_parameters": {
+            "type": "string"
+          }
+        }
+      },
       "DisplayTextCommonComponent": {
         "type": "object",
         "properties": {
@@ -36427,6 +36445,9 @@
           "contact_us": {
             "type": "string"
           },
+          "industry": {
+            "type": "string"
+          },
           "form": {
             "$ref": "#/components/schemas/DisplayTextFormComponent"
           },
@@ -36438,6 +36459,9 @@
           },
           "surface_treatment": {
             "$ref": "#/components/schemas/DisplayTextSurfaceTreatmentComponent"
+          },
+          "case_study": {
+            "$ref": "#/components/schemas/DisplayTextCaseStudyComponent"
           }
         }
       },

@@ -371,9 +371,9 @@ export function DesktopNav(props: NavProps) {
                       <div className="py-10 pr-10 flex-1 grid grid-cols-3 gap-5">
                         {
                           group.children?.map((child, childIdx) => (
-                            <Link key={child.id} target={child.target_type === 'external_url' ? '_blank' : ""} href={withLocalePath(locale, getHref(child))} className="block min-h-40 w-75 py-4 px-5 hover:bg-primary" onClick={close}>
-                              <div className="relative w-8 h-8">
-                                <Image src={getStrapiMedia(child.icon) ?? ""} alt="" fill className="object-cover" />
+                            <Link key={child.id} target={child.target_type === 'external_url' ? '_blank' : ""} href={withLocalePath(locale, getHref(child))} className="block min-h-40 w-75 py-4 px-5 hover:bg-primary group" onClick={close}>
+                              <div className="relative w-8 h-8 group-hover:bg-accent/33 rounded-sm overflow-hidden flex items-center justify-center">
+                                <Image src={getStrapiMedia(child.icon) ?? ""} alt="" width={24} height={24} className="object-cover w-6 aspect-square" />
                               </div>
 
                               <h3 className="text-lg text-white font-medium leading-none mt-5 mb-2">{child.name}</h3>
