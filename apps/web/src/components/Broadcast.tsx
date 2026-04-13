@@ -18,6 +18,7 @@ export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale;
   const currentLocaleOption = localeList.find((locale) => locale.code === currentLocale) ?? localeList[0];
 
   const [localeOpen, setLocaleOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout>>(null);
   const localeRef = useRef<HTMLDivElement>(null);
 
   // Popup
@@ -114,7 +115,12 @@ export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale;
               </div>
             )}
 
-            <div className="relative xl:ml-12.5 ml-auto" ref={localeRef}>
+            <div
+              className="relative xl:ml-12.5 ml-auto"
+              ref={localeRef}
+              onMouseEnter={() => { clearTimeout(closeTimer.current); setLocaleOpen(true) }}
+              onMouseLeave={() => { closeTimer.current = setTimeout(() => setLocaleOpen(false), 150) }}
+            >
               <button
                 type="button"
                 className="flex flex-row items-center"
@@ -122,10 +128,16 @@ export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale;
               >
                 <Image className="w-4 h-4 mr-1" src={Assets.Locale} alt="locale" />
                 <span>{currentLocaleOption?.name ?? currentLocale}</span>
+                <svg className="w-3 h-3 ml-1" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,4 6,8 10,4" /></svg>
               </button>
 
-              {localeOpen && (
-                <div className="absolute right-0 top-full z-20 mt-2 min-w-28 overflow-hidden rounded-md border border-[#efefef] bg-white shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]">
+              <div
+                className={cn(
+                  "absolute right-0 top-full z-20 pt-2 transition-all duration-150",
+                  localeOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-1 pointer-events-none"
+                )}
+              >
+                <div className="min-w-28 overflow-hidden rounded-md border border-[#efefef] bg-white shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]">
                   {localeList.map((locale) => (
                     <button
                       key={locale.code}
@@ -141,7 +153,7 @@ export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale;
                     </button>
                   ))}
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
