@@ -55,6 +55,7 @@ export function CaseStudyClientList({ data, pageSize, basePath }: Props) {
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-5">
           {data.data.map((xs) => (
             <Link
+              target="_blank"
               key={xs.id}
               href={`${basePath}/${xs.documentId}`}
               className="cursor-pointer relative xl:p-2.5 group rounded-xl duration-300 transition-colors overflow-hidden bg-white hover:bg-[rgba(0,118,238,0.1)]">
