@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  cacheMaxMemorySize: 10 * 1024 * 1024,
   allowedDevOrigins: ['127.0.0.1', 'localhost', 'cms:1337', '10.0.0.10'],
   images: {
     dangerouslyAllowLocalIP: process.env.NODE_ENV === "development",
