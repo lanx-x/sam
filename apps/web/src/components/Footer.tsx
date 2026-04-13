@@ -44,11 +44,11 @@ export function Footer({ siteData, navigation, locale }: { siteData: Site, local
                 <ul className="text-sm">
                   {children?.map(item => (
                     <Link href={withLocalePath(locale, getHref(item))} className="group block mb-3 hover:text-accent" key={item.id}>
-                        <span className="relative inline-block">
-                          <span aria-hidden className="invisible font-medium">{item.name}</span>
-                          <span className="absolute inset-0 group-hover:font-medium transition-all">{item.name}</span>
-                        </span>
-                      </Link>
+                      <span className="relative inline-block">
+                        <span aria-hidden className="invisible font-medium">{item.name}</span>
+                        <span className="absolute inset-0 group-hover:font-medium transition-all">{item.name}</span>
+                      </span>
+                    </Link>
                   ))}
                 </ul>
               </div>

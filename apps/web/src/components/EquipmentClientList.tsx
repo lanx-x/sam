@@ -60,7 +60,7 @@ export function EquipmentClientList(props: Props) {
         <div className="px-5 pb-10 xl:px-0">
           {
             equipments.data.filter(xs => activeCategoryId ? (xs.category as any)?.documentId === activeCategoryId : true).map((xs, idx) => (
-              <Link key={xs.documentId} href={`${basePath}/${xs.documentId}`} className="relative flex flex-col xl:flex-row justify-start py-7.5 xl:pr-10 hover:bg-[#f0f7fe] border-b border-b-[#efefef] hover:border-b-[#f0f7fe] duration-300 transition-colors cursor-pointer">
+              <Link target="_blank" key={xs.documentId} href={`${basePath}/${xs.documentId}`} className="relative flex flex-col xl:flex-row justify-start py-7.5 xl:pr-10 hover:bg-[#f0f7fe] border-b border-b-[#efefef] hover:border-b-[#f0f7fe] duration-300 transition-colors cursor-pointer">
                 <div className="relative w-90 h-65 shrink-0 overflow-hidden">
                   <Image fill className="object-cover -z-10" src={Assets.EquipBase} alt="" />
                   <Image width={360} height={260} src={getStrapiMedia(xs.image) ?? ""} className="w-90 h-65 object-contain" alt="icon" />

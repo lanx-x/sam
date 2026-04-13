@@ -68,7 +68,7 @@ export function FeaturedIndustrySolution({ section, locale }: CmpProps) {
                   <p className="font-semibold text-2xl leading-none mb-5">{xs.name}</p>
                   <p className="flex-1 text-sm leading-3.5 xl:text-base xl:leading-5">{xs.desc}</p>
 
-                  <Link href={`/${locale}/solutions/industry/${xs.documentId}`} className="flex flex-row text-accent text-base font-medium items-center">
+                  <Link target="_blank" href={`/${locale}/solutions/industry/${xs.documentId}`} className="flex flex-row text-accent text-base font-medium items-center">
                     <p className="mr-2">{displayText?.view_product ?? "View Product"}</p>
                     <Image src={Assets.Link} alt="arrow" />
                   </Link>

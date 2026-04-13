@@ -15,7 +15,7 @@ export function Cap({ section, locale }: CmpProps) {
           section.payload?.data?.map((xs, idx) => {
             const imageUrl = getStrapiMedia(xs.image) || Assets.Cap;
             return (
-              <Link key={xs.id} href={`/${locale}/${xs.target_url ?? ''}`} className="block group w-full aspect-35/16 relative xl:w-80 xl:h-120">
+              <Link target="_blank" key={xs.id} href={`/${locale}/${xs.target_url ?? ''}`} className="block group w-full aspect-35/16 relative xl:w-80 xl:h-120">
                 <Image src={imageUrl} alt="cap" fill className="object-cover" />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,35,70,0)_0%,#001123_100%)]" />
                 <div className="px-5 relative w-full h-full flex flex-col group-hover:hidden">

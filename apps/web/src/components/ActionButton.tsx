@@ -26,7 +26,7 @@ export function ActionButton({ action, className, locale }: ActionButtonProps) {
       );
     case 'internal_page':
       return (
-        <Link href={withLocalePath(locale ?? '', target_url!)} className={classes}>
+        <Link target="_blank" href={withLocalePath(locale ?? '', target_url!)} className={classes}>
           {label}
         </Link>
       );

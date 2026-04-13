@@ -19,6 +19,7 @@ type NavProps = {
   data: Navigation,
   siteData: Site,
   locale: string
+  showLogoOnly: boolean
 }
 
 export function Nav(props: NavProps) {
@@ -202,7 +203,7 @@ export function DesktopNav(props: NavProps) {
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden xl:flex items-center gap-8 ml-auto">
+          <div className={`hidden xl:flex items-center gap-8 ml-auto ${props.showLogoOnly ? 'xl:hidden' : ''}`}>
             {groups.map((item, idx) => {
               const href = getHref(item);
               const hasChildren = item.children && item.children.length > 0;
@@ -227,7 +228,7 @@ export function DesktopNav(props: NavProps) {
         </div>
       </nav>
 
-      <div className="">
+      <div className={`${props.showLogoOnly ? 'hidden' : ''}`}>
         {/* Group mega-menu dropdown */}
         {groups.map((group, idx) => {
           if (!group.children?.length || openKey !== group.name) return null;

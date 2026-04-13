@@ -2,10 +2,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 
 import { Broadcast } from "@/components/Broadcast";
-import { Nav } from "@/components/Nav";
 import { createLocalizedApi } from "@/api";
-import { Footer } from "@/components/Footer";
-import { FloatingActions } from "@/components/FloatingActions";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { getRuntimeLocale } from "@/i18n/server";
 
@@ -27,7 +24,6 @@ export default async function RootLayout({
   const { locale, localeList, defaultLocale } = await getRuntimeLocale(routeLocale);
   const api = createLocalizedApi(locale);
 
-  const { data: navData } = await api.getNavigation("owqgz3ze0n1a15777qpdokl0");
   const siteData = (await api.getSite()).data;
   const broadcasts = await api.getBroadcast();
 
@@ -35,10 +31,7 @@ export default async function RootLayout({
     <html lang={locale} className={`h-full antialiased`}>
       <body className={`${roboto.variable} min-h-full flex flex-col font-sans`}>
         <Broadcast currentLocale={locale} defaultLocale={defaultLocale} data={broadcasts.data} siteData={siteData} localeList={localeList} />
-        <Nav data={navData} siteData={siteData} locale={locale} />
         {children}
-        <Footer navigation={navData} locale={locale} siteData={siteData} />
-        <FloatingActions siteData={siteData} />
         {siteData.google_analytics && <GoogleAnalytics gaId={siteData.google_analytics} />}
       </body>
     </html>

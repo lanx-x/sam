@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import { createLocalizedApi } from "@/api";
 import { logger } from "@/utils/logger";
 import { CmpMap } from "@/components";
+import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
+import { FloatingActions } from "@/components/FloatingActions";
 import { CommonSection, Site } from "cms-types";
 import { getRuntimeLocale } from "@/i18n/server";
 
@@ -31,7 +34,9 @@ const getPageData = cache(async (routeLocale: string, slug: string[]) => {
     ? (await api.getPage({ slug: matchedSlug })).data[0]
     : (await api.getPage({ slug: pageSlug })).data[0];
 
-  return { locale, siteData: site.data, pageData, documentId };
+  const navData = (await api.getNavigation("owqgz3ze0n1a15777qpdokl0")).data;
+
+  return { locale, siteData: site.data, pageData, documentId, navData };
 });
 
 export async function generateMetadata({
@@ -57,14 +62,18 @@ export default async function CatchAllPage({ params, searchParams }: { params: P
   const sp = await searchParams;
   logger.debug('page params:', { locale: routeLocale, slug });
 
-  const { locale, siteData, pageData, documentId } = await getPageData(routeLocale, slug);
+  const { locale, siteData, pageData, documentId, navData } = await getPageData(routeLocale, slug);
 
   if (!pageData) {
     notFound();
   }
 
+  const pageSlug = ['/', ...slug].join('/').replace(/^\/\//, '/');
+  const isFormGetQuote = pageSlug.includes('get-quote');
+
   return (
-    <div>
+    <>
+      <Nav data={navData} siteData={siteData} locale={locale} showLogoOnly={isFormGetQuote} />
       {
         pageData.content?.map((section, idx) => {
           const rendererName = section.payload?.renderer?.cmp;
@@ -89,7 +98,9 @@ export default async function CatchAllPage({ params, searchParams }: { params: P
             locale={locale} />;
         })
       }
-    </div>
+      {!isFormGetQuote && <Footer navigation={navData} locale={locale} siteData={siteData} />}
+      {!isFormGetQuote && <FloatingActions siteData={siteData} />}
+    </>
   )
 }
 

@@ -107,7 +107,7 @@ export async function CaseStudyDetail({ documentId, section, locale, slug, siteD
             <p className="text-center text-3xl font-semibold mb-10">More Success Stories</p>
             <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
               {others.map((xs) => (
-                <Link key={xs.documentId} href={`/${locale}/${xs.documentId}`} className="group rounded-lg overflow-hidden">
+                <Link target="_blank" key={xs.documentId} href={`/${locale}/${xs.documentId}`} className="group rounded-lg overflow-hidden">
                   <div className="relative aspect-413/336 overflow-hidden rounded-lg">
                     <Image
                       fill

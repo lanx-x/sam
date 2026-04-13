@@ -57,7 +57,7 @@ export function NewsClientList({ data, pageSize, categories, activeCategoryId, b
 
         <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
           {data.data.map((xs) => (
-            <Link key={xs.id} href={`${basePath}/${xs.documentId}`} className="cursor-pointer relative group duration-300 transition-colors overflow-hidden bg-white border-b border-[#efefef] hover:border-accent">
+            <Link target="_blank" key={xs.id} href={`${basePath}/${xs.documentId}`} className="cursor-pointer relative group duration-300 transition-colors overflow-hidden bg-white border-b border-[#efefef] hover:border-accent">
 
               <div className="h-full pb-5 border-b border-transparent group-hover:border-accent">
                 <div className="aspect-162/91 relative">

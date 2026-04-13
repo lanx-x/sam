@@ -55,7 +55,7 @@ export function FeaturedEquipment({ section, locale }: CmpProps) {
 
                   </div>
 
-                  <Link href={`/${locale}/resources/equipment/${xs.documentId}`}>
+                  <Link target="_blank" href={`/${locale}/resources/equipment/${xs.documentId}`}>
                     <div className="flex items-center">
                       <p className="text-accent text-sm font-medium flex flex-row items-center mr-3">{displayText?.view_details ?? 'View Details'}</p>
                       <Image src={Assets.Link} alt="link" />

@@ -72,7 +72,7 @@ export async function NewsDetail({ documentId, section, slug, locale }: CmpProps
             <p className="text-left text-[32px] font-medium mb-5 leading-none">Next</p>
             <div className="grid grid-cols-1 gap-5 xl:grid-cols-2 mx-auto">
               {relatedNews.map(xs => (
-                <Link key={xs.documentId} href={`${basePath}/${xs.documentId}`} className="group overflow-hidden">
+                <Link target="_blank" key={xs.documentId} href={`${basePath}/${xs.documentId}`} className="group overflow-hidden">
 
                   <div className="border-b border-[#efefef] hover:border-accent">
                     <div className="h-full pb-5 border-b border-transparent group-hover:border-accent">

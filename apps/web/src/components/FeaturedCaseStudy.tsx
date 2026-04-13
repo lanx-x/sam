@@ -80,7 +80,7 @@ export function FeaturedCaseStudy({ section, locale }: CmpProps) {
                       }
                     </div>
 
-                    <Link href={`/${locale}/resources/case-study/${xs.documentId}`} className="hidden text-right text-accent text-base justify-end font-medium items-center xl:flex">
+                    <Link target="_blank" href={`/${locale}/resources/case-study/${xs.documentId}`} className="hidden text-right text-accent text-base justify-end font-medium items-center xl:flex">
                       <p className="mr-2">{displayText?.read_full ?? "Read Full Case Study"}</p>
                       <Image src={Assets.ArrowR} alt="arrow" />
                     </Link>
