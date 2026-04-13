@@ -118,7 +118,7 @@ export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale;
             <div
               className="relative xl:ml-12.5 ml-auto"
               ref={localeRef}
-              onMouseEnter={() => { clearTimeout(closeTimer.current); setLocaleOpen(true) }}
+              onMouseEnter={() => { clearTimeout(closeTimer.current ?? 0); setLocaleOpen(true) }}
               onMouseLeave={() => { closeTimer.current = setTimeout(() => setLocaleOpen(false), 150) }}
             >
               <button

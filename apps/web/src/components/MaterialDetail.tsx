@@ -7,6 +7,7 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { SectionContainer, SectionHeaderRowDir } from "./Section";
 import { SurfaceTreatmentItem } from "./FeaturedSurfaceTreatment";
 import { ActionButton } from "./ActionButton";
+import Link from "next/link";
 
 export async function MaterialDetail({ documentId, section, locale, siteData }: CmpProps) {
   const api = createLocalizedApi(locale);
@@ -173,7 +174,7 @@ export async function MaterialDetail({ documentId, section, locale, siteData }: 
             <div className="grid grid-cols-2 xl:grid-cols-4 gap-2 xl:gap-5 mt-10">
               {
                 data.industries?.map((xs, idx) => (
-                  <div className="relative" key={idx}>
+                  <Link href={`/${locale}/solutions/industry/${xs.documentId}`} className="block relative" key={idx}>
                     <div className="relative aspect-305/300">
                       <Image fill src={getStrapiMedia(xs.image) ?? ""} alt="icon" />
                     </div>
@@ -181,7 +182,7 @@ export async function MaterialDetail({ documentId, section, locale, siteData }: 
                     <div className="px-3 py-1 xl:py-3.5 xl:px-5 w-full bg-[rgba(0,0,0,0.7)] absolute left-0 bottom-0 z-10">
                       <span className="text-base xl:text-2xl font-semibold text-white">{xs.name}</span>
                     </div>
-                  </div>
+                  </Link>
                 ))
               }
             </div>

@@ -48,12 +48,11 @@ export function Ship({ section }: CmpProps) {
     };
   }, [emblaApi])
 
-  useEffect(() => {
-    if (emblaApi?.plugins()?.autoplay?.play) {
-      console.log("emblaApi.plugins()?.autoplay.play", emblaApi.plugins()?.autoplay.play)
-      // emblaApi.plugins().autoplay?.play()
-    }
-  }, [emblaApi])
+  // useEffect(() => {
+  //   if (emblaApi?.plugins()?.autoplay?.play) {
+  //     // emblaApi.plugins().autoplay?.play()
+  //   }
+  // }, [emblaApi])
 
   const extension = mergeExtension(section)
   const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
