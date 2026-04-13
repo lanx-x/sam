@@ -49,21 +49,24 @@ export function OneStop({ section }: CmpProps) {
             <div key={xs.id} className="cursor-pointer flex flex-col items-center" onClick={() => emblaApi?.goTo(idx)}>
               <div className={cn("text-base font-medium w-9 h-9 rounded-full flex flex-row items-center justify-center transition-all duration-300", selectedIndex === idx ? 'bg-accent text-white' : 'text-accent')}>0{idx + 1}</div>
               <p className="mt-2 mb-3 text-base font-medium">{xs.label}</p>
-              <Image src={selectedIndex === idx ? Assets.RulerOn : Assets.RulerOff} alt="ruler" />
+              <div className="w-64 h-1.5 relative">
+                <Image className={`absolute left-0 transition-opacity duration-300 top-0 ${selectedIndex === idx ? 'opacity-0' : 'opacity-100'}`} width={256} height={6} src={Assets.RulerOff} alt="ruler" />
+                <Image className={`absolute left-0 transition-opacity duration-300 top-0 ${selectedIndex === idx ? 'opacity-100' : 'opacity-0'}`} width={256} height={6} src={Assets.RulerOn} alt="ruler" />
+              </div>
             </div>
           ))
         }
 
       </div>
 
-      <div className="mt-10 overflow-hidden xl:mt-12 xl:w-7xl xl:mx-auto" ref={emblaRef}>
+      <div className="mt-10 overflow-hidden px-5 xl:px-0 xl:mt-12 xl:w-7xl xl:mx-auto" ref={emblaRef}>
         <div className="flex flex-row">
           {
             section.payload?.data?.map((xs, idx) => (
               <div
                 key={xs.id}
-                className="flex flex-col shrink-0 w-80 border border-[#bfbfbf] bg-[#fafafa] rounded-xl py-5 px-4 ml-5 text-left xl:ml-0 xl:px-0 xl:w-full xl:border-0 xl:flex-row-reverse">
-                <Image width={480} height={300} src={getStrapiMedia(xs.image) ?? ""} className="shrink-0 object-cover w-72 h-45 xl:w-120 xl:h-75" alt="cap" />
+                className="flex flex-col shrink-0 w-full border border-[#bfbfbf] bg-[#fafafa] rounded-xl py-5 px-4 ml-5 text-left xl:ml-0 xl:px-0 xl:w-full xl:border-0 xl:flex-row-reverse">
+                <Image width={480} height={300} src={getStrapiMedia(xs.image) ?? ""} className="shrink-0 object-cover w-full h-45 xl:w-120 xl:h-75" alt="cap" />
                 <div className="shrink-0 invisible xl:visible xl:w-px xl:h-full xl:bg-[#efefef] xl:mx-15"></div>
                 <div>
                   <p className="text-2xl font-semibold mt-5 mb-3 xl:text-[32px] xl:mb-4">{xs.title}</p>
