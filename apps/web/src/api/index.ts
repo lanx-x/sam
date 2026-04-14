@@ -95,8 +95,26 @@ export async function getSurfaceTreatmentDetail(params: { [key: string]: any }) 
 export async function getEquipment(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<Equipment>>('/equipments', {
     params: {
-      pLevel: 10,
+      populate: {
+        image: true,
+        parameter: { populate: '*' },
+        category: { fields: ['documentId'] },
+      },
       'pagination[pageSize]': 100,
+      ...params,
+    },
+    next: { revalidate: revalidate.normal, tags: ["equipment", "equipment-category", "news"] },
+  })
+}
+
+export async function getEquipmentDetail(params: { [key: string]: any }) {
+  return fetchStrapi<StrapiCollectionResponse<Equipment>>('/equipments', {
+    params: {
+      populate: {
+        image: true,
+        extra_images: true,
+        parameter: { populate: '*' },
+      },
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["equipment", "equipment-category", "news"] },
@@ -106,7 +124,6 @@ export async function getEquipment(params: { [key: string]: any }) {
 export async function getEquipmentCategory(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<EquipmentCategory>>('/equipment-categories', {
     params: {
-      pLevel: true,
       'pagination[pageSize]': 100,
       ...params,
     },
@@ -269,6 +286,7 @@ export function createLocalizedApi(locale: Locale) {
     getSurfaceTreatment: bindLocale(locale, getSurfaceTreatment, {}),
     getSurfaceTreatmentDetail: bindLocale(locale, getSurfaceTreatmentDetail, {}),
     getEquipment: bindLocale(locale, getEquipment, {}),
+    getEquipmentDetail: bindLocale(locale, getEquipmentDetail, {}),
     getEquipmentCategory: bindLocale(locale, getEquipmentCategory, {}),
     getNews: bindLocale(locale, getNews, {}),
     getNewsCategory: bindLocale(locale, getNewsCategory, {}),

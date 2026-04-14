@@ -13,7 +13,7 @@ export async function EquipmentDetail({ documentId, section, locale }: CmpProps)
   const api = createLocalizedApi(locale);
   const extension = mergeExtension(section)
 
-  const data = (await api.getEquipment({ 'filters[documentId][$eq]': documentId })).data?.[0]
+  const data = (await api.getEquipmentDetail({ 'filters[documentId][$eq]': documentId })).data?.[0]
 
   return (
     <div className="">
