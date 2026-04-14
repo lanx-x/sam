@@ -26,7 +26,9 @@ export function FeaturedIndustry({ section, locale }: CmpProps) {
         {
           ((section.payload?.dynamic?.[0] as any)?.industries as Industry[])?.map((xs, idx) => (
             <Link target="_blank" href={`/${locale}/solutions/industry/${xs.documentId}`} className="relative" key={idx}>
-              <Image width={305} height={300} src={getStrapiMedia(xs.image) ?? ""} className="object-cover w-full" alt="" />
+              <div className="overflow-hidden">
+                <Image width={305} height={300} src={getStrapiMedia(xs.image) ?? ""} className="object-cover w-full  transition-transform duration-300 hover:scale-105" alt="" />
+              </div>
               <div className="bg-[rgba(0,0,0,0.7)] absolute w-full bottom-0 z-10 px-3 py-2">
                 <p className="text-white font-semibold xl:text-2xl">{xs.name}</p>
               </div>

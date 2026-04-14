@@ -115,12 +115,12 @@ export function Gallery({ section }: CmpProps) {
                 <div key={gIdx} className="min-w-0 shrink-0 basis-full px-5">
                   <div className="grid grid-cols-3 gap-5">
                     {group.map((img, iIdx) => (
-                      <div key={iIdx} className="relative aspect-[414/360] rounded-xl overflow-hidden">
+                      <div key={iIdx} className="relative aspect-414/360 rounded-xl overflow-hidden">
                         <Image
                           src={getStrapiMedia(img) ?? ""}
                           alt=""
                           fill
-                          className="object-cover"
+                          className="object-cover transition-transform duration-300 hover:scale-105"
                           sizes="420px"
                         />
                       </div>

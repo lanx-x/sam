@@ -39,11 +39,11 @@ export function FeaturedMaterial({ section, siteData, locale }: CmpProps) {
 
     >
       <div className="relative mt-10 pl-5 xl:pl-0">
-        <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex flex-row">
+        <div className="overflow-hidden pb-15 -mb-15" ref={emblaRef}>
+          <div className="flex flex-row gap-5">
             {
               ((section.payload?.dynamic?.[0] as any)?.materials as Material[])?.map((xs, idx) => (
-                <Link target="_blank" href={`/${locale}/resources/material/${xs.documentId}`} key={idx} className="shrink-0 w-[78.205128vw] bg-[#fafafa] rounded-lg overflow-hidden ml-5 xl:first:ml-0  xl:w-76.25">
+                <Link target="_blank" href={`/${locale}/resources/material/${xs.documentId}`} key={idx} className="shrink-0 w-[78.205128vw] bg-[#fafafa] rounded-lg overflow-hidden xl:w-76.25 hover:drop-shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
                   <Image className="object-cover w-full rounded-lg xl:h-40" width={305} height={160} src={getStrapiMedia(xs.icon) ?? ""} alt="" />
                   <div className="px-5 text-left">
                     <p className="my-5 text-lg font-semibold leading-none">{xs.name}</p>
