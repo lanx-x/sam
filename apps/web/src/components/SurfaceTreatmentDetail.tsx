@@ -10,7 +10,7 @@ export async function SurfaceTreatmentDetail(props: CmpProps) {
   const { documentId, section, locale, siteData } = props
 
   const api = createLocalizedApi(locale);
-  const data = (await api.getSurfaceTreatment({ 'filters[documentId][$eq]': documentId }))?.data?.[0]
+  const data = (await api.getSurfaceTreatmentDetail({ 'filters[documentId][$eq]': documentId }))?.data?.[0]
 
   const displayText = siteData.display_text?.surface_treatment
 

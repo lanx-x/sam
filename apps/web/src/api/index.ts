@@ -61,15 +61,31 @@ export async function getSurfaceTreatment(params: { [key: string]: any }) {
     params: {
       populate: {
         icon: true,
+        materials: { fields: ['name'] },
+      },
+      'pagination[pageSize]': 100,
+      ...params,
+    },
+    next: { revalidate: revalidate.normal, tags: ["surface-treatment", "material", "news"] },
+  })
+}
+
+export async function getSurfaceTreatmentDetail(params: { [key: string]: any }) {
+  return fetchStrapi<StrapiCollectionResponse<SurfaceTreatment>>('/surface-treatments', {
+    params: {
+      populate: {
+        icon: true,
         image: true,
         extend: { populate: '*' },
         materials: { fields: ['name'] },
         pros: { populate: '*' },
         cons: { populate: '*' },
         notes: { populate: '*' },
-        featured_news: { fields: ['title', 'documentId'] },
+        featured_news: {
+          fields: ['title', 'documentId', 'content'],
+          populate: { image: true },
+        },
       },
-      'pagination[pageSize]': 100,
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["surface-treatment", "material", "news"] },
@@ -251,6 +267,7 @@ export function createLocalizedApi(locale: Locale) {
     getPage: bindLocale(locale, getPage, {} as { [key: string]: any }),
     getPatternPages: bindLocale(locale, getPatternPages, {}),
     getSurfaceTreatment: bindLocale(locale, getSurfaceTreatment, {}),
+    getSurfaceTreatmentDetail: bindLocale(locale, getSurfaceTreatmentDetail, {}),
     getEquipment: bindLocale(locale, getEquipment, {}),
     getEquipmentCategory: bindLocale(locale, getEquipmentCategory, {}),
     getNews: bindLocale(locale, getNews, {}),
