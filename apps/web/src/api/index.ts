@@ -251,7 +251,6 @@ export async function getMaterialDetail(params: { [key: string]: any }) {
 export async function getMaterialCategory(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<MaterialCategory>>('/material-categories', {
     params: {
-      pLevel: true,
       'pagination[pageSize]': 100,
       ...params,
     },
