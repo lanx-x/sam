@@ -10,7 +10,7 @@ import { mergeDisplayText } from "@/utils";
 
 export async function CaseStudyDetail({ documentId, section, locale, slug, siteData }: CmpProps) {
   const api = createLocalizedApi(locale)
-  const data = (await api.getCaseStudy({ 'filters[documentId][$eq]': documentId })).data?.[0]
+  const data = (await api.getCaseStudyDetail({ 'filters[documentId][$eq]': documentId })).data?.[0]
   const basePath = ['', locale, ...slug].join('/')
 
   const displayText = siteData?.display_text

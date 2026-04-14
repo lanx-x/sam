@@ -134,7 +134,26 @@ export async function getEquipmentCategory(params: { [key: string]: any }) {
 export async function getCaseStudy(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<CaseStudy>>('/case-studies', {
     params: {
-      pLevel: true,
+      populate: {
+        image: true,
+        parameter: { populate: '*' },
+        industry: { fields: ['name'] },
+      },
+      ...params,
+    },
+    next: { revalidate: revalidate.normal, tags: ["case-study", "industry"] },
+  })
+}
+
+export async function getCaseStudyDetail(params: { [key: string]: any }) {
+  return fetchStrapi<StrapiCollectionResponse<CaseStudy>>('/case-studies', {
+    params: {
+      populate: {
+        image: true,
+        extra_images: true,
+        parameter: { populate: '*' },
+        industry: { fields: ['name'] },
+      },
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["case-study", "industry"] },
@@ -297,6 +316,7 @@ export function createLocalizedApi(locale: Locale) {
     getSite: bindLocale(locale, getSite, {}),
     getNavigation: bindLocaleForDocument(locale, getNavigation, {}),
     getCaseStudy: bindLocale(locale, getCaseStudy, {}),
+    getCaseStudyDetail: bindLocale(locale, getCaseStudyDetail, {}),
     getBroadcast: bindLocale(locale, getBroadcast, {}),
   };
 }
