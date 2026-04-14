@@ -14,6 +14,39 @@ const revalidate = {
   static: isDev ? 0 : 60 * 60 * 24 * 7,
 } as const
 
+// 列表级 populate 配置（动态 zone 和各列表 API 共用）
+const listPopulate = {
+  caseStudy: {
+    image: true,
+    parameter: { populate: '*' },
+    industry: { fields: ['name'] },
+  },
+  equipment: {
+    image: true,
+    parameter: { populate: '*' },
+    category: { fields: ['documentId'] },
+  },
+  surfaceTreatment: {
+    icon: true,
+    materials: { fields: ['name'] },
+  },
+  news: {
+    image: true,
+    category: { fields: ['documentId'] },
+  },
+  material: {
+    icon: true,
+    parameter: { populate: '*' },
+    category: { fields: ['documentId', 'name'] },
+    strength: { fields: ['name'] },
+    processability: { fields: ['name'] },
+    corrosion_resistance: { fields: ['name'] },
+  },
+  industry: {
+    image: true,
+  },
+} as const
+
 export const KNOWN_CACHE_TAGS = new Set([
   "page",
   "broadcast",
@@ -59,10 +92,7 @@ export async function getPatternPages(payload: { [key: string]: any }) {
 export async function getSurfaceTreatment(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<SurfaceTreatment>>('/surface-treatments', {
     params: {
-      populate: {
-        icon: true,
-        materials: { fields: ['name'] },
-      },
+      populate: listPopulate.surfaceTreatment,
       'pagination[pageSize]': 100,
       ...params,
     },
@@ -95,11 +125,7 @@ export async function getSurfaceTreatmentDetail(params: { [key: string]: any }) 
 export async function getEquipment(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<Equipment>>('/equipments', {
     params: {
-      populate: {
-        image: true,
-        parameter: { populate: '*' },
-        category: { fields: ['documentId'] },
-      },
+      populate: listPopulate.equipment,
       'pagination[pageSize]': 100,
       ...params,
     },
@@ -134,11 +160,7 @@ export async function getEquipmentCategory(params: { [key: string]: any }) {
 export async function getCaseStudy(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<CaseStudy>>('/case-studies', {
     params: {
-      populate: {
-        image: true,
-        parameter: { populate: '*' },
-        industry: { fields: ['name'] },
-      },
+      populate: listPopulate.caseStudy,
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["case-study", "industry"] },
@@ -163,10 +185,7 @@ export async function getCaseStudyDetail(params: { [key: string]: any }) {
 export async function getNews(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<News>>('/news-items', {
     params: {
-      populate: {
-        image: true,
-        category: { fields: ['documentId'] },
-      },
+      populate: listPopulate.news,
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["news", "news-category"] },
@@ -200,14 +219,7 @@ export async function getVideo(params: { [key: string]: any }) {
 export async function getMaterial(params: { [key: string]: any } = {}) {
   return fetchStrapi<StrapiCollectionResponse<Material>>('/materials', {
     params: {
-      populate: {
-        icon: true,
-        parameter: { populate: '*' },
-        category: { fields: ['documentId', 'name'] },
-        strength: { fields: ['name'] },
-        processability: { fields: ['name'] },
-        corrosion_resistance: { fields: ['name'] },
-      },
+      populate: listPopulate.material,
       'pagination[pageSize]': 100,
       ...params,
     },
@@ -261,7 +273,7 @@ export async function getMaterialCategory(params: { [key: string]: any }) {
 export async function getIndustry(params: { [key: string]: any } = {}) {
   return fetchStrapi<StrapiCollectionResponse<Industry>>('/industries', {
     params: {
-      populate: { image: true },
+      populate: listPopulate.industry,
       'pagination[pageSize]': 100,
       ...params,
     },
