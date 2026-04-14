@@ -187,7 +187,10 @@ export async function getNewsCategory(params: { [key: string]: any }) {
 export async function getVideo(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<Video>>('/videos', {
     params: {
-      pLevel: true,
+      populate: {
+        internal: { populate: '*' },
+        overwrite_meta: { populate: '*' },
+      },
       ...params,
     },
     next: { revalidate: revalidate.short, tags: ["video"] },
