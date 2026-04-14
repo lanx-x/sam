@@ -176,7 +176,7 @@ export async function getNews(params: { [key: string]: any }) {
 export async function getNewsCategory(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<NewsCategory>>('/news-categories', {
     params: {
-      pLevel: true,
+      populate: { image: true },
       'pagination[pageSize]': 100,
       ...params,
     },
@@ -286,7 +286,17 @@ export async function getIndustryDetail(params: { [key: string]: any }) {
 export async function getSite(params: { [key: string]: any } = {}) {
   return fetchStrapi<StrapiSingleResponse<Site>>('/site', {
     params: {
-      pLevel: true,
+      populate: {
+        logo: true,
+        logo_with_text: true,
+        email: { populate: '*' },
+        tel: { populate: '*' },
+        fax: { populate: '*' },
+        mobile: { populate: '*' },
+        address: { populate: '*' },
+        social: { populate: '*' },
+        display_text: { populate: '*' },
+      },
       ...params,
     },
     next: { revalidate: revalidate.long, tags: ["site"] },
