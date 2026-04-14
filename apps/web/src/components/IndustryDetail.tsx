@@ -10,7 +10,7 @@ import { ActionButton } from "./ActionButton";
 
 export async function IndustryDetail({ documentId, section, locale }: CmpProps) {
   const api = createLocalizedApi(locale);
-  const data = (await api.getIndustry({ 'filters[documentId][$eq]': documentId })).data?.[0]
+  const data = (await api.getIndustryDetail({ 'filters[documentId][$eq]': documentId })).data?.[0]
 
   const extension = mergeExtension(section)
 

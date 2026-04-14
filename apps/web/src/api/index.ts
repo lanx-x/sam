@@ -261,8 +261,22 @@ export async function getMaterialCategory(params: { [key: string]: any }) {
 export async function getIndustry(params: { [key: string]: any } = {}) {
   return fetchStrapi<StrapiCollectionResponse<Industry>>('/industries', {
     params: {
-      pLevel: 10,
+      populate: { image: true },
       'pagination[pageSize]': 100,
+      ...params,
+    },
+    next: { revalidate: revalidate.normal, tags: ["industry", "material"] },
+  })
+}
+
+export async function getIndustryDetail(params: { [key: string]: any }) {
+  return fetchStrapi<StrapiCollectionResponse<Industry>>('/industries', {
+    params: {
+      populate: {
+        image: true,
+        detailPageBanner: true,
+        detailPageFeatures: { populate: '*' },
+      },
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["industry", "material"] },
@@ -359,6 +373,7 @@ export function createLocalizedApi(locale: Locale) {
     getMaterialDetail: bindLocale(locale, getMaterialDetail, {}),
     getMaterialCategory: bindLocale(locale, getMaterialCategory, {}),
     getIndustry: bindLocale(locale, getIndustry, {}),
+    getIndustryDetail: bindLocale(locale, getIndustryDetail, {}),
     getSite: bindLocale(locale, getSite, {}),
     getNavigation: bindLocaleForDocument(locale, getNavigation, {}),
     getCaseStudy: bindLocale(locale, getCaseStudy, {}),
