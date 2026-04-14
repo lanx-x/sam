@@ -39,7 +39,7 @@ export function FeaturedMaterial({ section, siteData, locale }: CmpProps) {
 
     >
       <div className="relative mt-10 pl-5 xl:pl-0">
-        <div className="overflow-hidden pb-15 -mb-15" ref={emblaRef}>
+        <div className="overflow-hidden py-15 -my-15" ref={emblaRef}>
           <div className="flex flex-row">
             {
               ((section.payload?.dynamic?.[0] as any)?.materials as Material[])?.map((xs, idx) => (
