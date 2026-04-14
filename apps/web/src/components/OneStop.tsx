@@ -48,7 +48,7 @@ export function OneStop({ section }: CmpProps) {
           section.payload?.data?.map((xs, idx) => (
             <div key={xs.id} className="cursor-pointer flex flex-col items-center" onClick={() => emblaApi?.goTo(idx)}>
               <div className={cn("text-base font-medium w-9 h-9 rounded-full flex flex-row items-center justify-center transition-all duration-300", selectedIndex === idx ? 'bg-accent text-white' : 'text-accent')}>0{idx + 1}</div>
-              <p className="mt-2 mb-3 text-base font-medium">{xs.label}</p>
+              <p className="mt-2 mb-3 text-base font-medium h-6">{xs.label}</p>
               <div className="w-64 h-1.5 relative">
                 <Image className={`absolute left-0 transition-opacity duration-300 top-0 ${selectedIndex === idx ? 'opacity-0' : 'opacity-100'}`} width={256} height={6} src={Assets.RulerOff} alt="ruler" />
                 <Image className={`absolute left-0 transition-opacity duration-300 top-0 ${selectedIndex === idx ? 'opacity-100' : 'opacity-0'}`} width={256} height={6} src={Assets.RulerOn} alt="ruler" />

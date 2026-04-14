@@ -10,7 +10,9 @@
       "mcp__figma__get_design_context",
       "Bash(rg -n \"[\\\\u4e00-\\\\u9fff]+\" apps/web/src --glob \"*.{tsx,jsx}\" -C 3)",
       "WebSearch",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }

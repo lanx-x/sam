@@ -33,15 +33,15 @@ export async function CaseStudyDetail({ documentId, section, locale, slug, siteD
   return (
     <div className="">
       <div className="bg-[linear-gradient(180deg,#EFF2F6_0%,#FFFFFF_50%,#EFF2F6_100%)]">
-        <div className="flex flex-col py-15 px-5 xl:px-0 xl:flex-row xl:w-7xl xl:mx-auto xl:py-20">
-          <div className="xl:mr-40">
+        <div className="flex flex-col py-15 px-5 xl:px-0 xl:flex-row xl:w-7xl xl:mx-auto xl:py-20 gap-10">
+          <div className="">
             {data.industry?.name && <span className="inline-block text-sm bg-[#e5f2ff] border border-accent px-2 py-1 rounded-sm font-semibold mb-5">{data.industry?.name}</span>}
             <p className="leading-none text-4xl xl:text-[64px] font-semibold mb-5">{data.title}</p>
             <p className="text-sm xl:text-base leading-5">{data.desc}</p>
             <p className="mt-10 xl:mt-20 text-sm text-secondary">{dayjs(data.date).format('YYYY-MM-DD')}</p>
           </div>
 
-          <Image className="mt-10 xl:mt-0 w-full xl:w-160 aspect-64/52 object-cover" width={640} height={520} src={getStrapiMedia(data.image) ?? ""} alt="" />
+          <Image className="shrink-0 w-full xl:w-160 aspect-64/52 object-cover" width={640} height={520} src={getStrapiMedia(data.image) ?? ""} alt="" />
         </div>
       </div>
 
