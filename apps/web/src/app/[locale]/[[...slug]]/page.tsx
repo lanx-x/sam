@@ -34,7 +34,7 @@ const getPageData = cache(async (routeLocale: string, slug: string[]) => {
     ? (await api.getPage({ slug: matchedSlug })).data[0]
     : (await api.getPage({ slug: pageSlug })).data[0];
 
-  const navData = (await api.getNavigation("owqgz3ze0n1a15777qpdokl0")).data;
+  const navData = (await api.getNavigation({ 'filters[actived][$eq]': 'true' })).data?.[0];
 
   return { locale, siteData: site.data, pageData, documentId, navData };
 });

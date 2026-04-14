@@ -1157,6 +1157,13 @@ export interface ApiNavigationNavigation extends Struct.CollectionTypeSchema {
   };
   attributes: {
     action: Schema.Attribute.Relation<'oneToOne', 'api::action.action'>;
+    actived: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<false>;
     admin_note: Schema.Attribute.String &
       Schema.Attribute.Private &
       Schema.Attribute.SetPluginOptions<{

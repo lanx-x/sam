@@ -194,6 +194,7 @@ export interface ItemNavBasicItem extends Struct.ComponentSchema {
     displayName: 'NavBasicItem';
   };
   attributes: {
+    alt_icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     desc: Schema.Attribute.Text;
     external_url: Schema.Attribute.String;
     icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
@@ -214,6 +215,7 @@ export interface ItemNavGroupItem extends Struct.ComponentSchema {
     displayName: 'NavNestItem';
   };
   attributes: {
+    alt_icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     children: Schema.Attribute.Component<'item.nav-basic-item', true>;
     desc: Schema.Attribute.Text;
     external_url: Schema.Attribute.String;

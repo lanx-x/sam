@@ -315,8 +315,8 @@ export async function getSite(params: { [key: string]: any } = {}) {
   })
 }
 
-export async function getNavigation(documentId: string, params: { [key: string]: any } = {}) {
-  return fetchStrapi<StrapiSingleResponse<Navigation>>(`/navigations/${documentId}`, {
+export async function getNavigation(params: { [key: string]: any } = {}) {
+  return fetchStrapi<StrapiCollectionResponse<Navigation>>(`/navigations`, {
     params: {
       populate: {
         value: {
@@ -326,11 +326,13 @@ export async function getNavigation(documentId: string, params: { [key: string]:
             children: {
               populate: {
                 icon: true,
+                alt_icon: true,
                 image: true,
                 target_page: { fields: ['slug'] },
                 children: {
                   populate: {
                     icon: true,
+                    alt_icon: true,
                     target_page: { fields: ['slug'] },
                     industry: { fields: ['documentId'] },
                   },
@@ -371,14 +373,6 @@ function bindLocale<TParams extends { [key: string]: any }, TResult>(
   return (params: TParams = defaultParams) => apiFn({ ...params, locale });
 }
 
-function bindLocaleForDocument<TParams extends { [key: string]: any }, TResult>(
-  locale: Locale,
-  apiFn: (documentId: string, params?: TParams) => TResult,
-  defaultParams: TParams,
-) {
-  return (documentId: string, params: TParams = defaultParams) => apiFn(documentId, { ...params, locale });
-}
-
 export function createLocalizedApi(locale: Locale) {
   return {
     getPage: bindLocale(locale, getPage, {} as { [key: string]: any }),
@@ -397,7 +391,7 @@ export function createLocalizedApi(locale: Locale) {
     getIndustry: bindLocale(locale, getIndustry, {}),
     getIndustryDetail: bindLocale(locale, getIndustryDetail, {}),
     getSite: bindLocale(locale, getSite, {}),
-    getNavigation: bindLocaleForDocument(locale, getNavigation, {}),
+    getNavigation: bindLocale(locale, getNavigation, {}),
     getCaseStudy: bindLocale(locale, getCaseStudy, {}),
     getCaseStudyDetail: bindLocale(locale, getCaseStudyDetail, {}),
     getBroadcast: bindLocale(locale, getBroadcast, {}),

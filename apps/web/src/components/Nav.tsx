@@ -283,7 +283,7 @@ export function DesktopNav(props: NavProps) {
                             <Link
                               key={childIdx}
                               href={href}
-                              className={`group block mb-1 last:mb-0 h-30 p-5 transition-colors ${activeChild === childIdx ? "bg-primary" : "hover:bg-primary"} `}
+                              className={`group block mb-1 last:mb-0 h-30 p-5 transition-colors ${activeChild === childIdx ? "bg-primary" : "hover:bg-primary"} transition-colors duration-300 `}
                               onMouseEnter={() => setActiveChild(childIdx)}
                               onClick={close}
                             >
@@ -321,7 +321,7 @@ export function DesktopNav(props: NavProps) {
                             <Link
                               key={childIdx}
                               href={withLocalePath(locale, getHref(child))}
-                              className={`group block mb-1 last:mb-0 h-30 p-5 transition-colors ${activeChild === childIdx ? "bg-primary" : "hover:bg-primary"} `}
+                              className={`group block mb-1 last:mb-0 h-30 p-5 transition-colors ${activeChild === childIdx ? "bg-primary" : "hover:bg-primary"} transition-colors duration-300 `}
                               onMouseEnter={() => setActiveChild(childIdx)}
                               onClick={close}
                             >
@@ -347,7 +347,7 @@ export function DesktopNav(props: NavProps) {
                         <div className="mt-0.5">
                           {
                             getChild('Industries', group)?.children?.map((xs, idx) => (
-                              <Link key={xs.id} href={withLocalePath(locale, `/solutions/industry/${xs.industry?.documentId!}`)} className="group block mb-1 last-mb-0 h-16 pl-4 hover:bg-primary" onClick={close}>
+                              <Link key={xs.id} href={withLocalePath(locale, `/solutions/industry/${xs.industry?.documentId!}`)} className="group block mb-1 last-mb-0 h-16 pl-4 hover:bg-primary transition-colors duration-300" onClick={close}>
                                 <div className="flex flex-row items-center gap-2 h-full">
                                   <div className="relative w-8 h-8">
                                     <Image fill className="object-cover" alt="" src={getStrapiMedia(xs.icon) ?? ""} />
@@ -372,9 +372,10 @@ export function DesktopNav(props: NavProps) {
                       <div className="py-10 pr-10 flex-1 grid grid-cols-3 gap-5">
                         {
                           group.children?.map((child, childIdx) => (
-                            <Link key={child.id} target={child.target_type === 'external_url' ? '_blank' : ""} href={withLocalePath(locale, getHref(child))} className="block min-h-40 w-75 py-4 px-5 hover:bg-primary group" onClick={close}>
-                              <div className="relative w-8 h-8 group-hover:bg-accent/33 rounded-sm overflow-hidden flex items-center justify-center">
-                                <Image src={getStrapiMedia(child.icon) ?? ""} alt="" width={24} height={24} className="object-cover w-6 aspect-square" />
+                            <Link key={child.id} target={child.target_type === 'external_url' ? '_blank' : ""} href={withLocalePath(locale, getHref(child))} className="block min-h-40 w-75 py-4 px-5 hover:bg-primary group transition-colors duration-300" onClick={close}>
+                              <div className="relative w-8 h-8 group-hover:bg-accent/33 rounded-sm overflow-hidden flex items-center justify-center transition-colors duration-300">
+                                <Image src={getStrapiMedia(child.icon) ?? ""} alt="" width={24} height={24} className="absolute object-cover w-6 aspect-square opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+                                <Image src={getStrapiMedia(child.alt_icon) ?? getStrapiMedia(child.icon) ?? ""} alt="" width={24} height={24} className="absolute object-cover w-6 aspect-square transition-opacity duration-300 opacity-0 group-hover:opacity-100" />
                               </div>
 
                               <h3 className="text-lg text-white font-medium leading-none mt-5 mb-2">{child.name}</h3>
@@ -401,7 +402,7 @@ export function DesktopNav(props: NavProps) {
                         <div className="grid grid-cols-2 gap-5">
                           {
                             group.children?.map((child, childIdx) => (
-                              <Link key={child.id} href={withLocalePath(locale, getHref(child))} className="block p-5 hover:bg-primary" onClick={close}>
+                              <Link key={child.id} href={withLocalePath(locale, getHref(child))} className="block p-5 hover:bg-primary transition-colors duration-300" onClick={close}>
                                 <h3 className="mb-2 text-lg text-white font-medium leading-none">{child.name}</h3>
                                 <p className="text-sm text-white/66 leading-4.5">{child.desc}</p>
 
@@ -420,7 +421,7 @@ export function DesktopNav(props: NavProps) {
                                 <div>
                                   {
                                     siteData[xs]?.map(item => (
-                                      <p key={item.id} className="">{xs === 'email' ? <a href={`mailto:${item.value}`} className="hover:text-white transition-colors">{item.value}</a> : item.value}</p>
+                                      <p key={item.id} className="">{xs === 'email' ? <a href={`mailto:${item.value}`} className="hover:text-white transition-colors duration-300">{item.value}</a> : item.value}</p>
                                     ))
                                   }
                                 </div>

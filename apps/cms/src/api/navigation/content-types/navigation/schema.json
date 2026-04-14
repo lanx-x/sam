@@ -38,6 +38,15 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::action.action"
+    },
+    "actived": {
+      "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": false
     }
   }
 }
