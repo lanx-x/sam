@@ -59,7 +59,16 @@ export async function getPatternPages(payload: { [key: string]: any }) {
 export async function getSurfaceTreatment(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<SurfaceTreatment>>('/surface-treatments', {
     params: {
-      pLevel: true,
+      populate: {
+        icon: true,
+        image: true,
+        extend: { populate: '*' },
+        materials: { fields: ['name'] },
+        pros: { populate: '*' },
+        cons: { populate: '*' },
+        notes: { populate: '*' },
+        featured_news: { fields: ['title', 'documentId'] },
+      },
       'pagination[pageSize]': 100,
       ...params,
     },
@@ -214,7 +223,6 @@ export async function getI18nLocales() {
 export async function getBroadcast(params: { [key: string]: any } = {}) {
   return fetchStrapi<StrapiCollectionResponse<Broadcast>>('/broadcasts', {
     params: {
-      pLevel: true,
       'pagination[pageSize]': 100,
       ...params,
     },
