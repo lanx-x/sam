@@ -200,8 +200,48 @@ export async function getVideo(params: { [key: string]: any }) {
 export async function getMaterial(params: { [key: string]: any } = {}) {
   return fetchStrapi<StrapiCollectionResponse<Material>>('/materials', {
     params: {
-      pLevel: 10,
+      populate: {
+        icon: true,
+        parameter: { populate: '*' },
+        category: { fields: ['documentId', 'name'] },
+        strength: { fields: ['name'] },
+        processability: { fields: ['name'] },
+        corrosion_resistance: { fields: ['name'] },
+      },
       'pagination[pageSize]': 100,
+      ...params,
+    },
+    next: { revalidate: revalidate.normal, tags: ["material", "material-category", "surface-treatment", "industry", "news"] },
+  })
+}
+
+export async function getMaterialDetail(params: { [key: string]: any }) {
+  return fetchStrapi<StrapiCollectionResponse<Material>>('/materials', {
+    params: {
+      populate: {
+        icon: true,
+        image: true,
+        parameter: { populate: '*' },
+        specification: { populate: '*' },
+        pros: { populate: '*' },
+        cons: { populate: '*' },
+        category: { fields: ['documentId', 'name'] },
+        strength: { fields: ['name'] },
+        processability: { fields: ['name'] },
+        corrosion_resistance: { fields: ['name'] },
+        surface_treatments: {
+          populate: { icon: true },
+          fields: ['name', 'desc', 'documentId'],
+        },
+        industries: {
+          fields: ['documentId', 'name'],
+          populate: { image: true },
+        },
+        featured_news: {
+          fields: ['title', 'documentId', 'content'],
+          populate: { image: true },
+        },
+      },
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["material", "material-category", "surface-treatment", "industry", "news"] },
@@ -317,6 +357,7 @@ export function createLocalizedApi(locale: Locale) {
     getNewsCategory: bindLocale(locale, getNewsCategory, {}),
     getVideo: bindLocale(locale, getVideo, {}),
     getMaterial: bindLocale(locale, getMaterial, {}),
+    getMaterialDetail: bindLocale(locale, getMaterialDetail, {}),
     getMaterialCategory: bindLocale(locale, getMaterialCategory, {}),
     getIndustry: bindLocale(locale, getIndustry, {}),
     getSite: bindLocale(locale, getSite, {}),

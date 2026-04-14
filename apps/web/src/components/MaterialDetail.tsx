@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export async function MaterialDetail({ documentId, section, locale, siteData }: CmpProps) {
   const api = createLocalizedApi(locale);
-  const data = (await api.getMaterial({ 'filters[documentId][$eq]': documentId })).data?.[0]
+  const data = (await api.getMaterialDetail({ 'filters[documentId][$eq]': documentId })).data?.[0]
   const displayText = siteData?.display_text?.material
 
   const dict = {
