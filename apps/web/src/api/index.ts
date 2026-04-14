@@ -163,7 +163,10 @@ export async function getCaseStudyDetail(params: { [key: string]: any }) {
 export async function getNews(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<News>>('/news-items', {
     params: {
-      pLevel: true,
+      populate: {
+        image: true,
+        category: { fields: ['documentId'] },
+      },
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["news", "news-category"] },
