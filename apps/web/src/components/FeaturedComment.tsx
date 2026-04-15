@@ -79,7 +79,11 @@ export function FeaturedComment({ section }: CmpProps) {
               section.payload?.data?.map((xs, idx) => (
                 <div className={`shrink-0 w-full xl:w-145 px-5 xl:px-0`} key={`${xs.id}-${idx}`}>
                   <div className={`${cardStyle(selectedIndex, idx)} bg-white rounded-lg flex flex-col transition-all duration-500 shrink-0 px-5 xl:px-10 items-center`}>
-                    <Image width={80} height={80} src={getStrapiMedia(xs.image) ?? ""} alt="avatar" className="absolute w-20 h-20 -top-10 rounded-full" />
+                    <div className="absolute -top-10 rounded-full overflow-hidden z-10 bg-red-200">
+                      <Image width={80} height={80} src={getStrapiMedia(xs.image) ?? ""} alt="avatar" className="w-20 h-20" />
+                      {/* 头像蒙层 */}
+                      <div className={cn("absolute w-20 h-20  top-0 left-0 bg-[rgba(250,250,250,0.8)] transition-opacity duration-500 hidden xl:block", selectedIndex === idx ? 'opacity-0' : 'opacity-100')}></div>
+                    </div>
                     <span className="mt-15 text-lg font-semibold mb-2">{xs.title}</span>
                     <span className="text-secondary text-xs">{xs.label}</span>
                     <div className="relative pt-10 pb-14.25">
@@ -87,8 +91,8 @@ export function FeaturedComment({ section }: CmpProps) {
                       <p className="text-sm font-medium px-10 my-3 xl:my-0 xl:px-15 text-center">{xs.desc}</p>
                       <p className="absolute right-0 -bottom-10 text-accent text-[120px] leading-none text-right">”</p>
                     </div>
+                    {/* 卡片蒙层 */}
                     <div className={cn("absolute inset-0 bg-[rgba(250,250,250,0.8)] transition-opacity duration-300 hidden xl:block", selectedIndex === idx ? 'opacity-0' : 'opacity-100')}></div>
-                    <div className={cn("absolute w-20 h-10 -top-10 rounded-tl-full rounded-tr-full bg-[rgba(250,250,250,0.8)] transition-opacity duration-500 hidden xl:block", selectedIndex === idx ? 'opacity-0' : 'opacity-100')}></div>
                   </div>
                 </div>
               ))
