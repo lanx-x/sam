@@ -77,9 +77,9 @@ export function FeaturedComment({ section }: CmpProps) {
           <div className="flex flex-row">
             {
               section.payload?.data?.map((xs, idx) => (
-                <div className={`shrink-0 w-full xl:w-145 px-5 xl:px-0`} key={`${xs.id}-${idx}`}>
+                <div className={`relative shrink-0 w-full xl:w-145 px-5 xl:px-0`} key={`${xs.id}-${idx}`}>
                   <div className={`${cardStyle(selectedIndex, idx)} bg-white rounded-lg flex flex-col transition-all duration-500 shrink-0 px-5 xl:px-10 items-center`}>
-                    <div className="absolute -top-10 rounded-full overflow-hidden z-10 bg-red-200">
+                    <div className="absolute w-20 h-20 -top-10 rounded-full overflow-hidden z-10 bg-red-200">
                       <Image width={80} height={80} src={getStrapiMedia(xs.image) ?? ""} alt="avatar" className="w-20 h-20" />
                       {/* 头像蒙层 */}
                       <div className={cn("absolute w-20 h-20  top-0 left-0 bg-[rgba(250,250,250,0.8)] transition-opacity duration-500 hidden xl:block", selectedIndex === idx ? 'opacity-0' : 'opacity-100')}></div>
