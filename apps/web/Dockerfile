@@ -20,6 +20,7 @@ ARG NEXT_PUBLIC_STRAPI_FORM_TOKEN
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
+COPY --from=deps /app/apps/cms/node_modules ./apps/cms/node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
