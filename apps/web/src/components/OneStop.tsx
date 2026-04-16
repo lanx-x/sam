@@ -73,12 +73,12 @@ export function OneStop({ section }: CmpProps) {
                   <p className="text-sm text-[rgba(34,34,34,0.66)]">{xs.desc}</p>
 
 
-                  <div className="mt-5 grid grid-cols-1 xl:mt-6 xl:grid-cols-2">
+                  <div className="mt-5 items-center grid grid-cols-1 xl:mt-6 xl:grid-cols-2 gap-2 xl:gap-3 xl:gap-x-15">
                     {
                       xs.extension?.map((item, idx) => (
-                        <div key={item.id} className="flex flex-row items-center shrink-0 mb-2 xl:mr-15 xl:mb-3">
-                          <div className="w-4 h-4 flex justify-center items-center mr-2 bg-accent rounded-full">
-                            <Image src={Assets.Check} className="w-2 " alt="check" />
+                        <div key={item.id} className="flex flex-row items-center shrink-0 gap-2">
+                          <div className="w-4 h-4 flex justify-center items-center bg-accent rounded-full">
+                            <Image src={Assets.Check} className="w-2 h-2" alt="check" />
                           </div>
                           <span className="font-semibold text-sm">{item.value}</span>
                         </div>

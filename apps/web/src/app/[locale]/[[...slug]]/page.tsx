@@ -11,7 +11,7 @@ import { CommonSection, Site } from "cms-types";
 import { getRuntimeLocale } from "@/i18n/server";
 
 const getPageData = cache(async (routeLocale: string, slug: string[]) => {
-  const { locale } = await getRuntimeLocale(routeLocale);
+  const { locale, localeList } = await getRuntimeLocale(routeLocale);
   const api = createLocalizedApi(locale);
   const site = await api.getSite();
   const pageSlug = ['/', ...slug].join('/').replace(/^\/\//, '/');
@@ -36,7 +36,7 @@ const getPageData = cache(async (routeLocale: string, slug: string[]) => {
 
   const navData = (await api.getNavigation({ 'filters[actived][$eq]': 'true' })).data?.[0];
 
-  return { locale, siteData: site.data, pageData, documentId, navData };
+  return { locale, localeList, siteData: site.data, pageData, documentId, navData };
 });
 
 export async function generateMetadata({
@@ -45,15 +45,45 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string[] }>;
 }): Promise<Metadata> {
   const { locale: routeLocale, slug = [] } = await params;
-  const { pageData, siteData } = await getPageData(routeLocale, slug);
+  const { locale, localeList, siteData, pageData, documentId } = await getPageData(routeLocale, slug);
 
   if (!pageData) return {};
 
-  const seo = pageData.seo as { title?: string; desc?: string } | null;
+  const seo = pageData.seo
+  const siteName = siteData.name || '';
+  const title = seo?.title ? `${seo.title} — ${siteName}` : siteName;
+  const description = seo?.desc || siteData.desc || '';
+  const pagePath = ['/', ...slug].join('/').replace(/^\/\//, '/');
+  const canonicalUrl = siteData?.url ? `${siteData.url}/${locale}${pagePath}` : undefined;
+  const isPatternPage = documentId !== null;
+
+  const languages: Record<string, string> = {};
+  for (const loc of localeList) {
+    if (siteData?.url) languages[loc.code] = `${siteData?.url}/${loc.code}${pagePath}`;
+  }
 
   return {
-    title: seo?.title ? `${seo.title} — ${siteData.name}` : siteData.name,
-    description: seo?.desc,
+    title,
+    description,
+    ...(siteData?.url && { metadataBase: new URL(siteData?.url) }),
+    alternates: {
+      canonical: canonicalUrl,
+      languages,
+    },
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      siteName,
+      locale,
+      ...(canonicalUrl && { url: canonicalUrl }),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+    robots: isPatternPage ? 'noindex, follow' : 'index, follow',
   };
 }
 

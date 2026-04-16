@@ -1,5 +1,6 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import type { Metadata } from "next";
 
 import { Broadcast } from "@/components/Broadcast";
 import { createLocalizedApi } from "@/api";
