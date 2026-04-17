@@ -1,12 +1,10 @@
 import type { MetadataRoute } from "next";
 import { globalApi, createLocalizedApi } from "@/api";
+import { SITE_URL } from "@/utils/env";
+
+export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const api = createLocalizedApi('en');
-  const site = await api.getSite();
-
-  const SITE_URL = site.data?.url
-
   if (!SITE_URL) return [];
 
   const localeList = await globalApi.getI18nLocales();

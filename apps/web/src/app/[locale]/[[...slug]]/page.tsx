@@ -9,6 +9,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
 import { CommonSection, Site } from "cms-types";
 import { getRuntimeLocale } from "@/i18n/server";
+import { SITE_URL } from "@/utils/env";
 
 const getPageData = cache(async (routeLocale: string, slug: string[]) => {
   const { locale, localeList } = await getRuntimeLocale(routeLocale);
@@ -54,18 +55,18 @@ export async function generateMetadata({
   const title = seo?.title ? `${seo.title} — ${siteName}` : siteName;
   const description = seo?.desc || siteData.desc || '';
   const pagePath = ['/', ...slug].join('/').replace(/^\/\//, '/');
-  const canonicalUrl = siteData?.url ? `${siteData.url}/${locale}${pagePath}` : undefined;
+  const canonicalUrl = SITE_URL ? `${SITE_URL}/${locale}${pagePath}` : undefined;
   const isPatternPage = documentId !== null;
 
   const languages: Record<string, string> = {};
   for (const loc of localeList) {
-    if (siteData?.url) languages[loc.code] = `${siteData?.url}/${loc.code}${pagePath}`;
+    if (SITE_URL) languages[loc.code] = `${SITE_URL}/${loc.code}${pagePath}`;
   }
 
   return {
     title,
     description,
-    ...(siteData?.url && { metadataBase: new URL(siteData?.url) }),
+    ...(SITE_URL && { metadataBase: new URL(SITE_URL) }),
     alternates: {
       canonical: canonicalUrl,
       languages,

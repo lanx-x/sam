@@ -22,6 +22,7 @@ services:
       dockerfile: apps/web/Dockerfile
       args:
         - NEXT_PUBLIC_STRAPI_API_URL=http://cms:1337
+        - NEXT_PUBLIC_SITE_URL=https://www.lwmetalmachining.com
         - NEXT_PUBLIC_STRAPI_FORM_TOKEN=f29589eb8e7f65b6cdb39c33856426e7d548829744532e538d232fc7f8e7f03697726afc66b80a426462810bc44756996df40fa87f360920d7edc0c60ec923c031195087e9f228634525163b26b086aa9cf08f1c43e5fcea76ac74d013da9206ae8154e0ecbe595b280439e538f9e6a8361c3e79e3002768fe7aebf312f12a53
     container_name: lw-web
     restart: unless-stopped
