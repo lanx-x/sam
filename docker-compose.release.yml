@@ -7,10 +7,10 @@ services:
     ports:
       - "11337:1337"
     volumes:
-      - ./apps/cms/data:/app/apps/cms/data
-      - ./apps/cms/public/uploads:/app/apps/cms/public/uploads
+      - ./data/cms/data:/app/apps/cms/data
+      - ./data/cms/public/uploads:/app/apps/cms/public/uploads
     env_file:
-      - ./apps/cms/.env
+      - ./cms.env
     environment:
       NODE_ENV: production
       HOST: 0.0.0.0
@@ -25,6 +25,6 @@ services:
     depends_on:
       - cms
     env_file:
-      - ./apps/web/.env
+      - ./web.env
     environment:
       NODE_ENV: production
