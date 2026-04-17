@@ -64,7 +64,7 @@ jobs:
           build-args: |
             NEXT_PUBLIC_STRAPI_API_URL=${{ secrets.NEXT_PUBLIC_STRAPI_API_URL }}
             NEXT_PUBLIC_SITE_URL=${{ vars.NEXT_PUBLIC_SITE_URL }}
-            NEXT_PUBLIC_STRAPI_FORM_TOKEN=${{ secrets.NEXT_PUBLIC_STRAPI_FORM_TOKEN }}
+            NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN=${{ secrets.NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN }}
 
       - name: Build and push cms image
         if: matrix.name == 'cms'
