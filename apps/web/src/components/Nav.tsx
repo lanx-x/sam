@@ -133,6 +133,7 @@ export function MobileNav(props: NavProps) {
                                     nested.children?.map((child, childIdx) => (
                                       <Link
                                         className="block text-white h-12 leading-12 px-5"
+                                        target={nested.target_type === 'external_url' ? '_blank' : ''}
                                         key={child.id}
                                         href={withLocalePath(locale, (nested.type === 'Industries' && child.target_type === 'industry' && child.industry) ? `/solutions/industry/${child.industry.documentId}` : getHref(child))}
                                         onClick={closeMenu}>
@@ -149,7 +150,7 @@ export function MobileNav(props: NavProps) {
 
                       {['capabilities', 'resources'].includes(group.type!) &&
                         group.children?.map((child, childIdx) => (
-                          <Link key={child.id} className="h-12 flex items-center" href={withLocalePath(locale, getHref(child))} onClick={closeMenu}>
+                          <Link target={child.target_type === 'external_url' ? '_blank' : ''} key={child.id} className="h-12 flex items-center" href={withLocalePath(locale, getHref(child))} onClick={closeMenu}>
                             <p className="pl-5 font-sm text-white">{child.name}</p>
                           </Link>
                         ))
