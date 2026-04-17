@@ -146,14 +146,6 @@
       },
       "component": "display-text.common",
       "repeatable": false
-    },
-    "url": {
-      "type": "string",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
     }
   }
 }
