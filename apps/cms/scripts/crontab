@@ -1,3 +1,4 @@
+TZ=Asia/Shanghai
 0 * * * * /app/scripts/backup.sh hourly
 0 3 * * * /app/scripts/backup.sh daily
 30 3 1 * * /app/scripts/backup.sh monthly
