@@ -34,9 +34,9 @@ export function FeaturedEquipment({ section, locale }: CmpProps) {
               ((section.payload?.dynamic?.[0] as any)?.equipment as Equipment[])?.map((xs, idx) => (
                 <Link target="_blank" href={`/${locale}/resources/equipment/${xs.documentId}`} key={xs.id} className="w-[78.205128vw] ml-5 shrink-0 text-left xl:w-76.25 xl:ml-0 xl:mr-5 hover:drop-shadow-[0_8px_24px_rgba(0,0,0,0.08)] bg-[#FAFAFA] transition-colors duration-300">
 
-                  <div className="relative w-76.25 h-55 shrink-0 overflow-hidden flex items-center justify-center">
+                  <div className="relative w-full aspect-305/220 xl:w-76.25 shrink-0 overflow-hidden flex items-center justify-center">
                     <Image fill className="object-cover -z-10" src={Assets.EquipBase} alt="" />
-                    <Image width={305} height={220} src={getStrapiMedia(xs.image) ?? ""} className="w-72 h-51 object-contain" alt="icon" />
+                    <Image width={305} height={220} src={getStrapiMedia(xs.image) ?? ""} className="w-full xl:w-72 aspect-305/220 object-contain" alt="icon" />
                   </div>
 
                   <div className="px-5">

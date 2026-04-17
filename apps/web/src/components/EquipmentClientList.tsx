@@ -61,9 +61,9 @@ export function EquipmentClientList(props: Props) {
           {
             equipments.data.filter(xs => activeCategoryId ? (xs.category as any)?.documentId === activeCategoryId : true).map((xs, idx) => (
               <Link target="_blank" key={xs.documentId} href={`${basePath}/${xs.documentId}`} className="relative flex flex-col xl:flex-row justify-start py-7.5 xl:pr-10 hover:bg-[#f0f7fe] border-b border-b-[#efefef] hover:border-b-[#f0f7fe] duration-300 transition-colors cursor-pointer">
-                <div className="relative w-90 h-65 shrink-0 overflow-hidden">
+                <div className="flex items-center justify-center relative w-full aspect-350/253 xl:w-90 xl:aspect-36/26 shrink-0 overflow-hidden">
                   <Image fill className="object-cover -z-10" src={Assets.EquipBase} alt="" />
-                  <Image width={360} height={260} src={getStrapiMedia(xs.image) ?? ""} className="w-90 h-65 object-contain" alt="icon" />
+                  <Image width={360} height={260} src={getStrapiMedia(xs.image) ?? ""} className="w-full max-w-180 xl:w-90 aspect-350/253 xl:aspect-36/26 object-contain" alt="icon" />
                 </div>
                 <div className="mt-5 xl:mt-0 xl:ml-10 pb-10 relative">
                   <p className="leading-none text-2xl font-semibold mb-2">{xs.name}</p>
