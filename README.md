@@ -13,8 +13,10 @@ Before using the workflow, configure these GitHub Actions secrets:
 
 - `ALIYUN_REGISTRY_USERNAME`
 - `ALIYUN_REGISTRY_PASSWORD`
-- `NEXT_PUBLIC_STRAPI_API_URL`
-- `NEXT_PUBLIC_STRAPI_FORM_TOKEN`
+- `NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN`, 参考 apps/web/.env.example
+
+and configure vars:
+- `NEXT_PUBLIC_SITE_URL`, for sitemap/robot.txt/seo
 
 Trigger a release with:
 

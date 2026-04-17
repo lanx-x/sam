@@ -1,5 +1,5 @@
 import { mergeExtension } from "@/utils";
-import { getStrapiMedia, getStrapiURL } from "@/utils/strapi";
+import { getStrapiMedia } from "@/utils/strapi";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Image from "next/image";
 import { ActionButton } from "./ActionButton";

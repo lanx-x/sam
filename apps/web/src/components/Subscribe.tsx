@@ -2,6 +2,7 @@
 
 import { useState, useEffect, type ComponentProps } from "react";
 import { cn } from "@/utils/cn"
+import { NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN } from "@/utils/env";
 
 type Props = ComponentProps<"div"> & { label?: string, placeholder?: string };
 
@@ -33,7 +34,7 @@ export function Subscribe({ className, label, placeholder }: Props) {
     setStatus('loading')
     try {
       const res = await fetch('/proxy-via-next/api/subscribers', {
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_FORM_TOKEN}` },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN}` },
         method: 'POST',
         body: JSON.stringify({ data: { email } }),
       })

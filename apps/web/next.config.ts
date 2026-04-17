@@ -1,10 +1,11 @@
+import { NODE_ENV } from "@/utils/env";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
   allowedDevOrigins: ['127.0.0.1', 'localhost', 'cms:1337', '10.0.0.10'],
   images: {
-    dangerouslyAllowLocalIP: process.env.NODE_ENV === "development",
+    dangerouslyAllowLocalIP: NODE_ENV === "development",
     remotePatterns: [
       {
         protocol: 'http',

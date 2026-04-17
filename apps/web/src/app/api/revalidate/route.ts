@@ -2,16 +2,15 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { KNOWN_CACHE_TAGS } from "@/api";
 import { logger } from "@/utils/logger";
-
-const SECRET = process.env.REVALIDATE_SECRET;
+import { REVALIDATE_SECRET } from "@/utils/env";
 
 export async function POST(request: NextRequest) {
-  if (!SECRET) {
+  if (!REVALIDATE_SECRET) {
     logger.error("[Revalidate] REVALIDATE_SECRET not set");
     return NextResponse.json({ message: "REVALIDATE_SECRET not set" }, { status: 500 });
   }
 
-  if (request.headers.get("authorization") !== `Bearer ${SECRET}`) {
+  if (request.headers.get("authorization") !== `Bearer ${REVALIDATE_SECRET}`) {
     logger.warn("[Revalidate] Invalid token", request.headers.get("authorization"));
     return NextResponse.json({ message: "Invalid token" }, { status: 401 });
   }

@@ -15,9 +15,8 @@ FROM base AS builder
 RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
 
-ARG NEXT_PUBLIC_STRAPI_API_URL
 ARG NEXT_PUBLIC_SITE_URL
-ARG NEXT_PUBLIC_STRAPI_FORM_TOKEN
+ARG NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
@@ -25,9 +24,8 @@ COPY --from=deps /app/apps/cms/node_modules ./apps/cms/node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NEXT_PUBLIC_STRAPI_API_URL=$NEXT_PUBLIC_STRAPI_API_URL
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
-ENV NEXT_PUBLIC_STRAPI_FORM_TOKEN=$NEXT_PUBLIC_STRAPI_FORM_TOKEN
+ENV NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN=$NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN
 RUN pnpm --filter web build
 
 FROM base AS runner

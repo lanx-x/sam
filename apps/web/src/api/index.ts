@@ -1,10 +1,11 @@
 import type { Locale, LocaleItem } from "@/i18n";
+import { NODE_ENV } from "@/utils/env";
 import { fetchStrapi } from "@/utils/strapi";
 import type { PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceTreatment, Equipment, EquipmentCategory, CaseStudy, News, NewsCategory, Video, Material, MaterialCategory, Industry, Site, Navigation, Broadcast } from "cms-types";
 
 export type { PageData };
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = NODE_ENV === 'development'
 
 // 开发环境兼用缓存, 其他环境设置无限长的缓存时间(通过 webhook 刷新缓存)
 const revalidate = {

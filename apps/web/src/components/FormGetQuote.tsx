@@ -4,8 +4,8 @@ import { useState, useRef, useCallback, useEffect, type ComponentProps } from "r
 import { cn } from "@/utils/cn"
 import { Assets } from "@/assets";
 import Image from "next/image";
-import { fetchStrapi } from "@/utils/strapi";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
+import { NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN } from "@/utils/env";
 
 function Toast({ message, onDone }: { message: string; onDone: () => void }) {
   useEffect(() => {
@@ -86,9 +86,6 @@ export function FormGetQuote({ section, siteData }: CmpProps) {
     setInvalidFile(null)
   }, [])
 
-  const FORM_TOKEN = process.env.NEXT_PUBLIC_STRAPI_FORM_TOKEN!
-  const strapiHeaders = { 'Content-Type': 'application/json', Authorization: `Bearer ${FORM_TOKEN}` }
-
   const displayText = siteData?.display_text?.form
 
   const handleSubmit = async () => {
@@ -110,7 +107,7 @@ export function FormGetQuote({ section, siteData }: CmpProps) {
         fd.append('files', file)
         const uploadRes = await fetch('/proxy-via-next/api/upload', {
           method: 'POST',
-          headers: { Authorization: `Bearer ${FORM_TOKEN}` },
+          headers: { Authorization: `Bearer ${NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN}` },
           body: fd,
         })
         if (!uploadRes.ok) throw new Error('File upload failed')
@@ -120,7 +117,10 @@ export function FormGetQuote({ section, siteData }: CmpProps) {
 
       const res = await fetch('/proxy-via-next/api/inquiries', {
         method: 'POST',
-        headers: strapiHeaders,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN}`
+        },
         body: JSON.stringify({
           data: {
             name: form.name,
