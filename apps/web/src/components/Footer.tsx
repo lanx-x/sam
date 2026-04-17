@@ -43,7 +43,7 @@ export function Footer({ siteData, navigation, locale }: { siteData: Site, local
                 <p className="font-medium text-base mb-6">{group.name}</p>
                 <ul className="text-sm">
                   {children?.map(item => (
-                    <Link href={withLocalePath(locale, getHref(item))} className="group block mb-3 hover:text-accent" key={item.id}>
+                    <Link target={item.target_type === 'external_url' ? '_blank' : ''} href={withLocalePath(locale, getHref(item))} className="group block mb-3 hover:text-accent" key={item.id}>
                       <span className="relative inline-block">
                         <span aria-hidden className="invisible font-medium">{item.name}</span>
                         <span className="absolute inset-0 group-hover:font-medium transition-all">{item.name}</span>
