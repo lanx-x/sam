@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image";
 import qs from "qs";
 import { logger } from "./logger";
-import { STRAPI_API_URL, STRAPI_TOKEN } from "./env";
+import { STRAPI_API_URL, STRAPI_API_TOKEN } from "./env";
 
 interface FetchOptions extends RequestInit {
   params?: Record<string, unknown>;
@@ -55,7 +55,7 @@ export async function fetchStrapi<T>(
       ...fetchOptions,
       headers: {
         'Content-Type': 'application/json',
-        ...(STRAPI_TOKEN ? { Authorization: `Bearer ${STRAPI_TOKEN}` } : {}),
+        ...(STRAPI_API_TOKEN ? { Authorization: `Bearer ${STRAPI_API_TOKEN}` } : {}),
         ...fetchOptions.headers,
       },
     });
