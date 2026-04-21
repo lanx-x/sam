@@ -22,7 +22,7 @@ export function Cap({ section, locale }: CmpProps) {
                   <h3 className="text-white text-2xl font-semibold mb-10 mt-auto truncate">{xs.title}</h3>
                 </div>
                 <div className="absolute inset-0 bg-[rgba(0,118,238,0.90)] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <div className="h-full w-full px-5 pt-30 pb-12 text-left flex flex-col">
+                  <div className="h-full w-full px-5 pt-12 xl:pt-30 pb-12 text-left flex flex-col">
                     <p className="font-semibold text-2xl/none text-white mb-8">{xs.title}</p>
                     <p className="text-white text-sm leading-4.5 flex-1">{xs.desc}</p>
                     <div className="text-white font-medium text-base flex flex-row items-center">
