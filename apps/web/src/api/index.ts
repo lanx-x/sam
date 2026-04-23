@@ -324,6 +324,7 @@ export async function getNavigation(params: { [key: string]: any } = {}) {
           populate: {
             image: true,
             featured_news: { fields: ['title', 'documentId'] },
+            target_page: { fields: ['slug'] },
             children: {
               populate: {
                 icon: true,
