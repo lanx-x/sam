@@ -5,7 +5,8 @@ import { SITE_URL } from "@/utils/env";
 export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  if (!SITE_URL) return [];
+  const blockSEO = process.env.NEXT_PUBLIC_BLOCK_SEO === "true";
+  if (blockSEO || !SITE_URL) return [];
 
   const localeList = await globalApi.getI18nLocales();
 
