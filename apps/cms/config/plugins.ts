@@ -9,6 +9,9 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
   oembed: {
     enabled: true,
   },
+  email: {
+    enabled: false,
+  },
   upload: {
     config: {
       providerOptions: {
