@@ -1,9 +1,5 @@
-import { Assets } from "@/assets";
-import Image from "next/image";
-import { useState } from "react";
-import { SectionContainer } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
-import { collectExtend, mergeExtension } from "@/utils";
+import { mergeExtension } from "@/utils";
 import { FAQ } from "cms-types";
 import { createLocalizedApi } from "@/api";
 import { FeaturedFAQClient } from "./FeaturedFAQClient";
