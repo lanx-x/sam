@@ -603,6 +603,13 @@ export interface ApiCaseStudyCaseStudy extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::case-study.case-study'
     >;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     parameter: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -675,6 +682,13 @@ export interface ApiEquipmentCategoryEquipmentCategory
           localized: true;
         };
       }>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -747,6 +761,13 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     parameter: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -978,6 +999,13 @@ export interface ApiMaterialCategoryMaterialCategory
           localized: true;
         };
       }>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1042,6 +1070,7 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    featured_faqs: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'>;
     featured_news: Schema.Attribute.Relation<'oneToMany', 'api::news.news'>;
     icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
       Schema.Attribute.SetPluginOptions<{
@@ -1070,6 +1099,13 @@ export interface ApiMaterialMaterial extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     parameter: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1242,6 +1278,13 @@ export interface ApiNewsCategoryNewsCategory
           localized: true;
         };
       }>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<999999>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1301,6 +1344,13 @@ export interface ApiNewsNews extends Struct.CollectionTypeSchema {
       }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::news.news'>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -1652,6 +1702,7 @@ export interface ApiSurfaceTreatmentSurfaceTreatment
           localized: true;
         };
       }>;
+    featured_faqs: Schema.Attribute.Relation<'oneToMany', 'api::faq.faq'>;
     featured_news: Schema.Attribute.Relation<'oneToMany', 'api::news.news'>;
     icon: Schema.Attribute.Media<'images' | 'files'> &
       Schema.Attribute.SetPluginOptions<{
@@ -1686,6 +1737,13 @@ export interface ApiSurfaceTreatmentSurfaceTreatment
           localized: true;
         };
       }>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     pros: Schema.Attribute.Component<'item.kv-item', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1842,6 +1900,13 @@ export interface ApiVideoVideo extends Struct.CollectionTypeSchema {
       }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::video.video'>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     overwrite_meta: Schema.Attribute.Component<'item.video-item', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

@@ -87,6 +87,15 @@
       },
       "component": "item.video-item",
       "repeatable": false
+    },
+    "order": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "default": 0
     }
   }
 }

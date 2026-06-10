@@ -92,6 +92,15 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::news.news"
+    },
+    "order": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "default": 0
     }
   }
 }

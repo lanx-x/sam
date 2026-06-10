@@ -65,10 +65,10 @@ export function Ship({ section }: CmpProps) {
           <h2 className="section-title">{section.payload?.title}</h2>
           <p className="section-desc">{section.payload?.desc}</p>
 
-          <div className="text-left mt-10 flex flex-col xl:flex-row shrink-0">
+          <div className="text-left mt-10 shrink-0 grid gap-5 grid-cols-1 xl:grid-cols-3">
             {
               section.payload?.data?.filter(xs => xs.title && xs.desc).map((xs, idx) => (
-                <div key={xs.id} className="bg-[#fafafa] mb-2 py-8 px-5 xl:mr-5">
+                <div key={xs.id} className="bg-[#fafafa] py-8 px-5">
                   <Image width={40} height={40} src={getStrapiMedia(xs.image) ?? ""} className="mb-8" alt="icon" />
                   <p className="mb-3 text-lg font-semibold">{xs.title}</p>
                   <p>{xs.desc}</p>

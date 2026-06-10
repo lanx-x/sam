@@ -70,6 +70,15 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::news-category.news-category"
+    },
+    "order": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "default": 0
     }
   }
 }

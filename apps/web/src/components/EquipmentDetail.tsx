@@ -43,7 +43,7 @@ export async function EquipmentDetail({ documentId, section, locale }: CmpProps)
 
       <div className="px-5 xl:px-0 xl:w-7xl xl:mx-auto">
         {data?.content && (
-          <div className="mt-10 prose max-w-none">
+          <div className="mt-15 mb-20 prose max-w-none xl:mt-35 xl:mb-58">
             <BlocksContent content={data.content} />
           </div>
         )}

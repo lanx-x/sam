@@ -96,6 +96,15 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::industry.industry"
+    },
+    "order": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "default": 0
     }
   }
 }

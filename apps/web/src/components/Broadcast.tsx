@@ -138,7 +138,8 @@ export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale;
                 )}
               >
                 <div className="min-w-28 overflow-hidden rounded-md border border-[#efefef] bg-white shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]">
-                  {localeList.map((locale) => (
+                  {/* 暂时只显示en */}
+                  {localeList.filter(xs => xs.code === 'en').map((locale) => (
                     <button
                       key={locale.code}
                       type="button"

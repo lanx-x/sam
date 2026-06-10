@@ -41,7 +41,7 @@ export async function CaseStudyDetail({ documentId, section, locale, slug, siteD
             <p className="mt-10 xl:mt-20 text-sm text-secondary">{dayjs(data.date).format('YYYY-MM-DD')}</p>
           </div>
 
-          <Image className="shrink-0 w-full xl:w-160 aspect-64/52 object-cover" width={640} height={520} src={getStrapiMedia(data.image) ?? ""} alt="" />
+          <Image className="shrink-0 w-full xl:w-160 aspect-64/52 object-contain" width={640} height={520} src={getStrapiMedia(data.image) ?? ""} alt="" />
         </div>
       </div>
 
@@ -50,11 +50,11 @@ export async function CaseStudyDetail({ documentId, section, locale, slug, siteD
           <p className="text-[32px] font-semibold xl:text-5xl">{displayText?.case_study?.key_parameters ?? "Key parameters"}</p>
           <div className="mt-10 xl:hidden">
             {
-              ([industryParameter, ...data.parameter ?? []])?.map((xs, idx) => (
-                <div key={idx} className="border-b border-[#bfbfbf] h-20 grid grid-cols-2 items-center px-2 text-base">
+              ([...data.parameter ?? []])?.map((xs, idx) => (
+                <div key={idx} className="border-b border-[#bfbfbf] grid grid-cols-2 items-center px-2 py-5 text-base">
                   <span className="text-lg text-secondary font-bold capitalize">{xs.key}:</span>
-                  <div>
-                    <span className={`text-base ${xs.key === 'industry' ? 'px-3.25 py-2 bg-[#e5f2ff] border-2 border-accent' : ''}`}>{xs.value}</span>
+                  <div className="overflow-hidden">
+                    <span className={`text-base text-ellipsis ${xs.key === 'industry' ? 'px-3.25 py-2 bg-[#e5f2ff] border-2 border-accent' : ''}`}>{xs.value}</span>
                   </div>
                 </div>
               ))
@@ -64,8 +64,8 @@ export async function CaseStudyDetail({ documentId, section, locale, slug, siteD
           <div className="hidden xl:block mt-10">
             <div className="grid grid-cols-5">
               {
-                ([industryParameter, ...data.parameter ?? []]).slice(0, 5).map((xs, idx) => (
-                  <div key={idx} className="border-b border-[#bfbfbf] h-20 grid grid-cols-2 items-center px-2 text-base">
+                ([...data.parameter ?? []]).slice(0, 5).map((xs, idx) => (
+                  <div key={idx} className="border-b border-[#bfbfbf] grid grid-cols-2 items-center px-2 py-5 text-base">
                     <span className="text-lg text-secondary font-bold capitalize">{xs.key}</span>
                   </div>
                 ))
@@ -73,10 +73,10 @@ export async function CaseStudyDetail({ documentId, section, locale, slug, siteD
             </div>
             <div className="grid grid-cols-5">
               {
-                ([industryParameter, ...data.parameter ?? []]).slice(0, 5).map((xs, idx) => (
-                  <div key={idx} className="border-b border-[#bfbfbf] h-20 grid grid-cols-2 items-center px-2 text-base">
-                    <div className={!xs.value ? 'hidden' : ''}>
-                      <span className={`text-base ${xs.key === 'industry' ? 'px-3.25 py-2 bg-[#e5f2ff] border-2 border-accent' : ''}`}>{xs.value}</span>
+                ([...data.parameter ?? []]).slice(0, 5).map((xs, idx) => (
+                  <div key={idx} className="border-b border-[#bfbfbf] grid grid-cols-2 items-center px-2 py-5 text-base">
+                    <div className={!xs.value ? 'hidden' : 'overflow-hidden'}>
+                      <span className={`text-base text-ellipsis ${xs.key === 'industry' ? 'px-3.25 py-2 bg-[#e5f2ff] border-2 border-accent' : ''}`}>{xs.value}</span>
                     </div>
                   </div>
                 ))

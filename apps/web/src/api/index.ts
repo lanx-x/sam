@@ -30,6 +30,7 @@ const listPopulate = {
   surfaceTreatment: {
     icon: true,
     materials: { fields: ['name'] },
+    featured_faqs: true,
   },
   news: {
     image: true,
@@ -42,6 +43,7 @@ const listPopulate = {
     strength: { fields: ['name'] },
     processability: { fields: ['name'] },
     corrosion_resistance: { fields: ['name'] },
+    featured_faqs: true,
   },
   industry: {
     image: true,
@@ -95,6 +97,8 @@ export async function getSurfaceTreatment(params: { [key: string]: any }) {
     params: {
       populate: listPopulate.surfaceTreatment,
       'pagination[pageSize]': 100,
+      'sort[0]': 'order:desc',
+      'sort[1]': 'id:desc',
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["surface-treatment", "material", "news"] },
@@ -128,6 +132,8 @@ export async function getEquipment(params: { [key: string]: any }) {
     params: {
       populate: listPopulate.equipment,
       'pagination[pageSize]': 100,
+      'sort[0]': 'order:desc',
+      'sort[1]': 'id:desc',
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["equipment", "equipment-category", "news"] },
@@ -152,6 +158,8 @@ export async function getEquipmentCategory(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<EquipmentCategory>>('/equipment-categories', {
     params: {
       'pagination[pageSize]': 100,
+      'sort[0]': 'order:desc',
+      'sort[1]': 'id:desc',
       ...params,
     },
     next: { revalidate: revalidate.static, tags: ["equipment-category", "equipment"] },
@@ -162,6 +170,8 @@ export async function getCaseStudy(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<CaseStudy>>('/case-studies', {
     params: {
       populate: listPopulate.caseStudy,
+      'sort[0]': 'order:desc',
+      'sort[1]': 'id:desc',
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["case-study", "industry"] },
@@ -187,6 +197,8 @@ export async function getNews(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<News>>('/news-items', {
     params: {
       populate: listPopulate.news,
+      'sort[0]': 'order:desc',
+      'sort[1]': 'id:desc',
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["news", "news-category"] },
@@ -211,6 +223,9 @@ export async function getVideo(params: { [key: string]: any }) {
         internal: { populate: '*' },
         overwrite_meta: { populate: '*' },
       },
+      'sort[0]': 'order:desc',
+      'sort[1]': 'id:desc',
+
       ...params,
     },
     next: { revalidate: revalidate.short, tags: ["video"] },
@@ -222,6 +237,8 @@ export async function getMaterial(params: { [key: string]: any } = {}) {
     params: {
       populate: listPopulate.material,
       'pagination[pageSize]': 100,
+      'sort[0]': 'order:desc',
+      'sort[1]': 'id:desc',
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["material", "material-category", "surface-treatment", "industry", "news"] },
@@ -265,6 +282,8 @@ export async function getMaterialCategory(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<MaterialCategory>>('/material-categories', {
     params: {
       'pagination[pageSize]': 100,
+      'sort[0]': 'order:desc',
+      'sort[1]': 'id:desc',
       ...params,
     },
     next: { revalidate: revalidate.static, tags: ["material-category", "material"] },
