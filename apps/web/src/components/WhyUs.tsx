@@ -7,14 +7,15 @@ import { mergeExtension } from "@/utils";
 export function WhyUs({ section }: CmpProps) {
   const extension = mergeExtension(section)
 
-  console.log("####### extension", section.extension)
+  const isLongList = (section.payload?.data?.length ?? 0) % 4 === 0
+
   return (
     <Section
       title={section.payload?.title!}
       desc={section.payload?.desc!}
       className={extension['style']?.value}
     >
-      <div className="text-left mt-10 px-5 grid grid-cols-1 gap-5 xl:px-0 xl:mt-15 xl:grid-cols-3">
+      <div className={`text-left mt-10 px-5 grid grid-cols-1 gap-5 xl:px-0 xl:mt-15 ${isLongList ? 'xl:grid-cols-4' : 'xl:grid-cols-3'}`}>
         {
           section.payload?.data?.map((xs, index) => (
             <div key={xs.id} className="bg-[#fafafa] min-h-55 py-8 px-5 xl:px-10 xl:py-10">
