@@ -52,7 +52,7 @@ export function InfiniteScroll({ length, speed = 20, className, children }: Infi
           {children}
         </div>
         <div
-          className="flex shrink-0 animate-[marquee_var(--marquee-duration)_linear_infinite] items-center"
+          className="flex shrink-0 animate-[marquee_var(--marquee-duration)_linear_infinite] items-start"
           style={{ '--marquee-duration': `${duration}s` } as React.CSSProperties}
         >
           {Array.from({ length: repeats }, (_, ri) =>

@@ -58,7 +58,7 @@ export function FeaturedCaseStudy({ section, locale }: CmpProps) {
       </div>
 
       <div className="py-10 overflow-hidden" ref={emblaRef}>
-        <div className="flex flex-row">
+        <div className="flex flex-row items-start">
           {
             ((section.payload?.dynamic?.[0] as any)?.case_studies as CaseStudy[])?.map((xs, idx) => (
               <div className="w-full shrink-0 flex items-center justify-center px-5 xl:px-0" key={idx}>
