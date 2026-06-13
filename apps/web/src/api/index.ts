@@ -5,16 +5,6 @@ import type { PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceT
 
 export type { PageData };
 
-const isDev = NODE_ENV === 'development'
-
-// 开发环境兼用缓存, 其他环境设置无限长的缓存时间(通过 webhook 刷新缓存)
-const revalidate = {
-  short: isDev ? 0 : 60 * 60 * 24 * 7,
-  normal: isDev ? 0 : 60 * 60 * 24 * 7,
-  long: isDev ? 0 : 60 * 60 * 24 * 7,
-  static: isDev ? 0 : 60 * 60 * 24 * 7,
-} as const
-
 // 列表级 populate 配置（动态 zone 和各列表 API 共用）
 const listPopulate = {
   caseStudy: {
@@ -76,7 +66,6 @@ export async function getPage(payload: { [key: string]: any }) {
       pLevel: true,
       ...params,
     },
-    next: { revalidate: revalidate.short, tags: ["page", "material", "news", "case-study", "industry", "equipment", "surface-treatment"] }
   });
 }
 
@@ -88,7 +77,6 @@ export async function getPatternPages(payload: { [key: string]: any }) {
       'fields[0]': 'slug',
       ...payload,
     },
-    next: { revalidate: revalidate.static, tags: ["page"] },
   });
 }
 
@@ -101,7 +89,6 @@ export async function getSurfaceTreatment(params: { [key: string]: any }) {
       'sort[1]': 'id:desc',
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["surface-treatment", "material", "news"] },
   })
 }
 
@@ -123,7 +110,6 @@ export async function getSurfaceTreatmentDetail(params: { [key: string]: any }) 
       },
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["surface-treatment", "material", "news"] },
   })
 }
 
@@ -136,7 +122,6 @@ export async function getEquipment(params: { [key: string]: any }) {
       'sort[1]': 'id:desc',
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["equipment", "equipment-category", "news"] },
   })
 }
 
@@ -150,7 +135,6 @@ export async function getEquipmentDetail(params: { [key: string]: any }) {
       },
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["equipment", "equipment-category", "news"] },
   })
 }
 
@@ -162,7 +146,6 @@ export async function getEquipmentCategory(params: { [key: string]: any }) {
       'sort[1]': 'id:desc',
       ...params,
     },
-    next: { revalidate: revalidate.static, tags: ["equipment-category", "equipment"] },
   })
 }
 
@@ -174,7 +157,6 @@ export async function getCaseStudy(params: { [key: string]: any }) {
       'sort[1]': 'id:desc',
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["case-study", "industry"] },
   })
 }
 
@@ -189,7 +171,6 @@ export async function getCaseStudyDetail(params: { [key: string]: any }) {
       },
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["case-study", "industry"] },
   })
 }
 
@@ -201,7 +182,6 @@ export async function getNews(params: { [key: string]: any }) {
       'sort[1]': 'id:desc',
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["news", "news-category"] },
   })
 }
 
@@ -212,7 +192,6 @@ export async function getNewsCategory(params: { [key: string]: any }) {
       'pagination[pageSize]': 100,
       ...params,
     },
-    next: { revalidate: revalidate.static, tags: ["news-category", "news"] },
   })
 }
 
@@ -228,7 +207,6 @@ export async function getVideo(params: { [key: string]: any }) {
 
       ...params,
     },
-    next: { revalidate: revalidate.short, tags: ["video"] },
   })
 }
 
@@ -241,7 +219,6 @@ export async function getMaterial(params: { [key: string]: any } = {}) {
       'sort[1]': 'id:desc',
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["material", "material-category", "surface-treatment", "industry", "news"] },
   })
 }
 
@@ -274,7 +251,6 @@ export async function getMaterialDetail(params: { [key: string]: any }) {
       },
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["material", "material-category", "surface-treatment", "industry", "news"] },
   })
 }
 
@@ -286,7 +262,6 @@ export async function getMaterialCategory(params: { [key: string]: any }) {
       'sort[1]': 'id:desc',
       ...params,
     },
-    next: { revalidate: revalidate.static, tags: ["material-category", "material"] },
   })
 }
 
@@ -297,7 +272,6 @@ export async function getIndustry(params: { [key: string]: any } = {}) {
       'pagination[pageSize]': 100,
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["industry", "material"] },
   })
 }
 
@@ -311,7 +285,6 @@ export async function getIndustryDetail(params: { [key: string]: any }) {
       },
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["industry", "material"] },
   })
 }
 
@@ -331,7 +304,6 @@ export async function getSite(params: { [key: string]: any } = {}) {
       },
       ...params,
     },
-    next: { revalidate: revalidate.long, tags: ["site"] },
   })
 }
 
@@ -366,14 +338,11 @@ export async function getNavigation(params: { [key: string]: any } = {}) {
       },
       ...params,
     },
-    next: { revalidate: revalidate.long, tags: ["navigation"] },
   })
 }
 
 export async function getI18nLocales() {
-  return fetchStrapi<LocaleItem[]>('/i18n/locales', {
-    next: { revalidate: revalidate.static, tags: ["i18n-locale"] },
-  })
+  return fetchStrapi<LocaleItem[]>('/i18n/locales', {})
 }
 
 export async function getBroadcast(params: { [key: string]: any } = {}) {
@@ -382,7 +351,6 @@ export async function getBroadcast(params: { [key: string]: any } = {}) {
       'pagination[pageSize]': 100,
       ...params,
     },
-    next: { revalidate: revalidate.static, tags: ["broadcast"] },
   })
 }
 
