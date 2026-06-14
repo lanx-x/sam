@@ -17,19 +17,7 @@ const getPageData = cache(async (routeLocale: string, slug: string[]) => {
   const site = await api.getSite();
   const pageSlug = ['/', ...slug].join('/').replace(/^\/\//, '/');
 
-  const [
-    patternPagesRsp,
-    navigationRsp,
-  ] = await Promise.all([
-    api.getPatternPages(),
-    api.getNavigation({ 'filters[actived][$eq]': 'true' }),
-  ]);
-  const patternPages = patternPagesRsp.data;
-  const navData = navigationRsp.data?.[0];
-
-  //const { data: patternPages } = await api.getPatternPages();
-  //const navData = (await api.getNavigation({ 'filters[actived][$eq]': 'true' })).data?.[0];
-  //
+  const { data: patternPages } = await api.getPatternPages();
   let matchedSlug: string | null = null;
   let documentId: string | null = null;
 
@@ -47,6 +35,7 @@ const getPageData = cache(async (routeLocale: string, slug: string[]) => {
     ? (await api.getPage({ slug: matchedSlug })).data[0]
     : (await api.getPage({ slug: pageSlug })).data[0];
 
+  const navData = (await api.getNavigation({ 'filters[actived][$eq]': 'true' })).data?.[0];
 
   return { locale, localeList, siteData: site.data, pageData, documentId, navData };
 });
