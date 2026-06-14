@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { Assets } from "@/assets";
 import { getStrapiMedia } from "@/utils/strapi";
 import type { Navigation, Site } from "cms-types";

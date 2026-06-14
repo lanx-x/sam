@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Subscribe } from "@/components/Subscribe";
 import { Navigation, Site } from "cms-types";
 import { getStrapiMedia } from "@/utils/strapi";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { getHref, withLocalePath } from "@/utils";
 export function Footer({ siteData, navigation, locale }: { siteData: Site, locale: string, navigation: Navigation }) {
   return (

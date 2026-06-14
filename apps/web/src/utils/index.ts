@@ -27,11 +27,11 @@ export function getHref(item: Pick<NavBasicItem, 'target_type' | 'target_page' |
   const slug = item.target_page?.slug;
 
   if (!slug) return '';
-  return `/${slug}/${item.target_anchor ?? ''}`.replaceAll(/\/\//g, '/')
+  return `/${slug}/${item.target_anchor ?? ''}`.replaceAll(/\/\//g, '/').replace(/\/$/, '')
 }
 
 export function withLocalePath(locale: string, path: string): string {
   if (path.startsWith('http')) return path
 
-  return `/${locale}/${path}`.replaceAll(/\/\/+/g, '/')
+  return `/${locale}/${path}`.replaceAll(/\/\/+/g, '/').replace(/\/$/, '')
 }
