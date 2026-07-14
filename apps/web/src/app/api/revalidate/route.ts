@@ -5,8 +5,7 @@ import { logger } from "@/utils/logger";
 import { REVALIDATE_SECRET } from "@/utils/env";
 
 function clearSiteCache() {
-  revalidatePath("/", "layout");
-  revalidatePath("/en", "layout");
+  revalidatePath('/[locale]', 'layout');
 }
 
 export async function POST(request: NextRequest) {
@@ -26,7 +25,7 @@ export async function POST(request: NextRequest) {
     if (body.tag) {
       const tags = [body.tag].flat();
       for (const tag of tags) {
-        revalidateTag(tag, 'max');
+        revalidateTag(tag, { expire: 0 });
       }
       logger.info(`[Revalidate] Revalidated tags: ${tags.join(", ")}`);
       return NextResponse.json({ revalidated: true, tag: body.tag });
@@ -35,7 +34,7 @@ export async function POST(request: NextRequest) {
     // Strapi webhook: use model field directly as revalidate tag
     if (body.model) {
       if (KNOWN_CACHE_TAGS.has(body.model)) {
-        revalidateTag(body.model, 'max');
+        revalidateTag(body.model, { expire: 0 });
         logger.info(`[Revalidate] Revalidated tag: ${body.model} (from Strapi webhook)`);
         return NextResponse.json({ revalidated: true, tag: body.model });
       }

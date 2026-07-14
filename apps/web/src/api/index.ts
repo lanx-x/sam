@@ -53,6 +53,7 @@ const listPopulate = {
 
 export const KNOWN_CACHE_TAGS = new Set([
   "page",
+  "ui-section",
   "broadcast",
   "site",
   "navigation",

@@ -35,6 +35,7 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
       strategy: {
         // 7 days TTL (provider converts seconds -> ms internally)
         maxAge: SEVEN_DAYS_IN_SECONDS,
+        resetOnStartup: true,
         // Cache responses even when Authorization header or Cookie is present
         hitpass: false,
         // Purge related contentTypes' cache when one changes
