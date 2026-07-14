@@ -10,10 +10,10 @@ const isDev = NODE_ENV === 'development'
 
 // 开发环境兼用缓存, 其他环境设置无限长的缓存时间(通过 webhook 刷新缓存)
 const revalidate = {
-  short: isDev ? 0 : 60 * 60 * 24 * 7,
-  normal: isDev ? 0 : 60 * 60 * 24 * 7,
-  long: isDev ? 0 : 60 * 60 * 24 * 7,
-  static: isDev ? 0 : 60 * 60 * 24 * 7,
+  short: isDev ? 0 : 60 * 5,
+  normal: isDev ? 0 : 60 * 5,
+  long: isDev ? 0 : 60 * 5,
+  static: isDev ? 0 : 60 * 5,
 } as const
 
 // 列表级 populate 配置（动态 zone 和各列表 API 共用）
@@ -77,7 +77,7 @@ export async function getPage(payload: { [key: string]: any }) {
       pLevel: true,
       ...params,
     },
-    next: { revalidate: revalidate.short, tags: ["page", "material", "news", "case-study", "industry", "equipment", "surface-treatment"] }
+    next: { revalidate: revalidate.short, tags: ["page", "material", "news", "case-study", "industry", "equipment", "surface-treatment", "ui-section"] }
   });
 }
 

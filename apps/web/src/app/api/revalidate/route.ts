@@ -4,6 +4,11 @@ import { KNOWN_CACHE_TAGS } from "@/api";
 import { logger } from "@/utils/logger";
 import { REVALIDATE_SECRET } from "@/utils/env";
 
+function clearSiteCache() {
+  revalidatePath("/", "layout");
+  revalidatePath("/en", "layout");
+}
+
 export async function POST(request: NextRequest) {
   if (!REVALIDATE_SECRET) {
     logger.error("[Revalidate] REVALIDATE_SECRET not set");
@@ -35,14 +40,12 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ revalidated: true, tag: body.model });
       }
 
-      // Unknown model: revalidate everything
-      revalidatePath("/", "layout");
+      clearSiteCache()
       logger.warn(`[Revalidate] Unknown model "${body.model}", revalidated everything`);
       return NextResponse.json({ revalidated: true, scope: "all" });
     }
 
-    // No model: revalidate everything
-    revalidatePath("/", "layout");
+    clearSiteCache()
     logger.warn(`[Revalidate] No model in payload, revalidated everything`);
     return NextResponse.json({ revalidated: true, scope: "all" });
   } catch {
