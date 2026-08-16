@@ -52,7 +52,7 @@ export async function NewsDetail({ documentId, section, slug, locale }: CmpProps
       <SectionContainer className="xl:w-211.5">
         <div className="pt-15 xl:pt-20 pb-28 border-b border-b-[#efefef]">
           <span className="text-sm text-secondary">{dayjs(data.date as string).format('YYYY-MM-DD HH:mm')}</span>
-          <p className="leading-none text-2xl xl:text-4xl font-medium mt-2 mb-5">{data.title}</p>
+          <h1 className="leading-none text-2xl xl:text-4xl font-medium mt-2 mb-5">{data.title}</h1>
           {data.image && (
             <div className="relative aspect-video w-full overflow-hidden rounded-xl">
               <Image fill src={getStrapiMedia(data.image) ?? ""} alt="" className="w-full object-cover" />

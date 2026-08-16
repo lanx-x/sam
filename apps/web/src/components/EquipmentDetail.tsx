@@ -20,7 +20,7 @@ export async function EquipmentDetail({ documentId, section, locale }: CmpProps)
       <div className="bg-[linear-gradient(180deg,#EFF2F6_0%,#FFFFFF_50%,#EFF2F6_100%)]">
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 xl:gap-35 py-15 px-5 xl:px-0 xl:w-7xl xl:mx-auto xl:py-20">
           <div className="">
-            <p className="leading-none text-4xl xl:text-[64px] font-semibold mb-5">{data.name}</p>
+            <h1 className="leading-none text-4xl xl:text-[64px] font-semibold mb-5">{data.name}</h1>
             <p className="text-sm xl:text-base leading-5">{data.desc}</p>
             <div className="mt-7.5 xl:mt-9 xl:w-120">
               {

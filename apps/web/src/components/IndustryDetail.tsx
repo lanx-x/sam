@@ -21,7 +21,7 @@ export async function IndustryDetail({ documentId, section, locale }: CmpProps) 
           <Image fill className="object-cover" src={getStrapiMedia(data.detailPageBanner) ?? ""} alt="banner" />
         )}
         <SectionContainer className="relative z-10 text-white">
-          <p className="text-4xl xl:text-[64px] font-black mb-3 leading-none w-1/2 xl:w-100">{data.detailPageTitle || data.name}</p>
+          <h1 className="text-4xl xl:text-[64px] font-black mb-3 leading-none w-1/2 xl:w-100">{data.detailPageTitle || data.name}</h1>
           <p className="text-base leading-5 xl:w-160">{data.detailPageDesc || data.desc}</p>
           <div className="mt-14 flex flex-col gap-5 xl:flex-row">
             {

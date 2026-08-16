@@ -12,7 +12,7 @@ export function CommonHero({ section }: CmpProps) {
       <div className={`px-5 py-10 xl:py-15 text-center xl:text-left xl:px-0 xl:w-7xl xl:mx-auto`}>
         <div className="relative flex flex-col xl:flex-row xl:gap-27.5">
           <div className="mb-10 text-left xl:mb-30 flex-1">
-            <h2 className="text-4xl mb-5 font-black xl:text-[64px] leading-none">{section.payload?.title}</h2>
+            <h1 className="text-4xl mb-5 font-black xl:text-[64px] leading-none">{section.payload?.title}</h1>
             <p className="text-base leading-none">{section.payload?.desc}</p>
           </div>
 

@@ -28,7 +28,7 @@ export async function MaterialDetail({ documentId, section, locale, siteData }: 
         <div className="bg-[rgba(0,118,238,0.06)]">
           <div className="xl:w-7xl xl:mx-auto grid grid-cols-1 xl:grid-cols-2 px-5 xl:px-0 py-10 xl:py-15 gap-10 xl:gap-25">
             <div className="xl:mt-10">
-              <p className="text-[64px] font-black mb-5 leading-none">{data?.name}</p>
+              <h1 className="text-[64px] font-black mb-5 leading-none">{data?.name}</h1>
               <p className="text-base leading-5">{data?.desc}</p>
 
               <div className="mt-11.25 flex flex-col xl:flex-row gap-5">

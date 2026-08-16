@@ -10,7 +10,7 @@ export function ImageHero({ section }: CmpProps) {
   return (
     <div className={`${extension['style']?.value}`}>
       <div className={`px-5 py-10 text-center xl:py-20 xl:px-0 xl:w-7xl xl:mx-auto`}>
-        <h2 className="text-4xl mb-5 font-black xl:text-[64px] leading-none">{section.payload?.title}</h2>
+        <h1 className="text-4xl mb-5 font-black xl:text-[64px] leading-none">{section.payload?.title}</h1>
         <p className="text-base leading-none">{section.payload?.desc}</p>
 
         <div className="flex flex-col my-10 xl:flex-row xl:justify-center">

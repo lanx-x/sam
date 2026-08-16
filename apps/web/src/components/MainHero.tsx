@@ -38,7 +38,7 @@ export function MainHero({ section, locale }: CmpProps) {
       }
       <div className="absolute inset-0 bg-[linear-gradient(278deg,rgba(0,35,70,0)_31.39%,#001123_100%)]" />
       <div className="relative pt-20 px-5 xl:w-7xl xl:px-0 xl:mx-auto">
-        <h2 className="text-4xl font-black text-white mb-10 max-w-87.5 xl:text-[64px] xl:max-w-140">{section?.payload?.title}</h2>
+        <h1 className="text-4xl font-black text-white mb-10 max-w-87.5 xl:text-[64px] xl:max-w-140">{section?.payload?.title}</h1>
 
         <div>
           <div className="flex flex-col xl:flex-row">
