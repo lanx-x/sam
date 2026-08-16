@@ -56,6 +56,8 @@ export interface DisplayTextForm extends Struct.ComponentSchema {
     remove: Schema.Attribute.String;
     required_tips: Schema.Attribute.String;
     submit: Schema.Attribute.String;
+    success_page_tips: Schema.Attribute.String;
+    success_page_title: Schema.Attribute.String;
     success_tips: Schema.Attribute.String;
   };
 }

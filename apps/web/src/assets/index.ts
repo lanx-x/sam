@@ -35,6 +35,7 @@ import QuoteL from "./quote-l.svg";
 import QuoteR from "./quote-r.svg";
 import RulerOff from "./ruler-off.svg";
 import RulerOn from "./ruler-on.svg";
+import SuccessPageIcon from "./success_page_icon.png";
 import Top from "./top.svg";
 import Upload from "./upload.png";
 import Whatsapp from "./whatsapp.svg";
@@ -74,6 +75,7 @@ export const Assets = {
   QuoteR,
   RulerOff,
   RulerOn,
+  SuccessPageIcon,
   Top,
   Upload,
   Whatsapp,
