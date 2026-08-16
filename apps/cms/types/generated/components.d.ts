@@ -115,8 +115,10 @@ export interface GlobalSeo extends Struct.ComponentSchema {
     displayName: 'SEO';
   };
   attributes: {
-    desc: Schema.Attribute.String;
-    title: Schema.Attribute.String;
+    desc: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'global::char-count'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'global::char-count'>;
   };
 }
 

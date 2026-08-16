@@ -21,6 +21,15 @@ const READ_ACTIONS: ReadonlySet<string> = new Set(['findOne', 'findMany', 'count
 
 export default {
   register({ strapi }: { strapi: Core.Strapi }) {
+    strapi.customFields.register({
+      name: 'char-count',
+      type: 'string',
+      inputSize: {
+        default: 12,
+        isResizable: true,
+      },
+    });
+
     strapi.documents.use(async (ctx: any, next: () => Promise<any>) => {
       const result = await next();
 

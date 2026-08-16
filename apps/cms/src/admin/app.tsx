@@ -31,6 +31,23 @@ export default {
       // 'zh',
     ],
   },
+  register(app: StrapiApp) {
+    app.customFields.register({
+      name: 'char-count',
+      type: 'string',
+      intlLabel: {
+        id: 'global.char-count.label',
+        defaultMessage: 'Character count',
+      },
+      intlDescription: {
+        id: 'global.char-count.description',
+        defaultMessage: 'Text input with a live character count.',
+      },
+      components: {
+        Input: async () => import('./components/CharCountInput'),
+      },
+    });
+  },
   bootstrap(app: StrapiApp) {
     console.log(app);
   },

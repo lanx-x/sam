@@ -6,10 +6,12 @@
   "options": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "customField": "global::char-count"
     },
     "desc": {
-      "type": "string"
+      "type": "string",
+      "customField": "global::char-count"
     }
   },
   "config": {}
