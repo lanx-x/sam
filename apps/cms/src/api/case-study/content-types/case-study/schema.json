@@ -105,6 +105,16 @@
         }
       },
       "default": 0
+    },
+    "seo": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "global.seo",
+      "repeatable": false
     }
   }
 }

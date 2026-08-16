@@ -39,6 +39,7 @@ const listPopulate = {
   news: {
     image: true,
     category: { fields: ['documentId'] },
+    seo: true,
   },
   material: {
     icon: true,
@@ -198,6 +199,7 @@ export async function getCaseStudyDetail(params: { [key: string]: any }) {
         extra_images: true,
         parameter: { populate: '*' },
         industry: { fields: ['name'] },
+        seo: true,
       },
       ...params,
     },

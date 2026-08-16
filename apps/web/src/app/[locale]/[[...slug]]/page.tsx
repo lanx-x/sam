@@ -50,10 +50,24 @@ export async function generateMetadata({
 
   if (!pageData) return {};
 
-  const seo = pageData.seo
+  let seoTitle = pageData.seo?.title
+  let seoDesc = pageData.seo?.desc
+  if (documentId) {
+    const path = slug.join('/')
+    const api = createLocalizedApi(locale);
+    let detailSeo: { title?: string | null; desc?: string | null } | null | undefined
+    if (path.includes('resources/news')) {
+      detailSeo = (await api.getNews({ 'filters[documentId][$eq]': documentId })).data?.[0]?.seo
+    } else if (path.includes('resources/case-study')) {
+      detailSeo = (await api.getCaseStudyDetail({ 'filters[documentId][$eq]': documentId })).data?.[0]?.seo
+    }
+    seoTitle = detailSeo?.title || seoTitle
+    seoDesc = detailSeo?.desc || seoDesc
+  }
+
   const siteName = siteData.name || '';
-  const title = seo?.title ? `${seo.title} — ${siteName}` : siteName;
-  const description = seo?.desc || siteData.desc || '';
+  const title = seoTitle ? `${seoTitle} — ${siteName}` : siteName;
+  const description = seoDesc || siteData.desc || '';
   const pagePath = ['/', ...slug].join('/').replace(/^\/\//, '/');
   const canonicalUrl = SITE_URL ? `${SITE_URL}/${locale}${pagePath}` : undefined;
   const isPatternPage = documentId !== null;
