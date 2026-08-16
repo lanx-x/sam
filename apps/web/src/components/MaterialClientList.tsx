@@ -93,7 +93,7 @@ export function MaterialClientList({ categories, materials, basePath, emptyText,
                           <div className="xl:pl-5 aspect-square w-20 xl:w-30 relative">
                             <Image fill src={getStrapiMedia(xs.icon) ?? ""} className="w-30 h-30 rounded-lg object-cover" alt="" />
                           </div>
-                          <p className="text-base xl:text-lg font-bold">{xs.name}</p>
+                          <p className="text-base xl:text-lg font-bold">{cat.name}</p>
                           <p className="text-base">{xs.desc}</p>
                         </Link>
                       ))}

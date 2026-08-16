@@ -30,7 +30,10 @@ const listPopulate = {
   },
   surfaceTreatment: {
     icon: true,
-    materials: { fields: ['name'] },
+    materials: {
+      fields: ['name'],
+      populate: { category: { fields: ['documentId', 'name'] } },
+    },
     featured_faqs: true,
   },
   news: {

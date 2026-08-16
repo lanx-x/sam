@@ -6,6 +6,12 @@ import { createLocalizedApi } from "@/api";
 import { mergeExtension } from "@/utils";
 import Link from "next/link";
 
+function uniqueCate(cate: any[]) {
+  const set = new Set(cate.filter(Boolean).map((xs) => xs.trim()))
+  return Array.from(set).join(', ')
+
+}
+
 export async function SurfaceTreatmentList({ section, locale, slug, siteData }: CmpProps) {
   const api = createLocalizedApi(locale);
   const extension = mergeExtension(section)
@@ -36,12 +42,12 @@ export async function SurfaceTreatmentList({ section, locale, slug, siteData }: 
           data.data.map((xs) => (
             <div key={xs.id} className={``}>
               <Link target="_blank" className={`block duration-300 transition-colors hover:bg-[rgba(0,118,238,0.06)] group`} href={`${basePath}/${xs.documentId}`}>
-                <div className={`hidden xl:grid xl:h-35 ${share}`}>
+                <div className={`hidden xl:grid xl:min-h-35 my-2.5 ${share}`}>
                   <Image className="w-30 aspect-square object-cover" src={getStrapiMedia(xs.icon) ?? ""} width={120} height={120} alt="icon" />
                   <p className="group-hover:text-accent text-left font-bold text-lg">{xs.name}</p>
                   <p className="text-base">{xs.desc}</p>
                   <p>{xs.services}</p>
-                  <p>{xs.materials?.map(xs => xs.name).join(', ')}</p>
+                  <p>{uniqueCate(xs.materials?.map(xs => xs.category?.name) ?? [])}</p>
                 </div>
 
                 <div className="xl:hidden grid grid-cols-[1fr_210px] grid-rows-4 text-left items-center border-t border-[#bfbfbf] gap-y-2 py-2.5">
@@ -58,7 +64,7 @@ export async function SurfaceTreatmentList({ section, locale, slug, siteData }: 
                   <p className="text-sm">{xs.services}</p>
 
                   <p className="text-base font-bold text-secondary">{displayText?.applicable_materials ?? 'Applicable Materials'}</p>
-                  <p className="text-sm">{xs.materials?.map(xs => xs.name).join(', ')}</p>
+                  <p className="text-sm">{uniqueCate(xs.materials?.map(xs => xs.category?.name) ?? [])}</p>
                 </div>
               </Link>
             </div>
