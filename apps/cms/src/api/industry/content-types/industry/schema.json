@@ -94,6 +94,11 @@
           "localized": true
         }
       }
+    },
+    "case_studies": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::case-study.case-study"
     }
   }
 }

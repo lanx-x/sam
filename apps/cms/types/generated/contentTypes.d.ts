@@ -846,6 +846,10 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    case_studies: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::case-study.case-study'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

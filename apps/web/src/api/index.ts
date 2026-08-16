@@ -51,6 +51,13 @@ const listPopulate = {
   },
   industry: {
     image: true,
+    case_studies: {
+      populate: {
+        image: true,
+        parameter: { populate: '*' },
+        industry: { fields: ['name'] },
+      },
+    },
   },
 } as const
 
@@ -302,7 +309,7 @@ export async function getIndustry(params: { [key: string]: any } = {}) {
       'pagination[pageSize]': 100,
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["industry", "material"] },
+    next: { revalidate: revalidate.normal, tags: ["industry", "material", "case-study"] },
   })
 }
 
