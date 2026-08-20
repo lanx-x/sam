@@ -3,9 +3,20 @@
 import {
   BlocksRenderer,
   type BlocksContent as BetterBlocksContentValue,
+  type ExtendedBlocksContent,
 } from "@qkix/better-blocks-react-renderer";
 
-export function BetterBlocksContent({ content }: { content: BetterBlocksContentValue }) {
+function isBetterBlocksContent(
+  value: unknown,
+): value is BetterBlocksContentValue | ExtendedBlocksContent {
+  return Array.isArray(value);
+}
+
+export function BetterBlocksContent({ content }: { content: unknown }) {
+  if (!isBetterBlocksContent(content)) {
+    return null;
+  }
+
   return (
     <div>
       <BlocksRenderer
