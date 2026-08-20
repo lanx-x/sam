@@ -17,9 +17,26 @@ export function mergeDisplayText(section: CommonSection): { [key: string]: strin
   return section?.payload?.display_text?.filter(xs => xs.key && xs.value)?.reduce((acc, cur) => ({ ...acc, [cur.key!]: cur.value }), {}) ?? {}
 }
 
-export function extractBlockText(blocks: any[]): string {
-  if (!blocks?.length) return '';
-  return blocks.map(block => block.children?.map((c: any) => c.text || '').join('') || '').join(' ');
+export function extractBlockText(blocks: unknown): string {
+  if (!Array.isArray(blocks) || blocks.length === 0) return '';
+
+  return blocks
+    .map((block) => {
+      const children = typeof block === 'object' && block !== null ? (block as { children?: unknown }).children : undefined;
+
+      if (!Array.isArray(children)) {
+        return '';
+      }
+
+      return children
+        .map((child) =>
+          typeof child === 'object' && child !== null && 'text' in child && typeof child.text === 'string'
+            ? child.text
+            : '',
+        )
+        .join('');
+    })
+    .join(' ');
 }
 
 export function getHref(item: Pick<NavBasicItem, 'target_type' | 'target_page' | 'target_anchor' | 'external_url'>) {

@@ -81,7 +81,7 @@ export async function NewsDetail({ documentId, section, slug, locale }: CmpProps
                       </div>
                       <p className="text-lg font-semibold mt-4 mb-2 leading-none group-hover:text-accent">{xs.title}</p>
                       <span className="text-secondary leading-none">{dayjs(xs.date as string).format('YYYY-MM-DD')}</span>
-                      <p className="shrink-0 leading-none line-clamp-2 flex-1 mt-2">{xs.desc || extractBlockText(xs.content ?? [])}</p>
+                      <p className="shrink-0 leading-none line-clamp-2 flex-1 mt-2">{xs.desc || extractBlockText(xs.content)}</p>
                     </div>
                   </div>
 
