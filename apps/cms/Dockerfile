@@ -13,6 +13,7 @@ RUN pnpm install --frozen-lockfile
 FROM base AS builder
 RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
+ENV NODE_OPTIONS=--max-old-space-size=4096
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps/cms/node_modules ./apps/cms/node_modules

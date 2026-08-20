@@ -14,6 +14,7 @@ RUN pnpm install --frozen-lockfile --prod=false
 FROM base AS builder
 RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
+ENV NODE_OPTIONS=--max-old-space-size=4096
 
 ARG NEXT_PUBLIC_SITE_URL
 ARG NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN
