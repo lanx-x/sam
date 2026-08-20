@@ -73,7 +73,8 @@
       "target": "api::industry.industry"
     },
     "content": {
-      "type": "blocks",
+      "type": "customField",
+      "customField": "plugin::better-blocks.better-blocks",
       "pluginOptions": {
         "i18n": {
           "localized": true

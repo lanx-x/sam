@@ -2,7 +2,7 @@ import { CommonSection } from "cms-types";
 import Image from "next/image";
 import { createLocalizedApi } from "@/api";
 import { getStrapiMedia } from "@/utils/strapi";
-import { BlocksContent } from "./BlocksContent";
+import { BetterBlocksContent } from "./BetterBlocksContent";
 import { Section, SectionContainer } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { mergeExtension } from "@/utils";
@@ -57,7 +57,7 @@ export async function IndustryDetail({ documentId, section, locale }: CmpProps) 
 
       {data.detailPageContent && (
         <div className="px-5 xl:px-0 xl:w-7xl xl:mx-auto mb-10 prose max-w-none">
-          <BlocksContent content={data.detailPageContent} />
+          <BetterBlocksContent content={data.detailPageContent} />
         </div>
       )}
     </div>

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
-import { BlocksContent } from "./BlocksContent";
+import { BetterBlocksContent } from "./BetterBlocksContent";
 import dayjs from "dayjs";
 import { extractBlockText } from "@/utils";
 
@@ -60,7 +60,7 @@ export async function NewsDetail({ documentId, section, slug, locale }: CmpProps
           )}
           {data.content && (
             <div className="mt-5 xl:mt-10 prose max-w-none">
-              <BlocksContent content={data.content} />
+              <BetterBlocksContent content={data.content} />
             </div>
           )}
         </div>

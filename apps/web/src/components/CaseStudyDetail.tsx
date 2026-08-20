@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Section, SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
-import { BlocksContent } from "./BlocksContent";
+import { BetterBlocksContent } from "./BetterBlocksContent";
 import dayjs from "dayjs";
 import { mergeDisplayText } from "@/utils";
 
@@ -86,7 +86,7 @@ export async function CaseStudyDetail({ documentId, section, locale, slug, siteD
         </div>
         {data.content && (
           <div className="mt-10 prose max-w-none">
-            <BlocksContent content={data.content} />
+            <BetterBlocksContent content={data.content} />
           </div>
         )}
 

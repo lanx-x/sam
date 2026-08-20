@@ -2,8 +2,7 @@ import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { createLocalizedApi } from "@/api";
 import Image from "next/image";
 import { getStrapiMedia } from "@/utils/strapi";
-import { BlocksContent } from "./BlocksContent";
-import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { BetterBlocksContent } from "./BetterBlocksContent";
 import { SectionContainer, SectionHeaderRowDir } from "./Section";
 import { SurfaceTreatmentItem } from "./FeaturedSurfaceTreatment";
 import { ActionButton } from "./ActionButton";
@@ -55,7 +54,7 @@ export async function MaterialDetail({ documentId, section, locale, siteData }: 
         <div className="px-5 xl:px-0 grid grid-cols-1 xl:grid-cols-[480px_1fr] gap-10 xl:gap-30 xl:w-7xl xl:mx-auto py-10 xl:py-20">
           <Image width={480} height={480} src={getStrapiMedia(data.icon) ?? ""} className="w-full xl:w-120 object-cover aspect-square" alt="" />
           <div>
-            {data.content && <div className="prose"><BlocksContent content={data.content} /></div>}
+            {data.content && <div className="prose"><BetterBlocksContent content={data.content} /></div>}
 
             <div className="mt-10">
               {

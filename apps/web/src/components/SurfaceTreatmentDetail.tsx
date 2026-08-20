@@ -1,7 +1,7 @@
 import { CommonHero } from "./CommonHero"
 import { getStrapiMedia } from "@/utils/strapi"
 import Image from "next/image"
-import { BlocksContent } from "./BlocksContent"
+import { BetterBlocksContent } from "./BetterBlocksContent"
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page"
 import { createLocalizedApi } from "@/api"
 import { CommonSection } from "cms-types"
@@ -46,7 +46,7 @@ export async function SurfaceTreatmentDetail(props: CmpProps) {
             <Image width={480} height={252} src={getStrapiMedia(data.icon) ?? ""} alt="" className="w-120 h-63 object-cover mr-30" />
             {data.extend?.content && (
               <div className="mt-10 prose max-w-none flex-1">
-                <BlocksContent content={data.extend.content} />
+                <BetterBlocksContent content={data.extend.content} />
               </div>
             )}
           </div>

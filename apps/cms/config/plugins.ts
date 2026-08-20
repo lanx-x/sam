@@ -3,6 +3,9 @@ import type { Core } from '@strapi/strapi';
 const SEVEN_DAYS_IN_SECONDS = 7 * 24 * 60 * 60;
 
 const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin => ({
+  'better-blocks': {
+    enabled: true,
+  },
   'strapi-v5-plugin-populate-deep': {
     config: {
       // defaultDepth: 10, // Default is 5

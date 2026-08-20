@@ -7,7 +7,7 @@ import { mergeExtension } from "@/utils";
 import { Assets } from "@/assets";
 import { getEnabledCategories } from "trace_events";
 import { EquipmentClientList } from "./EquipmentClientList";
-import { BlocksContent } from "./BlocksContent";
+import { BetterBlocksContent } from "./BetterBlocksContent";
 
 export async function EquipmentDetail({ documentId, section, locale }: CmpProps) {
   const api = createLocalizedApi(locale);
@@ -44,7 +44,7 @@ export async function EquipmentDetail({ documentId, section, locale }: CmpProps)
       <div className="px-5 xl:px-0 xl:w-7xl xl:mx-auto">
         {data?.content && (
           <div className="mt-15 mb-20 prose max-w-none xl:mt-35 xl:mb-58">
-            <BlocksContent content={data.content} />
+            <BetterBlocksContent content={data.content} />
           </div>
         )}
       </div>
