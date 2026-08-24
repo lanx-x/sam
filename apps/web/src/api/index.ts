@@ -83,12 +83,16 @@ export const KNOWN_CACHE_TAGS = new Set([
 
 export async function getPage(payload: { [key: string]: any }) {
   const { slug, ...params } = payload
+  const p: any = {
+    pLevel: true,
+    ...params,
+  }
+  if (slug) {
+    p['filters[slug][$eq]'] = slug.toLowerCase()
+  }
+
   return fetchStrapi<StrapiCollectionResponse<PageData>>('/pages', {
-    params: {
-      'filters[slug][$eq]': slug.toLowerCase(),
-      pLevel: true,
-      ...params,
-    },
+    params: p,
     next: { revalidate: revalidate.short, tags: ["page", "material", "news", "case-study", "industry", "equipment", "surface-treatment", "ui-section"] }
   });
 }

@@ -19,5 +19,9 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
 }
 
 export const config = {
-  matcher: ["/", "/proxy-via-next/:path*", "/((?!_next|api).*)"],
+  matcher: [
+    "/",
+    "/proxy-via-next/:path*",
+    "/((?!api|_next|favicon.ico|sitemap.xml|robots.txt).*)",
+  ],
 };

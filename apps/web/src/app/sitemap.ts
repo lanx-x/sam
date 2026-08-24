@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const slugs = pagesByLocale.get(loc.code);
       if (slugs?.includes(slug)) {
         const path = slug === "/" ? "" : `/${slug}`;
-        languages[loc.code] = `${SITE_URL}/${loc.code}${path}`;
+        languages[loc.code] = `${SITE_URL}/${loc.code}${path.replace(/\/\//g, '\/')}`;
       }
     }
 
