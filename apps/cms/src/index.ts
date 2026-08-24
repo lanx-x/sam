@@ -1,4 +1,5 @@
 import type { Core } from '@strapi/strapi';
+import { sendInquiryNotification } from './utils/inquiry-email';
 
 // These are referenced by `api::page.page` through a dynamiczone + component +
 // relation path. rest-cache's `clearRelatedCache` only traverses `type: "component"`,
@@ -48,6 +49,26 @@ export default {
   },
 
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    const enqueueInquiryNotification = (inquiryId: number) => {
+      setImmediate(async () => {
+        try {
+          await sendInquiryNotification(strapi, inquiryId);
+          strapi.log.info(`[inquiry-email] Sent notification for inquiry ${inquiryId}.`);
+        } catch (error) {
+          strapi.log.error(`[inquiry-email] Failed to send notification for inquiry ${inquiryId}: ${(error as Error).message}`);
+        }
+      });
+    };
+
+    strapi.db.lifecycles.subscribe({
+      models: ['api::inquiry.inquiry'],
+      afterCreate(event) {
+        const inquiryId = event.result?.id;
+        if (typeof inquiryId !== 'number') return;
+        enqueueInquiryNotification(inquiryId);
+      },
+    });
+
     strapi.server.use(async (ctx, next) => {
       await next();
     });

@@ -15,7 +15,15 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
     enabled: true,
   },
   email: {
-    enabled: false,
+    enabled: true,
+    config: {
+      provider: '@strapi/provider-email-sendmail',
+      providerOptions: {},
+      settings: {
+        defaultFrom: env('EMAIL_DEFAULT_FROM', 'no-reply@localhost'),
+        defaultReplyTo: env('EMAIL_DEFAULT_REPLY_TO', env('EMAIL_DEFAULT_FROM', 'no-reply@localhost')),
+      },
+    },
   },
   upload: {
     config: {
