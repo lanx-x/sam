@@ -1,11 +1,13 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect, type ComponentProps } from "react"
+import { useRouter } from "next/navigation";
 import { cn } from "@/utils/cn"
 import { Assets } from "@/assets";
 import Image from "next/image";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN } from "@/utils/env";
+import { withLocalePath } from "@/utils";
 
 function Toast({ message, onDone }: { message: string; onDone: () => void }) {
   useEffect(() => {
@@ -21,7 +23,7 @@ function Toast({ message, onDone }: { message: string; onDone: () => void }) {
 }
 
 export function FormGetQuote({ section, siteData }: CmpProps) {
-  const [pageType, setPageType] = useState<'form' | 'done'>('form')
+  const router = useRouter()
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -138,10 +140,9 @@ export function FormGetQuote({ section, siteData }: CmpProps) {
         throw new Error(errData?.error?.message || `Request failed (${res.status})`);
       }
 
-      setToast(displayText?.success_tips ?? 'Submitted successfully!')
       setForm({ name: '', email: '', company: '', phone: '', message: '' })
       setFile(null)
-      setPageType('done')
+      router.push(withLocalePath(siteData.locale ?? "en", "/get-quote/success"))
     } catch (err: unknown) {
       const msg = (err as { data?: { error?: { message?: string } } })?.data?.error?.message
       setToast(msg || displayText?.fail_tips || 'Submission failed, please try again.')
@@ -149,21 +150,6 @@ export function FormGetQuote({ section, siteData }: CmpProps) {
       setStatus('idle')
     }
   }
-
-  if (pageType === 'done') {
-    return (
-      <div className={cn("bg-[#f6f8fa] min-h-[calc(100vh-100px)]")}>
-        <div className="xl:w-7xl xl:mx-auto px-5 xl:px-0 pb-20">
-          <div className="flex-col items-center justify-center mt-45">
-            <Image src={Assets.SuccessPageIcon} alt="done" className="w-70 mx-auto aspect-28/15" />
-            <h1 className="text-black text-2xl mt-15 mb-5 text-center" >{displayText?.success_page_title}</h1>
-            <p className="text-[#666] text-base my-0 text-center">{displayText?.success_page_tips}</p>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
 
   return (
     <div className={cn("bg-[#f6f8fa] min-h-[calc(100vh-100px)]")}>
