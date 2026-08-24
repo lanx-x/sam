@@ -70,8 +70,6 @@ export async function generateMetadata({
   const description = seoDesc || siteData.desc || '';
   const pagePath = ['/', ...slug].join('/').replace(/^\/\//, '/');
   const canonicalUrl = SITE_URL ? `${SITE_URL}/${locale}${pagePath}` : undefined;
-  const isPatternPage = documentId !== null;
-
   const languages: Record<string, string> = {};
   for (const loc of localeList) {
     if (SITE_URL) languages[loc.code] = `${SITE_URL}/${loc.code}${pagePath}`;
@@ -98,7 +96,7 @@ export async function generateMetadata({
       title,
       description,
     },
-    robots: isPatternPage ? 'noindex, follow' : 'index, follow',
+    robots: 'index, follow',
   };
 }
 
