@@ -11,27 +11,46 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const localeList = await globalApi.getI18nLocales();
 
   const slugSet = new Set<string>();
-  const pagesByLocale = new Map<string, string[]>();
+  const pagesByLocale = new Map<
+    string,
+    Map<string, { lastModified?: string | Date }>
+  >();
 
   for (const loc of localeList) {
     const api = createLocalizedApi(loc.code);
     const { data: pages } = await api.getPage({ 'pagination[pageSize]': 200 });
-    const slugs = pages
-      .map((p) => p.slug)
-      .filter((slug): slug is string => !!slug && !slug.includes("{{id}}"));
-    pagesByLocale.set(loc.code, slugs);
-    slugs.forEach((slug) => slugSet.add(slug));
+    const pageMap = new Map<string, { lastModified?: string | Date }>();
+
+    for (const page of pages) {
+      const slug = page.slug;
+      if (!slug || slug.includes("{{id}}")) continue;
+
+      pageMap.set(slug, {
+        lastModified: page.updatedAt ?? page.publishedAt ?? undefined,
+      });
+      slugSet.add(slug);
+    }
+
+    pagesByLocale.set(loc.code, pageMap);
   }
 
   const entries: MetadataRoute.Sitemap = [];
 
   for (const slug of slugSet) {
     const languages: Record<string, string> = {};
+    let lastModified: string | Date | undefined;
+
     for (const loc of localeList) {
-      const slugs = pagesByLocale.get(loc.code);
-      if (slugs?.includes(slug)) {
+      const page = pagesByLocale.get(loc.code)?.get(slug);
+      if (page) {
         const path = slug === "/" ? "" : `/${slug}`;
         languages[loc.code] = `${SITE_URL}/${loc.code}${path.replace(/\/\//g, '\/')}`;
+
+        if (page.lastModified) {
+          if (!lastModified || new Date(page.lastModified) > new Date(lastModified)) {
+            lastModified = page.lastModified;
+          }
+        }
       }
     }
 
@@ -41,7 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (primaryUrl) {
       entries.push({
         url: primaryUrl,
-        lastModified: new Date(),
+        ...(lastModified ? { lastModified } : {}),
         alternates: { languages },
       });
     }
