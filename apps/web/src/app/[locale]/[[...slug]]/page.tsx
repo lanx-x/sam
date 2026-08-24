@@ -26,6 +26,20 @@ type SeoLike = {
   desc?: string | null;
 };
 
+type MetaMediaLike =
+  | string
+  | {
+      url?: string | null;
+      data?: {
+        url?: string | null;
+        attributes?: {
+          url?: string | null;
+        } | null;
+      } | null;
+    }
+  | null
+  | undefined;
+
 type DynamicMetaSource = {
   seo?: SeoLike | null;
   title?: string | null;
@@ -35,9 +49,9 @@ type DynamicMetaSource = {
   detailPageDesc?: string | null;
   content?: unknown;
   detailPageContent?: unknown;
-  image?: unknown;
-  icon?: unknown;
-  detailPageBanner?: unknown;
+  image?: MetaMediaLike;
+  icon?: MetaMediaLike;
+  detailPageBanner?: MetaMediaLike;
   extend?: {
     title?: string | null;
     desc?: string | null;
