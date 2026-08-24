@@ -6,6 +6,7 @@ import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import dayjs from "dayjs";
 import { extractBlockText, mergeExtension } from "@/utils";
+import { buildDynamicDetailPath } from "@/utils/dynamic-routes";
 import { News } from "cms-types";
 import Link from "next/link";
 
@@ -38,7 +39,7 @@ export async function FeaturedNews({ section, documentId, slug, locale }: CmpPro
       <div className="px-5 mt-10 grid grid-cols-1 gap-5 xl:grid-cols-3 xl:px-0">
         {
           news.map((xs, idx) => (
-            <Link target="_blank" href={`/${locale}/resources/news/${xs.documentId}`} key={xs.documentId} className="block text-left group border-b border-[#efefef] hover:border-accent">
+            <Link target="_blank" href={buildDynamicDetailPath(locale, "news", xs)} key={xs.documentId} className="block text-left group border-b border-[#efefef] hover:border-accent">
               <div className="h-full pb-5 border-b border-transparent group-hover:border-accent">
                 <div className="rounded-xl overflow-hidden">
                   <Image width={413} height={232} src={getStrapiMedia(xs.image) ?? ""} alt="" className="w-full object-cover rounded-xl aspect-167/94 xl:aspect-413/232 transition-transform duration-300 hover:scale-105" />

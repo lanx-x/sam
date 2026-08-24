@@ -373,7 +373,7 @@ export async function getNavigation(params: { [key: string]: any } = {}) {
                     icon: true,
                     alt_icon: true,
                     target_page: { fields: ['slug'] },
-                    industry: { fields: ['documentId'] },
+                    industry: { fields: ['documentId', 'name', 'detailPageTitle'] },
                   },
                 },
               },

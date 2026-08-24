@@ -10,6 +10,99 @@ import { FloatingActions } from "@/components/FloatingActions";
 import { CommonSection, Site } from "cms-types";
 import { getRuntimeLocale } from "@/i18n/server";
 import { SITE_URL } from "@/utils/env";
+import {
+  buildDynamicDetailPath,
+  findDynamicRouteItem,
+  findDynamicRouteItemByDocumentId,
+  getDynamicRouteTypeFromPattern,
+  type DynamicRouteItem,
+  type DynamicRouteType,
+} from "@/utils/dynamic-routes";
+import { extractBlockText } from "@/utils";
+import { getStrapiMedia } from "@/utils/strapi";
+
+type SeoLike = {
+  title?: string | null;
+  desc?: string | null;
+};
+
+type DynamicMetaSource = {
+  seo?: SeoLike | null;
+  title?: string | null;
+  name?: string | null;
+  desc?: string | null;
+  detailPageTitle?: string | null;
+  detailPageDesc?: string | null;
+  content?: unknown;
+  detailPageContent?: unknown;
+  image?: unknown;
+  icon?: unknown;
+  detailPageBanner?: unknown;
+  extend?: {
+    title?: string | null;
+    desc?: string | null;
+  } | null;
+};
+
+async function getDynamicMetaSource(
+  locale: string,
+  type: DynamicRouteType,
+  documentId: string
+): Promise<DynamicMetaSource | null> {
+  const api = createLocalizedApi(locale);
+
+  switch (type) {
+    case "news":
+      return (await api.getNews({ 'filters[documentId][$eq]': documentId })).data?.[0] ?? null;
+    case "caseStudy":
+      return (await api.getCaseStudyDetail({ 'filters[documentId][$eq]': documentId })).data?.[0] ?? null;
+    case "equipment":
+      return (await api.getEquipmentDetail({ 'filters[documentId][$eq]': documentId })).data?.[0] ?? null;
+    case "material":
+      return (await api.getMaterialDetail({ 'filters[documentId][$eq]': documentId })).data?.[0] ?? null;
+    case "surfaceTreatment":
+      return (await api.getSurfaceTreatmentDetail({ 'filters[documentId][$eq]': documentId })).data?.[0] ?? null;
+    case "industry":
+      return (await api.getIndustryDetail({ 'filters[documentId][$eq]': documentId })).data?.[0] ?? null;
+    default:
+      return null;
+  }
+}
+
+function pickDynamicMeta(source: DynamicMetaSource | null) {
+  if (!source) {
+    return {
+      title: undefined,
+      description: undefined,
+      image: undefined,
+    };
+  }
+
+  const title =
+    source.seo?.title ||
+    source.detailPageTitle ||
+    source.extend?.title ||
+    source.title ||
+    source.name ||
+    undefined;
+
+  const description =
+    source.seo?.desc ||
+    source.detailPageDesc ||
+    source.extend?.desc ||
+    source.desc ||
+    extractBlockText(source.detailPageContent) ||
+    extractBlockText(source.content) ||
+    undefined;
+
+  const image =
+    getStrapiMedia(source.detailPageBanner) ||
+    getStrapiMedia(source.image) ||
+    getStrapiMedia(source.icon) ||
+    undefined;
+
+  return { title, description, image };
+}
 
 const getPageData = cache(async (routeLocale: string, slug: string[]) => {
   const { locale, localeList } = await getRuntimeLocale(routeLocale);
@@ -20,6 +113,8 @@ const getPageData = cache(async (routeLocale: string, slug: string[]) => {
   const { data: patternPages } = await api.getPatternPages();
   let matchedSlug: string | null = null;
   let documentId: string | null = null;
+  let dynamicRouteType: DynamicRouteType | null = null;
+  let dynamicItem: DynamicRouteItem | null = null;
 
   for (const p of patternPages) {
     const regex = new RegExp('^' + p.slug.replace('{{id}}', '(.+)') + '$', 'i');
@@ -27,6 +122,11 @@ const getPageData = cache(async (routeLocale: string, slug: string[]) => {
     if (m) {
       matchedSlug = p.slug;
       documentId = m[1];
+      dynamicRouteType = getDynamicRouteTypeFromPattern(p.slug);
+      if (dynamicRouteType) {
+        dynamicItem = await findDynamicRouteItem(api, dynamicRouteType, m[1]);
+        documentId = dynamicItem?.documentId ?? m[1];
+      }
       break;
     }
   }
@@ -37,7 +137,16 @@ const getPageData = cache(async (routeLocale: string, slug: string[]) => {
 
   const navData = (await api.getNavigation({ 'filters[actived][$eq]': 'true' })).data?.[0];
 
-  return { locale, localeList, siteData: site.data, pageData, documentId, navData };
+  return {
+    locale,
+    localeList,
+    siteData: site.data,
+    pageData,
+    documentId,
+    navData,
+    dynamicRouteType,
+    dynamicItem,
+  };
 });
 
 export async function generateMetadata({
@@ -46,33 +155,49 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string[] }>;
 }): Promise<Metadata> {
   const { locale: routeLocale, slug = [] } = await params;
-  const { locale, localeList, siteData, pageData, documentId } = await getPageData(routeLocale, slug);
+  const { locale, localeList, siteData, pageData, documentId, dynamicRouteType, dynamicItem } = await getPageData(routeLocale, slug);
 
   if (!pageData) return {};
 
   let seoTitle = pageData.seo?.title
   let seoDesc = pageData.seo?.desc
+  let seoImage: string | undefined
   if (documentId) {
-    const path = slug.join('/')
-    const api = createLocalizedApi(locale);
-    let detailSeo: { title?: string | null; desc?: string | null } | null | undefined
-    if (path.includes('resources/news')) {
-      detailSeo = (await api.getNews({ 'filters[documentId][$eq]': documentId })).data?.[0]?.seo
-    } else if (path.includes('resources/case-study')) {
-      detailSeo = (await api.getCaseStudyDetail({ 'filters[documentId][$eq]': documentId })).data?.[0]?.seo
+    if (dynamicRouteType) {
+      const dynamicMeta = pickDynamicMeta(
+        await getDynamicMetaSource(locale, dynamicRouteType, documentId)
+      );
+      seoTitle = dynamicMeta.title || seoTitle
+      seoDesc = dynamicMeta.description || seoDesc
+      seoImage = dynamicMeta.image
     }
-    seoTitle = detailSeo?.title || seoTitle
-    seoDesc = detailSeo?.desc || seoDesc
   }
 
   const siteName = siteData.name || '';
   const title = seoTitle ? `${seoTitle} — ${siteName}` : siteName;
   const description = seoDesc || siteData.desc || '';
-  const pagePath = ['/', ...slug].join('/').replace(/^\/\//, '/');
+  const fallbackPagePath = ['/', ...slug].join('/').replace(/^\/\//, '/');
+  const pagePath = dynamicRouteType && dynamicItem
+    ? buildDynamicDetailPath(locale, dynamicRouteType, dynamicItem).replace(`/${locale}`, "")
+    : fallbackPagePath;
   const canonicalUrl = SITE_URL ? `${SITE_URL}/${locale}${pagePath}` : undefined;
   const languages: Record<string, string> = {};
   for (const loc of localeList) {
-    if (SITE_URL) languages[loc.code] = `${SITE_URL}/${loc.code}${pagePath}`;
+    if (!SITE_URL) continue;
+
+    if (dynamicRouteType && documentId) {
+      const localizedApi = createLocalizedApi(loc.code);
+      const localizedItem = loc.code === locale && dynamicItem
+        ? dynamicItem
+        : await findDynamicRouteItemByDocumentId(localizedApi, dynamicRouteType, documentId);
+
+      if (localizedItem) {
+        languages[loc.code] = `${SITE_URL}${buildDynamicDetailPath(loc.code, dynamicRouteType, localizedItem)}`;
+        continue;
+      }
+    }
+
+    languages[loc.code] = `${SITE_URL}/${loc.code}${pagePath}`;
   }
 
   return {
@@ -90,11 +215,13 @@ export async function generateMetadata({
       siteName,
       locale,
       ...(canonicalUrl && { url: canonicalUrl }),
+      ...(seoImage ? { images: [seoImage] } : {}),
     },
     twitter: {
-      card: 'summary_large_image',
+      card: seoImage ? 'summary_large_image' : 'summary',
       title,
       description,
+      ...(seoImage ? { images: [seoImage] } : {}),
     },
     robots: 'index, follow',
   };

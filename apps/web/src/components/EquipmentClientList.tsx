@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Section, SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import { getEquipment, getEquipmentCategory } from "@/api";
+import { buildDynamicDetailPathFromBase } from "@/utils/dynamic-routes";
 import { mergeDisplayText, mergeExtension } from "@/utils";
 import { Assets } from "@/assets";
 import { getEnabledCategories } from "trace_events";
@@ -60,7 +61,7 @@ export function EquipmentClientList(props: Props) {
         <div className="px-5 pb-10 xl:px-0">
           {
             equipments.data.filter(xs => activeCategoryId ? (xs.category as any)?.documentId === activeCategoryId : true).map((xs, idx) => (
-              <Link target="_blank" key={xs.documentId} href={`${basePath}/${xs.documentId}`} className="relative flex flex-col xl:flex-row justify-start py-7.5 xl:pr-10 hover:bg-[#f0f7fe] border-b border-b-[#efefef] hover:border-b-[#f0f7fe] duration-300 transition-colors cursor-pointer">
+              <Link target="_blank" key={xs.documentId} href={buildDynamicDetailPathFromBase(basePath, "equipment", xs)} className="relative flex flex-col xl:flex-row justify-start py-7.5 xl:pr-10 hover:bg-[#f0f7fe] border-b border-b-[#efefef] hover:border-b-[#f0f7fe] duration-300 transition-colors cursor-pointer">
                 <div className="flex items-center justify-center relative w-full aspect-350/253 xl:w-90 xl:aspect-36/26 shrink-0 overflow-hidden">
                   <Image fill className="object-cover -z-10" src={Assets.EquipBase} alt="" />
                   <Image width={360} height={260} src={getStrapiMedia(xs.image) ?? ""} className="w-full max-w-180 xl:w-90 aspect-350/253 xl:aspect-36/26 object-contain" alt="icon" />

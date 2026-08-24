@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import { createLocalizedApi } from "@/api";
+import { buildDynamicDetailPathFromBase } from "@/utils/dynamic-routes";
 import { mergeExtension } from "@/utils";
 import Link from "next/link";
 
@@ -41,7 +42,7 @@ export async function SurfaceTreatmentList({ section, locale, slug, siteData }: 
         {
           data.data.map((xs) => (
             <div key={xs.id} className={``}>
-              <Link target="_blank" className={`block duration-300 transition-colors hover:bg-[rgba(0,118,238,0.06)] group`} href={`${basePath}/${xs.documentId}`}>
+              <Link target="_blank" className={`block duration-300 transition-colors hover:bg-[rgba(0,118,238,0.06)] group`} href={buildDynamicDetailPathFromBase(basePath, "surfaceTreatment", xs)}>
                 <div className={`hidden xl:grid xl:min-h-35 my-2.5 ${share}`}>
                   <Image className="w-30 aspect-square object-cover" src={getStrapiMedia(xs.icon) ?? ""} width={120} height={120} alt="icon" />
                   <p className="group-hover:text-accent text-left font-bold text-lg">{xs.name}</p>

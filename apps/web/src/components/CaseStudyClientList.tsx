@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { getStrapiMedia } from "@/utils/strapi";
 import { Assets } from "@/assets";
+import { buildDynamicDetailPathFromBase } from "@/utils/dynamic-routes";
 
 type Props = {
   data: StrapiCollectionResponse<CaseStudy>;
@@ -57,7 +58,7 @@ export function CaseStudyClientList({ data, pageSize, basePath }: Props) {
             <Link
               target="_blank"
               key={xs.id}
-              href={`${basePath}/${xs.documentId}`}
+              href={buildDynamicDetailPathFromBase(basePath, "caseStudy", xs)}
               className="cursor-pointer relative xl:p-2.5 group rounded-xl duration-300 transition-colors overflow-hidden bg-white hover:bg-[rgba(0,118,238,0.1)]">
               <div className="relative rounded-xl aspect-350/285 xl:aspect-413/336 w-full overflow-hidden">
                 <Image

@@ -6,6 +6,7 @@ import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Image from "next/image";
 import { Industry } from "cms-types";
 import { mergeExtension } from "@/utils";
+import { buildDynamicDetailPath } from "@/utils/dynamic-routes";
 import Link from "next/link";
 
 export function FeaturedIndustry({ section, locale }: CmpProps) {
@@ -25,7 +26,7 @@ export function FeaturedIndustry({ section, locale }: CmpProps) {
       <div className="grid grid-cols-2 text-left gap-2 mt-10 xl:grid-cols-4 xl:gap-5">
         {
           ((section.payload?.dynamic?.[0] as any)?.industries as Industry[])?.map((xs, idx) => (
-            <Link target="_blank" href={`/${locale}/solutions/industry/${xs.documentId}`} className="relative" key={idx}>
+            <Link target="_blank" href={buildDynamicDetailPath(locale, "industry", xs)} className="relative" key={idx}>
               <div className="overflow-hidden">
                 <Image width={305} height={300} src={getStrapiMedia(xs.image) ?? ""} className="object-cover w-full  transition-transform duration-300 hover:scale-105" alt="" />
               </div>

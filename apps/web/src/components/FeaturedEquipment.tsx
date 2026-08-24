@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Section } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
+import { buildDynamicDetailPath } from "@/utils/dynamic-routes";
 import { collectExtend, mergeDisplayText, mergeExtension } from "@/utils";
 import Link from "next/link";
 import { Equipment } from "cms-types";
@@ -32,7 +33,7 @@ export function FeaturedEquipment({ section, locale }: CmpProps) {
           <div className="flex flex-row w-full">
             {
               ((section.payload?.dynamic?.[0] as any)?.equipment as Equipment[])?.map((xs, idx) => (
-                <Link target="_blank" href={`/${locale}/resources/equipment/${xs.documentId}`} key={xs.id} className="w-[78.205128vw] ml-5 shrink-0 text-left xl:w-76.25 xl:ml-0 xl:mr-5 hover:drop-shadow-[0_8px_24px_rgba(0,0,0,0.08)] bg-[#FAFAFA] transition-colors duration-300">
+                <Link target="_blank" href={buildDynamicDetailPath(locale, "equipment", xs)} key={xs.id} className="w-[78.205128vw] ml-5 shrink-0 text-left xl:w-76.25 xl:ml-0 xl:mr-5 hover:drop-shadow-[0_8px_24px_rgba(0,0,0,0.08)] bg-[#FAFAFA] transition-colors duration-300">
 
                   <div className="relative w-full aspect-305/220 xl:w-76.25 shrink-0 overflow-hidden flex items-center justify-center">
                     <Image fill className="object-cover -z-10" src={Assets.EquipBase} alt="" />

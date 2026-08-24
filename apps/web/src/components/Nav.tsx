@@ -7,6 +7,7 @@ import { Assets } from "@/assets";
 import { getStrapiMedia } from "@/utils/strapi";
 import type { Navigation, Site } from "cms-types";
 import { getHref, withLocalePath } from "@/utils";
+import { buildDynamicDetailPath } from "@/utils/dynamic-routes";
 import { ActionButton } from "./ActionButton";
 
 export type NavGrouptItem = NonNullable<Navigation["value"]>[number];
@@ -135,7 +136,7 @@ export function MobileNav(props: NavProps) {
                                         className="block text-white h-12 leading-12 px-5"
                                         target={nested.target_type === 'external_url' ? '_blank' : ''}
                                         key={child.id}
-                                        href={withLocalePath(locale, (nested.type === 'Industries' && child.target_type === 'industry' && child.industry) ? `/solutions/industry/${child.industry.documentId}` : getHref(child))}
+                                        href={(nested.type === 'Industries' && child.target_type === 'industry' && child.industry) ? buildDynamicDetailPath(locale, "industry", child.industry) : withLocalePath(locale, getHref(child))}
                                         onClick={closeMenu}>
                                         {child.name}
                                       </Link>
@@ -265,7 +266,7 @@ export function DesktopNav(props: NavProps) {
 
                         {/* Featured image */}
                         {group.featured_news && (
-                          <Link onClick={close} href={withLocalePath(locale, `/resources/news/${group.featured_news.documentId}`)} className="relative block py-4 px-5 h-40 w-100 rounded-lg overflow-hidden">
+                          <Link onClick={close} href={buildDynamicDetailPath(locale, "news", group.featured_news)} className="relative block py-4 px-5 h-40 w-100 rounded-lg overflow-hidden">
                             <Image src={getStrapiMedia(group.children[activeChild]?.image ?? "") || Assets.Banner} fill alt="" className="object-cover" />
 
                             <h4 className="relative z-10 text-lg text-white font-medium m-w-45">{group.featured_news?.title}</h4>
@@ -348,7 +349,7 @@ export function DesktopNav(props: NavProps) {
                         <div className="mt-0.5">
                           {
                             getChild('Industries', group)?.children?.map((xs, idx) => (
-                              <Link key={xs.id} href={withLocalePath(locale, `/solutions/industry/${xs.industry?.documentId!}`)} className="group block mb-1 last-mb-0 h-16 pl-4 hover:bg-primary transition-colors duration-300" onClick={close}>
+                              <Link key={xs.id} href={buildDynamicDetailPath(locale, "industry", xs.industry!)} className="group block mb-1 last-mb-0 h-16 pl-4 hover:bg-primary transition-colors duration-300" onClick={close}>
                                 <div className="flex flex-row items-center gap-2 h-full">
                                   <div className="relative w-8 h-8">
                                     <Image fill className="object-cover" alt="" src={getStrapiMedia(xs.icon) ?? ""} />

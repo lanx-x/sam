@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { Section } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
+import { buildDynamicDetailPath } from "@/utils/dynamic-routes";
 import { collectExtend, mergeDisplayText, mergeExtension } from "@/utils";
 import { Industry } from "cms-types";
 import Link from "next/link";
@@ -68,7 +69,7 @@ export function FeaturedIndustrySolution({ section, locale }: CmpProps) {
                   <p className="font-semibold text-2xl leading-none mb-5">{xs.name}</p>
                   <p className="flex-1 text-sm leading-3.5 xl:text-base xl:leading-5">{xs.desc}</p>
 
-                  <Link target="_blank" href={`/${locale}/solutions/industry/${xs.documentId}`} className="flex flex-row text-accent text-base font-medium items-center">
+                  <Link target="_blank" href={buildDynamicDetailPath(locale, "industry", xs)} className="flex flex-row text-accent text-base font-medium items-center">
                     <p className="mr-2">{displayText?.view_product ?? "View Product"}</p>
                     <Image src={Assets.Link} alt="arrow" />
                   </Link>
@@ -99,4 +100,3 @@ export function FeaturedIndustrySolution({ section, locale }: CmpProps) {
     </Section>
   )
 }
-

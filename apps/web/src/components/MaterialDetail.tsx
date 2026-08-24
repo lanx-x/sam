@@ -7,6 +7,7 @@ import { SectionContainer, SectionHeaderRowDir } from "./Section";
 import { SurfaceTreatmentItem } from "./FeaturedSurfaceTreatment";
 import { ActionButton } from "./ActionButton";
 import Link from "next/link";
+import { buildDynamicDetailPath } from "@/utils/dynamic-routes";
 
 export async function MaterialDetail({ documentId, section, locale, siteData }: CmpProps) {
   const api = createLocalizedApi(locale);
@@ -173,7 +174,7 @@ export async function MaterialDetail({ documentId, section, locale, siteData }: 
             <div className="grid grid-cols-2 xl:grid-cols-4 gap-2 xl:gap-5 mt-10">
               {
                 data.industries?.map((xs, idx) => (
-                  <Link href={`/${locale}/solutions/industry/${xs.documentId}`} className="block relative" key={idx}>
+                  <Link href={buildDynamicDetailPath(locale, "industry", xs)} className="block relative" key={idx}>
                     <div className="relative aspect-305/300">
                       <Image fill src={getStrapiMedia(xs.image) ?? ""} alt="icon" />
                     </div>

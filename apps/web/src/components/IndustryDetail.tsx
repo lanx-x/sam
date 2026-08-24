@@ -14,6 +14,10 @@ export async function IndustryDetail({ documentId, section, locale }: CmpProps) 
 
   const extension = mergeExtension(section)
 
+  if (!data) {
+    return <div className="py-30 text-3xl font-semibold text-center">Industry: {documentId} not found.</div>
+  }
+
   return (
     <div>
       <div className="relative py-10 px-5 xl:px-0 xl:py-15">

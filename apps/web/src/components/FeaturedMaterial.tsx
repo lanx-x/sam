@@ -9,6 +9,7 @@ import { Section } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getStrapiMedia } from "@/utils/strapi";
 import { collectExtend, mergeExtension } from "@/utils";
+import { buildDynamicDetailPath } from "@/utils/dynamic-routes";
 import { Material } from "cms-types";
 import Link from "next/link";
 
@@ -43,7 +44,7 @@ export function FeaturedMaterial({ section, siteData, locale }: CmpProps) {
           <div className="flex flex-row">
             {
               ((section.payload?.dynamic?.[0] as any)?.materials as Material[])?.map((xs, idx) => (
-                <Link target="_blank" href={`/${locale}/resources/material/${xs.documentId}`} key={idx} className="shrink-0 w-[78.205128vw] bg-[#fafafa] rounded-lg overflow-hidden mr-5 xl:w-76.25 hover:drop-shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-colors duration-300">
+                <Link target="_blank" href={buildDynamicDetailPath(locale, "material", xs)} key={idx} className="shrink-0 w-[78.205128vw] bg-[#fafafa] rounded-lg overflow-hidden mr-5 xl:w-76.25 hover:drop-shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-colors duration-300">
                   <Image className="object-cover w-full rounded-lg xl:h-40" width={305} height={160} src={getStrapiMedia(xs.icon) ?? ""} alt="" />
                   <div className="px-5 text-left">
                     <p className="my-5 text-lg font-semibold leading-none">{xs.name}</p>
@@ -70,5 +71,4 @@ export function FeaturedMaterial({ section, siteData, locale }: CmpProps) {
   )
 
 }
-
 

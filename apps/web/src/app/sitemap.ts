@@ -1,51 +1,18 @@
 import type { MetadataRoute } from "next";
 import { globalApi, createLocalizedApi } from "@/api";
 import { SITE_URL } from "@/utils/env";
+import {
+  DYNAMIC_ROUTE_CONFIGS,
+  getDynamicItemSegment,
+  getDynamicRouteTypeFromPattern,
+  type DynamicRouteItem,
+} from "@/utils/dynamic-routes";
 
 export const dynamic = 'force-dynamic';
 
 type SitemapEntryMeta = {
   lastModified?: string | Date;
 };
-
-type DynamicItem = {
-  documentId?: string | null;
-  updatedAt?: string | null;
-  publishedAt?: string | null;
-};
-
-const DYNAMIC_ROUTE_SOURCES = [
-  {
-    patternPrefix: "/resources/news/",
-    fetch: (api: ReturnType<typeof createLocalizedApi>) =>
-      api.getNews({ 'pagination[pageSize]': 200 }),
-  },
-  {
-    patternPrefix: "/resources/equipment/",
-    fetch: (api: ReturnType<typeof createLocalizedApi>) =>
-      api.getEquipment({ 'pagination[pageSize]': 200 }),
-  },
-  {
-    patternPrefix: "/resources/material/",
-    fetch: (api: ReturnType<typeof createLocalizedApi>) =>
-      api.getMaterial({ 'pagination[pageSize]': 200 }),
-  },
-  {
-    patternPrefix: "/resources/case-study/",
-    fetch: (api: ReturnType<typeof createLocalizedApi>) =>
-      api.getCaseStudy({ 'pagination[pageSize]': 200 }),
-  },
-  {
-    patternPrefix: "/solutions/surface-treatment/",
-    fetch: (api: ReturnType<typeof createLocalizedApi>) =>
-      api.getSurfaceTreatment({ 'pagination[pageSize]': 200 }),
-  },
-  {
-    patternPrefix: "/solutions/industry/",
-    fetch: (api: ReturnType<typeof createLocalizedApi>) =>
-      api.getIndustry({ 'pagination[pageSize]': 200 }),
-  },
-] as const;
 
 function getEntryLastModified(item: {
   updatedAt?: string | null;
@@ -71,7 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const [{ data: pages }, { data: patternPages }, ...dynamicResults] = await Promise.all([
       api.getPage({ 'pagination[pageSize]': 200 }),
       api.getPatternPages(),
-      ...DYNAMIC_ROUTE_SOURCES.map((source) => source.fetch(api)),
+      ...Object.values(DYNAMIC_ROUTE_CONFIGS).map((config) => config.fetch(api)),
     ]);
 
     const pageMap = new Map<string, SitemapEntryMeta>();
@@ -90,16 +57,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const patternSlug = patternPage.slug;
       if (!patternSlug?.includes("{{id}}")) continue;
 
-      const source = DYNAMIC_ROUTE_SOURCES.find(({ patternPrefix }) =>
-        patternSlug.startsWith(patternPrefix)
-      );
-      if (!source) continue;
+      const routeType = getDynamicRouteTypeFromPattern(patternSlug);
+      if (!routeType) continue;
 
-      const dynamicResult = dynamicResults[DYNAMIC_ROUTE_SOURCES.indexOf(source)];
-      for (const item of dynamicResult.data as DynamicItem[]) {
+      const dynamicResult = dynamicResults[Object.keys(DYNAMIC_ROUTE_CONFIGS).indexOf(routeType)];
+      for (const item of dynamicResult.data as DynamicRouteItem[]) {
         if (!item.documentId) continue;
 
-        const slug = patternSlug.replace("{{id}}", item.documentId);
+        const slug = patternSlug.replace("{{id}}", getDynamicItemSegment(routeType, item));
         pageMap.set(slug, {
           lastModified: getEntryLastModified(item),
         });

@@ -5,6 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getStrapiMedia } from "@/utils/strapi";
+import { buildDynamicDetailPath } from "@/utils/dynamic-routes";
 import { CaseStudy } from "cms-types";
 import Link from "next/link";
 
@@ -87,7 +88,7 @@ export function FeaturedCaseStudyClient({
                       }
                     </div>
 
-                    <Link target="_blank" href={`/${locale}/resources/case-study/${xs.documentId}`} className="hidden text-right text-accent text-base justify-end font-medium items-center xl:flex">
+                    <Link target="_blank" href={buildDynamicDetailPath(locale, "caseStudy", xs)} className="hidden text-right text-accent text-base justify-end font-medium items-center xl:flex">
                       <p className="mr-2">{readFull ?? "Read Full Case Study"}</p>
                       <Image src={Assets.ArrowR} alt="arrow" />
                     </Link>

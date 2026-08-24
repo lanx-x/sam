@@ -7,6 +7,7 @@ import { getStrapiMedia } from "@/utils/strapi";
 import { BetterBlocksContent } from "./BetterBlocksContent";
 import dayjs from "dayjs";
 import { mergeDisplayText } from "@/utils";
+import { buildDynamicDetailPath } from "@/utils/dynamic-routes";
 
 export async function CaseStudyDetail({ documentId, section, locale, slug, siteData }: CmpProps) {
   const api = createLocalizedApi(locale)
@@ -107,7 +108,7 @@ export async function CaseStudyDetail({ documentId, section, locale, slug, siteD
             <p className="text-center text-3xl font-semibold mb-10">More Success Stories</p>
             <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
               {others.map((xs) => (
-                <Link target="_blank" key={xs.documentId} href={`/${locale}/resources/case-study/${xs.documentId}`} className="group rounded-lg overflow-hidden">
+                <Link target="_blank" key={xs.documentId} href={buildDynamicDetailPath(locale, "caseStudy", xs)} className="group rounded-lg overflow-hidden">
                   <div className="relative aspect-413/336 overflow-hidden rounded-lg">
                     <Image
                       fill

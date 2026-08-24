@@ -3,6 +3,7 @@ import { SurfaceTreatment } from "cms-types";
 import Image from "next/image";
 import { Section } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
+import { buildDynamicDetailPath } from "@/utils/dynamic-routes";
 import { collectExtend, mergeExtension } from "@/utils";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import Link from "next/link";
@@ -34,7 +35,7 @@ export function FeaturedSurfaceTreatment({ section, locale }: CmpProps) {
 export function SurfaceTreatmentItem({ item, locale }: { item: SurfaceTreatment, locale: string }) {
 
   return (
-    <Link target="_blank" href={`/${locale}/solutions/surface-treatment/${item.documentId}`} className="duration-300 rounded-lg overflow-hidden bg-[#fafafa] min-h-80 border border-transparent hover:border-accent cursor-pointer hover:shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]">
+    <Link target="_blank" href={buildDynamicDetailPath(locale, "surfaceTreatment", item)} className="duration-300 rounded-lg overflow-hidden bg-[#fafafa] min-h-80 border border-transparent hover:border-accent cursor-pointer hover:shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]">
       <div className="w-full aspect-305/160 relative">
         <Image fill src={getStrapiMedia(item.icon) ?? ""} alt="" className="w-full object-cover" />
       </div>

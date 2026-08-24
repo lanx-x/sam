@@ -6,6 +6,7 @@ import { SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
 import { Assets } from "@/assets";
 import { getMaterial, getMaterialCategory } from "@/api";
+import { buildDynamicDetailPathFromBase } from "@/utils/dynamic-routes";
 import { Site } from "cms-types";
 
 type Props = {
@@ -89,7 +90,7 @@ export function MaterialClientList({ categories, materials, basePath, emptyText,
                         <p className="">{displayText?.desc ?? 'Description'}</p>
                       </div>
                       {items.items.map((xs) => (
-                        <Link target="_blank" key={xs.documentId} href={`${basePath}/${xs.documentId}`} className={`${gridOpts} py-2.5 border-b border-[#bfbfbf] hover:bg-[#f7fbfe] duration-300 transition-colors cursor-pointer`}>
+                        <Link target="_blank" key={xs.documentId} href={buildDynamicDetailPathFromBase(basePath, "material", xs)} className={`${gridOpts} py-2.5 border-b border-[#bfbfbf] hover:bg-[#f7fbfe] duration-300 transition-colors cursor-pointer`}>
                           <div className="xl:pl-5 aspect-square w-20 xl:w-30 relative">
                             <Image fill src={getStrapiMedia(xs.icon) ?? ""} className="w-30 h-30 rounded-lg object-cover" alt="" />
                           </div>
