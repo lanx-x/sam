@@ -12,6 +12,7 @@ import type { Broadcast as BroadcastType, Site } from "cms-types";
 
 export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale; data: BroadcastType[]; siteData: Site; localeList: LocaleItem[] }) {
   const { currentLocale, defaultLocale, data: items, siteData, localeList } = props;
+  console.log("############", localeList)
   const email = siteData.email?.[0]?.value;
   const pathname = usePathname();
   const router = useRouter();
@@ -138,8 +139,7 @@ export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale;
                 )}
               >
                 <div className="min-w-28 overflow-hidden rounded-md border border-[#efefef] bg-white shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]">
-                  {/* 暂时只显示en */}
-                  {localeList.filter(xs => xs.code === 'en').map((locale) => (
+                  {localeList.map((locale) => (
                     <button
                       key={locale.code}
                       type="button"

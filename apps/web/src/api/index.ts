@@ -1,5 +1,5 @@
 import type { Locale, LocaleItem } from "@/i18n";
-import { NODE_ENV } from "@/utils/env";
+import { NODE_ENV, ENABLE_MULTILANG } from "@/utils/env";
 import { fetchStrapi } from "@/utils/strapi";
 import type { PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceTreatment, Equipment, EquipmentCategory, CaseStudy, News, NewsCategory, Video, Material, MaterialCategory, Industry, Site, Navigation, Broadcast } from "cms-types";
 
@@ -389,9 +389,11 @@ export async function getNavigation(params: { [key: string]: any } = {}) {
 }
 
 export async function getI18nLocales() {
-  return fetchStrapi<LocaleItem[]>('/i18n/locales', {
+  const locales = await fetchStrapi<LocaleItem[]>('/i18n/locales', {
     next: { revalidate: revalidate.static, tags: ["i18n-locale"] },
   })
+
+  return ENABLE_MULTILANG === 'true' ? locales : locales.filter(xs => xs.code === 'en')
 }
 
 export async function getBroadcast(params: { [key: string]: any } = {}) {
