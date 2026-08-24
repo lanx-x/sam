@@ -118,6 +118,11 @@ function pickDynamicMeta(source: DynamicMetaSource | null) {
   return { title, description, image };
 }
 
+function normalizeMetaImage(image: string | { src: string } | null | undefined) {
+  if (!image) return undefined;
+  return typeof image === "string" ? image : image.src;
+}
+
 const getPageData = cache(async (routeLocale: string, slug: string[]) => {
   const { locale, localeList } = await getRuntimeLocale(routeLocale);
   const api = createLocalizedApi(locale);
@@ -183,7 +188,7 @@ export async function generateMetadata({
       );
       seoTitle = dynamicMeta.title || seoTitle
       seoDesc = dynamicMeta.description || seoDesc
-      seoImage = dynamicMeta.image
+      seoImage = normalizeMetaImage(dynamicMeta.image)
     }
   }
 

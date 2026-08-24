@@ -15,8 +15,8 @@ type SitemapEntryMeta = {
 };
 
 function getEntryLastModified(item: {
-  updatedAt?: string | null;
-  publishedAt?: string | null;
+  updatedAt?: string | Date | null;
+  publishedAt?: string | Date | null;
 }) {
   return item.updatedAt ?? item.publishedAt ?? undefined;
 }

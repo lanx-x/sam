@@ -7,8 +7,8 @@ export type DynamicRouteItem = {
   title?: string | null;
   name?: string | null;
   detailPageTitle?: string | null;
-  updatedAt?: string | null;
-  publishedAt?: string | null;
+  updatedAt?: string | Date | null;
+  publishedAt?: string | Date | null;
 };
 
 export type DynamicRouteType =
