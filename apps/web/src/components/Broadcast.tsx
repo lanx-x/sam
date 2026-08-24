@@ -12,7 +12,6 @@ import type { Broadcast as BroadcastType, Site } from "cms-types";
 
 export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale; data: BroadcastType[]; siteData: Site; localeList: LocaleItem[] }) {
   const { currentLocale, defaultLocale, data: items, siteData, localeList } = props;
-  console.log("############", localeList)
   const email = siteData.email?.[0]?.value;
   const pathname = usePathname();
   const router = useRouter();
