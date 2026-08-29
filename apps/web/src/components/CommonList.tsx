@@ -19,8 +19,8 @@ export function CommonList({ section }: CmpProps) {
         {
           payload.data?.map(xs => (
             <div key={xs.id} className="w-full xl:w-auto xl:basis-4 flex-1">
-              <div className="aspect-3/2 relative">
-                <Image alt="img" src={getStrapiMedia(xs.image) ?? ""} fill className="object-cover" />
+              <div className="aspect-3/2 relative overflow-hidden">
+                <Image alt="img" src={getStrapiMedia(xs.image) ?? ""} fill className="object-cover hover:scale-120 transition-transform duration-300" />
               </div>
               <p className="mt-10 mb-3 text-xl font-bold">{xs.title}</p>
               <p className="text-base">{xs.desc}</p>

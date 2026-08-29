@@ -20,6 +20,7 @@ function renderHighlightedDesc(desc: string | null | undefined, highlights: stri
 }
 
 export function FullImageHero({ section }: CmpProps) {
+  const payload = section.payload!
   const extension = mergeExtension(section)
   const highlights = (section.payload?.data ?? [])
     .map((item) => item.desc?.trim())
@@ -34,7 +35,12 @@ export function FullImageHero({ section }: CmpProps) {
       <div className={`relative z-10 ${variant === 't0' ? 'text-left' : 'text-center'} text-white xl:w-7xl xl:mx-auto`}>
         <div className={`${variant === 't0' ? 'xl:w-180' : ''}`}>
           <h1 className={`text-4xl ${variant === 't2' ? 'xl:text-5xl' : 'xl:text-[64px]'} font-black mb-5 leading-none ${variant === 't2' ? 'xl:mb-3' : 'xl:mb-10'}`}>{section.payload?.title}</h1>
-          <p className="text-base">{renderHighlightedDesc(section.payload?.desc, highlights)}</p>
+
+          {
+            payload.desc?.split('\\n').map((xs, idx) => (
+              <p className="text-base" key={idx}>{renderHighlightedDesc(xs, highlights)}</p>
+            ))
+          }
           <div className={`flex flex-col xl:flex-row w-full mt-20 xl:mt-10 ${variant === 't0' ? 'justify-start' : 'justify-center'}`}>
             {
               section.payload?.actions?.map(xs => (

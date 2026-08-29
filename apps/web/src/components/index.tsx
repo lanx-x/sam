@@ -59,6 +59,8 @@ import { ProductionVideoCarousel } from "./ProductionVideoCarousel";
 import { CommonList } from "./CommonList";
 import { CheckList } from "./CheckList";
 import { CrossList } from "./CrossList";
+import { CommonListWithIcon } from "./CommonListWithIcon";
+import { CaseCarousel } from "./CaseCarousel";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -128,7 +130,9 @@ export const CmpMap: Record<string, ComponentType<any>> = {
 
 
   CommonList,
+  CommonListWithIcon,
   CheckList,
   CrossList,
+  CaseCarousel,
 
 }
