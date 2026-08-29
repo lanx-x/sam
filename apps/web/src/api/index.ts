@@ -338,7 +338,7 @@ export async function getSite(params: { [key: string]: any } = {}) {
     params: {
       populate: {
         logo: true,
-        logo_with_text: true,
+        logo_secondary: true,
         email: { populate: '*' },
         tel: { populate: '*' },
         fax: { populate: '*' },

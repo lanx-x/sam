@@ -12,7 +12,7 @@ type ActionButtonProps = {
 export function ActionButton({ action, className, locale }: ActionButtonProps) {
   const { label, target_type, target_url } = action;
   const classes = cn(
-    "h-13 px-4 rounded-sm text-white bg-primary font-medium truncate flex items-center justify-center",
+    "h-13 px-4 rounded-sm text-white bg-accent font-medium truncate flex items-center justify-center",
     "transition-colors disabled:opacity-50",
     className,
   );

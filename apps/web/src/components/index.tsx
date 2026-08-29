@@ -52,6 +52,10 @@ import { Gallery } from "./Gallery";
 import { PartnerStory } from "./PartnerStory";
 import { Marquee } from "./Marquee";
 import { FormGetQuote } from "./FormGetQuote";
+import { AboutSAM } from "./AboutSAM";
+import { MoldMaking } from "./MoldMaking";
+import { MoldProcessCarousel } from "./MoldProcessCarousel";
+import { ProductionVideoCarousel } from "./ProductionVideoCarousel";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -113,4 +117,10 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   Marquee,
 
   FormGetQuote,
+
+  AboutSAM,
+  MoldMaking,
+  MoldProcessCarousel,
+  ProductionVideoCarousel,
+
 }

@@ -53,7 +53,7 @@ export const DYNAMIC_ROUTE_CONFIGS: Record<DynamicRouteType, DynamicRouteConfig>
   },
   industry: {
     patternPrefix: "/solutions/industry/",
-    getLabels: (item) => [item.detailPageTitle, item.name],
+    getLabels: (item) => [item?.detailPageTitle, item?.name],
     fetch: (api) => api.getIndustry({ 'pagination[pageSize]': 200 }),
   },
 };
@@ -97,7 +97,7 @@ export function getDynamicItemSegment(
     }
   }
 
-  return item.documentId ?? "";
+  return item?.documentId ?? "";
 }
 
 function getDynamicItemAliasSegments(

@@ -59,6 +59,7 @@ export interface DisplayTextForm extends Struct.ComponentSchema {
     success_page_tips: Schema.Attribute.String;
     success_page_title: Schema.Attribute.String;
     success_tips: Schema.Attribute.String;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -232,7 +233,7 @@ export interface ItemNavGroupItem extends Struct.ComponentSchema {
       ['internal_page', 'external_url', 'popup']
     >;
     title: Schema.Attribute.String;
-    type: Schema.Attribute.Enumeration<['LW Solutions', 'Industries']>;
+    type: Schema.Attribute.Enumeration<['Application', 'Industries']>;
   };
 }
 

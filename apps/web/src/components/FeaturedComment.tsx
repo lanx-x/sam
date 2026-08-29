@@ -62,7 +62,7 @@ export function FeaturedComment({ section }: CmpProps) {
   }, [items.length])
 
   return (
-    <div className={`xl:min-h-185 pt-10 xl:pt-10 ${bg_variant} w-full relative`} >
+    <div className={`xl:min-h-185 mt-15 xl:mt-25 pt-10 xl:pt-10 ${bg_variant} w-full relative`} >
       <div className="flex items-center justify-center absolute w-full top-51.75 xl:top-10">
         <Image src={Assets.Map} width={1280} height={673} alt="map" className="w-full xl:w-320" />
       </div>

@@ -7,39 +7,31 @@ import Link from "next/link";
 
 export function Cap({ section, locale }: CmpProps) {
   return (
-    <Section
-      title={section.payload?.title!}
-      desc={section.payload?.desc!}>
-      <div className="flex flex-col mt-10 xl:w-7xl xl:mx-auto xl:flex-row">
-        {
-          section.payload?.data?.map((xs, idx) => {
-            const imageUrl = getStrapiMedia(xs.image) || Assets.Cap;
-            return (
-              <Link target="_blank" key={xs.id} href={`/${locale}/${xs.target_url ?? ''}`} className="block group w-full aspect-35/16 relative xl:w-80 xl:h-120">
-                <Image src={imageUrl} alt="cap" fill className="object-cover" />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,35,70,0)_0%,#001123_100%)]" />
-                <div className="px-5 relative w-full h-full flex flex-col group-hover:hidden">
-                  <h3 className="text-white text-2xl font-semibold mb-10 mt-auto truncate">{xs.title}</h3>
-                </div>
-                <div className="absolute inset-0 bg-[rgba(0,118,238,0.90)] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <div className="h-full w-full px-5 pt-12 xl:pt-30 pb-12 text-left flex flex-col">
-                    <p className="font-semibold text-2xl/none text-white mb-8">{xs.title}</p>
-                    <p className="text-white text-sm leading-4.5 flex-1">{xs.desc}</p>
-                    <div className="text-white font-medium text-base flex flex-row items-center">
-                      <div className="flex items-center">
-                        <span>{xs.label}</span>
-                        <Image src={Assets.LinkWhite} alt="link" className="ml-3" />
-                      </div>
+    <div className="grid grid-cols-1 xl:grid-cols-2">
+      {
+        section.payload?.data?.map((xs, idx) => {
+          return (
+            <Link target="_blank" key={xs.id} href={`/${locale}/${xs.target_url ?? ''}`} className="group w-full aspect-39/20 relative xl:w-full xl:h-120 nth-2:bg-[#eee] max-xl:nth-4:bg-[#eee] xl:nth-3:bg-[#eee]">
+              <Image alt="icon-cap" src={getStrapiMedia(xs.image) ?? ""} className="absolute right-0 bottom-0 xl:hidden w-1/2 aspect-195/120" width={195} height={120} />
+              <div className="flex flex-col h-full opacity-100 xl:group-hover:opacity-0 transition-opacity duration-200">
+                <h2 className="text-xl font-semibold mt-10 mx-5 xl:mt-20 xl:mx-30 xl:text-5xl xl:font-semibold">{xs.title}</h2>
 
-                    </div>
-                  </div>
+                <div className="flex flex-row items-center mx-5 mt-auto mb-8 xl:mb-27 xl:mx-30">
+                  <Image src={Assets.IconArrow} alt="icon-arrow" className="w-8 mr-3 xl:mr-4 xl:w-10 aspect-square" />
+                  <p className="text-sm xl:text-base">Learn More</p>
                 </div>
-
-              </Link>
-            )
-          })
-        }
-      </div>
-    </Section>
+              </div>
+              <div className="absolute left-0 top-0 w-full h-full hidden xl:flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <Image src={getStrapiMedia(xs.image) ?? ""} alt="logo" fill className="object-cover" />
+                <div className="w-65 h-65 bg-accent rounded-full px-8 flex items-center justify-center flex-col z-2">
+                  <p className="text-white text-3xl font-semibold text-center mb-5">{xs.title}</p>
+                  <Image src={Assets.IconArrow2} alt="arrow-icon" width={40} height={40} className="" />
+                </div>
+              </div>
+            </Link>
+          )
+        })
+      }
+    </div>
   )
 }

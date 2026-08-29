@@ -29,14 +29,14 @@ type SeoLike = {
 type MetaMediaLike =
   | string
   | {
+    url?: string | null;
+    data?: {
       url?: string | null;
-      data?: {
+      attributes?: {
         url?: string | null;
-        attributes?: {
-          url?: string | null;
-        } | null;
       } | null;
-    }
+    } | null;
+  }
   | null
   | undefined;
 
@@ -273,7 +273,7 @@ export default async function CatchAllPage({ params, searchParams }: { params: P
 
           const Cmp = CmpMap[rendererName];
           if (!Cmp) {
-            logger.warn(`Unknown renderer: ${rendererName}`);
+            logger.error(`Unknown renderer: ${rendererName}`);
             return null;
           }
 
@@ -288,7 +288,6 @@ export default async function CatchAllPage({ params, searchParams }: { params: P
         })
       }
       {!isFormGetQuote && <Footer navigation={navData} locale={locale} siteData={siteData} />}
-      {!isFormGetQuote && <FloatingActions siteData={siteData} />}
     </>
   )
 }

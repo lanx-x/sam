@@ -38,7 +38,7 @@
         "audios"
       ]
     },
-    "logo_with_text": {
+    "logo_secondary": {
       "type": "media",
       "pluginOptions": {
         "i18n": {

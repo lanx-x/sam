@@ -1618,7 +1618,7 @@ export interface ApiSiteSite extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
-    logo_with_text: Schema.Attribute.Media<
+    logo_secondary: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     > &
       Schema.Attribute.SetPluginOptions<{

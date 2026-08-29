@@ -11,6 +11,8 @@ export async function FeaturedFAQ({ section, documentId, slug, locale }: CmpProp
 
   let faqs = (section.payload?.dynamic?.[0] as any)?.faqs as FAQ[] ?? []
 
+  console.log("DESC", section?.payload?.desc)
+
 
   if (extension.basedOnId?.value === 'true') {
     if (slug.join('/').includes('resources/material')) {

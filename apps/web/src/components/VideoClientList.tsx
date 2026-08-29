@@ -12,7 +12,7 @@ type Props = {
   pageSize: number;
 };
 
-function getVideoMeta(video: Video) {
+export function getVideoMeta(video: Video) {
   const isExternal = video.type === 'external';
 
   if (isExternal) {

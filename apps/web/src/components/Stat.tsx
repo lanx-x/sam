@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getStrapiMedia } from "@/utils/strapi";
 import type { CommonSection } from "cms-types";
 import { SectionContainer } from "./Section";
+import { CountUpNumber } from "./CountUpNumber";
 import { PropsWithChildren } from "react";
 
 type Props = {
@@ -20,26 +21,23 @@ const colsMap: Record<number, string> = {
 
 export function Stat({ border, section }: PropsWithChildren<Props>) {
   return (
-    <div className={`py-10  border-b border-[#efefef] xl:py-9`}>
-      <SectionContainer>
-        <div className={`grid grid-cols-2 overflow-hidden ${colsMap[Math.min(5, section.payload?.data?.length ?? 1)]}  gap-y-10`}>
-          {
-            section.payload?.data?.map(xs => {
-              const iconUrl = getStrapiMedia(xs.image);
-              return (
-                <div key={xs.id} className="group relative flex flex-row items-center justify-center">
-                  <div className="w-full flex flex-col  px-5 text-left justify-center truncate xl:items-center">
-                    {iconUrl ? <Image className="w-12.75 h-10.5 xl:w-17 xl:h-14" src={iconUrl} alt="icon" width={68} height={56} /> : <p className="leading-none text-4xl font-semibold truncate shrink-0 xl:text-5xl xl:h-14">{xs.desc}</p>}
-                    <p className="truncate font-medium mt-4 shrink-0 xl:text-base xl:mt-3">{xs.title}</p>
-                  </div>
-                  {border ? <div className="absolute -right-px invisible xl:visible xl:border-r xl:h-12 group-[5]:invisible border-[#efefef] group-last:invisible"></div> : null}
+    <div className={`py-10  xl:py-9 bg-[#fafafa] xl:px-30`}>
+      <div className={`grid grid-cols-1 overflow-hidden ${colsMap[Math.min(5, section.payload?.data?.length ?? 1)]}  gap-y-10`}>
+        {
+          section.payload?.data?.map(xs => {
+            const iconUrl = getStrapiMedia(xs.image);
+            return (
+              <div key={xs.id} className="group relative flex flex-row items-center justify-center">
+                <div className="w-full flex flex-col  px-5 text-left justify-center truncate xl:items-center">
+                  {iconUrl ? <Image className="w-12.75 h-10.5 xl:w-17 xl:h-14" src={iconUrl} alt="icon" width={68} height={56} /> : <p className="leading-none text-4xl font-semibold truncate shrink-0 xl:text-5xl xl:h-14"><CountUpNumber text={xs.desc ?? ""} /></p>}
+                  <p className="truncate font-medium mt-4 shrink-0 xl:text-base xl:mt-3">{xs.title}</p>
                 </div>
-              )
-            })
-          }
-        </div>
-      </SectionContainer>
-
+                {border ? <div className="absolute -right-px invisible xl:visible xl:border-r xl:h-12 group-[5]:invisible border-[#efefef] group-last:invisible"></div> : null}
+              </div>
+            )
+          })
+        }
+      </div>
     </div>
   )
 }

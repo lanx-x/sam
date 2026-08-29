@@ -58,6 +58,9 @@
     },
     "success_page_tips": {
       "type": "string"
+    },
+    "title": {
+      "type": "string"
     }
   },
   "config": {}

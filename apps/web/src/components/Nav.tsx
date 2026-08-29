@@ -3,7 +3,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "@/components/Link";
-import { Assets } from "@/assets";
 import { getStrapiMedia } from "@/utils/strapi";
 import type { Navigation, Site } from "cms-types";
 import { getHref, withLocalePath } from "@/utils";
@@ -38,10 +37,11 @@ export function Nav(props: NavProps) {
     return () => observer.disconnect();
   }, []);
 
+
   return (
     <>
       <div ref={sentinelRef} className="h-0" />
-      <header className={`sticky top-0 z-40 transition-shadow duration-300 ${stuck ? 'shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]' : ''}`}>
+      <header className={`fixed inset-x-0 top-0 z-40 transition-shadow duration-300 ${stuck ? 'shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]' : ''}`}>
         <div className="block xl:hidden">
           <MobileNav {...props} />
         </div>
@@ -60,26 +60,33 @@ export function MobileNav(props: NavProps) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [menuTop, setMenuTop] = useState(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const navRef = useRef<HTMLElement>(null);
   const [openId, setOpenId] = useState<string | null>(null);
+  const [hasScrolled, setHasScrolled] = useState(true);
+
+  //useEffect(() => {
+  //  const update = () => setHasScrolled(window.scrollY > 0);
+  //  update();
+  //  window.addEventListener("scroll", update, { passive: true });
+  //  return () => window.removeEventListener("scroll", update);
+  //}, []);
 
   useEffect(() => {
-    if (isOpen) {
-      const navBottom = navRef.current?.getBoundingClientRect().bottom ?? 0;
-      setMenuTop(navBottom);
-      requestAnimationFrame(() => setVisible(true));
-      document.body.style.overflow = 'hidden';
-    } else {
-      setVisible(false);
-      document.body.style.overflow = '';
-    }
+    if (!isOpen) return;
+
+    document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
   const handleToggle = () => {
-    setIsOpen((current) => !current);
+    if (isOpen) {
+      setVisible(false);
+      setIsOpen(false);
+      return;
+    }
+
+    setIsOpen(true);
+    requestAnimationFrame(() => setVisible(true));
   };
 
   const closeMenu = useCallback(() => {
@@ -92,22 +99,47 @@ export function MobileNav(props: NavProps) {
 
   return (
     <div className="relative">
-      <nav ref={navRef} className="flex flex-row bg-white h-15 items-center px-5">
-        <Link href={withLocalePath(locale, "/")} className="flex items-center gap-2 shrink-0 flex-1">
-          <Image src={getStrapiMedia(siteData.logo_with_text) ?? ""} width={160} height={40} alt="logo" className="w-40 h-10 hidden xl:block" />
-          <Image src={getStrapiMedia(siteData.logo) ?? ""} width={40} height={40} alt="logo" className="w-10 h-10 xl:hidden" />
+      <nav className={`flex h-15 flex-row items-center px-5 transition-colors duration-300 ${hasScrolled ? "bg-white" : "bg-transparent"}`}>
+        <Link href={withLocalePath(locale, "/")} className="relative shrink-0 block h-8 w-23.5">
+          <Image
+            src={getStrapiMedia(siteData.logo) ?? ""}
+            width={94}
+            height={32}
+            alt="logo"
+            className={`absolute inset-0 h-8 w-23.5 transition-opacity duration-300 ${hasScrolled ? "opacity-0" : "opacity-100"}`}
+          />
+          <Image
+            src={getStrapiMedia(siteData.logo_secondary) ?? ""}
+            width={94}
+            height={32}
+            alt=""
+            aria-hidden="true"
+            className={`absolute inset-0 h-8 w-23.5 transition-opacity duration-300 ${hasScrolled ? "opacity-100" : "opacity-0"}`}
+          />
         </Link>
 
-        <button ref={buttonRef} type="button" aria-label={isOpen ? "Close menu" : "Open menu"} onClick={handleToggle}>
-          <Image src={isOpen ? Assets.Close : Assets.Menu} alt="" />
+        <button
+          ref={buttonRef}
+          type="button"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          onClick={handleToggle}
+          className="ml-auto flex h-9 w-9 flex-col items-center justify-center gap-1.5"
+        >
+          {[0, 1, 2].map((line) => (
+            <span
+              key={line}
+              className={`h-0.75 w-6 rounded-full transition-all duration-300 ${hasScrolled ? "bg-primary" : "bg-white"} ${isOpen && line === 0 ? "translate-y-2.25 rotate-45" : ""
+                } ${isOpen && line === 1 ? "opacity-0" : ""} ${isOpen && line === 2 ? "-translate-y-2.25 -rotate-45" : ""}`}
+            />
+          ))}
         </button>
       </nav>
 
       {
         isOpen && (
           <div
-            className="fixed inset-x-0 bottom-0 bg-[#111] z-50 transition-transform duration-300 ease-out"
-            style={{ top: menuTop, transform: visible ? 'translateY(0)' : 'translateY(100%)' }}
+            className="fixed inset-x-0 bottom-0 bg-[#efefef] z-50 transition-transform duration-300 ease-out"
+            style={{ top: '3.75rem', transform: visible ? 'translateY(0)' : 'translateY(100%)' }}
           >
             <div className="h-full overflow-y-auto overscroll-contain px-5 pb-8">
               {data?.value?.filter(xs => xs.type !== 'home')?.map((group, index) => (
@@ -115,7 +147,7 @@ export function MobileNav(props: NavProps) {
                   key={index}
                   className={`transition-all duration-300 ease-out ${visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
                   style={{ transitionDelay: visible ? `${index * 60}ms` : "0ms" }}>
-                  <button className="block font-medium w-full text-left h-16 text-base capitalize text-white" onClick={() => toggleGroup(String(group.id))}>
+                  <button className="block font-medium w-full text-left h-16 text-base capitalize text-primay" onClick={() => toggleGroup(String(group.id))}>
                     {group.type === 'about' ? <Link href={withLocalePath(locale, getHref(group))} onClick={closeMenu}>{group.name}</Link> : group.name}
                   </button>
 
@@ -128,12 +160,12 @@ export function MobileNav(props: NavProps) {
                           {
                             group.children?.map(nested => (
                               <div key={nested.id} className="">
-                                <h4 className="text-base text-white font-medium h-16 leading-16 px-5 border-b border-[#333]">{nested.name}</h4>
+                                <h4 className="text-base text-primary font-medium h-16 leading-16 px-5 border-b border-[#bfbfbf]">{nested.name}</h4>
                                 <div>
                                   {
-                                    nested.children?.map((child, childIdx) => (
+                                    nested.children?.map((child) => (
                                       <Link
-                                        className="block text-white h-12 leading-12 px-5"
+                                        className="block text-primary h-12 leading-12 px-5"
                                         target={nested.target_type === 'external_url' ? '_blank' : ''}
                                         key={child.id}
                                         href={(nested.type === 'Industries' && child.target_type === 'industry' && child.industry) ? buildDynamicDetailPath(locale, "industry", child.industry) : withLocalePath(locale, getHref(child))}
@@ -150,9 +182,9 @@ export function MobileNav(props: NavProps) {
                       )}
 
                       {['capabilities', 'resources'].includes(group.type!) &&
-                        group.children?.map((child, childIdx) => (
+                        group.children?.map((child) => (
                           <Link target={child.target_type === 'external_url' ? '_blank' : ''} key={child.id} className="h-12 flex items-center" href={withLocalePath(locale, getHref(child))} onClick={closeMenu}>
-                            <p className="pl-5 font-sm text-white">{child.name}</p>
+                            <p className="pl-5 font-sm text-primary">{child.name}</p>
                           </Link>
                         ))
                       }
@@ -176,6 +208,14 @@ export function DesktopNav(props: NavProps) {
   const [openKey, setOpenKey] = useState<string | null>(null);
   const [activeChild, setActiveChild] = useState(-1);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const update = () => setHasScrolled(window.scrollY > 0);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   const open = useCallback((key: string) => {
     clearTimeout(timer.current);
@@ -197,28 +237,54 @@ export function DesktopNav(props: NavProps) {
 
   return (
     <div>
-      <nav className="bg-white h-15" onMouseLeave={scheduleClose}>
-        <div className="flex items-center h-full xl:w-7xl xl:mx-auto">
-          <Link href={withLocalePath(locale, "/")} className="flex items-center gap-2 shrink-0">
-            <Image src={Assets.Logo} width={40} height={40} alt="logo" className="w-10 h-10" />
-            <Image src={Assets.LogoText} width={96} height={14} alt="" className="w-26.25 h-3.5 hidden sm:block" />
+      <nav
+        className={`h-15 z-999 transition-colors duration-300 ${hasScrolled ? "bg-white" : "bg-transparent"}`}
+        onMouseLeave={scheduleClose}
+      >
+        <div className="flex items-center h-full xl:mx-30">
+          <Link href={withLocalePath(locale, "/")} className="relative flex h-8 w-23.5 shrink-0 items-center">
+            <Image
+              src={getStrapiMedia(siteData.logo) ?? ""}
+              width={94}
+              height={32}
+              alt="logo"
+              className={`absolute inset-0 h-8 w-23.5 transition-opacity duration-300 ${hasScrolled ? "opacity-0" : "opacity-100"}`}
+            />
+            <Image
+              src={getStrapiMedia(siteData.logo_secondary) ?? ""}
+              width={94}
+              height={32}
+              alt=""
+              aria-hidden="true"
+              className={`absolute inset-0 h-8 w-23.5 transition-opacity duration-300 ${hasScrolled ? "opacity-100" : "opacity-0"}`}
+            />
           </Link>
 
           {/* Desktop links */}
-          <div className={`hidden xl:flex items-center gap-15 ml-auto ${props.showLogoOnly ? 'xl:hidden' : ''}`}>
+          <div className={`hidden xl:flex items-center h-full ml-auto ${props.showLogoOnly ? 'xl:hidden' : ''}`}>
             {groups.map((item, idx) => {
               const href = getHref(item);
               const hasChildren = item.children && item.children.length > 0;
               const isActive = openKey === item.name;
 
+              const borderStyle = isActive ? "border-accent bg-[#efefef]" : "border-transparent"
+              const fontStyle = isActive
+                ? "text-accent font-medium"
+                : `${hasScrolled ? "text-primary" : "text-white"} hover:text-accent hover:font-medium`
+
               return (
-                <Link
+                <div
                   key={idx}
-                  href={href ? withLocalePath(locale, href) : "#"}
-                  className={`text-sm leading-none transition-colors duration-300 ${isActive ? "text-accent font-medium" : "text-primary hover:text-accent"}`}
-                  {...(hasChildren && item.name ? { onMouseEnter: () => open(item.name!) } : {})}>
-                  {item.name}
-                </Link>
+                  className={`h-full flex items-center justify-center transition-colors duration-300 min-w-33.5 hover:border-accent border-t-4 border-solid ${borderStyle} cursor-pointer`}
+                  {...(hasChildren && item.name ? { onMouseEnter: () => open(item.name!) } : {})}
+                >
+
+                  <Link
+                    href={href ? withLocalePath(locale, href) : "#"}
+                    className={`text-sm leading-none transition-colors duration-300 ${fontStyle}`}>
+                    {item.name}
+                  </Link>
+                </div>
               )
             })}
 
@@ -239,7 +305,7 @@ export function DesktopNav(props: NavProps) {
           return (
             <div
               key={idx}
-              className="absolute inset-x-0 top-full z-30 transition-opacity duration-200 ease-out"
+              className="absolute inset-x-0 top-full z-30 transition-opacity duration-300 ease-out"
               style={{
                 // opacity: openKey === group.name ? 1 : 0,
                 // pointerEvents: openKey === group.name ? "auto" : "none",
@@ -251,111 +317,67 @@ export function DesktopNav(props: NavProps) {
             // onMouseEnter={() => { cancelClose(); debugger }}
             // onMouseLeave={scheduleClose}
             >
-              <div className="bg-[#111]">
+              <div className="bg-[#efefef] min-h-120">
                 <div className="xl:w-7xl xl:mx-auto">
 
 
                   {/* Capabilities. */}
                   {group.type === 'capabilities' && (
-                    <div className="grid grid-cols-[440px_1fr] gap-10">
-                      <div className="flex flex-col border-r py-10 pr-10 border-[#333]">
-                        <div className="flex-1">
-                          {group.title && <h3 className="text-lg font-medium text-white mb-5">{group.title}</h3>}
-                          {group.desc && <p className="text-[rgba(255,255,255,0.6)] text-sm">{group.desc}</p>}
-                        </div>
+                    <div className="grid grid-cols-4 gap-5 pt-15 pb-28.5">
 
-                        {/* Featured image */}
-                        {group.featured_news && (
-                          <Link onClick={close} href={buildDynamicDetailPath(locale, "news", group.featured_news)} className="relative block py-4 px-5 h-40 w-100 rounded-lg overflow-hidden">
-                            <Image src={getStrapiMedia(group.children[activeChild]?.image ?? "") || Assets.Banner} fill alt="" className="object-cover" />
+                      {group.children?.map((child, childIdx) => {
+                        const href = withLocalePath(locale, getHref(child))
 
-                            <h4 className="relative z-10 text-lg text-white font-medium m-w-45">{group.featured_news?.title}</h4>
-
-                            <Image src={Assets.NavFeaturedArrow} alt="arrow" width={22} height={22} className="absolute z-10 w-5.5. h-5 left-5 bottom-5" />
+                        return (
+                          <Link
+                            key={childIdx}
+                            href={href}
+                            className={`group block`}
+                            onMouseEnter={() => setActiveChild(childIdx)}
+                            onClick={close}
+                          >
+                            <h4 className="text-2xl font-medium text-primary">{child.name}</h4>
+                            <div className="w-76.25 h-45 relative mt-6 mb-5 overflow-hidden">
+                              <Image alt="icon" src={getStrapiMedia(child.image) ?? ""} fill className="object-cover group-hover:scale-120 transition-transform duration-300" />
+                            </div>
+                            <p className="text-base leading-4.5 text-primary/66">{child.desc} </p>
                           </Link>
-                        )}
-                      </div>
-
-                      {/* Right - children items */}
-                      <div className="py-10">
-                        {group.children?.map((child, childIdx) => {
-                          const href = withLocalePath(locale, getHref(child))
-
-                          return (
-                            <Link
-                              key={childIdx}
-                              href={href}
-                              className={`group block mb-1 last:mb-0 h-30 p-5 transition-colors ${activeChild === childIdx ? "bg-primary" : "hover:bg-primary"} transition-colors duration-300 `}
-                              onMouseEnter={() => setActiveChild(childIdx)}
-                              onClick={close}
-                            >
-                              <div className="w-full flex flex-row gap-3 items-center">
-                                {
-                                  child.icon && <div className="relative w-8 h-8 aspect-square shrink-0">
-                                    <Image src={getStrapiMedia(child.icon) ?? ""} alt="" className="object-cover" fill />
-                                  </div>
-                                }
-                                <h4 className="text-lg font-medium text-white">{child.name}</h4>
-                              </div>
-                              {child.desc && <div className="pl-11 mt-2">
-                                <p className="text-sm leading-4.5 text-white/66">{child.desc} </p>
-                              </div>
-                              }
-                            </Link>
-                          );
-                        })}
-                      </div>
+                        );
+                      })}
                     </div>
                   )
                   }
 
                   {/* Solutions. */}
                   {group.type === 'solutions' && (
-                    <div className="grid grid-cols-[240px_1fr_400px]">
-                      <div className="border-r border-r-[#333] py-10 pr-10">
-                        <h3 className="text-lg leading-none mb-5 font-medium text-white">{getChild('LW Solutions', group)?.name}</h3>
-                        <p className="text-white/66 leading-4.5">{getChild('LW Solutions', group)?.desc}</p>
+                    <div className="grid grid-cols-[1fr_400px] py-10">
+
+                      <div className="">
+                        <h3 className="text-lg leading-none mb-10 font-medium text-accent">{getChild('Application', group)?.name}</h3>
+                        <div className="grid grid-cols-2 gap-y-8 gap-x-46">
+                          {getChild('Application', group)?.children?.map((child, childIdx) => {
+                            return (
+                              <Link
+                                key={childIdx}
+                                href={withLocalePath(locale, getHref(child))}
+                                className={`group block transition-colors ${activeChild === childIdx ? "text-accent" : "hover:text-accent"} transition-colors duration-300 `}
+                                onMouseEnter={() => setActiveChild(childIdx)}
+                                onClick={close}
+                              >
+                                <h4 className="text-lg font-medium">{child.name}</h4>
+                              </Link>
+                            );
+                          })}
+                        </div>
                       </div>
 
-                      <div className="p-10">
-                        {getChild('LW Solutions', group)?.children?.map((child, childIdx) => {
-                          return (
-                            <Link
-                              key={childIdx}
-                              href={withLocalePath(locale, getHref(child))}
-                              className={`group block mb-1 last:mb-0 h-30 p-5 transition-colors ${activeChild === childIdx ? "bg-primary" : "hover:bg-primary"} transition-colors duration-300 `}
-                              onMouseEnter={() => setActiveChild(childIdx)}
-                              onClick={close}
-                            >
-                              <div className="w-full flex flex-row gap-3 items-center">
-                                {
-                                  child.icon && <div className="relative w-8 h-8 aspect-square shrink-0">
-                                    <Image src={getStrapiMedia(child.icon) ?? ""} alt="" className="object-cover" fill />
-                                  </div>
-                                }
-                                <h4 className="text-lg font-medium text-white">{child.name}</h4>
-                              </div>
-                              {child.desc && <div className="pl-11 mt-2">
-                                <p className="text-sm leading-4.5 text-white/66">{child.desc} </p>
-                              </div>
-                              }
-                            </Link>
-                          );
-                        })}
-                      </div>
-
-                      <div className="border-l border-[#333] py-10 pl-6">
-                        <h3 className="text-accent text-lg font-medium pl-4">{getChild('Industries', group)?.name}</h3>
-                        <div className="mt-0.5">
+                      <div className="border-l border-[#dfdfdf] pl-10">
+                        <h3 className="text-accent text-lg mb-10 font-medium leading-none">{getChild('Industries', group)?.name}</h3>
+                        <div className="">
                           {
-                            getChild('Industries', group)?.children?.map((xs, idx) => (
-                              <Link key={xs.id} href={buildDynamicDetailPath(locale, "industry", xs.industry!)} className="group block mb-1 last-mb-0 h-16 pl-4 hover:bg-primary transition-colors duration-300" onClick={close}>
-                                <div className="flex flex-row items-center gap-2 h-full">
-                                  <div className="relative w-8 h-8">
-                                    <Image fill className="object-cover" alt="" src={getStrapiMedia(xs.icon) ?? ""} />
-                                  </div>
-                                  <p className="text-lg text-white font-medium">{xs.name}</p>
-                                </div>
+                            getChild('Industries', group)?.children?.map((xs) => (
+                              <Link key={xs.id} href={buildDynamicDetailPath(locale, "industry", xs.industry!)} className="group block  hover:text-accent transition-colors duration-300" onClick={close}>
+                                <h4 className="text-lg font-medium">{xs.name}</h4>
                               </Link>
 
                             ))
@@ -370,28 +392,19 @@ export function DesktopNav(props: NavProps) {
 
                   {/* Resources. */}
                   {group.type === 'resources' && (
-                    <div className="flex flex-row items-start">
-                      <div className="py-10 pr-10 flex-1 grid grid-cols-3 gap-5">
-                        {
-                          group.children?.map((child, childIdx) => (
-                            <Link key={child.id} target={child.target_type === 'external_url' ? '_blank' : ""} href={withLocalePath(locale, getHref(child))} className="block min-h-40 w-75 py-4 px-5 hover:bg-primary group transition-colors duration-300" onClick={close}>
-                              <div className="relative w-8 h-8 group-hover:bg-accent/33 rounded-sm overflow-hidden flex items-center justify-center transition-colors duration-300">
-                                <Image src={getStrapiMedia(child.icon) ?? ""} alt="" width={24} height={24} className="absolute object-cover w-6 aspect-square opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-                                <Image src={getStrapiMedia(child.alt_icon) ?? getStrapiMedia(child.icon) ?? ""} alt="" width={24} height={24} className="absolute object-cover w-6 aspect-square transition-opacity duration-300 opacity-0 group-hover:opacity-100" />
-                              </div>
+                    <div className="grid grid-cols-3 gap-10 py-15">
+                      {
+                        group.children?.map((child) => (
+                          <Link key={child.id} target={child.target_type === 'external_url' ? '_blank' : ""} href={withLocalePath(locale, getHref(child))} className="block w-100 group duration-300" onClick={close}>
+                            <h3 className="text-2xl text-primary font-medium leading-none">{child.name}</h3>
+                            <div className="relative mt-6 mb-5 w-100 h-60 overflow-hidden">
+                              <Image alt="icon" src={getStrapiMedia(child.image) ?? ""} fill className="object-cover transition-transform group-hover:scale-120 duration-300" />
+                            </div>
+                            <p className="text-sm text-primary/66 leading-4.5">{child.desc}</p>
 
-                              <h3 className="text-lg text-white font-medium leading-none mt-5 mb-2">{child.name}</h3>
-                              <p className="text-sm text-white/66 leading-4.5">{child.desc}</p>
-
-                            </Link>
-                          ))
-                        }
-
-                      </div>
-
-                      <div className="min-h-140 relative w-80">
-                        <Image src={getStrapiMedia(group?.image) ?? ""} alt="" fill className="object-cover" />
-                      </div>
+                          </Link>
+                        ))
+                      }
                     </div>
                   )
                   }
@@ -403,7 +416,7 @@ export function DesktopNav(props: NavProps) {
                       <div>
                         <div className="grid grid-cols-2 gap-5">
                           {
-                            group.children?.map((child, childIdx) => (
+                            group.children?.map((child) => (
                               <Link key={child.id} href={withLocalePath(locale, getHref(child))} className="block p-5 hover:bg-primary transition-colors duration-300" onClick={close}>
                                 <h3 className="mb-2 text-lg text-white font-medium leading-none">{child.name}</h3>
                                 <p className="text-sm text-white/66 leading-4.5">{child.desc}</p>
