@@ -258,11 +258,12 @@ export default async function CatchAllPage({ params, searchParams }: { params: P
   }
 
   const pageSlug = ['/', ...slug].join('/').replace(/^\/\//, '/');
+  const isHome = slug.length === 0;
   const isFormGetQuote = pageSlug.includes('get-quote');
 
   return (
     <>
-      <Nav data={navData} siteData={siteData} locale={locale} showLogoOnly={isFormGetQuote} />
+      <Nav data={navData} siteData={siteData} locale={locale} showLogoOnly={isFormGetQuote} isHome={isHome} />
       {
         pageData.content?.map((section, idx) => {
           const rendererName = section.payload?.renderer?.cmp;

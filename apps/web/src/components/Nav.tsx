@@ -20,13 +20,17 @@ type NavProps = {
   siteData: Site,
   locale: string
   showLogoOnly: boolean
+  isHome: boolean
 }
 
 export function Nav(props: NavProps) {
+  const { isHome } = props;
   const [stuck, setStuck] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!isHome) return;
+
     const el = sentinelRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
@@ -35,13 +39,13 @@ export function Nav(props: NavProps) {
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [isHome]);
 
 
   return (
     <>
-      <div ref={sentinelRef} className="h-0" />
-      <header className={`fixed inset-x-0 top-0 z-40 transition-shadow duration-300 ${stuck ? 'shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]' : ''}`}>
+      {isHome && <div ref={sentinelRef} className="h-0" />}
+      <header className={`${isHome ? "fixed inset-x-0 top-0" : "relative"} z-40 transition-shadow duration-300 ${isHome && stuck ? 'shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]' : ''}`}>
         <div className="block xl:hidden">
           <MobileNav {...props} />
         </div>
@@ -56,20 +60,22 @@ export function Nav(props: NavProps) {
 
 
 export function MobileNav(props: NavProps) {
-  const { data, siteData, locale } = props;
+  const { data, siteData, locale, isHome } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [openId, setOpenId] = useState<string | null>(null);
-  const [hasScrolled, setHasScrolled] = useState(true);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
-  //useEffect(() => {
-  //  const update = () => setHasScrolled(window.scrollY > 0);
-  //  update();
-  //  window.addEventListener("scroll", update, { passive: true });
-  //  return () => window.removeEventListener("scroll", update);
-  //}, []);
+  useEffect(() => {
+    if (!isHome) return;
+
+    const update = () => setHasScrolled(window.scrollY > 0);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, [isHome]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -97,16 +103,18 @@ export function MobileNav(props: NavProps) {
     setOpenId((current) => current === id ? null : id);
   }
 
+  const useScrolledStyles = !isHome || hasScrolled;
+
   return (
     <div className="relative">
-      <nav className={`flex h-15 flex-row items-center px-5 transition-colors duration-300 ${hasScrolled ? "bg-white" : "bg-transparent"}`}>
+      <nav className={`flex h-15 flex-row items-center px-5 transition-colors duration-300 ${useScrolledStyles ? "bg-white" : "bg-transparent"}`}>
         <Link href={withLocalePath(locale, "/")} className="relative shrink-0 block h-8 w-23.5">
           <Image
             src={getStrapiMedia(siteData.logo) ?? ""}
             width={94}
             height={32}
             alt="logo"
-            className={`absolute inset-0 h-8 w-23.5 transition-opacity duration-300 ${hasScrolled ? "opacity-0" : "opacity-100"}`}
+            className={`absolute inset-0 h-8 w-23.5 transition-opacity duration-300 ${useScrolledStyles ? "opacity-0" : "opacity-100"}`}
           />
           <Image
             src={getStrapiMedia(siteData.logo_secondary) ?? ""}
@@ -114,7 +122,7 @@ export function MobileNav(props: NavProps) {
             height={32}
             alt=""
             aria-hidden="true"
-            className={`absolute inset-0 h-8 w-23.5 transition-opacity duration-300 ${hasScrolled ? "opacity-100" : "opacity-0"}`}
+            className={`absolute inset-0 h-8 w-23.5 transition-opacity duration-300 ${useScrolledStyles ? "opacity-100" : "opacity-0"}`}
           />
         </Link>
 
@@ -128,7 +136,7 @@ export function MobileNav(props: NavProps) {
           {[0, 1, 2].map((line) => (
             <span
               key={line}
-              className={`h-0.75 w-6 rounded-full transition-all duration-300 ${hasScrolled ? "bg-primary" : "bg-white"} ${isOpen && line === 0 ? "translate-y-2.25 rotate-45" : ""
+              className={`h-0.75 w-6 rounded-full transition-all duration-300 ${useScrolledStyles ? "bg-primary" : "bg-white"} ${isOpen && line === 0 ? "translate-y-2.25 rotate-45" : ""
                 } ${isOpen && line === 1 ? "opacity-0" : ""} ${isOpen && line === 2 ? "-translate-y-2.25 -rotate-45" : ""}`}
             />
           ))}
@@ -203,7 +211,7 @@ export function MobileNav(props: NavProps) {
 
 
 export function DesktopNav(props: NavProps) {
-  const { data, siteData, locale } = props;
+  const { data, siteData, locale, isHome } = props;
   const groups = data.value ?? [];
   const [openKey, setOpenKey] = useState<string | null>(null);
   const [activeChild, setActiveChild] = useState(-1);
@@ -211,11 +219,13 @@ export function DesktopNav(props: NavProps) {
   const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
+    if (!isHome) return;
+
     const update = () => setHasScrolled(window.scrollY > 0);
     update();
     window.addEventListener("scroll", update, { passive: true });
     return () => window.removeEventListener("scroll", update);
-  }, []);
+  }, [isHome]);
 
   const open = useCallback((key: string) => {
     clearTimeout(timer.current);
@@ -235,10 +245,12 @@ export function DesktopNav(props: NavProps) {
     setOpenKey(null);
   }, []);
 
+  const useScrolledStyles = !isHome || hasScrolled;
+
   return (
     <div>
       <nav
-        className={`h-15 z-999 transition-colors duration-300 ${hasScrolled ? "bg-white" : "bg-transparent"}`}
+        className={`h-15 z-999 transition-colors duration-300 ${useScrolledStyles ? "bg-white" : "bg-transparent"}`}
         onMouseLeave={scheduleClose}
       >
         <div className="flex items-center h-full xl:mx-30">
@@ -248,7 +260,7 @@ export function DesktopNav(props: NavProps) {
               width={94}
               height={32}
               alt="logo"
-              className={`absolute inset-0 h-8 w-23.5 transition-opacity duration-300 ${hasScrolled ? "opacity-0" : "opacity-100"}`}
+              className={`absolute inset-0 h-8 w-23.5 transition-opacity duration-300 ${useScrolledStyles ? "opacity-0" : "opacity-100"}`}
             />
             <Image
               src={getStrapiMedia(siteData.logo_secondary) ?? ""}
@@ -256,7 +268,7 @@ export function DesktopNav(props: NavProps) {
               height={32}
               alt=""
               aria-hidden="true"
-              className={`absolute inset-0 h-8 w-23.5 transition-opacity duration-300 ${hasScrolled ? "opacity-100" : "opacity-0"}`}
+              className={`absolute inset-0 h-8 w-23.5 transition-opacity duration-300 ${useScrolledStyles ? "opacity-100" : "opacity-0"}`}
             />
           </Link>
 
@@ -270,7 +282,7 @@ export function DesktopNav(props: NavProps) {
               const borderStyle = isActive ? "border-accent bg-[#efefef]" : "border-transparent"
               const fontStyle = isActive
                 ? "text-accent font-medium"
-                : `${hasScrolled ? "text-primary" : "text-white"} hover:text-accent hover:font-medium`
+                : `${useScrolledStyles ? "text-primary" : "text-white"} hover:text-accent hover:font-medium`
 
               return (
                 <div

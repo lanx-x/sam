@@ -56,6 +56,9 @@ import { AboutSAM } from "./AboutSAM";
 import { MoldMaking } from "./MoldMaking";
 import { MoldProcessCarousel } from "./MoldProcessCarousel";
 import { ProductionVideoCarousel } from "./ProductionVideoCarousel";
+import { CommonList } from "./CommonList";
+import { CheckList } from "./CheckList";
+import { CrossList } from "./CrossList";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -122,5 +125,10 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   MoldMaking,
   MoldProcessCarousel,
   ProductionVideoCarousel,
+
+
+  CommonList,
+  CheckList,
+  CrossList,
 
 }

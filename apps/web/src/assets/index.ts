@@ -8,6 +8,7 @@ import Dot from "./dot.png";
 import IconArrow2 from "./icon_arrow_2.png";
 import IconArrow from "./icon_arrow.png";
 import IconPlay from "./icon_play.png";
+import IconCheck from "./icon-check.svg";
 import Map from "./map.png";
 import Menu from "./menu.svg";
 import Minus from "./minus.svg";
@@ -21,6 +22,7 @@ export const Assets = {
   IconArrow2,
   IconArrow,
   IconPlay,
+  IconCheck,
   Map,
   Menu,
   Minus,

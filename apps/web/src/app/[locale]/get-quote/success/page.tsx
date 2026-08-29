@@ -47,7 +47,7 @@ export default async function GetQuoteSuccessPage({
 
   return (
     <>
-      <Nav data={navData} siteData={siteData} locale={locale} showLogoOnly />
+      <Nav data={navData} siteData={siteData} locale={locale} showLogoOnly isHome={false} />
       <GetQuoteSuccess
         title={displayText?.success_page_title}
         tips={displayText?.success_page_tips}
