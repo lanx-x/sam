@@ -66,7 +66,7 @@ export function Gallery({ section }: CmpProps) {
   return (
     <div id="team">
       <Section
-        className="bg-[#f0f7fe] py-10 xl:py-20"
+        className="py-10 xl:py-20"
         title={section.payload?.title!}
         desc={section.payload?.desc!}>
         {/* Mobile: 2x3 grouped carousel */}
@@ -82,7 +82,7 @@ export function Gallery({ section }: CmpProps) {
                           src={getStrapiMedia(img) ?? ""}
                           alt=""
                           fill
-                          className="object-cover transition-transform duration-300 hover:scale-105"
+                          className="object-cover transition-transform duration-300 hover:scale-120"
                           sizes="(max-width: 1279px) 50vw"
                         />
                       </div>

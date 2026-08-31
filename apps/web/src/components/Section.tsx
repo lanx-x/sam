@@ -32,7 +32,7 @@ export function Section(props: PropsWithChildren<SectionProps>) {
 
 export function SectionContainer(props: PropsWithChildren<{ className?: string }>) {
   return (
-    <div className={`xl:w-420 xl:mx-auto ${props.className}`}>
+    <div className={`xl:mx-auto ${props.className}`}>
       {props.children}
     </div>
   )

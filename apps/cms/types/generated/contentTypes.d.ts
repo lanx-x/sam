@@ -729,6 +729,12 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    brand: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     category: Schema.Attribute.Relation<
       'oneToOne',
       'api::equipment-category.equipment-category'
@@ -772,6 +778,12 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::equipment.equipment'
     >;
+    model: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -794,6 +806,12 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
+    specification: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

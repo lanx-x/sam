@@ -61,6 +61,10 @@ import { CheckList } from "./CheckList";
 import { CrossList } from "./CrossList";
 import { CommonListWithIcon } from "./CommonListWithIcon";
 import { CaseCarousel } from "./CaseCarousel";
+import { PlainSection } from "./PlainText";
+import { FeaturedMoldCase } from "./FeaturedMoldCase";
+import { AboutSAMWithStats } from "./AboutSAMWithStats";
+import { GlobalCustomers } from "./GlobalCustomers";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -134,5 +138,8 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   CheckList,
   CrossList,
   CaseCarousel,
-
+  PlainSection,
+  FeaturedMoldCase,
+  AboutSAMWithStats,
+  GlobalCustomers,
 }

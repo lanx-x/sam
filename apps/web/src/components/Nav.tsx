@@ -45,7 +45,8 @@ export function Nav(props: NavProps) {
   return (
     <>
       {isHome && <div ref={sentinelRef} className="h-0" />}
-      <header className={`${isHome ? "fixed inset-x-0 top-0" : "relative"} z-40 transition-shadow duration-300 ${isHome && stuck ? 'shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]' : ''}`}>
+      {!isHome && <div aria-hidden="true" className="h-15" />}
+      <header className={`fixed inset-x-0 top-0 z-40 transition-shadow duration-300 ${!isHome || stuck ? 'shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]' : ''}`}>
         <div className="block xl:hidden">
           <MobileNav {...props} />
         </div>

@@ -8,11 +8,9 @@ export async function FeaturedFAQ({ section, documentId, slug, locale }: CmpProp
   const api = createLocalizedApi(locale);
   const extension = mergeExtension(section)
   const bg_variant = extension?.bg_variant?.value === 'gray' ? 'bg-[#fafafa]' : 'bg-white'
+  const variant = extension?.variant?.value ?? 't0'
 
   let faqs = (section.payload?.dynamic?.[0] as any)?.faqs as FAQ[] ?? []
-
-  console.log("DESC", section?.payload?.desc)
-
 
   if (extension.basedOnId?.value === 'true') {
     if (slug.join('/').includes('resources/material')) {
@@ -29,5 +27,6 @@ export async function FeaturedFAQ({ section, documentId, slug, locale }: CmpProp
     title={section?.payload?.title ?? ''}
     desc={section?.payload?.desc ?? ''}
     faqs={faqs}
-    bg_variant={bg_variant} />
+    variant={variant}
+  />
 }

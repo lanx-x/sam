@@ -50,12 +50,12 @@
     },
     "content": {
       "type": "customField",
-      "customField": "plugin::better-blocks.better-blocks",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "customField": "plugin::better-blocks.better-blocks"
     },
     "parameter": {
       "type": "component",
@@ -102,6 +102,30 @@
         }
       },
       "default": 0
+    },
+    "brand": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "specification": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "model": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

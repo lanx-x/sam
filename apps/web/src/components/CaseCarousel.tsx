@@ -25,7 +25,7 @@ export function CaseCarousel({ section }: CmpProps) {
   return (
     <div className="my-15 xl:my-20 xl:mx-auto xl:w-7xl relative">
       <div className="flex flex-row items-center mx-5 mb-8">
-        <h2 className="text-2xl font-medium xl:text-5xl/20 after:block after:w-20 after:h-1.5 after:bg-accent after:mt-2">{payload.title}</h2>
+        <h2 className="text-2xl font-semibold xl:text-5xl/20 after:block after:w-20 after:h-1.5 after:bg-accent after:mt-2">{payload.title}</h2>
         <div className="gap-3 flex-row hidden xl:flex ml-auto">
           <button className="w-12 h-12 relative" onClick={() => emblaApi?.goToPrev()}>
             <Image alt="icon-left" src={Assets.BlackArrowL} fill className="object-cover" />

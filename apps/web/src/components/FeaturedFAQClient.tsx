@@ -11,19 +11,22 @@ import { createLocalizedApi } from "@/api";
 
 export function FeaturedFAQClient({
   faqs,
-  bg_variant,
+  variant,
   title,
   desc
-}: { faqs: FAQ[], bg_variant: string, title: string, desc: string }) {
+}: { faqs: FAQ[], variant: string, title: string, desc: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className={`py-10 xl:py-20 ${bg_variant} xl:mx-30`}>
+    <div className={`py-10 xl:py-20 xl:mx-30 ${variant === 't1' ? 'xl:w-7xl xl:mx-auto' : ''}`}>
       <div className="w-full flex flex-col text-center xl:text-left xl:flex-row">
-        <div className="shrink-0 xl:mr-42.5 xl:w-76.75">
-          <h2 className="px-5 xl:px-0 section-title">{title}</h2>
-          <p className="px-5 xl:px-0 section-desc">{desc}</p>
-        </div>
+        {
+          variant === 't0' &&
+          <div className="shrink-0 xl:mr-42.5 xl:w-76.75">
+            <h2 className="px-5 xl:px-0 section-title">{title}</h2>
+            <p className="px-5 xl:px-0 section-desc">{desc}</p>
+          </div>
+        }
 
         <div className="px-5 text-left mt-10 flex-1 xl:mt-0 xl:px-0">
           {

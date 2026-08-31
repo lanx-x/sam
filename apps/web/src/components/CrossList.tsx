@@ -20,7 +20,7 @@ export function CrossList({ section }: CmpProps) {
 
   return (
     <div className={`px-5 xl:px-0 xl:w-7xl xl:mx-auto ${variant === 't1' ? 'pb-20' : 'py-20'}`}>
-      <h2 className="text-3xl font-semibold text-center">{payload.title}</h2>
+      <h2 className="text-3xl font-semibold text-center xl:text-5xl">{payload.title}</h2>
 
       <div className="mt-10 flex flex-col gap-10 xl:gap-25">
         {
