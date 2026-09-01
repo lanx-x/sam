@@ -89,7 +89,7 @@ export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale;
         <div className="flex flex-col py-4 xl:py-0 xl:flex-row xl:items-center px-5 xl:px-0 xl:w-7xl xl:mx-auto xl:h-10">
           {/* Broadcast carousel */}
           <div className="pr-20 mb-1 xl:mb-0 xl:max-w-230 flex xl:flex-row items-center w-full overflow-hidden">
-            <Image className="w-4 h-4 mr-2 shrink-0" src={Assets.Broadcast} alt="broadcast" width={20} height={20} />
+            <Image className="w-4 h-4 mr-2 shrink-0" src={""} alt="broadcast" width={20} height={20} />
             <div className="flex-1 h-5 overflow-hidden" ref={emblaRef}>
               <div className="flex h-full flex-col">
                 {items.map((item) => (
@@ -110,7 +110,7 @@ export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale;
           <div className="flex flex-row  xl:ml-auto">
             {email && (
               <div className="flex flex-row items-center">
-                <Image className="w-4 h-4 mr-2" src={Assets.Mail} alt="mail" width={20} height={20} />
+                <Image className="w-4 h-4 mr-2" src={""} alt="mail" width={20} height={20} />
                 <a href={`mailto:${email}`} className="hover:text-accent transition-colors">{email}</a>
               </div>
             )}
@@ -126,7 +126,7 @@ export function Broadcast(props: { currentLocale: Locale; defaultLocale: Locale;
                 className="flex flex-row items-center"
                 onClick={() => setLocaleOpen((c) => !c)}
               >
-                <Image className="w-4 h-4 mr-1" src={Assets.Locale} alt="locale" />
+                <Image className="w-4 h-4 mr-1" src={""} alt="locale" />
                 <span>{currentLocaleOption?.name ?? currentLocale}</span>
                 <svg className="w-3 h-3 ml-1" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,4 6,8 10,4" /></svg>
               </button>

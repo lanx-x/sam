@@ -899,6 +899,12 @@ export interface ApiEquipmentEquipment extends Struct.CollectionTypeSchema {
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
+    qty: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     specification: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

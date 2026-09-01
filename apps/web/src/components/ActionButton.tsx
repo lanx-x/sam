@@ -1,7 +1,10 @@
+"use client";
+
 import { cn } from "@/utils/cn";
 import { withLocalePath } from "@/utils";
 import type { Action } from "cms-types";
 import Link from "next/link";
+import { useGetQuoteDialog } from "./GetQuoteDialog";
 
 type ActionButtonProps = {
   action: Action;
@@ -10,6 +13,7 @@ type ActionButtonProps = {
 };
 
 export function ActionButton({ action, className, locale }: ActionButtonProps) {
+  const { open } = useGetQuoteDialog();
   const { label, target_type, target_url } = action;
   const classes = cn(
     "h-13 px-4 rounded-sm text-white bg-accent font-medium truncate flex items-center justify-center",
@@ -31,8 +35,7 @@ export function ActionButton({ action, className, locale }: ActionButtonProps) {
         </Link>
       );
     case 'popup':
-      // TODO: implement toast
-      return <button className={classes}>{label}</button>;
+      return <button type="button" className={classes} onClick={open}>{label}</button>;
     default:
       return <button className={classes}>{label}</button>;
   }

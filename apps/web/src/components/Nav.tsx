@@ -23,6 +23,7 @@ type NavProps = {
   isHome: boolean
   applications: Application[]
   industries: Industry[]
+  scrolled?: boolean
 }
 
 export function Nav(props: NavProps) {
@@ -46,11 +47,11 @@ export function Nav(props: NavProps) {
 
   return (
     <>
-      {isHome && <div ref={sentinelRef} className="h-0" />}
+      {isHome && <div ref={sentinelRef} aria-hidden="true" className="-mb-px h-px" />}
       {!isHome && <div aria-hidden="true" className="h-15" />}
       <header className={`fixed inset-x-0 top-0 z-40 transition-shadow duration-300 ${!isHome || stuck ? 'shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]' : ''}`}>
         <div className="block xl:hidden">
-          <MobileNav {...props} />
+          <MobileNav {...props} scrolled={stuck} />
         </div>
 
         <div className="hidden xl:block">
@@ -63,7 +64,7 @@ export function Nav(props: NavProps) {
 
 
 export function MobileNav(props: NavProps) {
-  const { data, siteData, locale, isHome, applications, industries } = props;
+  const { data, siteData, locale, isHome, applications, industries, scrolled = false } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -74,10 +75,27 @@ export function MobileNav(props: NavProps) {
   useEffect(() => {
     if (!isHome) return;
 
-    const update = () => setHasScrolled(window.scrollY > 0);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
+    const updateScrollState = (event?: Event) => {
+      const target = event?.target;
+      const targetScrollTop = target instanceof HTMLElement ? target.scrollTop : 0;
+      const scrollTop = Math.max(
+        window.scrollY,
+        document.documentElement.scrollTop,
+        document.body.scrollTop,
+        targetScrollTop,
+      );
+
+      setHasScrolled(scrollTop > 0);
+    };
+
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    document.addEventListener("scroll", updateScrollState, { capture: true, passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollState);
+      document.removeEventListener("scroll", updateScrollState, { capture: true });
+    };
   }, [isHome]);
 
   useEffect(() => {
@@ -106,7 +124,7 @@ export function MobileNav(props: NavProps) {
     setOpenId((current) => current === id ? null : id);
   }
 
-  const useScrolledStyles = !isHome || hasScrolled;
+  const useScrolledStyles = !isHome || scrolled || hasScrolled;
 
   return (
     <div className="relative">

@@ -126,6 +126,14 @@
           "localized": true
         }
       }
+    },
+    "qty": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }

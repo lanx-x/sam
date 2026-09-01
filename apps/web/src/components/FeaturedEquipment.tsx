@@ -3,15 +3,6 @@ import { getEquipment } from "@/api";
 import { mergeDisplayText, mergeExtension } from "@/utils";
 import type { Equipment } from "cms-types";
 
-const getQuantity = (equipment: Equipment) => {
-  const quantity = equipment.parameter?.find((item) => {
-    const key = item.key?.toLowerCase().replaceAll(".", "");
-    return key === "qty" || key === "quantity";
-  });
-
-  return quantity?.value ?? equipment.parameter?.[0]?.value ?? "-";
-};
-
 export async function FeaturedEquipment({ section, locale }: CmpProps) {
   const configuredEquipments =
     (section.payload?.dynamic?.[0] as { equipment?: Equipment[] } | undefined)?.equipment ?? [];
@@ -49,7 +40,7 @@ export async function FeaturedEquipment({ section, locale }: CmpProps) {
                 [headers[2], equipment.brand ?? "-"],
                 [headers[3], equipment.specification ?? "-"],
                 [headers[4], equipment.model ?? "-"],
-                [headers[5], getQuantity(equipment)],
+                [headers[5], equipment.qty ?? '-'],
               ].map(([label, value]) => (
                 <div key={label} className="grid h-8 grid-cols-[110px_minmax(0,1fr)] items-center text-base font-medium leading-6">
                   <dt className="text-secondary">{label}</dt>
@@ -91,7 +82,7 @@ export async function FeaturedEquipment({ section, locale }: CmpProps) {
                   <td className="h-16 border border-l-0 border-[#bfbfbf] pl-14">{equipment.brand ?? "-"}</td>
                   <td className="h-16 border border-l-0 border-[#bfbfbf] pl-14">{equipment.specification ?? "-"}</td>
                   <td className="h-16 border border-l-0 border-[#bfbfbf] pl-14">{equipment.model ?? "-"}</td>
-                  <td className="h-16 border border-l-0 border-[#bfbfbf] text-center">{getQuantity(equipment)}</td>
+                  <td className="h-16 border border-l-0 border-[#bfbfbf] text-center">{equipment.qty ?? '-'}</td>
                 </tr>
               ))}
             </tbody>

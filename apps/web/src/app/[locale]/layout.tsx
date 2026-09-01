@@ -1,8 +1,7 @@
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import type { Metadata } from "next";
 
-import { Broadcast } from "@/components/Broadcast";
+import { GetQuoteDialogProvider } from "@/components/GetQuoteDialog";
 import { createLocalizedApi } from "@/api";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { getRuntimeLocale } from "@/i18n/server";
@@ -26,14 +25,14 @@ export default async function RootLayout({
   const api = createLocalizedApi(locale);
 
   const siteData = (await api.getSite()).data;
-  const broadcasts = await api.getBroadcast();
 
   return (
     <html lang={locale} className={`h-full antialiased`}>
       <body className={`${roboto.variable} min-h-full flex flex-col font-sans`}>
-        <Broadcast currentLocale={locale} defaultLocale={defaultLocale} data={broadcasts.data} siteData={siteData} localeList={localeList} />
-        {children}
-        {siteData.google_analytics && <GoogleAnalytics gaId={siteData.google_analytics} />}
+        <GetQuoteDialogProvider siteData={siteData}>
+          {children}
+          {siteData.google_analytics && <GoogleAnalytics gaId={siteData.google_analytics} />}
+        </GetQuoteDialogProvider>
       </body>
     </html>
   );

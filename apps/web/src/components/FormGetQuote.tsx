@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation";
 import { cn } from "@/utils/cn"
-import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
+import type { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { NEXT_PUBLIC_DANGER_HARDCODE_TO_JS_STRAPI_API_TOKEN } from "@/utils/env";
 import { withLocalePath } from "@/utils";
 
@@ -23,7 +23,12 @@ function Toast({ message, onDone }: { message: string; onDone: () => void }) {
   )
 }
 
-export function FormGetQuote({ section, siteData }: CmpProps) {
+type FormGetQuoteProps = Pick<CmpProps, "siteData"> & {
+  section?: CmpProps["section"];
+  onSuccess?: () => void;
+};
+
+export function FormGetQuote({ section, siteData, onSuccess }: FormGetQuoteProps) {
   const router = useRouter()
   const [form, setForm] = useState({
     name: '',
@@ -39,7 +44,7 @@ export function FormGetQuote({ section, siteData }: CmpProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const displayText = siteData?.display_text?.form
-  const title = displayText?.title ?? section.payload?.title ?? "Start Your Injection Mold Project with a Free Quote"
+  const title = displayText?.title ?? section?.payload?.title ?? "Start Your Injection Mold Project with a Free Quote"
   const emailInvalid = form.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)
   const isArchive = (f: File) => ACCEPTED_FORMATS.split(',').some(ext => f.name.toLowerCase().endsWith(ext.slice(1)))
 
@@ -138,6 +143,7 @@ export function FormGetQuote({ section, siteData }: CmpProps) {
 
       setForm({ name: '', email: '', message: '' })
       setFile(null)
+      onSuccess?.()
       router.push(withLocalePath(siteData.locale ?? "en", "/get-quote/success"))
     } catch (err: unknown) {
       const msg = (err as { data?: { error?: { message?: string } } })?.data?.error?.message
@@ -150,7 +156,7 @@ export function FormGetQuote({ section, siteData }: CmpProps) {
   return (
     <div className="w-full py-10 xl:py-0">
       <div className="mx-auto w-full bg-white px-5 py-10 shadow-[0px_8px_32px_0px_rgba(0,0,0,0.04)] xl:px-[60px] xl:py-10">
-        <h3 className="max-w-[310px] text-[24px] leading-none font-semibold text-primary xl:max-w-[593px] xl:text-[32px]">
+        <h3 className="text-[24px] leading-none font-semibold text-primary xl:text-[32px]">
           {title}
         </h3>
 

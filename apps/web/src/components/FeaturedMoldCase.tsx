@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getStrapiMedia } from "@/utils/strapi";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
+import Autoplay from "embla-carousel-autoplay";
 
 type FeaturedMoldCasePayload = {
   title?: string | null;
@@ -31,10 +32,10 @@ export function FeaturedMoldCase({ section, payload: providedPayload }: Featured
     breakpoints: {
       "(min-width: 1280px)": { slidesToScroll: 3 },
     },
-  });
+  }, [Autoplay({ active: true, delay: 3000 })]);
 
   useEffect(() => {
-    if (!emblaApi) return;
+    if (!emblaApi || !emblaRef) return;
 
     const syncCarouselState = () => {
       setSelectedIndex(emblaApi.selectedSnap());
@@ -43,6 +44,10 @@ export function FeaturedMoldCase({ section, payload: providedPayload }: Featured
     syncCarouselState();
     emblaApi.on("select", syncCarouselState);
     emblaApi.on("reinit", syncCarouselState);
+
+    try {
+      emblaApi?.plugins()?.autoplay?.play?.()
+    } catch (err) { console.log('autoplay error', err) }
 
     return () => {
       emblaApi.off("select", syncCarouselState);

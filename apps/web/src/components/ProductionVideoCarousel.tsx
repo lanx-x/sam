@@ -18,7 +18,9 @@ export function ProductionVideoCarousel({ section }: CmpProps) {
   useEffect(() => {
     if (!emblaRef || !emblaApi) return
 
-    //emblaApi.plugins()?.autoplay?.play?.()
+    try {
+      emblaApi.plugins()?.autoplay?.play?.()
+    } catch (err) { }
 
   }, [emblaRef, emblaApi])
 

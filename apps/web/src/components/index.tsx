@@ -32,10 +32,6 @@ import { ImageHero } from "./ImageHero";
 import { SurfaceTreatmentList } from "./SurfaceTreatmentList";
 import { SurfaceTreatmentDetail } from "./SurfaceTreatmentDetail";
 import { FullImageHero } from "./FullImageHero";
-import { EquipmentList } from "./EquipmentList";
-import { EquipmentDetail } from "./EquipmentDetail";
-import { CaseStudyList } from "./CaseStudyList";
-import { CaseStudyDetail } from "./CaseStudyDetail";
 import { NewsList } from "./NewsList";
 import { NewsDetail } from "./NewsDetail";
 import { VideoList } from "./VideoList";
@@ -104,10 +100,6 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   SurfaceTreatmentDetail,
 
   FullImageHero,
-  EquipmentList,
-  EquipmentDetail,
-  CaseStudyList,
-  CaseStudyDetail,
   NewsList,
   NewsDetail,
   VideoList,

@@ -13,6 +13,7 @@ import Map from "./map.png";
 import Menu from "./menu.svg";
 import Minus from "./minus.svg";
 import Plus from "./plus.svg";
+import SuccessPageIcon from "./success-page-icon.png";
 
 export const Assets = {
   BlackArrowL,
@@ -27,4 +28,5 @@ export const Assets = {
   Menu,
   Minus,
   Plus,
+  SuccessPageIcon,
 } as const;
