@@ -4,9 +4,9 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "@/components/Link";
 import { getStrapiMedia } from "@/utils/strapi";
-import type { Navigation, Site } from "cms-types";
+import type { Application, Industry, Navigation, Site } from "cms-types";
 import { getHref, withLocalePath } from "@/utils";
-import { buildDynamicDetailPath } from "@/utils/dynamic-routes";
+import { buildDynamicDetailPath, slugifyDynamicSegment } from "@/utils/dynamic-routes";
 import { ActionButton } from "./ActionButton";
 
 export type NavGrouptItem = NonNullable<Navigation["value"]>[number];
@@ -21,6 +21,8 @@ type NavProps = {
   locale: string
   showLogoOnly: boolean
   isHome: boolean
+  applications: Application[]
+  industries: Industry[]
 }
 
 export function Nav(props: NavProps) {
@@ -61,7 +63,7 @@ export function Nav(props: NavProps) {
 
 
 export function MobileNav(props: NavProps) {
-  const { data, siteData, locale, isHome } = props;
+  const { data, siteData, locale, isHome, applications, industries } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -171,8 +173,27 @@ export function MobileNav(props: NavProps) {
                               <div key={nested.id} className="">
                                 <h4 className="text-base text-primary font-medium h-16 leading-16 px-5 border-b border-[#bfbfbf]">{nested.name}</h4>
                                 <div>
-                                  {
-                                    nested.children?.map((child) => (
+                                  {nested.type === 'Application'
+                                    ? applications.map((application) => (
+                                      <Link
+                                        className="block text-primary h-12 leading-12 px-5"
+                                        key={application.documentId}
+                                        href={withLocalePath(locale, `/solutions/application/${slugifyDynamicSegment(application.label ?? application.name ?? application.documentId)}`)}
+                                        onClick={closeMenu}>
+                                        {application.label ?? application.name}
+                                      </Link>
+                                    ))
+                                    : nested.type === 'Industries'
+                                      ? industries.map((industry) => (
+                                        <Link
+                                          className="block text-primary h-12 leading-12 px-5"
+                                          key={industry.documentId}
+                                          href={buildDynamicDetailPath(locale, "industry", industry)}
+                                          onClick={closeMenu}>
+                                          {industry.label ?? industry.name}
+                                        </Link>
+                                      ))
+                                      : nested.children?.map((child) => (
                                       <Link
                                         className="block text-primary h-12 leading-12 px-5"
                                         target={nested.target_type === 'external_url' ? '_blank' : ''}
@@ -181,8 +202,7 @@ export function MobileNav(props: NavProps) {
                                         onClick={closeMenu}>
                                         {child.name}
                                       </Link>
-                                    ))
-                                  }
+                                    ))}
                                 </div>
                               </div>
                             ))
@@ -212,7 +232,7 @@ export function MobileNav(props: NavProps) {
 
 
 export function DesktopNav(props: NavProps) {
-  const { data, siteData, locale, isHome } = props;
+  const { data, siteData, locale, isHome, applications, industries } = props;
   const groups = data.value ?? [];
   const [openKey, setOpenKey] = useState<string | null>(null);
   const [activeChild, setActiveChild] = useState(-1);
@@ -368,16 +388,16 @@ export function DesktopNav(props: NavProps) {
                       <div className="">
                         <h3 className="text-lg leading-none mb-10 font-medium text-accent">{getChild('Application', group)?.name}</h3>
                         <div className="grid grid-cols-2 gap-y-8 gap-x-46">
-                          {getChild('Application', group)?.children?.map((child, childIdx) => {
+                          {applications.map((application, childIdx) => {
                             return (
                               <Link
                                 key={childIdx}
-                                href={withLocalePath(locale, getHref(child))}
+                                href={withLocalePath(locale, `/solutions/application/${slugifyDynamicSegment(application.label ?? application.name ?? application.documentId)}`)}
                                 className={`group block transition-colors ${activeChild === childIdx ? "text-accent" : "hover:text-accent"} transition-colors duration-300 `}
                                 onMouseEnter={() => setActiveChild(childIdx)}
                                 onClick={close}
                               >
-                                <h4 className="text-lg font-medium">{child.name}</h4>
+                                <h4 className="text-lg font-medium">{application.label ?? application.name}</h4>
                               </Link>
                             );
                           })}
@@ -388,9 +408,9 @@ export function DesktopNav(props: NavProps) {
                         <h3 className="text-accent text-lg mb-10 font-medium leading-none">{getChild('Industries', group)?.name}</h3>
                         <div className="">
                           {
-                            getChild('Industries', group)?.children?.map((xs) => (
-                              <Link key={xs.id} href={buildDynamicDetailPath(locale, "industry", xs.industry!)} className="group block  hover:text-accent transition-colors duration-300" onClick={close}>
-                                <h4 className="text-lg font-medium">{xs.name}</h4>
+                            industries.map((industry) => (
+                              <Link key={industry.documentId} href={buildDynamicDetailPath(locale, "industry", industry)} className="group block  hover:text-accent transition-colors duration-300" onClick={close}>
+                                <h4 className="text-lg font-medium">{industry.label ?? industry.name}</h4>
                               </Link>
 
                             ))

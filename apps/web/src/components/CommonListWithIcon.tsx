@@ -1,16 +1,28 @@
-import { Assets } from "@/assets";
-import { SurfaceTreatment } from "cms-types";
 import Image from "next/image";
-import { Section, SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
-import { buildDynamicDetailPath } from "@/utils/dynamic-routes";
-import { collectExtend, mergeExtension } from "@/utils";
+import { mergeExtension } from "@/utils";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
-import Link from "next/link";
 
-export function CommonListWithIcon({ section }: CmpProps) {
-  const payload = section.payload!
-  const extention = mergeExtension(section)
+type CommonListPayload = {
+  title?: string | null;
+  data?: Array<{
+    id: number | string;
+    title?: string | null;
+    desc?: string | null;
+    image?: Parameters<typeof getStrapiMedia>[0];
+  }> | null;
+};
+
+type CommonListWithIconProps = {
+  section?: CmpProps["section"];
+  payload?: CommonListPayload | null;
+};
+
+export function CommonListWithIcon({ section, payload: providedPayload }: CommonListWithIconProps) {
+  const payload = providedPayload ?? section?.payload;
+  const extention = section ? mergeExtension(section) : {};
+
+  if (!payload) return null;
 
   const variant = extention?.variant?.value ?? 't0'
 

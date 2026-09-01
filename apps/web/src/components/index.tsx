@@ -65,6 +65,7 @@ import { PlainSection } from "./PlainText";
 import { FeaturedMoldCase } from "./FeaturedMoldCase";
 import { AboutSAMWithStats } from "./AboutSAMWithStats";
 import { GlobalCustomers } from "./GlobalCustomers";
+import { ApplicationDetail } from "./ApplicationDetail";
 
 export const CmpMap: Record<string, ComponentType<any>> = {
   MainHero,
@@ -142,4 +143,6 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   FeaturedMoldCase,
   AboutSAMWithStats,
   GlobalCustomers,
+  ApplicationDetail,
+
 }

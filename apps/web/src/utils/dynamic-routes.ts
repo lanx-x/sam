@@ -4,6 +4,7 @@ type ApiClient = ReturnType<typeof createLocalizedApi>;
 
 export type DynamicRouteItem = {
   documentId?: string | null;
+  label?: string | null;
   title?: string | null;
   name?: string | null;
   detailPageTitle?: string | null;
@@ -12,6 +13,7 @@ export type DynamicRouteItem = {
 };
 
 export type DynamicRouteType =
+  | "application"
   | "news"
   | "equipment"
   | "material"
@@ -26,6 +28,11 @@ type DynamicRouteConfig = {
 };
 
 export const DYNAMIC_ROUTE_CONFIGS: Record<DynamicRouteType, DynamicRouteConfig> = {
+  application: {
+    patternPrefix: "/solutions/application/",
+    getLabels: (item) => [item.label, item.name],
+    fetch: (api) => api.getApplication({ 'pagination[pageSize]': 200 }),
+  },
   news: {
     patternPrefix: "/resources/news/",
     getLabels: (item) => [item.title],
@@ -53,8 +60,8 @@ export const DYNAMIC_ROUTE_CONFIGS: Record<DynamicRouteType, DynamicRouteConfig>
   },
   industry: {
     patternPrefix: "/solutions/industry/",
-    getLabels: (item) => [item?.detailPageTitle, item?.name],
-    fetch: (api) => api.getIndustry({ 'pagination[pageSize]': 200 }),
+    getLabels: (item) => [item?.label, item?.name],
+    fetch: (api) => api.getIndustryNavigation(),
   },
 };
 

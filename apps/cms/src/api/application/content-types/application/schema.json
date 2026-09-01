@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "industries",
+  "collectionName": "applications",
   "info": {
-    "singularName": "industry",
-    "pluralName": "industries",
-    "displayName": "Industry"
+    "singularName": "application",
+    "pluralName": "applications",
+    "displayName": "Application"
   },
   "options": {
     "draftAndPublish": true
@@ -32,7 +32,7 @@
       }
     },
     "desc": {
-      "type": "text",
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -63,7 +63,7 @@
       }
     },
     "detailPageDesc": {
-      "type": "text",
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -85,17 +85,7 @@
         "audios"
       ]
     },
-    "detailPageFeatures": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "item.kv-item",
-      "repeatable": true
-    },
-    "molding_capabilities": {
+    "advantages": {
       "type": "component",
       "pluginOptions": {
         "i18n": {
@@ -105,27 +95,7 @@
       "component": "section.basic-section",
       "repeatable": false
     },
-    "tooling_capabilities": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "section.basic-section",
-      "repeatable": false
-    },
-    "challenges": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "section.basic-section",
-      "repeatable": false
-    },
-    "case_study": {
+    "capabilities": {
       "type": "component",
       "pluginOptions": {
         "i18n": {

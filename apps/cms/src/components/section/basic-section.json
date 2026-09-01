@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_section_basic_sections",
+  "info": {
+    "displayName": "BasicSection"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "string"
+    },
+    "data": {
+      "type": "component",
+      "component": "item.common-item",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

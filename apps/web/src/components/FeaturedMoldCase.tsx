@@ -5,31 +5,52 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getStrapiMedia } from "@/utils/strapi";
-import type { CaseStudy } from "cms-types";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 
-export function FeaturedMoldCase({ section }: CmpProps) {
-  const payload = section.payload!
+type FeaturedMoldCasePayload = {
+  title?: string | null;
+  data?: Array<{
+    image?: Parameters<typeof getStrapiMedia>[0];
+    title?: string | null;
+  }> | null;
+};
+
+type FeaturedMoldCaseProps = {
+  section?: CmpProps["section"];
+  payload?: FeaturedMoldCasePayload | null;
+};
+
+export function FeaturedMoldCase({ section, payload: providedPayload }: FeaturedMoldCaseProps) {
+  const payload = providedPayload ?? section?.payload;
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [snapCount, setSnapCount] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     containScroll: "trimSnaps",
     loop: false,
+    breakpoints: {
+      "(min-width: 1280px)": { slidesToScroll: 3 },
+    },
   });
 
   useEffect(() => {
     if (!emblaApi) return;
 
-    const syncSelectedIndex = () => setSelectedIndex(emblaApi.selectedSnap());
-    syncSelectedIndex();
-    emblaApi.on("select", syncSelectedIndex);
-    emblaApi.on("reinit", syncSelectedIndex);
+    const syncCarouselState = () => {
+      setSelectedIndex(emblaApi.selectedSnap());
+      setSnapCount(emblaApi.snapList().length);
+    };
+    syncCarouselState();
+    emblaApi.on("select", syncCarouselState);
+    emblaApi.on("reinit", syncCarouselState);
 
     return () => {
-      emblaApi.off("select", syncSelectedIndex);
-      emblaApi.off("reinit", syncSelectedIndex);
+      emblaApi.off("select", syncCarouselState);
+      emblaApi.off("reinit", syncCarouselState);
     };
   }, [emblaApi]);
+
+  if (!payload) return null;
 
   return (
     <div className="relative overflow-hidden bg-white pt-15 pb-18.75 xl:pt-25 xl:pb-[77px]">
@@ -67,11 +88,11 @@ export function FeaturedMoldCase({ section }: CmpProps) {
         </div>
 
         <div className="mt-9 hidden justify-center gap-1.5 xl:flex">
-          {payload.data?.map((caseStudy, index) => (
+          {Array.from({ length: snapCount }, (_, index) => (
             <button
               key={index}
               type="button"
-              aria-label={`Go to case ${index + 1}`}
+              aria-label={`Go to case group ${index + 1}`}
               onClick={() => emblaApi?.goTo(index)}
               className={`size-2 rounded-full transition-colors ${selectedIndex === index ? "bg-accent" : "bg-[#efefef]"}`}
             />

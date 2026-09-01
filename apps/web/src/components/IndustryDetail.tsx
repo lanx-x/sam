@@ -1,18 +1,47 @@
-import { CommonSection } from "cms-types";
 import Image from "next/image";
 import { createLocalizedApi } from "@/api";
 import { getStrapiMedia } from "@/utils/strapi";
-import { BetterBlocksContent } from "./BetterBlocksContent";
-import { Section, SectionContainer } from "./Section";
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
-import { mergeExtension } from "@/utils";
 import { ActionButton } from "./ActionButton";
+import { CommonListWithIcon } from "./CommonListWithIcon";
+import { FeaturedMoldCase } from "./FeaturedMoldCase";
+import { MoldCapabilities } from "./MoldCapabilities";
+import { ToolingCapabilities } from "./ToolingCapabilities";
+import { CrossList } from "./CrossList";
 
-export async function IndustryDetail({ documentId, section, locale }: CmpProps) {
+export async function IndustryDetail({ documentId, locale }: CmpProps) {
   const api = createLocalizedApi(locale);
-  const data = (await api.getIndustryDetail({ 'filters[documentId][$eq]': documentId })).data?.[0]
+  const [industry, actions] = await Promise.all([
+    api.getIndustryDetail({ 'filters[documentId][$eq]': documentId }),
+    api.getAction(),
+  ]);
+  const data = industry.data?.[0];
+  const action = actions.data?.[0];
 
-  const extension = mergeExtension(section)
+  const challenges = data?.challenges
+    ? { title: data.challenges.title, data: data.challenges.data }
+    : null;
+
+  const parts = data?.parts
+    ? { title: data.parts.title, data: data.parts.data }
+    : null;
+
+  const caseStudy = data?.case_study
+    ? {
+      title: data.case_study.title,
+      desc: data.case_study.desc,
+      data: data.case_study.data?.map((item) => ({
+        id: item.id,
+        title: item.title,
+        desc: item.desc,
+        image: item.image,
+        extension: item.extension?.map((detail) => ({
+          id: detail.id,
+          key: detail.key,
+        })),
+      })),
+    }
+    : null;
 
   if (!data) {
     return <div className="py-30 text-3xl font-semibold text-center">Industry: {documentId} not found.</div>
@@ -20,50 +49,30 @@ export async function IndustryDetail({ documentId, section, locale }: CmpProps) 
 
   return (
     <div>
-      <div className="relative py-10 px-5 xl:px-0 xl:py-15">
-        {data.detailPageBanner && (
-          <Image fill className="object-cover" src={getStrapiMedia(data.detailPageBanner) ?? ""} alt="banner" />
-        )}
-        <SectionContainer className="relative z-10 text-white">
-          <h1 className="text-4xl xl:text-[64px] font-black mb-3 leading-none w-1/2 xl:w-100">{data.detailPageTitle || data.name}</h1>
-          <p className="text-base leading-5 xl:w-160">{data.detailPageDesc || data.desc}</p>
-          <div className="mt-14 flex flex-col gap-5 xl:flex-row">
-            {
-              section.payload?.actions?.map((xs, idx) => (
-                <ActionButton key={idx} action={xs} className="h-13 xl:w-50 xl:px-8 first:bg-accent first:text-white text-base font-medium" />
-              ))
-            }
+      <div className="bg-[#fafafa] px-5">
+        <div className="py-10 grid grid-cols-1 gap-10 xl:mx-auto xl:w-7xl xl:grid-cols-2 xl:gap-5 xl:py-15">
+          <div className="xl:mt-10 xl:pr-20">
+            <h1 className="text-4xl font-black mb-5">{data.detailPageTitle}</h1>
+            <p className="text-base">{data.detailPageDesc}</p>
+
+            <div className="mt-10 xl:w-50">
+              {action && <ActionButton action={action} locale={locale} />}
+            </div>
           </div>
-        </SectionContainer>
+
+          <Image alt="banner" src={getStrapiMedia(data.detailPageBanner) ?? ""} width={620} height={380} className="object-contain w-full aspect-auto rounded-lg" />
+        </div>
       </div>
 
-      {data.detailPageFeatures?.length ? (
-        <div className="">
-          <Section className="" title={extension.characteristics_title.value} desc={extension.characteristics_desc.value}>
-            <div className="mt-10 xl:mt-15 grid grid-cols-1 px-5 xl:px-0 gap-5 xl:grid-cols-3">
-              {data.detailPageFeatures.map((xs, idx) => (
-                <div key={idx} className="bg-[#fafafa] px-10 py-16 flex flex-col items-center">
-                  {xs.image && (
-                    <div className="w-16 h-16 relative mb-15">
-                      <Image fill src={getStrapiMedia(xs.image) ?? ""} alt="" className="object-cover" />
-                    </div>
-                  )}
-                  <p className="text-lg font-semibold leading-none mb-3">{xs.key}</p>
-                  <p className="text-base leading-5">{xs.desc || xs.value}</p>
-                </div>
-              ))}
-            </div>
-          </Section>
-          <SectionContainer>
-          </SectionContainer>
-        </div>
-      ) : null}
 
-      {data.detailPageContent && (
-        <div className="px-5 xl:px-0 xl:w-7xl xl:mx-auto mb-10 prose max-w-none">
-          <BetterBlocksContent content={data.detailPageContent} />
-        </div>
-      )}
+      <MoldCapabilities section={data.molding_capabilities} />
+
+      <ToolingCapabilities section={data.tooling_capabilities} />
+      <CommonListWithIcon payload={challenges} />
+
+      <CrossList payload={caseStudy} styles="bg-[#fafafa]" />
+
+      <FeaturedMoldCase payload={parts} />
     </div>
   )
 }

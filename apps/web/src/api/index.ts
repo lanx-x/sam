@@ -1,7 +1,7 @@
 import type { Locale, LocaleItem } from "@/i18n";
 import { NODE_ENV, ENABLE_MULTILANG } from "@/utils/env";
 import { fetchStrapi } from "@/utils/strapi";
-import type { PageData, StrapiSingleResponse, StrapiCollectionResponse, SurfaceTreatment, Equipment, EquipmentCategory, CaseStudy, News, NewsCategory, Video, Material, MaterialCategory, Industry, Site, Navigation, Broadcast } from "cms-types";
+import type { PageData, StrapiSingleResponse, StrapiCollectionResponse, Action, Application, SurfaceTreatment, Equipment, EquipmentCategory, CaseStudy, News, NewsCategory, Video, Material, MaterialCategory, Industry, Site, Navigation, Broadcast } from "cms-types";
 
 export type { PageData };
 
@@ -63,6 +63,8 @@ const listPopulate = {
 } as const
 
 export const KNOWN_CACHE_TAGS = new Set([
+  "action",
+  "application",
   "page",
   "ui-section",
   "broadcast",
@@ -119,6 +121,43 @@ export async function getSurfaceTreatment(params: { [key: string]: any }) {
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["surface-treatment", "material", "news"] },
+  })
+}
+
+export async function getApplication(params: { [key: string]: any } = {}) {
+  return fetchStrapi<StrapiCollectionResponse<Application>>('/applications', {
+    params: {
+      'pagination[pageSize]': 200,
+      ...params,
+    },
+    next: { revalidate: revalidate.normal, tags: ["application"] },
+  })
+}
+
+export async function getAction(params: { [key: string]: any } = {}) {
+  return fetchStrapi<StrapiCollectionResponse<Action>>('/actions', {
+    params: {
+      'pagination[pageSize]': 1,
+      'sort[0]': 'id:asc',
+      ...params,
+    },
+    next: { revalidate: revalidate.normal, tags: ["action"] },
+  })
+}
+
+export async function getApplicationDetail(params: { [key: string]: any }) {
+  return fetchStrapi<StrapiCollectionResponse<Application>>('/applications', {
+    params: {
+      populate: {
+        image: true,
+        detailPageBanner: true,
+        advantages: { populate: { data: { populate: { image: true } } } },
+        capabilities: { populate: { data: { populate: { image: true } } } },
+        parts: { populate: { data: { populate: { image: true } } } },
+      },
+      ...params,
+    },
+    next: { revalidate: revalidate.normal, tags: ["application"] },
   })
 }
 
@@ -319,13 +358,29 @@ export async function getIndustry(params: { [key: string]: any } = {}) {
   })
 }
 
+export async function getIndustryNavigation(params: { [key: string]: any } = {}) {
+  return fetchStrapi<StrapiCollectionResponse<Industry>>('/industries', {
+    params: {
+      'fields[0]': 'name',
+      'fields[1]': 'label',
+      'pagination[pageSize]': 200,
+      ...params,
+    },
+    next: { revalidate: revalidate.normal, tags: ["industry"] },
+  })
+}
+
 export async function getIndustryDetail(params: { [key: string]: any }) {
   return fetchStrapi<StrapiCollectionResponse<Industry>>('/industries', {
     params: {
       populate: {
         image: true,
         detailPageBanner: true,
-        detailPageFeatures: { populate: '*' },
+        molding_capabilities: { populate: { data: { populate: { image: true, extension: { populate: { image: true } } } } } },
+        tooling_capabilities: { populate: { data: { populate: { image: true } } } },
+        challenges: { populate: { data: { populate: { image: true } } } },
+        case_study: { populate: { data: { populate: { image: true, extension: true } } } },
+        parts: { populate: { data: { populate: { image: true } } } },
       },
       ...params,
     },
@@ -418,6 +473,9 @@ export function createLocalizedApi(locale: Locale) {
   return {
     getPage: bindLocale(locale, getPage, {} as { [key: string]: any }),
     getPatternPages: bindLocale(locale, getPatternPages, {}),
+    getApplication: bindLocale(locale, getApplication, {} as { [key: string]: any }),
+    getAction: bindLocale(locale, getAction, {} as { [key: string]: any }),
+    getApplicationDetail: bindLocale(locale, getApplicationDetail, {} as { [key: string]: any }),
     getSurfaceTreatment: bindLocale(locale, getSurfaceTreatment, {}),
     getSurfaceTreatmentDetail: bindLocale(locale, getSurfaceTreatmentDetail, {}),
     getEquipment: bindLocale(locale, getEquipment, {}),
@@ -430,6 +488,7 @@ export function createLocalizedApi(locale: Locale) {
     getMaterialDetail: bindLocale(locale, getMaterialDetail, {}),
     getMaterialCategory: bindLocale(locale, getMaterialCategory, {}),
     getIndustry: bindLocale(locale, getIndustry, {}),
+    getIndustryNavigation: bindLocale(locale, getIndustryNavigation, {} as { [key: string]: any }),
     getIndustryDetail: bindLocale(locale, getIndustryDetail, {}),
     getSite: bindLocale(locale, getSite, {}),
     getNavigation: bindLocale(locale, getNavigation, {}),

@@ -20,19 +20,19 @@ export function FeaturedMaterial({ section }: CmpProps) {
         <div className="mt-10 xl:mt-15">
           <div className="xl:hidden mb-10">
             <label className="sr-only" htmlFor={`material-select-${section.id}`}>Materials</label>
-          <div className="relative">
-            <select
-              id={`material-select-${section.id}`}
-              value={activeIndex}
-              onChange={(event) => setActiveIndex(Number(event.target.value))}
-              className="h-12 w-full appearance-none rounded bg-[#dfdfdf] px-5 pr-12 text-sm font-medium text-primary"
-            >
+            <div className="relative">
+              <select
+                id={`material-select-${section.id}`}
+                value={activeIndex}
+                onChange={(event) => setActiveIndex(Number(event.target.value))}
+                className="h-12 w-full appearance-none rounded bg-[#dfdfdf] px-5 pr-12 text-sm font-medium text-primary"
+              >
                 {materials.map((material, index) => (
                   <option key={material.id ?? index} value={index}>{material.name}</option>
                 ))}
-            </select>
-            <span className="pointer-events-none absolute right-5 top-1/2 size-2 -translate-y-2/3 rotate-45 border-b border-r border-primary" />
-          </div>
+              </select>
+              <span className="pointer-events-none absolute right-5 top-1/2 size-2 -translate-y-2/3 rotate-45 border-b border-r border-primary" />
+            </div>
           </div>
 
           {activeMaterial && (

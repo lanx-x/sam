@@ -411,6 +411,18 @@ export interface ListFeaturedSurfaceFinishList extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionBasicSection extends Struct.ComponentSchema {
+  collectionName: 'components_section_basic_sections';
+  info: {
+    displayName: 'BasicSection';
+  };
+  attributes: {
+    data: Schema.Attribute.Component<'item.common-item', true>;
+    desc: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionCommonSection extends Struct.ComponentSchema {
   collectionName: 'components_section_common_sections';
   info: {
@@ -457,6 +469,7 @@ declare module '@strapi/strapi' {
       'list.featured-spe-list': ListFeaturedSpeList;
       'list.featured-story-list': ListFeaturedStoryList;
       'list.featured-surface-finish-list': ListFeaturedSurfaceFinishList;
+      'section.basic-section': SectionBasicSection;
       'section.common-section': SectionCommonSection;
     }
   }

@@ -66,6 +66,8 @@ async function getDynamicMetaSource(
   const api = createLocalizedApi(locale);
 
   switch (type) {
+    case "application":
+      return (await api.getApplicationDetail({ 'filters[documentId][$eq]': documentId })).data?.[0] ?? null;
     case "news":
       return (await api.getNews({ 'filters[documentId][$eq]': documentId })).data?.[0] ?? null;
     case "caseStudy":
@@ -154,7 +156,11 @@ const getPageData = cache(async (routeLocale: string, slug: string[]) => {
     ? (await api.getPage({ slug: matchedSlug })).data[0]
     : (await api.getPage({ slug: pageSlug })).data[0];
 
-  const navData = (await api.getNavigation({ 'filters[actived][$eq]': 'true' })).data?.[0];
+  const [navigation, applications, industries] = await Promise.all([
+    api.getNavigation({ 'filters[actived][$eq]': 'true' }),
+    api.getApplication(),
+    api.getIndustryNavigation(),
+  ]);
 
   return {
     locale,
@@ -162,7 +168,9 @@ const getPageData = cache(async (routeLocale: string, slug: string[]) => {
     siteData: site.data,
     pageData,
     documentId,
-    navData,
+    navData: navigation.data?.[0],
+    applications: applications.data ?? [],
+    industries: industries.data ?? [],
     dynamicRouteType,
     dynamicItem,
   };
@@ -251,7 +259,7 @@ export default async function CatchAllPage({ params, searchParams }: { params: P
   const sp = await searchParams;
   logger.debug('page params:', { locale: routeLocale, slug });
 
-  const { locale, siteData, pageData, documentId, navData } = await getPageData(routeLocale, slug);
+  const { locale, siteData, pageData, documentId, navData, applications, industries } = await getPageData(routeLocale, slug);
 
   if (!pageData) {
     notFound();
@@ -263,7 +271,7 @@ export default async function CatchAllPage({ params, searchParams }: { params: P
 
   return (
     <>
-      <Nav data={navData} siteData={siteData} locale={locale} showLogoOnly={isFormGetQuote} isHome={isHome} />
+      <Nav data={navData} siteData={siteData} locale={locale} showLogoOnly={isFormGetQuote} isHome={isHome} applications={applications} industries={industries} />
       {
         pageData.content?.map((section, idx) => {
           const rendererName = section.payload?.renderer?.cmp;
@@ -288,7 +296,7 @@ export default async function CatchAllPage({ params, searchParams }: { params: P
             locale={locale} />;
         })
       }
-      {!isFormGetQuote && <Footer navigation={navData} locale={locale} siteData={siteData} />}
+      {!isFormGetQuote && <Footer navigation={navData} locale={locale} siteData={siteData} applications={applications} industries={industries} />}
     </>
   )
 }
