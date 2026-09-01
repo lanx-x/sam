@@ -21,10 +21,10 @@ jobs:
         include:
           - name: web
             dockerfile: apps/web/Dockerfile
-            image: longwang-web
+            image: sam-web
           - name: cms
             dockerfile: apps/cms/Dockerfile
-            image: longwang-cms
+            image: sam-cms
 
     steps:
       - name: Checkout code

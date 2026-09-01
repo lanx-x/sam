@@ -2,7 +2,6 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
-import { Assets } from "@/assets";
 import Image from "next/image";
 
 function generatePages(current: number, total: number): (number | '...')[] {
@@ -46,7 +45,7 @@ export function Pagination({ page, pageCount }: { page: number; pageCount: numbe
         disabled={page <= 1}
         className="cursor-pointer text-sm rounded-sm xl:mr-20 disabled:opacity-40 border border-transparent disabled:cursor-not-allowed hover:border-accent hover:text-accent transition-colors"
       >
-        <Image className="w-10 h-10 object-cover" src={Assets.CaretSmallLeft} alt="prev" />
+        <Image className="w-10 h-10 object-cover" src="" alt="prev" />
       </button>
 
       {generatePages(page, pageCount).map((item, i) =>
@@ -68,7 +67,7 @@ export function Pagination({ page, pageCount }: { page: number; pageCount: numbe
         disabled={page >= pageCount}
         className="rounded-sm disabled:opacity-40 cursor-pointer xl:ml-20 border border-transparent disabled:cursor-not-allowed hover:border-accent transition-colors"
       >
-        <Image className="w-10 h-10 object-cover" src={Assets.CaretSmallRight} alt="next" />
+        <Image className="w-10 h-10 object-cover" src="" alt="next" />
       </button>
     </div>
   );

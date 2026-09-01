@@ -4,7 +4,6 @@ import { Stat } from "./Stat";
 import { Cap } from "./Cap";
 import { OneStop } from "./OneStop";
 import { FeaturedComment } from "./FeaturedComment";
-import { FeaturedCaseStudy } from "./FeaturedCaseStudy";
 import { FeaturedMaterial } from "./FeaturedMaterial";
 import { FeaturedEquipment } from "./FeaturedEquipment";
 import { WorkWith } from "./WorkWith";
@@ -20,7 +19,6 @@ import { FeaturedSurfaceTreatment } from "./FeaturedSurfaceTreatment";
 import { Tolerance } from "./Tolerance";
 import { FeaturedNews } from "./FeaturedNews";
 import { Service } from "./Service";
-import { FeaturedIndustrySolution } from "./FeaturedIndustrySolution";
 import { FeaturedIndustry } from "./FeaturedIndustry";
 import { WhyUs } from "./WhyUs";
 import { WhatWeOffer } from "./WhatWeOffer";
@@ -69,7 +67,6 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   Cap,
   OneStop,
   FeaturedComment,
-  FeaturedCaseStudy,
   FeaturedMaterial,
   FeaturedEquipment,
   WorkWith,
@@ -87,7 +84,6 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   Service,
 
   FeaturedIndustry,
-  FeaturedIndustrySolution,
 
   WhyUs,
   WhatWeOffer,

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import Fade from "embla-carousel-fade";
-import { Assets } from "@/assets";
 import { useEffect, useState } from "react";
 import { cn } from "@/utils/cn";
 import { Section } from "./Section";
@@ -50,8 +49,8 @@ export function OneStop({ section }: CmpProps) {
               <div className={cn("text-base font-medium w-9 h-9 rounded-full flex flex-row items-center justify-center transition-all duration-300", selectedIndex === idx ? 'bg-accent text-white' : 'text-accent')}>0{idx + 1}</div>
               <p className={`mt-2 mb-3 text-base font-medium h-6 ${selectedIndex === idx ? '' : 'text-secondary'}`}>{xs.label}</p>
               <div className="w-64 h-1.5 relative">
-                <Image className={`absolute left-0 transition-opacity duration-300 top-0 ${selectedIndex === idx ? 'opacity-0' : 'opacity-100'}`} width={256} height={6} src={Assets.RulerOff} alt="ruler" />
-                <Image className={`absolute left-0 transition-opacity duration-300 top-0 ${selectedIndex === idx ? 'opacity-100' : 'opacity-0'}`} width={256} height={6} src={Assets.RulerOn} alt="ruler" />
+                <Image className={`absolute left-0 transition-opacity duration-300 top-0 ${selectedIndex === idx ? 'opacity-0' : 'opacity-100'}`} width={256} height={6} src="" alt="ruler" />
+                <Image className={`absolute left-0 transition-opacity duration-300 top-0 ${selectedIndex === idx ? 'opacity-100' : 'opacity-0'}`} width={256} height={6} src="" alt="ruler" />
               </div>
             </div>
           ))
@@ -78,7 +77,7 @@ export function OneStop({ section }: CmpProps) {
                       xs.extension?.map((item, idx) => (
                         <div key={item.id} className="flex flex-row items-center shrink-0 gap-2">
                           <div className="w-4 h-4 flex justify-center items-center bg-accent rounded-full">
-                            <Image src={Assets.Check} className="w-2 h-2" alt="check" />
+                            <Image src="" className="w-2 h-2" alt="check" />
                           </div>
                           <span className="font-semibold text-sm">{item.value}</span>
                         </div>
@@ -93,8 +92,8 @@ export function OneStop({ section }: CmpProps) {
       </div>
 
       <div className="mt-4 flex flex-row justify-center xl:justify-start xl:w-7xl xl:mx-auto">
-        <button type="button" onClick={() => emblaApi?.goToPrev()}><Image className="w-12 h-12 mr-3" src={Assets.GrayArrowL} alt="left" /></button>
-        <button type="button" onClick={() => emblaApi?.goToNext()}><Image className="w-12 h-12 " src={Assets.GrayArrowR} alt="right" /></button>
+        <button type="button" onClick={() => emblaApi?.goToPrev()}><Image className="w-12 h-12 mr-3" src="" alt="left" /></button>
+        <button type="button" onClick={() => emblaApi?.goToNext()}><Image className="w-12 h-12 " src="" alt="right" /></button>
       </div>
 
     </Section>

@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { SectionContainer } from "./Section";
 import { getStrapiMedia } from "@/utils/strapi";
-import { Assets } from "@/assets";
 import { getMaterial, getMaterialCategory } from "@/api";
 import { buildDynamicDetailPathFromBase } from "@/utils/dynamic-routes";
 import { Site } from "cms-types";
@@ -53,7 +52,7 @@ export function MaterialClientList({ categories, materials, basePath, emptyText,
                 onClick={scrollToAll}
                 key={xs.documentId}
                 className="cursor-pointer relative h-16 flex justify-start items-center overflow-hidden text-base font-semibold">
-                <Image fill src={Assets.EquipListBg} alt="" />
+                <Image fill src="" alt="" />
                 <p className="relative z-10 text-white truncate px-5">{xs.name}</p>
               </div>
             ))

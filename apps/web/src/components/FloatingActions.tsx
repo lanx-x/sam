@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useCallback } from "react"
-import { Assets } from "@/assets"
 import Image from "next/image"
 import { Site } from "cms-types"
 
@@ -29,7 +28,7 @@ export function FloatingActions({ siteData }: { siteData: Site }) {
         >
           <div className="bg-[rgba(0,195,0,0.3)] w-14 h-14 shrink-0 flex items-center justify-center rounded-full mb-3">
             <div className="bg-[rgba(0,195,0,0.3)] w-12 h-12 flex items-center justify-center rounded-full">
-              <Image className="w-10 h-10 object-cover" src={Assets.Whatsapp} alt="WhatsApp" width={24} height={24} />
+              <Image className="w-10 h-10 object-cover" src="" alt="WhatsApp" width={24} height={24} />
             </div>
           </div>
 
@@ -41,7 +40,7 @@ export function FloatingActions({ siteData }: { siteData: Site }) {
           href={`mailto:${siteData.email?.[0]?.value}`}
           className="flex flex-col items-center justify-center transition-transform hover:scale-110"
         >
-          <Image className="w-6 h-6" src={Assets.EmailBlue} alt="Email" width={24} height={24} />
+          <Image className="w-6 h-6" src="" alt="Email" width={24} height={24} />
           <span className="text-xs mt-3">Email</span>
         </a>
       </div>
@@ -50,7 +49,7 @@ export function FloatingActions({ siteData }: { siteData: Site }) {
         onClick={scrollToTop}
         className={`flex w-14 h-14 items-center justify-center transition-all hover:scale-110 ${showTop ? 'opacity-100' : 'opacity-0'}`}
       >
-        <Image className="w-14 h-14 object-cover" src={Assets.Top} alt="Back to top" width={56} height={56} />
+        <Image className="w-14 h-14 object-cover" src="" alt="Back to top" width={56} height={56} />
       </button>
     </div>
   )

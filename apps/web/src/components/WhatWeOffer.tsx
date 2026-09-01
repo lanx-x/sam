@@ -2,7 +2,6 @@ import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { Section } from "./Section";
 import Image from "next/image";
 import { getStrapiMedia } from "@/utils/strapi";
-import { Assets } from "@/assets";
 import { collectExtend } from "@/utils";
 
 export function WhatWeOffer({ section }: CmpProps) {
@@ -26,7 +25,7 @@ export function WhatWeOffer({ section }: CmpProps) {
                     xs.extension?.map(item => (
                       <div key={item.id} className="mb-5">
                         <div className="mb-2 flex flex-row items-center">
-                          <Image src={Assets.CheckBlue} alt="icon" className="mr-2 w-5.5 aspect-square" />
+                          <Image src="" alt="icon" className="mr-2 w-5.5 aspect-square" />
                           <p className="text-lg font-semibold">{item.key}</p>
                         </div>
 
