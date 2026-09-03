@@ -15,7 +15,12 @@ export function MoldProcessCarousel({ section }: CmpProps) {
   useEffect(() => {
     if (!emblaRef || !emblaApi) return
 
-    emblaApi.plugins()?.autoplay?.play?.()
+    try {
+
+      emblaApi.plugins()?.autoplay?.play?.()
+    } catch (err) {
+      console.error('autoplay error', err)
+    }
 
   }, [emblaRef, emblaApi])
 

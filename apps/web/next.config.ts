@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
   // Bump in-memory cache budget from 50MB (default) to 500MB so large
   // getPage responses (which can exceed 2MB) have room to stay resident.
   cacheMaxMemorySize: 500 * 1024 * 1024,
-  allowedDevOrigins: ['127.0.0.1', 'localhost', 'cms:1337', '10.0.0.5'],
+  allowedDevOrigins: ['127.0.0.1', 'localhost', 'cms:1337', '10.0.0.5', '*.wukongshijue.com'],
   async headers() {
     return [
       {

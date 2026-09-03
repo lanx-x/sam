@@ -75,10 +75,10 @@ export function Footer({ siteData, navigation, locale, applications, industries 
             {
               (['tel', 'mobile', 'email', 'fax', 'address'] as const).map(xs => (
                 <div className={`flex items-start last:mt-5 mb-0.5`} key={xs}>
-                  <p className="capitalize mr-2">{siteData[xs]?.[0]?.key ?? xs}:</p>
+                  <p className="capitalize mr-2 text-sm xl:text-base">{siteData[xs]?.[0]?.key ?? xs}:</p>
                   <div>
                     {siteData[xs]?.map(item => (
-                      <p key={item.id}>{xs === 'email' ? <a href={`mailto:${item.value}`} className="hover:text-accent transition-colors">{item.value}</a> : item.value}</p>
+                      <p key={item.id}>{xs === 'email' ? <a href={`mailto:${item.value}`} className="hover:text-accent transition-colors text-sm xl:text-base">{item.value}</a> : item.value}</p>
                     ))}
 
                   </div>
