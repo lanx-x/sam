@@ -35,20 +35,20 @@ export function GetQuoteDialogProvider({ children, siteData }: { children: React
       {children}
       {isOpen && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-5"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 p-5"
           onClick={() => setIsOpen(false)}
         >
           <div
             role="dialog"
             aria-modal="true"
             aria-label="Get a free quote"
-            className="relative w-full max-w-4xl pt-12"
+            className="relative w-full xl:w-210"
             onClick={(event) => event.stopPropagation()}
           >
             <button
               type="button"
               aria-label="Close quote form"
-              className="absolute -right-[35px] top-[55px] z-10 flex size-10 items-center justify-center rounded-full text-2xl leading-none text-primary transition-colors"
+              className="absolute -right-9.5 -top-8 z-10 flex size-10 items-center justify-center rounded-full text-2xl leading-none text-primary transition-colors"
               onClick={() => setIsOpen(false)}
             >
               <span aria-hidden="true" className="text-4xl text-white">&times;</span>

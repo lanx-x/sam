@@ -75,14 +75,14 @@ export function MoldCapabilities({ section }: MoldCapabilitiesProps) {
             </div>
           </div>
 
-          <div ref={categoryListRef} onWheel={handleCategoryWheel} className="hidden w-full flex-row overflow-x-auto overflow-y-hidden xl:flex xl:gap-3">
-              {capabilities.map((capability, index) => (
-                <button
-                  key={capability.id}
-                  ref={(element) => { categoryButtonRefs.current[index] = element; }}
-                  type="button"
-                  onClick={() => selectCategory(index)}
-                className={`shrink-0 h-15 px-5 text-left text-lg font-medium transition-colors border rounded-lg border-[#bfbfbf] hover:border-accent hover:bg-accent hover:text-white ${safeActiveIndex === index && "bg-accent text-white"}`}
+          <div ref={categoryListRef} onWheel={handleCategoryWheel} className="scrollbar-hidden hidden w-full flex-row overflow-x-auto overflow-y-hidden xl:flex xl:gap-3">
+            {capabilities.map((capability, index) => (
+              <button
+                key={capability.id}
+                ref={(element) => { categoryButtonRefs.current[index] = element; }}
+                type="button"
+                onClick={() => selectCategory(index)}
+                className={`shrink-0 h-15 px-5 text-left text-lg font-medium transition-colors border rounded-lg border-[#bfbfbf] hover:border-accent hover:bg-accent hover:text-white ${safeActiveIndex === index && "bg-accent text-white border-accent"}`}
               >
                 {capability.title}
               </button>

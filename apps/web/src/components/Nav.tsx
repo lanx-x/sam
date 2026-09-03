@@ -29,6 +29,7 @@ type NavProps = {
 export function Nav(props: NavProps) {
   const { isHome } = props;
   const [stuck, setStuck] = useState(false);
+  const [desktopHovered, setDesktopHovered] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -49,13 +50,13 @@ export function Nav(props: NavProps) {
     <>
       {isHome && <div ref={sentinelRef} aria-hidden="true" className="-mb-px h-px" />}
       {!isHome && <div aria-hidden="true" className="h-15" />}
-      <header className={`fixed inset-x-0 top-0 z-40 transition-shadow duration-300 ${!isHome || stuck ? 'shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]' : ''}`}>
+      <header className={`fixed inset-x-0 top-0 z-40 transition-shadow duration-300 ${!isHome || stuck || desktopHovered ? 'shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]' : ''}`}>
         <div className="block xl:hidden">
           <MobileNav {...props} scrolled={stuck} />
         </div>
 
         <div className="hidden xl:block">
-          <DesktopNav {...props} />
+          <DesktopNav {...props} onHoverChange={setDesktopHovered} />
         </div>
       </header>
     </>
@@ -212,15 +213,15 @@ export function MobileNav(props: NavProps) {
                                         </Link>
                                       ))
                                       : nested.children?.map((child) => (
-                                      <Link
-                                        className="block text-primary h-12 leading-12 px-5"
-                                        target={nested.target_type === 'external_url' ? '_blank' : ''}
-                                        key={child.id}
-                                        href={(nested.type === 'Industries' && child.target_type === 'industry' && child.industry) ? buildDynamicDetailPath(locale, "industry", child.industry) : withLocalePath(locale, getHref(child))}
-                                        onClick={closeMenu}>
-                                        {child.name}
-                                      </Link>
-                                    ))}
+                                        <Link
+                                          className="block text-primary h-12 leading-12 px-5"
+                                          target={nested.target_type === 'external_url' ? '_blank' : ''}
+                                          key={child.id}
+                                          href={(nested.type === 'Industries' && child.target_type === 'industry' && child.industry) ? buildDynamicDetailPath(locale, "industry", child.industry) : withLocalePath(locale, getHref(child))}
+                                          onClick={closeMenu}>
+                                          {child.name}
+                                        </Link>
+                                      ))}
                                 </div>
                               </div>
                             ))
@@ -249,11 +250,12 @@ export function MobileNav(props: NavProps) {
 }
 
 
-export function DesktopNav(props: NavProps) {
-  const { data, siteData, locale, isHome, applications, industries } = props;
+export function DesktopNav(props: NavProps & { onHoverChange?: (hovered: boolean) => void }) {
+  const { data, siteData, locale, isHome, applications, industries, onHoverChange } = props;
   const groups = data.value ?? [];
   const [openKey, setOpenKey] = useState<string | null>(null);
   const [activeChild, setActiveChild] = useState(-1);
+  const [isHovered, setIsHovered] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [hasScrolled, setHasScrolled] = useState(false);
 
@@ -284,13 +286,22 @@ export function DesktopNav(props: NavProps) {
     setOpenKey(null);
   }, []);
 
-  const useScrolledStyles = !isHome || hasScrolled;
+  const useScrolledStyles = !isHome || hasScrolled || isHovered || openKey !== null;
 
   return (
-    <div>
+    <div
+      onMouseEnter={() => {
+        setIsHovered(true);
+        onHoverChange?.(true);
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        onHoverChange?.(false);
+        scheduleClose();
+      }}
+    >
       <nav
         className={`h-15 z-999 transition-colors duration-300 ${useScrolledStyles ? "bg-white" : "bg-transparent"}`}
-        onMouseLeave={scheduleClose}
       >
         <div className="flex items-center h-full xl:mx-30">
           <Link href={withLocalePath(locale, "/")} className="relative flex h-8 w-23.5 shrink-0 items-center">
@@ -324,18 +335,15 @@ export function DesktopNav(props: NavProps) {
                 : `${useScrolledStyles ? "text-primary" : "text-white"} hover:text-accent hover:font-medium`
 
               return (
-                <div
+
+                <Link
                   key={idx}
-                  className={`h-full flex items-center justify-center transition-colors duration-300 min-w-33.5 hover:border-accent border-t-4 border-solid ${borderStyle} cursor-pointer`}
+                  href={href ? withLocalePath(locale, href) : "#"}
+                  className={`block h-full flex items-center justify-center transition-colors duration-300 min-w-33.5 hover:border-accent border-t-4 border-solid ${borderStyle} cursor-pointer text-sm leading-none transition-colors duration-300 ${fontStyle}`}
                   {...(hasChildren && item.name ? { onMouseEnter: () => open(item.name!) } : {})}
                 >
-
-                  <Link
-                    href={href ? withLocalePath(locale, href) : "#"}
-                    className={`text-sm leading-none transition-colors duration-300 ${fontStyle}`}>
-                    {item.name}
-                  </Link>
-                </div>
+                  {item.name}
+                </Link>
               )
             })}
 
@@ -364,7 +372,6 @@ export function DesktopNav(props: NavProps) {
                 pointerEvents: 'auto',
               }}
               onMouseEnter={cancelClose}
-              onMouseLeave={scheduleClose}
             // onMouseEnter={() => { cancelClose(); debugger }}
             // onMouseLeave={scheduleClose}
             >
@@ -424,7 +431,7 @@ export function DesktopNav(props: NavProps) {
 
                       <div className="border-l border-[#dfdfdf] pl-10">
                         <h3 className="text-accent text-lg mb-10 font-medium leading-none">{getChild('Industries', group)?.name}</h3>
-                        <div className="">
+                        <div className="grid grid-cols-1 gap-y-8">
                           {
                             industries.map((industry) => (
                               <Link key={industry.documentId} href={buildDynamicDetailPath(locale, "industry", industry)} className="group block  hover:text-accent transition-colors duration-300" onClick={close}>

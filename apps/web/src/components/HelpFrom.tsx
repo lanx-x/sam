@@ -36,8 +36,8 @@ export function HelpFrom({ section }: CmpProps) {
     <div className="bg-white py-20 px-5 xl:px-0">
       <div className="xl:mx-auto xl:w-7xl">
         <div className="grid grid-cols-1 gap-2 xl:grid-cols-[540px_1fr] xl:gap-15">
-          <h2 className="text-3xl font-semibold">{section.payload?.title}</h2>
-          <p className="text-sm before:block before:w-20 before:h-1.5 before:bg-accent before:mb-3">{section.payload?.desc}</p>
+          <h2 className="text-3xl font-semibold xl:text-[48px]">{section.payload?.title}</h2>
+          <p className="text-sm before:block before:w-20 before:h-1.5 before:bg-accent before:mb-3 xl:text-base">{section.payload?.desc}</p>
         </div>
         <div className="mt-10 xl:mt-15">
           {

@@ -16,8 +16,10 @@ export function MoldMaking({ section, locale }: CmpProps) {
           payload.data?.map((xs, idx) =>
             <div key={idx} className="flex flex-col items-center mb-5 xl:mb-0 flex-1">
               <div className="w-full flex flex-col items-center -mb-10 z-1">
-                <Image alt="pic" src={getStrapiMedia(xs.image) ?? ""} width={320} height={240} className="w-full aspect-32/24" />
-                <Image alt="icon" src={getStrapiMedia(xs.extension?.[0]?.image) ?? ""} width={80} height={80} className="-mt-10" />
+                <div className="overflow-hidden w-full aspect-32/24 relative">
+                  <Image alt="pic" src={getStrapiMedia(xs.image) ?? ""} fill className="object-cover hover:scale-130 transition-transform duration-300" />
+                </div>
+                <Image alt="icon" src={getStrapiMedia(xs.extension?.[0]?.image) ?? ""} width={80} height={80} className="-mt-10 z-2" />
               </div>
               <div className="pt-20 min-h-70 bg-white w-full xl:pb-10 flex-1 xl:px-8">
                 <p className="text-2xl font-semibold text-center mb-3">{xs.title}</p>

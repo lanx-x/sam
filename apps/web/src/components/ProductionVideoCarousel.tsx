@@ -10,8 +10,12 @@ import { useEffect, useState } from "react";
 
 export function ProductionVideoCarousel({ section }: CmpProps) {
   const payload = section.payload!
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' }, [Autoplay({ active: true, delay: 3000 })])
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' }, [Autoplay({ active: true, delay: 3000 })])
   const data = payload.data ?? []
+  // Embla disables looping when too few slides can fill the viewport during a wrap.
+  const carouselData = data.length > 0
+    ? Array.from({ length: Math.ceil(8 / data.length) }, () => data).flat()
+    : []
   const [activeIdx, setActiveIdx] = useState<number | null>(null)
   const activeItem = activeIdx !== null ? data[activeIdx] : undefined
 
@@ -31,12 +35,12 @@ export function ProductionVideoCarousel({ section }: CmpProps) {
       </div>
 
       <div className="wrapper overflow-hidden w-full" ref={emblaRef}>
-        <div className="flex flex-row pl-5 gap-5 xl:pl-0 w-full">
+        <div className="flex w-full flex-row gap-5 pl-5 xl:-ml-5 xl:gap-0 xl:pl-0">
           {
-            data.map((xs, idx) => (
-              <div className="basis-30/39 shrink-0 xl:basis-[calc((100%-3.75rem)/4)]" key={idx}>
+            carouselData.map((xs, idx) => (
+              <div className="basis-30/39 shrink-0 xl:basis-[calc((100%_+_1.25rem)_/_4)] xl:pl-5" key={idx}>
                 <button
-                  onClick={() => setActiveIdx(idx)}
+                  onClick={() => setActiveIdx(idx % data.length)}
                   className="group relative block w-full aspect-300/208 xl:aspect-405/280 rounded-lg overflow-hidden bg-[#f5f5f5]"
                 >
                   {/* #t=0.1 lets browsers render the first frame as the cover with preload="metadata" */}

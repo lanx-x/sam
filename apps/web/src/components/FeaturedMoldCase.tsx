@@ -23,12 +23,17 @@ type FeaturedMoldCaseProps = {
 
 export function FeaturedMoldCase({ section, payload: providedPayload }: FeaturedMoldCaseProps) {
   const payload = providedPayload ?? section?.payload;
+  const data = payload?.data ?? [];
+  // Embla disables looping when too few slides can fill the viewport during a wrap.
+  const carouselData = data.length > 0
+    ? Array.from({ length: Math.ceil(6 / data.length) }, () => data).flat()
+    : [];
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [snapCount, setSnapCount] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     containScroll: "trimSnaps",
-    loop: false,
+    loop: true,
     breakpoints: {
       "(min-width: 1280px)": { slidesToScroll: 3 },
     },
@@ -75,9 +80,9 @@ export function FeaturedMoldCase({ section, payload: providedPayload }: Featured
         </div>
 
         <div className="mt-7.5 overflow-hidden xl:mt-15" ref={emblaRef}>
-          <div className="flex gap-3 xl:gap-5">
-            {payload.data?.map((caseStudy, index) => (
-              <article key={index} className="w-330/390 shrink-0 xl:w-103.25">
+          <div className="flex -ml-3 gap-0 xl:-ml-5">
+            {carouselData.map((caseStudy, index) => (
+              <article key={index} className="w-[calc(84.6153846%_+_0.75rem)] shrink-0 pl-3 xl:w-[calc((100%_+_1.25rem)_/_3)] xl:pl-5">
                 <div className="relative aspect-330/224 overflow-hidden rounded-lg bg-white shadow-[0_4px_16px_rgba(0,0,0,0.12)] xl:h-70">
                   <Image
                     fill

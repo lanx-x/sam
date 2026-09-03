@@ -27,7 +27,7 @@ export function GetInTouch(props: CmpProps) {
       <Image alt="bg" src={getStrapiMedia(payload.image) ?? ""} fill className="object-cover -z-1" />
 
       <div className="flex flex-col xl:flex-row xl:mx-30">
-        <div className="xl:mt-10">
+        <div className="xl:mt-10 xl:max-w-164.25">
           <h2 className="text-3xl text-white font-semibold xl:text-5xl">{payload.title}</h2>
           <h2 className="text-3xl text-white font-semibold xl:text-5xl">
             <span className="text-accent">{head}</span>{rest}
@@ -39,7 +39,7 @@ export function GetInTouch(props: CmpProps) {
           </div>
         </div>
 
-        <div className="xl:ml-auto xl:w-210">
+        <div className="xl:ml-auto xl:w-210 xl:shrink-0">
           <FormGetQuote {...props} />
         </div>
       </div>
