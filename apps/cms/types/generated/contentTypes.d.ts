@@ -2000,6 +2000,7 @@ export interface ApiUiSectionUiSection extends Struct.CollectionTypeSchema {
         'list.featured-faq-list',
         'list.featured-equipment-list',
         'list.featured-surface-finish-list',
+        'list.featured-application',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

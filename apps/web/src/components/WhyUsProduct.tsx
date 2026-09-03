@@ -17,7 +17,7 @@ export function WhyUsProduct({ section }: CmpProps) {
           section.payload?.data?.map((xs, index) => (
             <div key={xs.id} className="bg-[#fafafa] rounded-xl overflow-hidden">
               <div className="relative w-full aspect-35/22">
-                <Image fill className="object-cover rounded-xl  transition-transform duration-300 hover:scale-105" src={getStrapiMedia(xs.image) ?? ""} alt="icon" />
+                <Image fill className="object-cover rounded-xl  transition-transform duration-300 hover:scale-130" src={getStrapiMedia(xs.image) ?? ""} alt="icon" />
               </div>
               <div className="px-5 py-8">
                 <p className="mb-4 text-lg font-bold leading-none xl:text-2xl">{xs.title}</p>

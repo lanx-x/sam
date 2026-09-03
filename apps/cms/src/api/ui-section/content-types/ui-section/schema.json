@@ -126,7 +126,8 @@
         "list.featured-industry-list",
         "list.featured-faq-list",
         "list.featured-equipment-list",
-        "list.featured-surface-finish-list"
+        "list.featured-surface-finish-list",
+        "list.featured-application"
       ]
     }
   }

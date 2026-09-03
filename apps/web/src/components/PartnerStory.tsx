@@ -16,7 +16,7 @@ export function PartnerStory({ section }: CmpProps) {
           section.payload?.extra_images?.map(xs => (
             <div key={xs.id} className="relative flex justify-center items-center border border-[#bfbfbf] bg-[#fafafa] rounded-xl h-16.5 xl:h-20">
               <div className="w-8/10 h-8/10 relative overflow-hidden">
-                <Image src={getStrapiMedia(xs) ?? ""} alt="" fill className="object-contain transition-transform duration-300 hover:scale-120" />
+                <Image src={getStrapiMedia(xs) ?? ""} alt="" fill className="object-contain transition-transform duration-300 hover:scale-130" />
               </div>
             </div>
           ))

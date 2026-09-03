@@ -38,7 +38,7 @@ export function CommonListWithIcon({ section, payload: providedPayload }: Common
             payload.data?.map(xs => (
               <div key={xs.id} className={`w-full px-5 py-8 ${variant === 't1' ? 'bg-white' : 'bg-[#fafafa]'}  xl:w-auto xl:basis-4 flex-1 xl:px-10`}>
                 <div className="w-10 h-10 relative overflow-hidden xl:w-16 xl:h-16">
-                  <Image alt="img" src={getStrapiMedia(xs.image) ?? ""} fill className="object-cover hover:scale-120 transition-transform duration-300" />
+                  <Image alt="img" src={getStrapiMedia(xs.image) ?? ""} fill className="object-cover hover:scale-130 transition-transform duration-300" />
                 </div>
                 <p className="mt-8 mb-3 text-lg font-semibold">{xs.title}</p>
                 <p className="text-sm">{xs.desc}</p>

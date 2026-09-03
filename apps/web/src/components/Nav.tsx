@@ -396,7 +396,7 @@ export function DesktopNav(props: NavProps & { onHoverChange?: (hovered: boolean
                           >
                             <h4 className="text-2xl font-medium text-primary">{child.name}</h4>
                             <div className="w-76.25 h-45 relative mt-6 mb-5 overflow-hidden">
-                              <Image alt="icon" src={getStrapiMedia(child.image) ?? ""} fill className="object-cover group-hover:scale-120 transition-transform duration-300" />
+                              <Image alt="icon" src={getStrapiMedia(child.image) ?? ""} fill className="object-cover group-hover:scale-130 transition-transform duration-300" />
                             </div>
                             <p className="text-base leading-4.5 text-primary/66">{child.desc} </p>
                           </Link>
@@ -456,7 +456,7 @@ export function DesktopNav(props: NavProps & { onHoverChange?: (hovered: boolean
                           <Link key={child.id} target={child.target_type === 'external_url' ? '_blank' : ""} href={withLocalePath(locale, getHref(child))} className="block w-100 group duration-300" onClick={close}>
                             <h3 className="text-2xl text-primary font-medium leading-none">{child.name}</h3>
                             <div className="relative mt-6 mb-5 w-100 h-60 overflow-hidden">
-                              <Image alt="icon" src={getStrapiMedia(child.image) ?? ""} fill className="object-cover transition-transform group-hover:scale-120 duration-300" />
+                              <Image alt="icon" src={getStrapiMedia(child.image) ?? ""} fill className="object-cover transition-transform group-hover:scale-130 duration-300" />
                             </div>
                             <p className="text-sm text-primary/66 leading-4.5">{child.desc}</p>
 

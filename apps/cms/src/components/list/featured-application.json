@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_list_featured_applications",
+  "info": {
+    "displayName": "FeaturedApplication"
+  },
+  "options": {},
+  "attributes": {
+    "applications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::application.application"
+    }
+  },
+  "config": {}
+}

@@ -42,7 +42,7 @@ export async function FeaturedNews({ section, documentId, slug, locale }: CmpPro
             <Link target="_blank" href={buildDynamicDetailPath(locale, "news", xs)} key={xs.documentId} className="block text-left group border-b border-[#efefef] hover:border-accent">
               <div className="h-full pb-5 border-b border-transparent group-hover:border-accent">
                 <div className="rounded-xl overflow-hidden">
-                  <Image width={413} height={232} src={getStrapiMedia(xs.image) ?? ""} alt="" className="w-full object-cover rounded-xl aspect-167/94 xl:aspect-413/232 transition-transform duration-300 hover:scale-105" />
+                  <Image width={413} height={232} src={getStrapiMedia(xs.image) ?? ""} alt="" className="w-full object-cover rounded-xl aspect-167/94 xl:aspect-413/232 transition-transform duration-300 hover:scale-130" />
                 </div>
                 <p className="text-lg font-semibold mt-4 mb-2 leading-none group-hover:text-accent">{xs.title}</p>
                 <span className="text-secondary leading-none">{dayjs(xs.date as string).format('YYYY-MM-DD')}</span>

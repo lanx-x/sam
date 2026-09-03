@@ -20,6 +20,7 @@ import { Tolerance } from "./Tolerance";
 import { FeaturedNews } from "./FeaturedNews";
 import { Service } from "./Service";
 import { FeaturedIndustry } from "./FeaturedIndustry";
+import { FeaturedApplication } from "./FeaturedApplication";
 import { WhyUs } from "./WhyUs";
 import { WhatWeOffer } from "./WhatWeOffer";
 import { GetExpertAdvice } from "./GetExpertAdvice";
@@ -84,6 +85,7 @@ export const CmpMap: Record<string, ComponentType<any>> = {
   Service,
 
   FeaturedIndustry,
+  FeaturedApplication,
 
   WhyUs,
   WhatWeOffer,

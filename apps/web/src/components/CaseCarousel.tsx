@@ -41,7 +41,7 @@ export function CaseCarousel({ section }: CmpProps) {
           {
             payload.data?.map((xs, idx) => (
               <div className="basis-30/39 shrink-0 xl:basis-[calc((100%-3.75rem)/4)] relative aspect-square overflow-hidden" key={idx}>
-                <Image alt="img" src={getStrapiMedia(xs.image) ?? ""} fill className=" aspect-square object-cover hover:scale-120 transition-transform duration-300" />
+                <Image alt="img" src={getStrapiMedia(xs.image) ?? ""} fill className=" aspect-square object-cover hover:scale-130 transition-transform duration-300" />
                 <div className="absolute left-0 bottom-0 w-full h-13 px-5 flex items-center bg-[rgba(0,0,0,0.7)]">
                   <p className="text-white font-semibold text-2xl">{xs.title}</p>
                 </div>

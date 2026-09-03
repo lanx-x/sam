@@ -82,7 +82,7 @@ export function Gallery({ section }: CmpProps) {
                           src={getStrapiMedia(img) ?? ""}
                           alt=""
                           fill
-                          className="object-cover transition-transform duration-300 hover:scale-120"
+                          className="object-cover transition-transform duration-300 hover:scale-130"
                           sizes="(max-width: 1279px) 50vw"
                         />
                       </div>
@@ -120,7 +120,7 @@ export function Gallery({ section }: CmpProps) {
                           src={getStrapiMedia(img) ?? ""}
                           alt=""
                           fill
-                          className="object-cover transition-transform duration-300 hover:scale-105"
+                          className="object-cover transition-transform duration-300 hover:scale-130"
                           sizes="420px"
                         />
                       </div>
