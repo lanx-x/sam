@@ -55,7 +55,7 @@ export function ProductionVideoCarousel({ section }: CmpProps) {
                     <Image src={Assets.IconPlay} alt="icon-play" width={48} height={48} className="w-12 h-12" />
                   </div>
                 </button>
-                <p className="mt-5 font-semibold text-sm">{xs.title}</p>
+                <p className="mt-5 font-semibold text-sm xl:text-lg">{xs.title}</p>
               </div>
             ))
           }

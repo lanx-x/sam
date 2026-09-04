@@ -89,7 +89,7 @@ export function MoldCapabilities({ section }: MoldCapabilitiesProps) {
             ))}
           </div>
 
-          <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-3">
+          <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-3 xl:mt-10">
             {activeCapability.extension?.map((detail) => (
               <div key={detail.id} className="overflow-hidden">
                 {detail.image && <div className="relative aspect-350/237">

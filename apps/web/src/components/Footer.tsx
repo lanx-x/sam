@@ -90,7 +90,7 @@ export function Footer({ siteData, navigation, locale, applications, industries 
           <Subscribe
             label={siteData.display_text?.subscribe?.subscribe ?? "Subscribe"}
             placeholder={siteData.display_text?.subscribe?.placeholder ?? "Enter your business email"}
-            className="border border-[#efefef] mb-10 xl:w-143 xl:mb-0" />
+            className="border border-[#414141] mb-10 xl:w-143 xl:mb-0" />
 
 
           <div className="flex flex-row items-center xl:hidden">

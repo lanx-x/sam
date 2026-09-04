@@ -70,7 +70,7 @@ export function MoldProcessCarousel({ section }: CmpProps) {
             carouselCards.map((item, idx) => (
               <div className="basis-30/39 shrink-0 xl:basis-[calc((100%_+_1.25rem)_/_4)] xl:pl-5" key={idx}>
                 <Image alt={item.key ?? ""} src={getStrapiMedia(item.image) ?? ""} width={405} height={280} className="w-full rounded-lg aspect-405/280 object-cover" />
-                <p className="mt-5 font-semibold text-sm">{item.key}</p>
+                <p className="mt-5 font-semibold text-sm xl:text-lg">{item.key}</p>
               </div>
             ))
           }

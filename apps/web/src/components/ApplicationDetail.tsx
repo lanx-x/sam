@@ -32,7 +32,7 @@ export async function ApplicationDetail({ documentId, locale }: CmpProps) {
         <div className="bg-[#fafafa]">
           <div className="py-10 grid grid-cols-1 gap-10 xl:mx-auto xl:w-7xl xl:grid-cols-2 xl:gap-5 xl:py-15">
             <div className="xl:mt-10 xl:pr-20">
-              <h1 className="text-4xl font-black mb-5">{data.detailPageTitle}</h1>
+              <h1 className="text-4xl font-black mb-5 xl:text-[64px]">{data.detailPageTitle}</h1>
               <p className="text-base">{data.detailPageDesc}</p>
 
               <div className="mt-10 xl:w-50">

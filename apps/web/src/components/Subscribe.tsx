@@ -56,8 +56,8 @@ export function Subscribe({ className, label, placeholder }: Props) {
       <div className={cn("relative bg-bg w-full h-12 rounded-sm overflow-hidden flex flex-row justify-start", className)}>
         <input
           className={cn(
-            "flex-1 text-sm h-full border-none text-primary px-4 placeholder:text-secondary outline-none",
-            status === 'error' && 'bg-red-100'
+            "flex-1 text-sm h-full border-none text-white px-4 placeholder:text-secondary outline-none bg-[#333]",
+            status === 'error' && 'bg-red-100 text-primary'
           )}
           type="email"
           placeholder={placeholder ?? "Enter your business email"}
