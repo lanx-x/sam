@@ -40,7 +40,7 @@ export function FeaturedIndustry({ section, locale }: CmpProps) {
 
   return (
     <section className={bgVariant}>
-      <div className={`relative w-full pt-20 ${t[0] && "xl:mx-30 xl:pt-30"} ${t[1] && "xl:mx-auto xl:w-7xl xl:py-25"}`}>
+      <div className={`relative pt-20 ${t[0] && "xl:mx-30 xl:pt-30"} ${t[1] && "xl:mx-auto xl:w-7xl xl:py-25"}`}>
         <div className="mb-5 flex px-5 xl:mb-15 xl:px-0">
           <div>
             <h2 className="text-2xl font-medium xl:text-5xl/20">{section.payload?.title}</h2>
