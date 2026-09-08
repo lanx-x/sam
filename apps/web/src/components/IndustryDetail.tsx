@@ -26,6 +26,7 @@ export async function IndustryDetail({ documentId, locale }: CmpProps) {
     ? { title: data.parts.title, data: data.parts.data }
     : null;
 
+
   const caseStudy = data?.case_study
     ? {
       title: data.case_study.title,
@@ -43,6 +44,7 @@ export async function IndustryDetail({ documentId, locale }: CmpProps) {
     }
     : null;
 
+  console.log("caseStudy", caseStudy);
   if (!data) {
     return <div className="py-30 text-3xl font-semibold text-center">Industry: {documentId} not found.</div>
   }

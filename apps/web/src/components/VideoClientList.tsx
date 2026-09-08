@@ -3,7 +3,7 @@
 import { Video, StrapiCollectionResponse } from "cms-types";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { getStrapiMedia } from "@/utils/strapi";
 import { Pagination } from "./Pagination";
 
@@ -43,6 +43,14 @@ export function VideoClientList({ data, pageSize }: Props) {
   const page = Number(searchParams.get('page')) || 1;
   const pageCount = data.meta.pagination?.pageCount ?? 0;
   const [activeVideo, setActiveVideo] = useState<ReturnType<typeof getVideoMeta> | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (video: ReturnType<typeof getVideoMeta>) => {
+    setActiveVideo(video);
+    requestAnimationFrame(() => setIsModalOpen(true));
+  };
+
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <div className="my-12.5 px-5 xl:px-0">
@@ -59,7 +67,7 @@ export function VideoClientList({ data, pageSize }: Props) {
             return (
               <button
                 key={video.documentId}
-                onClick={() => setActiveVideo(meta)}
+                onClick={() => openModal(meta)}
                 className="cursor-pointer! group text-left duration-300 transition-colors rounded-xl overflow-hidden bg-white hover:bg-[rgba(0,118,238,0.1)] xl:p-2.5 xl:h-87.5 flex flex-col"
               >
                 <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-[#f5f5f5] cursor-pointer">
@@ -92,15 +100,20 @@ export function VideoClientList({ data, pageSize }: Props) {
       {/* Video Modal */}
       {activeVideo && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
-          onClick={() => setActiveVideo(null)}
+          className={`fixed inset-0 z-50 flex items-center justify-center bg-black/70 transition-opacity duration-300 ease-out ${isModalOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
+          onClick={closeModal}
+          onTransitionEnd={(event) => {
+            if (event.target === event.currentTarget && event.propertyName === "opacity" && !isModalOpen) {
+              setActiveVideo(null);
+            }
+          }}
         >
           <div
-            className="relative w-full max-w-7xl mx-5 bg-black rounded-xl overflow-hidden"
+            className={`relative mx-5 w-full max-w-7xl overflow-hidden rounded-xl bg-black transition-all duration-300 ease-out ${isModalOpen ? "translate-y-0 scale-100 opacity-100" : "translate-y-4 scale-[0.98] opacity-0"}`}
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              onClick={() => setActiveVideo(null)}
+              onClick={closeModal}
               className="absolute -top-10 right-0 text-white/70 hover:text-white transition-colors z-10"
             >
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">

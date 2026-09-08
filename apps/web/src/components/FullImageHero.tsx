@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ActionButton } from "./ActionButton";
 
 const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const splitNewlines = (value?: string | null) => value?.split(/\\n|\r?\n/) ?? [];
 
 function renderHighlightedDesc(desc: string | null | undefined, highlights: string[], cl = 'text-accent text-3xl font-extrabold') {
   if (!desc || !highlights.length) return desc;
@@ -46,7 +47,7 @@ export function FullImageHero({ section }: CmpProps) {
           <h1 className={`text-4xl font-black mb-5 leading-none ${t[0] && 'xl:text-[64px]'} ${t[1] && 'xl:text-[64px] xl:mb-5'} ${t[2] && 'xl:text-5xl xl:mb-3'} ${t[3] && 'xl:text-[64px] xl:mb-2'}`}>{renderHighlightedDesc(section.payload?.title, highlights, 'text-[64px]')}</h1>
 
           {
-            payload.desc?.split('\\n').map((xs, idx) => (
+            splitNewlines(payload.desc).map((xs, idx) => (
               <p className="text-base" key={idx}>{renderHighlightedDesc(xs, highlights)}</p>
             ))
           }
@@ -59,7 +60,7 @@ export function FullImageHero({ section }: CmpProps) {
                     <div key={idx} className="mb-3">
                       <h3 className="text-xl font-semibold text-left mb-2">{xs.key}</h3>
                       {
-                        xs.value?.split('\\n').map((s, idx) => <p key={idx} className="text-base">{s}</p>)
+                        xs.value && splitNewlines(xs.value).map((s, idx) => <p key={idx} className="text-base">{s}</p>)
                       }
                     </div>
                   ))

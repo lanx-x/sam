@@ -170,7 +170,7 @@ export interface ItemKvItem extends Struct.ComponentSchema {
   };
   attributes: {
     admin_note: Schema.Attribute.String & Schema.Attribute.Private;
-    desc: Schema.Attribute.String;
+    desc: Schema.Attribute.Text;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     key: Schema.Attribute.String;
     value: Schema.Attribute.String;

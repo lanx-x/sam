@@ -25,6 +25,8 @@ type CrossListProps = {
   styles?: string
 };
 
+const normalizeNewlines = (value?: string | null) => value?.replace(/\\n/g, '\n');
+
 export function CrossList({ section, payload: providedPayload, styles }: CrossListProps) {
   const payload = providedPayload ?? section?.payload;
   const extension = section ? mergeExtension(section) : {};
@@ -41,7 +43,7 @@ export function CrossList({ section, payload: providedPayload, styles }: CrossLi
     <div className={styles}>
       <div className={`px-5 xl:px-0 xl:w-7xl xl:mx-auto ${variant === 't1' ? 'pb-20' : 'py-20'}`}>
         <h2 className="text-3xl font-semibold text-center xl:text-5xl">{payload.title}</h2>
-        {payload.desc && <p className="section-desc mt-3 text-center">{payload.desc}</p>}
+        {payload.desc && <p className="section-desc mt-3 text-center whitespace-pre-line">{normalizeNewlines(payload.desc)}</p>}
 
         <div className="mt-10 flex flex-col gap-10 xl:gap-25">
           {
@@ -53,7 +55,7 @@ export function CrossList({ section, payload: providedPayload, styles }: CrossLi
 
                 <div className="xl:pt-10">
                   <p className="text-2xl font-semibold mb-5">{xs.title}</p>
-                  <p className="text-sm">{xs.desc}</p>
+                  <p className="text-sm whitespace-pre-line">{normalizeNewlines(xs.desc)}</p>
                   <ul className="list-disc pl-5 mt-2">
                     {xs.extension?.map(item => (<li key={item.id}>{item.key}</li>))}
                   </ul>

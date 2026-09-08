@@ -17,7 +17,15 @@ export function ProductionVideoCarousel({ section }: CmpProps) {
     ? Array.from({ length: Math.ceil(8 / data.length) }, () => data).flat()
     : []
   const [activeIdx, setActiveIdx] = useState<number | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const activeItem = activeIdx !== null ? data[activeIdx] : undefined
+
+  const openModal = (index: number) => {
+    setActiveIdx(index)
+    requestAnimationFrame(() => setIsModalOpen(true))
+  }
+
+  const closeModal = () => setIsModalOpen(false)
 
   useEffect(() => {
     if (!emblaRef || !emblaApi) return
@@ -40,7 +48,7 @@ export function ProductionVideoCarousel({ section }: CmpProps) {
             carouselData.map((xs, idx) => (
               <div className="basis-30/39 shrink-0 xl:basis-[calc((100%_+_1.25rem)_/_4)] xl:pl-5" key={idx}>
                 <button
-                  onClick={() => setActiveIdx(idx % data.length)}
+                  onClick={() => openModal(idx % data.length)}
                   className="group relative block w-full aspect-300/208 xl:aspect-405/280 rounded-lg overflow-hidden bg-[#f5f5f5]"
                 >
                   {/* #t=0.1 lets browsers render the first frame as the cover with preload="metadata" */}
@@ -74,15 +82,20 @@ export function ProductionVideoCarousel({ section }: CmpProps) {
 
       {activeItem && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
-          onClick={() => setActiveIdx(null)}
+          className={`fixed inset-0 z-50 flex items-center justify-center bg-black/70 transition-opacity duration-300 ease-out ${isModalOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
+          onClick={closeModal}
+          onTransitionEnd={(event) => {
+            if (event.target === event.currentTarget && event.propertyName === "opacity" && !isModalOpen) {
+              setActiveIdx(null)
+            }
+          }}
         >
           <div
-            className="relative w-full max-w-7xl mx-5 bg-black rounded-xl overflow-hidden"
+            className={`relative mx-5 w-full max-w-7xl overflow-hidden rounded-xl bg-black transition-all duration-300 ease-out ${isModalOpen ? "translate-y-0 scale-100 opacity-100" : "translate-y-4 scale-[0.98] opacity-0"}`}
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              onClick={() => setActiveIdx(null)}
+              onClick={closeModal}
               className="absolute -top-10 right-0 text-white/70 hover:text-white transition-colors z-10"
             >
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">

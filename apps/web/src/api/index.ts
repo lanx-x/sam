@@ -8,7 +8,7 @@ export type { PageData };
 const isDev = NODE_ENV === 'development'
 // const isDev = false
 
-// 开发环境兼用缓存, 其他环境设置无限长的缓存时间(通过 webhook 刷新缓存)
+// 开发环境禁用缓存；生产环境通过 webhook 按 tag 主动失效。
 const revalidate = {
   short: isDev ? 0 : 60 * 5,
   normal: isDev ? 0 : 60 * 5,
@@ -62,11 +62,14 @@ const listPopulate = {
   },
 } as const
 
-export const KNOWN_CACHE_TAGS = new Set([
+export const CACHE_TAGS = [
   "action",
   "application",
   "page",
   "ui-section",
+  "renderer",
+  "faq",
+  "quality-level",
   "broadcast",
   "site",
   "navigation",
@@ -81,7 +84,34 @@ export const KNOWN_CACHE_TAGS = new Set([
   "material-category",
   "industry",
   "i18n-locale",
-])
+] as const
+
+export type CacheTag = (typeof CACHE_TAGS)[number]
+
+export const KNOWN_CACHE_TAGS = new Set<string>(CACHE_TAGS)
+
+// `getPage` uses Strapi's deep populate, so its response can embed any of
+// these models even when the page record itself did not change.
+const PAGE_CACHE_TAGS = [
+  "page",
+  "ui-section",
+  "renderer",
+  "action",
+  "application",
+  "broadcast",
+  "surface-treatment",
+  "equipment",
+  "equipment-category",
+  "case-study",
+  "news",
+  "news-category",
+  "video",
+  "material",
+  "material-category",
+  "quality-level",
+  "industry",
+  "faq",
+] satisfies readonly CacheTag[]
 
 export async function getPage(payload: { [key: string]: any }) {
   const { slug, ...params } = payload
@@ -95,7 +125,7 @@ export async function getPage(payload: { [key: string]: any }) {
 
   return fetchStrapi<StrapiCollectionResponse<PageData>>('/pages', {
     params: p,
-    next: { revalidate: revalidate.short, tags: ["page", "material", "news", "case-study", "industry", "equipment", "surface-treatment", "ui-section"] }
+    next: { revalidate: revalidate.short, tags: PAGE_CACHE_TAGS }
   });
 }
 
@@ -120,7 +150,7 @@ export async function getSurfaceTreatment(params: { [key: string]: any }) {
       'sort[1]': 'id:desc',
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["surface-treatment", "material", "news"] },
+    next: { revalidate: revalidate.normal, tags: ["surface-treatment", "material", "news", "faq"] },
   })
 }
 
@@ -179,7 +209,7 @@ export async function getSurfaceTreatmentDetail(params: { [key: string]: any }) 
       },
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["surface-treatment", "material", "news"] },
+    next: { revalidate: revalidate.normal, tags: ["surface-treatment", "material", "news", "faq"] },
   })
 }
 
@@ -298,7 +328,7 @@ export async function getMaterial(params: { [key: string]: any } = {}) {
       'sort[1]': 'id:desc',
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["material", "material-category", "surface-treatment", "industry", "news"] },
+    next: { revalidate: revalidate.normal, tags: ["material", "material-category", "surface-treatment", "industry", "news", "quality-level", "faq"] },
   })
 }
 
@@ -331,7 +361,7 @@ export async function getMaterialDetail(params: { [key: string]: any }) {
       },
       ...params,
     },
-    next: { revalidate: revalidate.normal, tags: ["material", "material-category", "surface-treatment", "industry", "news"] },
+    next: { revalidate: revalidate.normal, tags: ["material", "material-category", "surface-treatment", "industry", "news", "quality-level", "faq"] },
   })
 }
 
@@ -439,7 +469,7 @@ export async function getNavigation(params: { [key: string]: any } = {}) {
       },
       ...params,
     },
-    next: { revalidate: revalidate.long, tags: ["navigation"] },
+    next: { revalidate: revalidate.long, tags: ["navigation", "action", "industry", "page"] },
   })
 }
 

@@ -14,7 +14,7 @@
       "required": false
     },
     "desc": {
-      "type": "string"
+      "type": "text"
     },
     "image": {
       "type": "media",

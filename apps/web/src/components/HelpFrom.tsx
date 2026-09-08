@@ -7,6 +7,8 @@ import { getStrapiMedia } from "@/utils/strapi";
 import { useState, useRef } from "react";
 import { Assets } from "@/assets";
 
+const normalizeNewlines = (value?: string | null) => value?.replace(/\\n/g, '\n');
+
 export function HelpFrom({ section }: CmpProps) {
   const [activeIndex, setActiveIndex] = useState(0)
   const itemRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -37,7 +39,7 @@ export function HelpFrom({ section }: CmpProps) {
       <div className="xl:mx-auto xl:w-7xl">
         <div className="grid grid-cols-1 gap-2 xl:grid-cols-[540px_1fr] xl:gap-15">
           <h2 className="text-3xl font-semibold xl:text-[48px]">{section.payload?.title}</h2>
-          <p className="text-sm before:block before:w-20 before:h-1.5 before:bg-accent before:mb-3 xl:text-base">{section.payload?.desc}</p>
+          <p className="text-sm whitespace-pre-line before:block before:w-20 before:h-1.5 before:bg-accent before:mb-3 xl:text-base">{normalizeNewlines(section.payload?.desc)}</p>
         </div>
         <div className="mt-10 xl:mt-15">
           {
@@ -65,7 +67,7 @@ export function HelpFrom({ section }: CmpProps) {
                               <Image fill src={getStrapiMedia(step.image) ?? ""} alt="" className="object-cover" />
                             </div>
                           )}
-                          <p className="text-sm xl:text-base leading-5.5">{step.desc}</p>
+                          <p className="text-sm whitespace-pre-line xl:text-base leading-5.5">{normalizeNewlines(step.desc)}</p>
                         </div>
                       </div>
                     </div>

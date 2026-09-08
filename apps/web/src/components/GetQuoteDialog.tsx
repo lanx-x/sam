@@ -12,13 +12,21 @@ const GetQuoteDialogContext = createContext<GetQuoteDialogContextValue | null>(n
 
 export function GetQuoteDialogProvider({ children, siteData }: { children: ReactNode; siteData: CmpProps["siteData"] }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const openDialog = () => {
+    setIsOpen(true);
+    requestAnimationFrame(() => setIsVisible(true));
+  };
+
+  const closeDialog = () => setIsVisible(false);
 
   useEffect(() => {
     if (!isOpen) return;
 
     const originalOverflow = document.body.style.overflow;
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsOpen(false);
+      if (event.key === "Escape") closeDialog();
     };
 
     document.body.style.overflow = "hidden";
@@ -31,30 +39,35 @@ export function GetQuoteDialogProvider({ children, siteData }: { children: React
   }, [isOpen]);
 
   return (
-    <GetQuoteDialogContext.Provider value={{ open: () => setIsOpen(true) }}>
+    <GetQuoteDialogContext.Provider value={{ open: openDialog }}>
       {children}
       {isOpen && (
         <div
-          className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 p-5"
-          onClick={() => setIsOpen(false)}
+          className={`fixed inset-0 z-100 flex items-center justify-center bg-black/50 p-5 transition-opacity duration-300 ease-out ${isVisible ? "opacity-100" : "pointer-events-none opacity-0"}`}
+          onClick={closeDialog}
+          onTransitionEnd={(event) => {
+            if (event.target === event.currentTarget && event.propertyName === "opacity" && !isVisible) {
+              setIsOpen(false);
+            }
+          }}
         >
           <div
             role="dialog"
             aria-modal="true"
             aria-label="Get a free quote"
-            className="relative w-full xl:w-210"
+            className={`relative w-full transition-all duration-300 ease-out xl:w-210 ${isVisible ? "translate-y-0 scale-100 opacity-100" : "translate-y-4 scale-[0.98] opacity-0"}`}
             onClick={(event) => event.stopPropagation()}
           >
             <button
               type="button"
               aria-label="Close quote form"
               className="absolute -right-9.5 -top-8 z-10 flex size-10 items-center justify-center rounded-full text-2xl leading-none text-primary transition-colors"
-              onClick={() => setIsOpen(false)}
+              onClick={closeDialog}
             >
               <span aria-hidden="true" className="text-4xl text-white">&times;</span>
             </button>
             <div className="max-h-[calc(100vh-5rem)] overflow-y-auto">
-              <FormGetQuote siteData={siteData} onSuccess={() => setIsOpen(false)} />
+              <FormGetQuote siteData={siteData} onSuccess={closeDialog} />
             </div>
           </div>
         </div>

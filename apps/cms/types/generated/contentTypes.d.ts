@@ -582,6 +582,13 @@ export interface ApiApplicationApplication extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     parts: Schema.Attribute.Component<'section.basic-section', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1060,6 +1067,13 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<0>;
     parts: Schema.Attribute.Component<'section.basic-section', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1979,7 +1993,7 @@ export interface ApiUiSectionUiSection extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    desc: Schema.Attribute.String &
+    desc: Schema.Attribute.Text &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

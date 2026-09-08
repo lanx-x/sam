@@ -2,6 +2,8 @@ import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { mergeExtension } from "@/utils";
 import { CountUpNumber } from "./CountUpNumber";
 
+const splitNewlines = (value?: string | null) => value?.split(/\\n|\r?\n/) ?? [];
+
 export function AboutSAMWithStats({ section }: CmpProps) {
   const payload = section.payload!
   const extension = mergeExtension(section)
@@ -27,7 +29,7 @@ export function AboutSAMWithStats({ section }: CmpProps) {
           </div>
           <h2 className="text-2xl font-semibold xl:text-4xl">{payload.title}</h2>
           <div className="mt-5 text-base">
-            {payload.desc?.split('\\n').map((xs, idx) => <p key={idx}>{xs}</p>)}
+            {payload.desc && splitNewlines(payload.desc).map((xs, idx) => <p key={idx}>{xs}</p>)}
           </div>
         </div>
       </div>

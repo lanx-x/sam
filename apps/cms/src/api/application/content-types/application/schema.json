@@ -114,6 +114,15 @@
       },
       "component": "section.basic-section",
       "repeatable": false
+    },
+    "order": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": 0
     }
   }
 }

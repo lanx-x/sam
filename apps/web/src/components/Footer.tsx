@@ -24,7 +24,12 @@ type FooterGroup = {
   children?: FooterItem[] | null;
 };
 
+const sortByOrderDescending = <T extends { order?: number | null }>(items: T[]) =>
+  [...items].sort((a, b) => (b.order ?? 0) - (a.order ?? 0));
+
 export function Footer({ siteData, navigation, locale, applications, industries }: { siteData: Site, locale: string, navigation: Navigation, applications: Application[], industries: Industry[] }) {
+  const sortedApplications = sortByOrderDescending(applications);
+  const sortedIndustries = sortByOrderDescending(industries);
 
   const data = navigation.value?.map(group => {
     if (group.type === 'home' || group.type === 'about') return []
@@ -34,9 +39,9 @@ export function Footer({ siteData, navigation, locale, applications, industries 
         name: child.name,
         id: child.id,
         children: child.type === 'Application'
-          ? applications.map((application) => ({ ...application, source: 'application' as const }))
+          ? sortedApplications.map((application) => ({ ...application, source: 'application' as const }))
           : child.type === 'Industries'
-            ? industries.map((industry) => ({ ...industry, source: 'industry' as const }))
+            ? sortedIndustries.map((industry) => ({ ...industry, source: 'industry' as const }))
             : child.children,
       }))
     }
@@ -71,14 +76,14 @@ export function Footer({ siteData, navigation, locale, applications, industries 
         </div>
 
         <div className="xl:ml-auto">
-          <div className="text-sm text-secondary mb-15 xl:mb-10" >
+          <div className="text-sm text-secondary mb-15 xl:mb-10 xl:max-w-143" >
             {
-              (['tel', 'mobile', 'email', 'fax', 'address'] as const).map(xs => (
+              (['tel', 'mobile', 'email', 'address'] as const).map(xs => (
                 <div className={`flex items-start last:mt-5 mb-0.5`} key={xs}>
                   <p className="capitalize mr-2 text-sm xl:text-base">{siteData[xs]?.[0]?.key ?? xs}:</p>
                   <div>
                     {siteData[xs]?.map(item => (
-                      <p key={item.id}>{xs === 'email' ? <a href={`mailto:${item.value}`} className="hover:text-accent transition-colors text-sm xl:text-base">{item.value}</a> : item.value}</p>
+                      <p className="text-sm xl:text-base" key={item.id}>{xs === 'email' ? <a href={`mailto:${item.value}`} className="hover:text-accent transition-colors text-sm xl:text-base">{item.value}</a> : item.value}</p>
                     ))}
 
                   </div>

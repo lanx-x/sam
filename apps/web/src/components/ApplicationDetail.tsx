@@ -6,6 +6,8 @@ import Image from "next/image";
 import { CommonListWithIcon } from "./CommonListWithIcon";
 import { FeaturedMoldCase } from "./FeaturedMoldCase";
 
+const normalizeNewlines = (value?: string | null) => value?.replace(/\\n/g, '\n');
+
 export async function ApplicationDetail({ documentId, locale }: CmpProps) {
   const api = createLocalizedApi(locale);
   const [application, actions] = await Promise.all([
@@ -30,17 +32,17 @@ export async function ApplicationDetail({ documentId, locale }: CmpProps) {
     <div>
       <div className="px-5 xl:px-0">
         <div className="bg-[#fafafa]">
-          <div className="py-10 grid grid-cols-1 gap-10 xl:mx-auto xl:w-7xl xl:grid-cols-2 xl:gap-5 xl:py-15">
-            <div className="xl:mt-10 xl:pr-20">
+          <div className="py-10 grid grid-cols-1 gap-10 xl:mx-auto xl:w-7xl xl:grid-cols-2 xl:gap-auto xl:py-15">
+            <div className="xl:mt-10 xl:pr-20 xl:w-170">
               <h1 className="text-4xl font-black mb-5 xl:text-[64px]">{data.detailPageTitle}</h1>
-              <p className="text-base">{data.detailPageDesc}</p>
+              <p className="text-base whitespace-pre-line">{normalizeNewlines(data.detailPageDesc)}</p>
 
               <div className="mt-10 xl:w-50">
                 {action && <ActionButton action={action} locale={locale} />}
               </div>
             </div>
 
-            <div className="relative w-full aspect-350/314  rounded-lg overflow-hidden xl:w-145">
+            <div className="relative w-full aspect-350/314 xl:aspect-58/52 rounded-lg overflow-hidden xl:w-145 xl:ml-auto">
               <Image alt="banner" src={getStrapiMedia(data.detailPageBanner) ?? ""} fill className="object-cover" />
             </div>
           </div>
@@ -55,7 +57,7 @@ export async function ApplicationDetail({ documentId, locale }: CmpProps) {
 
           <div>
             <h2 className="text-2xl font-semibold mb-5 xl:text-4xl xl:mb-10">{data.name}</h2>
-            <p className="text-sm xl:text-base">{data.desc}</p>
+            <p className="text-sm whitespace-pre-line xl:text-base">{normalizeNewlines(data.desc)}</p>
           </div>
         </div>
 

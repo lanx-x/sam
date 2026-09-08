@@ -15,6 +15,9 @@ export type NavBasicItem = NonNullable<NonNullable<NavChildItem['children']>>[nu
 
 const getChild = (type: NavChildItem['type'], group: NavGrouptItem) => group.children?.find(xs => xs.type === type)
 
+const sortByOrderDescending = <T extends { order?: number | null }>(items: T[]) =>
+  [...items].sort((a, b) => (b.order ?? 0) - (a.order ?? 0))
+
 type NavProps = {
   data: Navigation,
   siteData: Site,
@@ -28,6 +31,8 @@ type NavProps = {
 
 export function Nav(props: NavProps) {
   const { isHome } = props;
+  const applications = sortByOrderDescending(props.applications);
+  const industries = sortByOrderDescending(props.industries);
   const [stuck, setStuck] = useState(false);
   const [desktopHovered, setDesktopHovered] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
@@ -52,11 +57,11 @@ export function Nav(props: NavProps) {
       {!isHome && <div aria-hidden="true" className="h-15" />}
       <header className={`fixed inset-x-0 top-0 z-40 transition-shadow duration-300 ${!isHome || stuck || desktopHovered ? 'shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]' : ''}`}>
         <div className="block xl:hidden">
-          <MobileNav {...props} scrolled={stuck} />
+          <MobileNav {...props} applications={applications} industries={industries} scrolled={stuck} />
         </div>
 
         <div className="hidden xl:block">
-          <DesktopNav {...props} onHoverChange={setDesktopHovered} />
+          <DesktopNav {...props} applications={applications} industries={industries} onHoverChange={setDesktopHovered} />
         </div>
       </header>
     </>
@@ -412,7 +417,7 @@ export function DesktopNav(props: NavProps & { onHoverChange?: (hovered: boolean
 
                       <div className="">
                         <h3 className="text-lg leading-none mb-10 font-medium text-accent">{getChild('Application', group)?.name}</h3>
-                        <div className="grid grid-cols-2 gap-y-8 gap-x-46">
+                        <div className="grid grid-cols-1 gap-y-8 gap-x-46">
                           {applications.map((application, childIdx) => {
                             return (
                               <Link
