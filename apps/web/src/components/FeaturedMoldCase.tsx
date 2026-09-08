@@ -34,9 +34,6 @@ export function FeaturedMoldCase({ section, payload: providedPayload }: Featured
     align: "start",
     containScroll: "trimSnaps",
     loop: true,
-    breakpoints: {
-      "(min-width: 1280px)": { slidesToScroll: 3 },
-    },
   }, [Autoplay({ active: true, delay: 3000 })]);
 
   useEffect(() => {
@@ -79,35 +76,26 @@ export function FeaturedMoldCase({ section, payload: providedPayload }: Featured
           </div>
         </div>
 
-        <div className="mt-7.5 overflow-hidden xl:mt-15" ref={emblaRef}>
-          <div className="flex -ml-3 gap-0 xl:-ml-5">
-            {carouselData.map((caseStudy, index) => (
-              <article key={index} className="w-[calc(84.6153846%_+_0.75rem)] shrink-0 pl-3 xl:w-[calc((100%_+_1.25rem)_/_3)] xl:pl-5">
-                <div className="relative aspect-330/224 overflow-hidden rounded-lg bg-white shadow-[0_4px_16px_rgba(0,0,0,0.12)] xl:h-70">
-                  <Image
-                    fill
-                    src={getStrapiMedia(caseStudy.image) ?? ""}
-                    alt={caseStudy.title ?? ""}
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-5 text-base font-semibold leading-5 text-primary xl:text-lg xl:leading-6">{caseStudy.title}</p>
-              </article>
-            ))}
+        <div className="mt-7.5 flow-root xl:mt-15">
+          <div className="-my-4 overflow-hidden py-4" ref={emblaRef}>
+            <div className="flex gap-3 xl:gap-5">
+              {carouselData.map((caseStudy, index) => (
+                <article key={index} className="w-[84.6153846%] shrink-0 xl:w-[calc((100%_-_2.5rem)_/_3)]">
+                  <div className="relative aspect-330/224 overflow-hidden rounded-lg bg-white shadow-[0_4px_16px_rgba(0,0,0,0.12)] xl:h-70">
+                    <Image
+                      fill
+                      src={getStrapiMedia(caseStudy.image) ?? ""}
+                      alt={caseStudy.title ?? ""}
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="mt-5 text-base font-semibold leading-5 text-primary xl:text-lg xl:leading-6">{caseStudy.title}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="mt-9 hidden justify-center gap-1.5 xl:flex">
-          {Array.from({ length: snapCount }, (_, index) => (
-            <button
-              key={index}
-              type="button"
-              aria-label={`Go to case group ${index + 1}`}
-              onClick={() => emblaApi?.goTo(index)}
-              className={`size-2 rounded-full transition-colors ${selectedIndex === index ? "bg-accent" : "bg-[#efefef]"}`}
-            />
-          ))}
-        </div>
       </div>
     </div>
   );
