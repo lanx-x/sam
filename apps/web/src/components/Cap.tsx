@@ -23,7 +23,7 @@ export function Cap({ section, locale }: CmpProps) {
               </div>
               <div className="absolute left-0 top-0 w-full h-full hidden xl:flex items-center justify-center">
                 <Image src={getStrapiMedia(xs.image) ?? ""} alt="logo" fill className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="w-65 h-65 bg-accent/90 rounded-full px-8 flex items-center justify-center flex-col z-2 opacity-0 group-hover:opacity-100 duration-1000">
+                <div className="w-65 h-65 bg-accent/90 rounded-full px-8 flex items-center justify-center flex-col z-2 opacity-0 group-hover:opacity-100 duration-300 delay-300">
                   <p className="text-white text-3xl font-semibold text-center mb-5">{xs.title}</p>
                   <Image src={Assets.IconArrow2} alt="arrow-icon" width={40} height={40} className="" />
                 </div>
