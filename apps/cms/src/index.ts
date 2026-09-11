@@ -9,6 +9,7 @@ const CONTENT_TYPES_AFFECTING_PAGES: ReadonlySet<string> = new Set([
   'api::ui-section.ui-section',
   'api::renderer.renderer',
   'api::action.action',
+  'api::application.application',
   'api::case-study.case-study',
   'api::industry.industry',
   'api::news.news',

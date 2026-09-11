@@ -8,43 +8,39 @@ import { useEffect, useRef, useState } from "react";
 export function ISOStandard({ section }: CmpProps) {
   const [previewImage, setPreviewImage] = useState<ReturnType<typeof getStrapiMedia>>(null);
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
-  const previewTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const previewCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hidePreviewTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const clearPreviewTimer = () => {
-    if (previewTimer.current) {
-      clearTimeout(previewTimer.current);
-      previewTimer.current = null;
-    }
-  };
-
-  const clearPreviewCloseTimer = () => {
-    if (previewCloseTimer.current) {
-      clearTimeout(previewCloseTimer.current);
-      previewCloseTimer.current = null;
+  const clearHidePreviewTimer = () => {
+    if (hidePreviewTimer.current) {
+      clearTimeout(hidePreviewTimer.current);
+      hidePreviewTimer.current = null;
     }
   };
 
   const openPreview = (image: NonNullable<ReturnType<typeof getStrapiMedia>>) => {
-    clearPreviewTimer();
-    clearPreviewCloseTimer();
-    previewTimer.current = setTimeout(() => {
-      setPreviewImage(image);
+    clearHidePreviewTimer();
+    setPreviewImage(image);
+    if (previewImage) {
       requestAnimationFrame(() => setIsPreviewVisible(true));
-    }, 300);
+    }
   };
 
   const closePreview = () => {
-    clearPreviewTimer();
-    clearPreviewCloseTimer();
+    clearHidePreviewTimer();
     setIsPreviewVisible(false);
-    previewCloseTimer.current = setTimeout(() => setPreviewImage(null), 200);
+    hidePreviewTimer.current = setTimeout(() => setPreviewImage(null), 200);
   };
 
   useEffect(() => () => {
-    clearPreviewTimer();
-    clearPreviewCloseTimer();
+    clearHidePreviewTimer();
   }, []);
+
+  useEffect(() => {
+    if (!previewImage) return;
+
+    const animationFrame = requestAnimationFrame(() => setIsPreviewVisible(true));
+    return () => cancelAnimationFrame(animationFrame);
+  }, [previewImage]);
 
   return (
     <div className="py-10 xl:py-30 bg-[#fafafa]">
@@ -64,7 +60,7 @@ export function ISOStandard({ section }: CmpProps) {
                   key={xs.id}
                   className={`relative flex h-70 w-full flex-col items-center justify-center rounded-xl bg-white text-center transition-transform duration-300 ${image ? "cursor-zoom-in hover:-translate-y-1" : ""}`}
                   onMouseEnter={image ? () => openPreview(image) : undefined}
-                  onMouseLeave={image ? clearPreviewTimer : undefined}
+                  onMouseLeave={image ? closePreview : undefined}
                 >
                   <Image className="absolute -top-20 object-cover" src={getStrapiMedia(xs.image) ?? ""} alt="" width={160} height={160} />
                   <p className="mt-10 text-[32px] font-extrabold">{xs.title}</p>
@@ -78,19 +74,10 @@ export function ISOStandard({ section }: CmpProps) {
 
       {previewImage && (
         <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="ISO standard image preview"
-          className={`fixed inset-0 z-100 flex items-center justify-center bg-black/60 p-5 transition-opacity duration-200 ease-out ${isPreviewVisible ? "opacity-100" : "pointer-events-none opacity-0"}`}
-          onClick={closePreview}
+          aria-hidden="true"
+          className={`pointer-events-none fixed inset-0 z-100 flex items-center justify-center bg-black/60 p-5 transition-opacity duration-200 ease-out ${isPreviewVisible ? "opacity-100" : "opacity-0"}`}
         >
-          <div
-            className={`relative h-[80vh] w-[50vw] cursor-zoom-out transition-transform duration-200 ease-out ${isPreviewVisible ? "scale-100" : "scale-95"}`}
-            onClick={(event) => {
-              event.stopPropagation();
-              closePreview();
-            }}
-          >
+          <div className={`relative h-[80vh] w-[50vw] transition-transform duration-200 ease-out ${isPreviewVisible ? "scale-100" : "scale-95"}`}>
             <Image
               fill
               src={previewImage}

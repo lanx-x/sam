@@ -413,9 +413,9 @@ export function DesktopNav(props: NavProps & { onHoverChange?: (hovered: boolean
 
                   {/* Solutions. */}
                   {group.type === 'solutions' && (
-                    <div className="grid grid-cols-[1fr_400px] py-10">
+                    <div className="flex justify-end py-10 pr-50">
 
-                      <div className="">
+                      <div className="w-max shrink-0">
                         <h3 className="text-lg leading-none mb-10 font-medium text-accent">{getChild('Application', group)?.name}</h3>
                         <div className="grid grid-cols-1 gap-y-8 gap-x-46">
                           {applications.map((application, childIdx) => {
@@ -434,7 +434,7 @@ export function DesktopNav(props: NavProps & { onHoverChange?: (hovered: boolean
                         </div>
                       </div>
 
-                      <div className="border-l border-[#dfdfdf] pl-10">
+                      <div className="ml-25 min-w-0 border-l border-[#dfdfdf] pl-10">
                         <h3 className="text-accent text-lg mb-10 font-medium leading-none">{getChild('Industries', group)?.name}</h3>
                         <div className="grid grid-cols-1 gap-y-8">
                           {

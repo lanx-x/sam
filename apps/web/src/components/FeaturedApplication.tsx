@@ -30,6 +30,8 @@ export function FeaturedApplication({ section, locale }: CmpProps) {
     [autoplay.current],
   );
 
+  console.log("applications", applications);
+
   useEffect(() => {
     emblaApi?.plugins()?.autoplay?.play?.();
   }, [emblaApi]);
@@ -67,7 +69,7 @@ export function FeaturedApplication({ section, locale }: CmpProps) {
                   <Image
                     fill
                     sizes="(min-width: 1280px) 33vw, 77vw"
-                    src={getStrapiMedia(application.image) ?? ""}
+                    src={getStrapiMedia(application.featuredImage ?? application.image) ?? ""}
                     alt={application.label ?? application.name ?? ""}
                     className="object-cover transition-transform duration-300 group-hover:scale-130"
                   />

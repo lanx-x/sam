@@ -40,8 +40,8 @@ export function CommonListWithIcon({ section, payload: providedPayload }: Common
                 <div className="w-10 h-10 relative overflow-hidden xl:w-16 xl:h-16">
                   <Image alt="img" src={getStrapiMedia(xs.image) ?? ""} fill className="object-cover hover:scale-130 transition-transform duration-300" />
                 </div>
-                <p className="mt-8 mb-3 text-lg font-semibold">{xs.title}</p>
-                <p className="text-sm">{xs.desc}</p>
+                <p className="mt-8 mb-3 text-lg font-semibold xl:text-xl/5.5">{xs.title}</p>
+                <p className="text-sm xl:text-base/5.5">{xs.desc}</p>
               </div>
             ))
           }

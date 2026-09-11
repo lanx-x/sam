@@ -78,9 +78,9 @@ export function FeaturedMoldCase({ section, payload: providedPayload }: Featured
 
         <div className="mt-7.5 flow-root xl:mt-15">
           <div className="-my-4 overflow-hidden py-4" ref={emblaRef}>
-            <div className="flex gap-3 xl:gap-5">
+            <div className="flex">
               {carouselData.map((caseStudy, index) => (
-                <article key={index} className="w-[84.6153846%] shrink-0 xl:w-[calc((100%_-_2.5rem)_/_3)]">
+                <article key={index} className="mr-3 w-[84.6153846%] shrink-0 xl:mr-5 xl:w-[calc((100%_-_2.5rem)_/_3)]">
                   <div className="relative aspect-330/224 overflow-hidden rounded-lg bg-white shadow-[0_4px_16px_rgba(0,0,0,0.12)] xl:h-70">
                     <Image
                       fill

@@ -59,6 +59,7 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
         },
         contentTypes: [
           'api::action.action',
+          'api::application.application',
           'api::broadcast.broadcast',
           'api::case-study.case-study',
           'api::equipment.equipment',

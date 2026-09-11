@@ -54,9 +54,9 @@ export function CrossList({ section, payload: providedPayload, styles }: CrossLi
                 </div>
 
                 <div className="xl:pt-10">
-                  <p className="text-2xl font-semibold mb-5">{xs.title}</p>
-                  <p className="text-sm whitespace-pre-line">{normalizeNewlines(xs.desc)}</p>
-                  <ul className="list-disc pl-5 mt-2">
+                  <p className="text-2xl font-semibold mb-5 xl:text-[32px]">{xs.title}</p>
+                  <p className="text-sm whitespace-pre-line xl:text-base/5">{normalizeNewlines(xs.desc)}</p>
+                  <ul className="text-sm list-disc pl-5 mt-2 xl:text-base/5">
                     {xs.extension?.map(item => (<li key={item.id}>{item.key}</li>))}
                   </ul>
                 </div>

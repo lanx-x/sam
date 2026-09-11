@@ -25,7 +25,7 @@ export function FeaturedIndustry({ section, locale }: CmpProps) {
   const industryCollection = section.payload?.dynamic?.[0] as unknown as IndustryCollection | undefined;
   const industries = industryCollection?.industries ?? [];
   const carouselIndustries = industries.length > 0
-    ? Array.from({ length: Math.ceil((t[1] ? 8 : 6) / industries.length) }, () => industries).flat()
+    ? Array.from({ length: Math.ceil(6 / industries.length) }, () => industries).flat()
     : [];
   const imageSizes = t[1] ? "(min-width: 1280px) 25vw, 77vw" : "(min-width: 1280px) 33vw, 77vw";
   const autoplay = useRef(Autoplay({ active: true, delay: 3000 }));
@@ -66,13 +66,13 @@ export function FeaturedIndustry({ section, locale }: CmpProps) {
                 href={buildDynamicDetailPath(locale, "industry", industry)}
                 target="_blank"
                 rel="noreferrer"
-                className={`group basis-30/39 shrink-0 xl:pl-5 ${t[0] && "xl:basis-[calc((100%_+_1.25rem)_/_3)]"} ${t[1] && "xl:basis-[calc((100%_+_1.25rem)_/_4)]"}`}
+                className={`group basis-30/39 shrink-0 xl:pl-5 ${"xl:basis-[calc((100%_+_1.25rem)_/_3)]"}`}
               >
-                <article className={`relative overflow-hidden bg-[#f5f5f5] ${t[0] && "aspect-[547/360] rounded-lg"} ${t[1] && "aspect-305/300"}`}>
+                <article className={`relative overflow-hidden bg-[#f5f5f5] ${t[0] && "aspect-[547/360] rounded-lg"} ${t[1] && "aspect-413/272"}`}>
                   <Image
                     fill
                     sizes={imageSizes}
-                    src={getStrapiMedia(industry.image) ?? ""}
+                    src={getStrapiMedia(industry.featuredImage ?? industry.image) ?? ""}
                     alt={industry.name ?? ""}
                     className="object-cover transition-transform duration-300 group-hover:scale-130"
                   />

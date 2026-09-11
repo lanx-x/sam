@@ -11,11 +11,11 @@ export function AboutSAM({ section, locale }: CmpProps) {
 
   return (
     <div className="flex flex-col items-center pt-15 pb-28 px-5 xl:flex-row-reverse xl:pt-25 xl:px-0 xl:mx-30 xl:pb-35 xl:justify-center xl:items-stretch">
-      <div className="relative w-full xl:w-1/2">
-        <div className="hidden xl:block bg-accent w-1/4 h-5/6 absolute right-0 bottom-0 -z-1">
-        </div>
-        <div className="w-full aspect-35/16 xl:aspect-auto xl:h-5/6 xl:absolute xl:bottom-10 xl:right-10">
+      <div className="relative w-full xl:w-1/2 flex items-center xl:mr-10 xl:my-10">
+        <div className="w-full aspect-35/16 xl:aspect-8/5 relative">
           <Image fill src={getStrapiMedia(payload.image) ?? ""} alt="company-image" className="object-cover" />
+          <div className="hidden xl:block bg-accent w-55 h-5/6 absolute -right-10 -bottom-10 -z-1">
+          </div>
         </div>
       </div>
       <div className="mt-5 xl:mt-0 xl:bg-[#fafafa] xl:w-1/2 xl:z-2 xl:p-20">

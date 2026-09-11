@@ -1,15 +1,21 @@
 import { CmpProps } from "@/app/[locale]/[[...slug]]/page";
 import { getEquipment } from "@/api";
 import { mergeDisplayText, mergeExtension } from "@/utils";
+import { getStrapiMedia } from "@/utils/strapi";
 import type { Equipment } from "cms-types";
 
-export async function FeaturedEquipment({ section, locale }: CmpProps) {
+type ExtensionWithMedia = { image?: Parameters<typeof getStrapiMedia>[0] };
+
+export async function FeaturedEquipment({ section }: CmpProps) {
   const configuredEquipments =
     (section.payload?.dynamic?.[0] as { equipment?: Equipment[] } | undefined)?.equipment ?? [];
   const equipments = configuredEquipments.length > 0 ? configuredEquipments : (await getEquipment({})).data ?? [];
   const displayText = mergeDisplayText(section);
   const extension = mergeExtension(section)
   const variant = extension.variant?.value ?? 't0'
+  const fileExtension = extension.file as ((typeof extension)[string] & ExtensionWithMedia) | undefined;
+  const fileMedia = getStrapiMedia(fileExtension?.image);
+  const downloadHref = typeof fileMedia === "string" ? fileMedia : fileMedia?.src;
 
   const headers = [
     displayText.no ?? "No.",
@@ -24,10 +30,11 @@ export async function FeaturedEquipment({ section, locale }: CmpProps) {
     <div className={`py-15 px-5 xl:px-0 ${variant === 't1' ? 'bg-white xl:py-10 xl:pb-35' : 'bg-[#fafafa] xl:py-25'} `}>
       <div className="xl:w-7xl xl:mx-auto">
         {variant === 't0' && <h2 className="text-5xl font-semibold text-center">{section.payload?.title}</h2>}
-        {variant === 't1' && <div>
+        {variant === 't1' && downloadHref && <div>
           <a
             className="block mx-auto w-fit px-5.5 h-10 content-center border border-accent text-accent text-sm rounded-sm"
-            href={`/api/equipment/download?locale=${encodeURIComponent(locale)}`}
+            href={downloadHref}
+            download
           >
             {displayText.download_pdf ?? "DownLoad the PDF"}
           </a>
