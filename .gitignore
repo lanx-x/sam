@@ -121,7 +121,7 @@ coverage
 # Strapi
 ############################
 
-.env*
+.env
 
 apps/cms/license.txt
 apps/cms/exports
@@ -132,6 +132,7 @@ apps/cms/.strapi-updater.json
 apps/cms/.strapi-cloud.json
 apps/cms/.tmp
 apps/cms/data
+apps/cms/public/uploads/*
 
 
 
