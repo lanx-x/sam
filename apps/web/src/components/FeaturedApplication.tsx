@@ -30,8 +30,6 @@ export function FeaturedApplication({ section, locale }: CmpProps) {
     [autoplay.current],
   );
 
-  console.log("applications", applications);
-
   useEffect(() => {
     emblaApi?.plugins()?.autoplay?.play?.();
   }, [emblaApi]);
