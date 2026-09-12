@@ -17,11 +17,23 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
   email: {
     enabled: true,
     config: {
-      provider: '@strapi/provider-email-sendmail',
-      providerOptions: {},
+      provider: 'nodemailer',
+      providerOptions: {
+        host: env('SMTP_HOST'),
+        port: env.int('SMTP_PORT'),
+        secure: env.bool('SMTP_SECURE', true),
+        requireTLS: env.bool('SMTP_REQUIRE_TLS', false),
+        auth: {
+          user: env('SMTP_USERNAME'),
+          pass: env('SMTP_PASSWORD'),
+        },
+        connectionTimeout: env.int('SMTP_CONNECTION_TIMEOUT', 10_000),
+        greetingTimeout: env.int('SMTP_GREETING_TIMEOUT', 10_000),
+        socketTimeout: env.int('SMTP_SOCKET_TIMEOUT', 20_000),
+      },
       settings: {
-        defaultFrom: env('EMAIL_DEFAULT_FROM', 'no-reply@localhost'),
-        defaultReplyTo: env('EMAIL_DEFAULT_REPLY_TO', env('EMAIL_DEFAULT_FROM', 'no-reply@localhost')),
+        defaultFrom: env('EMAIL_DEFAULT_FROM'),
+        defaultReplyTo: env('EMAIL_DEFAULT_REPLY_TO', env('EMAIL_DEFAULT_FROM')),
       },
     },
   },
