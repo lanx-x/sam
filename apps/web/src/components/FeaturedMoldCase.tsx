@@ -86,6 +86,7 @@ export function FeaturedMoldCase({ section, payload: providedPayload }: Featured
                       fill
                       src={getStrapiMedia(caseStudy.image) ?? ""}
                       alt={caseStudy.title ?? ""}
+                      sizes="(max-width: 1279px) 85vw, 413px"
                       className="object-cover"
                     />
                   </div>

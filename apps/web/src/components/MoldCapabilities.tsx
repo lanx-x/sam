@@ -93,7 +93,13 @@ export function MoldCapabilities({ section }: MoldCapabilitiesProps) {
             {activeCapability.extension?.map((detail) => (
               <div key={detail.id} className="overflow-hidden">
                 {detail.image && <div className="relative aspect-350/237">
-                  <Image fill src={getStrapiMedia(detail.image) ?? ""} alt={detail.key ?? ""} className="object-cover" />
+                  <Image
+                    fill
+                    src={getStrapiMedia(detail.image) ?? ""}
+                    alt={detail.key ?? ""}
+                    sizes="(max-width: 1279px) calc(100vw - 40px), 413px"
+                    className="object-cover"
+                  />
                 </div>}
                 <h4 className="mt-5 text-xl font-bold text-primary">{detail.key}</h4>
               </div>
