@@ -158,6 +158,7 @@ export async function getApplication(params: { [key: string]: any } = {}) {
   return fetchStrapi<StrapiCollectionResponse<Application>>('/applications', {
     params: {
       'pagination[pageSize]': 200,
+      'sort[0]': 'order:desc',
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["application"] },
@@ -393,7 +394,9 @@ export async function getIndustryNavigation(params: { [key: string]: any } = {})
     params: {
       'fields[0]': 'name',
       'fields[1]': 'label',
+      'fields[2]': 'order',
       'pagination[pageSize]': 200,
+      'sort[0]': 'order:desc',
       ...params,
     },
     next: { revalidate: revalidate.normal, tags: ["industry"] },

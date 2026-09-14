@@ -122,6 +122,8 @@ coverage
 ############################
 
 .env
+!.env.example
+
 
 apps/cms/license.txt
 apps/cms/exports
