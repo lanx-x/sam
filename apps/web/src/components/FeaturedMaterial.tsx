@@ -59,7 +59,7 @@ export function FeaturedMaterial({ section }: CmpProps) {
 
               <div className="xl:grid xl:grid-rows-[100px_1fr]">
                 <div className="hidden border-b border-[#efefef] px-10 xl:flex xl:items-center">
-                  <span className="flex h-13 w-40 items-center rounded-lg bg-accent px-5 text-lg font-medium text-white">
+                  <span className="flex h-13 min-w-40 items-center rounded-lg bg-accent px-5 text-lg font-medium text-white">
                     {activeMaterial.name}
                   </span>
                 </div>
