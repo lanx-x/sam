@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
+import type { StrapiCollectionResponse } from "cms-types";
 import { globalApi, createLocalizedApi } from "@/api";
 import { SITE_URL } from "@/utils/env";
 import {
   DYNAMIC_ROUTE_CONFIGS,
   getDynamicItemSegment,
   getDynamicRouteTypeFromPattern,
-  type DynamicRouteItem,
 } from "@/utils/dynamic-routes";
 
 export const dynamic = 'force-dynamic';
@@ -19,6 +19,30 @@ function getEntryLastModified(item: {
   publishedAt?: string | Date | null;
 }) {
   return item.updatedAt ?? item.publishedAt ?? undefined;
+}
+
+async function fetchAllPages<T>(
+  fetchPage: (params: Record<string, unknown>) => Promise<StrapiCollectionResponse<T>>
+): Promise<{ data: T[] }> {
+  const data: T[] = [];
+
+  for (let page = 1; ; page++) {
+    const result = await fetchPage({
+      'pagination[page]': page,
+      'pagination[pageSize]': 100,
+      'pagination[withCount]': true,
+      'sort[0]': 'id:asc',
+    });
+    data.push(...result.data);
+
+    // Follow the server's page count even if it caps the requested page size.
+    const pagination = result.meta.pagination;
+    if (result.data.length === 0 || (pagination && page >= pagination.pageCount)) {
+      break;
+    }
+  }
+
+  return { data };
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -36,9 +60,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const loc of localeList) {
     const api = createLocalizedApi(loc.code);
     const [{ data: pages }, { data: patternPages }, ...dynamicResults] = await Promise.all([
-      api.getPage({ 'pagination[pageSize]': 200 }),
-      api.getPatternPages(),
-      ...Object.values(DYNAMIC_ROUTE_CONFIGS).map((config) => config.fetch(api)),
+      fetchAllPages((params) => api.getPage(params)),
+      fetchAllPages((params) => api.getPatternPages(params)),
+      ...Object.values(DYNAMIC_ROUTE_CONFIGS).map((config) =>
+        fetchAllPages((params) => config.fetch(api, params))
+      ),
     ]);
 
     const pageMap = new Map<string, SitemapEntryMeta>();
@@ -61,7 +87,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (!routeType) continue;
 
       const dynamicResult = dynamicResults[Object.keys(DYNAMIC_ROUTE_CONFIGS).indexOf(routeType)];
-      for (const item of dynamicResult.data as DynamicRouteItem[]) {
+      for (const item of dynamicResult.data) {
         if (!item.documentId) continue;
 
         const slug = patternSlug.replace("{{id}}", getDynamicItemSegment(routeType, item));

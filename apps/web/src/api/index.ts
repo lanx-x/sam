@@ -395,6 +395,8 @@ export async function getIndustryNavigation(params: { [key: string]: any } = {})
       'fields[0]': 'name',
       'fields[1]': 'label',
       'fields[2]': 'order',
+      'fields[3]': 'updatedAt',
+      'fields[4]': 'publishedAt',
       'pagination[pageSize]': 200,
       'sort[0]': 'order:desc',
       ...params,

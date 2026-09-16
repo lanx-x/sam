@@ -1,4 +1,5 @@
 import { createLocalizedApi } from "@/api";
+import type { StrapiCollectionResponse } from "cms-types";
 
 type ApiClient = ReturnType<typeof createLocalizedApi>;
 
@@ -24,44 +25,44 @@ export type DynamicRouteType =
 type DynamicRouteConfig = {
   patternPrefix: string;
   getLabels: (item: DynamicRouteItem) => Array<string | null | undefined>;
-  fetch: (api: ApiClient) => Promise<{ data: DynamicRouteItem[] }>;
+  fetch: (api: ApiClient, params?: Record<string, unknown>) => Promise<StrapiCollectionResponse<DynamicRouteItem>>;
 };
 
 export const DYNAMIC_ROUTE_CONFIGS: Record<DynamicRouteType, DynamicRouteConfig> = {
   application: {
     patternPrefix: "/solutions/application/",
     getLabels: (item) => [item.label, item.name],
-    fetch: (api) => api.getApplication({ 'pagination[pageSize]': 200 }),
+    fetch: (api, params) => api.getApplication({ 'pagination[pageSize]': 200, ...params }),
   },
   news: {
     patternPrefix: "/resources/news/",
     getLabels: (item) => [item.title],
-    fetch: (api) => api.getNews({ 'pagination[pageSize]': 200 }),
+    fetch: (api, params) => api.getNews({ 'pagination[pageSize]': 200, ...params }),
   },
   equipment: {
     patternPrefix: "/resources/equipment/",
     getLabels: (item) => [item.name],
-    fetch: (api) => api.getEquipment({ 'pagination[pageSize]': 200 }),
+    fetch: (api, params) => api.getEquipment({ 'pagination[pageSize]': 200, ...params }),
   },
   material: {
     patternPrefix: "/resources/material/",
     getLabels: (item) => [item.name],
-    fetch: (api) => api.getMaterial({ 'pagination[pageSize]': 200 }),
+    fetch: (api, params) => api.getMaterial({ 'pagination[pageSize]': 200, ...params }),
   },
   caseStudy: {
     patternPrefix: "/resources/case-study/",
     getLabels: (item) => [item.title],
-    fetch: (api) => api.getCaseStudy({ 'pagination[pageSize]': 200 }),
+    fetch: (api, params) => api.getCaseStudy({ 'pagination[pageSize]': 200, ...params }),
   },
   surfaceTreatment: {
     patternPrefix: "/solutions/surface-treatment/",
     getLabels: (item) => [item.name],
-    fetch: (api) => api.getSurfaceTreatment({ 'pagination[pageSize]': 200 }),
+    fetch: (api, params) => api.getSurfaceTreatment({ 'pagination[pageSize]': 200, ...params }),
   },
   industry: {
     patternPrefix: "/solutions/industry/",
     getLabels: (item) => [item?.label, item?.name],
-    fetch: (api) => api.getIndustryNavigation(),
+    fetch: (api, params) => api.getIndustryNavigation(params),
   },
 };
 
